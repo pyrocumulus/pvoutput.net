@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using PVOutput.Net.Tests.Utils;
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ namespace PVOutput.Net.Tests.Modules.System
         [Test]
         public async Task SystemService_GetOwnSystem()
         {
-            var client = TestUtility.GetMockClient(SystemModuleTestsData.GETSYSTEM_URL, SystemModuleTestsData.SYSTEM_RESPONSE_SIMPLE);
+            var client = TestUtility.GetMockClient(SystemModuleTestsData.GETSYSTEM_URL, SystemModuleTestsData.SYSTEM_RESPONSE_EXTENDED);
             var response = await client.System.GetOwnSystem();
 
             if (response.Exception != null)

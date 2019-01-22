@@ -1,4 +1,4 @@
-﻿using PVOutput.Net.Objects.Factories;
+using PVOutput.Net.Objects.Factories;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -28,7 +28,8 @@ namespace PVOutput.Net.Objects.String
 
                 foreach (string outputString in results)
                 {
-                    T output = await objectReader.ReadObjectAsync(outputString, cancellationToken);
+#warning this has to go away
+					T output = await objectReader.ReadObjectAsync(new StringReader(outputString), cancellationToken);
                     objects.Add(output);
                 }
 

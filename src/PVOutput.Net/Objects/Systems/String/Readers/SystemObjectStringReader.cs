@@ -1,60 +1,32 @@
-﻿using PVOutput.Net.Objects.String;
+using PVOutput.Net.Objects.String;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace PVOutput.Net.Objects.Systems.String.Readers
 {
-    internal class SystemObjectStringReader : BaseObjectStringReader<ISystem>
+    internal class SystemObjectStringReader : ComplexObjectStringReader<ISystem>
     {
         public override ISystem CreateObjectInstance() => new Implementations.System();
 
-        protected const char GroupSeparator = ';';
+		public SystemObjectStringReader()
+		{
+			_parsers = new List<Action<ISystem, TextReader>>();
+			_parsers.Add(ParseBaseProperties);
+			_parsers.Add(ParseSecondaryProperties);
+			_parsers.Add(ParseTariffProperties);
+			_parsers.Add(ParseTeamProperties);
+		}
 
-        protected override Action<ISystem, string>[] ObjectProperties
+		/*protected Action<ISystem, string>[] ObjectProperties
         {
             get
             {
                 return new Action<ISystem, string>[]
                 {
-                    (target, propertyString) => target.SystemName = propertyString,
-                    (target, propertyString) => target.SystemSize = Convert.ToInt32(propertyString),
-                    (target, propertyString) => target.Postcode = Convert.ToInt32(propertyString),
-                    (target, propertyString) => target.NumberOfPanels = Convert.ToInt32(propertyString),
-                    (target, propertyString) => target.PanelPower = Convert.ToInt32(propertyString),
-                    (target, propertyString) => target.PanelBrand = propertyString,
-                    (target, propertyString) => target.NumberOfInverters = Convert.ToInt32(propertyString),
-                    (target, propertyString) => target.InverterPower = Convert.ToInt32(propertyString),
-                    (target, propertyString) => target.InverterBrand = propertyString,
-                    (target, propertyString) => target.Orientation = propertyString,
-                    (target, propertyString) => target.ArrayTilt = FormatHelper.ParseNumeric(propertyString),
-                    (target, propertyString) => target.Shade = propertyString,
-                    (target, propertyString) => target.InstallDate = FormatHelper.ParseDate(propertyString),
-                    (target, propertyString) => target.Latitude = FormatHelper.ParseNumeric(propertyString),
-                    (target, propertyString) => target.Longitude = FormatHelper.ParseNumeric(propertyString),
-                    (target, propertyString) => target.StatusInterval = Convert.ToInt32(propertyString),
-
-                    //";"
-
-                    (target, propertyString) => target.SecondaryNumberOfPanels = FormatHelper.ParseValue<int>(propertyString),
-                    (target, propertyString) => target.SecondaryPanelPower = FormatHelper.ParseValue<int>(propertyString),
-                    (target, propertyString) => target.SecondaryOrientation = propertyString,
-                    (target, propertyString) => target.SecondaryArrayTilt = FormatHelper.ParseValue<decimal>(propertyString),
-
-                    //";"
-
-                    (target, propertyString) => target.ExportTariff = FormatHelper.ParseValue<decimal>(propertyString),
-                    (target, propertyString) => target.ImportPeakTariff = FormatHelper.ParseValue<decimal>(propertyString),
-                    (target, propertyString) => target.ImportOffPeakTariff = FormatHelper.ParseValue<decimal>(propertyString),
-                    (target, propertyString) => target.ImportShoulderTariff = FormatHelper.ParseValue<decimal>(propertyString),
-                    (target, propertyString) => target.ImportHighShoulderTariff = FormatHelper.ParseValue<decimal>(propertyString),
-                    (target, propertyString) => target.ImportDailyCharge = FormatHelper.ParseValue<decimal>(propertyString),
-
-                    //";"
-
-                    (target, propertyString) => target.Teams = GetTeamIdsFromValue(propertyString),
-
                     //";"
 
                     (target, propertyString) => target.Donations = FormatHelper.ParseValueDefault<int>(propertyString),
@@ -68,11 +40,87 @@ namespace PVOutput.Net.Objects.Systems.String.Readers
                     (target, propertyString) => target.MonthlyEstimations = propertyString
                 };
             }
-        }
+        }*/
 
-        private IEnumerable<int> GetTeamIdsFromValue(string value)
-        {
-            return Enumerable.Empty<int>();
-        }
+		private void ParseBaseProperties(ISystem target, TextReader reader)
+		{
+			var properties = new Action<ISystem, string>[]
+			{
+				(t, s) => t.SystemName = s,
+				(t, s) => t.SystemSize = Convert.ToInt32(s),
+				(t, s) => t.Postcode = Convert.ToInt32(s),
+				(t, s) => t.NumberOfPanels = Convert.ToInt32(s),
+				(t, s) => t.PanelPower = Convert.ToInt32(s),
+				(t, s) => t.PanelBrand = s,
+				(t, s) => t.NumberOfInverters = Convert.ToInt32(s),
+				(t, s) => t.InverterPower = Convert.ToInt32(s),
+				(t, s) => t.InverterBrand = s,
+				(t, s) => t.Orientation = s,
+				(t, s) => t.ArrayTilt = FormatHelper.ParseNumeric(s),
+				(t, s) => t.Shade = s,
+				(t, s) => t.InstallDate = FormatHelper.ParseDate(s),
+				(t, s) => t.Latitude = FormatHelper.ParseNumeric(s),
+				(t, s) => t.Longitude = FormatHelper.ParseNumeric(s),
+				(t, s) => t.StatusInterval = Convert.ToInt32(s)
+			};
+
+			ParsePropertyArray(target, reader, properties);
+		}
+
+		private void ParseSecondaryProperties(ISystem target, TextReader reader)
+		{
+			var properties = new Action<ISystem, string>[]
+			{
+				(t, s) => t.SecondaryNumberOfPanels = FormatHelper.ParseValue<int>(s),
+				(t, s) => t.SecondaryPanelPower = FormatHelper.ParseValue<int>(s),
+				(t, s) => t.SecondaryOrientation = s,
+				(t, s) => t.SecondaryArrayTilt = FormatHelper.ParseValue<decimal>(s)
+			};
+
+			ParsePropertyArray(target, reader, properties);
+		}
+
+		private void ParseTariffProperties(ISystem target, TextReader reader)
+		{
+			var properties = new Action<ISystem, string>[]
+			{
+					(t, s) => t.ExportTariff = FormatHelper.ParseValue<decimal>(s),
+					(t, s) => t.ImportPeakTariff = FormatHelper.ParseValue<decimal>(s),
+					(t, s) => t.ImportOffPeakTariff = FormatHelper.ParseValue<decimal>(s),
+					(t, s) => t.ImportShoulderTariff = FormatHelper.ParseValue<decimal>(s),
+					(t, s) => t.ImportHighShoulderTariff = FormatHelper.ParseValue<decimal>(s),
+					(t, s) => t.ImportDailyCharge = FormatHelper.ParseValue<decimal>(s),
+			};
+
+			ParsePropertyArray(target, reader, properties);
+		}
+
+		private void ParseTeamProperties(ISystem target, TextReader reader)
+		{
+			var teamIds = ReadPropertiesForGroup(reader);
+
+			if (teamIds.Count() == 0)
+			{
+				target.Teams = Enumerable.Empty<int>();
+				return;
+			}
+
+			var result = new List<int>();
+			foreach (string teamId in teamIds)
+			{
+				result.Add(Convert.ToInt32(teamId));
+			}
+			target.Teams = result;
+		}
+
+		private string GetMonthlyEstimates(string v)
+		{
+			throw new NotImplementedException();
+		}
+
+		private string GetExtendedDataConfig(string v)
+		{
+			throw new NotImplementedException();
+		}
     }
 }

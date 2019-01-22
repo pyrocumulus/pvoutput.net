@@ -1,4 +1,4 @@
-﻿using PVOutput.Net.Objects.Outputs.Implementations;
+using PVOutput.Net.Objects.Outputs.Implementations;
 using PVOutput.Net.Objects.String;
 using System;
 using System.Collections.Generic;
