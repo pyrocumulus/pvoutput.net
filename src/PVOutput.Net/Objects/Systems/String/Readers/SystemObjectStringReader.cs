@@ -1,10 +1,9 @@
-using PVOutput.Net.Objects.String;
+using PVOutput.Net.Objects.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading;
+using PVOutput.Net.Enums;
 
 namespace PVOutput.Net.Objects.Systems.String.Readers
 {
@@ -15,31 +14,12 @@ namespace PVOutput.Net.Objects.Systems.String.Readers
 		public SystemObjectStringReader()
 		{
 			_parsers.Add(ParseBaseProperties);
-			_parsers.Add(ParseSecondaryProperties);
 			_parsers.Add(ParseTariffProperties);
 			_parsers.Add(ParseTeamProperties);
+			_parsers.Add((target, reader) => target.Donations = Convert.ToInt32(ReadProperty(reader)));
+			_parsers.Add(ParseExtendedProperties);
+			_parsers.Add(ParseMonthlyEstimates);
 		}
-
-		/*protected Action<ISystem, string>[] ObjectProperties
-        {
-            get
-            {
-                return new Action<ISystem, string>[]
-                {
-                    //";"
-
-                    (target, propertyString) => target.Donations = FormatHelper.ParseValueDefault<int>(propertyString),
-
-                    //";"
-
-                    (target, propertyString) => target.ExtendedDataConfig = propertyString,
-
-                    //";"
-
-                    (target, propertyString) => target.MonthlyEstimations = propertyString
-                };
-            }
-        }*/
 
 		private void ParseBaseProperties(ISystem target, TextReader reader)
 		{
@@ -60,16 +40,7 @@ namespace PVOutput.Net.Objects.Systems.String.Readers
 				(t, s) => t.InstallDate = FormatHelper.ParseDate(s),
 				(t, s) => t.Latitude = FormatHelper.ParseNumeric(s),
 				(t, s) => t.Longitude = FormatHelper.ParseNumeric(s),
-				(t, s) => t.StatusInterval = Convert.ToInt32(s)
-			};
-
-			ParsePropertyArray(target, reader, properties);
-		}
-
-		private void ParseSecondaryProperties(ISystem target, TextReader reader)
-		{
-			var properties = new Action<ISystem, string>[]
-			{
+				(t, s) => t.StatusInterval = Convert.ToInt32(s),
 				(t, s) => t.SecondaryNumberOfPanels = FormatHelper.ParseValue<int>(s),
 				(t, s) => t.SecondaryPanelPower = FormatHelper.ParseValue<int>(s),
 				(t, s) => t.SecondaryOrientation = s,
@@ -98,9 +69,9 @@ namespace PVOutput.Net.Objects.Systems.String.Readers
 		{
 			var teamIds = ReadPropertiesForGroup(reader);
 
-			if (teamIds.Count() == 0)
+			if (teamIds.Count == 0)
 			{
-				target.Teams = Enumerable.Empty<int>();
+				target.Teams = new List<int>();
 				return;
 			}
 
@@ -112,14 +83,56 @@ namespace PVOutput.Net.Objects.Systems.String.Readers
 			target.Teams = result;
 		}
 
-		private string GetMonthlyEstimates(string v)
+		private void ParseExtendedProperties(ISystem target, TextReader reader)
 		{
-			throw new NotImplementedException();
+			var extendedData = ReadPropertiesForGroup(reader);
+
+			if (extendedData.Count == 0)
+			{
+				target.ExtendedDataConfig = new List<ExtendedDataElement>();
+				return;
+			}
+
+			var result = new List<ExtendedDataElement>(5);
+			var enumerator = extendedData.GetEnumerator();
+			while (enumerator.MoveNext())
+			{
+				var label = enumerator.Current;
+				enumerator.MoveNext();
+				var unit = enumerator.Current;
+				result.Add(new ExtendedDataElement(label, unit));
+			}
+
+			target.ExtendedDataConfig = result;
 		}
 
-		private string GetExtendedDataConfig(string v)
+		private void ParseMonthlyEstimates(ISystem target, TextReader reader)
 		{
-			throw new NotImplementedException();
+			var estimates = ReadPropertiesForGroup(reader);
+
+			if (estimates.Count == 0)
+			{
+				target.MonthlyGenerationEstimates = new Dictionary<PVMonth, int>();
+				target.MonthlyConsumptionEstimates = new Dictionary<PVMonth, int>();
+				return;
+			}
+
+			var consumptionEstimates = new Dictionary<PVMonth, int>();
+			var generationEstimates = new Dictionary<PVMonth, int>();
+
+			for (int i = 0; i < estimates.Count; i++)
+			{
+				var month = (PVMonth)(i % 12 + 1);
+				var estimate = Convert.ToInt32(estimates[i]);
+
+				if (i < 12)
+					generationEstimates.Add(month, estimate);
+				else
+					consumptionEstimates.Add(month, estimate);
+			}
+
+			target.MonthlyGenerationEstimates = generationEstimates;
+			target.MonthlyConsumptionEstimates = consumptionEstimates;
 		}
     }
 }

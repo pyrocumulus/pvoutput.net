@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PVOutput.Net.Objects.String
+namespace PVOutput.Net.Objects.Core
 {
     internal class SemiColonSeparatedArrayStringReader<T> : BaseArrayStringReader<T>
     {

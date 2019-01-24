@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PVOutput.Net.Objects.String
+namespace PVOutput.Net.Objects.Core
 {
     public interface IArrayStringReader<TReturnType>
     {

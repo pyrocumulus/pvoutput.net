@@ -1,4 +1,5 @@
-﻿using System;
+using PVOutput.Net.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -39,15 +40,16 @@ namespace PVOutput.Net.Objects.Systems.Implementations
         public decimal? ImportDailyCharge { get; set; }
 
         // Teams
-        public IEnumerable<int> Teams { get; set; }
+        public IReadOnlyList<int> Teams { get; set; }
 
         // Donations
         public int Donations { get; set; }
 
-        // Extended data config
-        public string ExtendedDataConfig { get; set; }
+		// Extended data config
+		public IReadOnlyList<ExtendedDataElement> ExtendedDataConfig { get; set; }
 
-        // Estimates - Only owner system
-        public string MonthlyEstimations { get; set; }
-    }
+		// Estimates - Only owner system
+		public IReadOnlyDictionary<PVMonth, int> MonthlyGenerationEstimates { get; set; }
+		public IReadOnlyDictionary<PVMonth, int> MonthlyConsumptionEstimates { get; set; }
+	}
 }

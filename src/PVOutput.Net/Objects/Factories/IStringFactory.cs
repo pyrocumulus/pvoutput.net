@@ -1,4 +1,4 @@
-﻿using PVOutput.Net.Objects.String;
+using PVOutput.Net.Objects.Core;
 
 namespace PVOutput.Net.Objects.Factories
 {

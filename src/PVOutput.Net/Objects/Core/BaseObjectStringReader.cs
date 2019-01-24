@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PVOutput.Net.Objects.String
+namespace PVOutput.Net.Objects.Core
 {
 	internal abstract class BaseObjectStringReader<TReturnType> : IObjectStringReader<TReturnType>
     {
@@ -64,8 +64,9 @@ namespace PVOutput.Net.Objects.String
 			}
 		}
 
-		protected IEnumerable<string> ReadPropertiesForGroup(TextReader reader)
+		protected IList<string> ReadPropertiesForGroup(TextReader reader)
 		{
+			var result = new List<string>();
 			var characters = new List<char>();
 			while (reader.Peek() >= 0)
 			{
@@ -73,10 +74,10 @@ namespace PVOutput.Net.Objects.String
 
 				if (c == ItemDelimiter || c == GroupDelimiter)
 				{
-					yield return new string(characters.ToArray());
+					result.Add(new string(characters.ToArray()));
 
 					if (c == GroupDelimiter)
-						yield break;
+						return result;
 
 					characters.Clear();
 					continue;
@@ -85,10 +86,11 @@ namespace PVOutput.Net.Objects.String
 				characters.Add(c);
 			}
 
-			yield return new string(characters.ToArray());
+			result.Add(new string(characters.ToArray()));
+			return result;
 		}
 
-		private string ReadProperty(TextReader reader)
+		protected string ReadProperty(TextReader reader)
 		{
 			var characters = new List<char>();
 			while (reader.Peek() >= 0)

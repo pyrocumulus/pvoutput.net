@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PVOutput.Net.Objects.String
+namespace PVOutput.Net.Objects.Core
 {
     internal abstract class BaseArrayStringReader<TReturnType> : IArrayStringReader<TReturnType>
     {

@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using PVOutput.Net.Enums;
 using PVOutput.Net.Tests.Utils;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,12 @@ namespace PVOutput.Net.Tests.Modules.System
 
             var system = response.Value;
             Assert.AreEqual("Test System", system.SystemName);
+
+			Assert.AreEqual(1, system.Donations);
+			Assert.AreEqual(10.65, system.ImportDailyCharge);
+			Assert.AreEqual("DC-2 Voltage", system.ExtendedDataConfig[1].Label);
+			Assert.AreEqual(159, system.MonthlyGenerationEstimates[PVMonth.October]);
+			Assert.AreEqual(0, system.MonthlyConsumptionEstimates[PVMonth.January]);
         }
     }
 }

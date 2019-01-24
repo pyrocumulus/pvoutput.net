@@ -1,5 +1,5 @@
 using PVOutput.Net.Objects.Outputs.Implementations;
-using PVOutput.Net.Objects.String;
+using PVOutput.Net.Objects.Core;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

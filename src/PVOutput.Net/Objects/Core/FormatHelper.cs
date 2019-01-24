@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
-namespace PVOutput.Net.Objects.String
+namespace PVOutput.Net.Objects.Core
 {
     internal static class FormatHelper
     {
@@ -34,7 +34,7 @@ namespace PVOutput.Net.Objects.String
                 return null;
             }
 
-            return (TResultType)Convert.ChangeType(value, typeof(TResultType));
+            return (TResultType)Convert.ChangeType(value, typeof(TResultType), CultureInfo.CreateSpecificCulture("en-US"));
         }
 
         internal static TResultType ParseValueDefault<TResultType>(string value) where TResultType : struct
@@ -44,7 +44,7 @@ namespace PVOutput.Net.Objects.String
                 return default;
             }
 
-            return (TResultType)Convert.ChangeType(value, typeof(TResultType));
+            return (TResultType)Convert.ChangeType(value, typeof(TResultType), CultureInfo.CreateSpecificCulture("en-US"));
         }
     }
 }

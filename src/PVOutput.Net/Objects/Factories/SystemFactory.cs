@@ -1,4 +1,4 @@
-﻿using PVOutput.Net.Objects.String;
+using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Objects.Systems;
 using PVOutput.Net.Objects.Systems.String.Readers;
 using System;
