@@ -8,13 +8,12 @@ using System.Threading;
 
 namespace PVOutput.Net.Objects.Systems.String.Readers
 {
-    internal class SystemObjectStringReader : ComplexObjectStringReader<ISystem>
+    internal class SystemObjectStringReader : BaseObjectStringReader<ISystem>
     {
         public override ISystem CreateObjectInstance() => new Implementations.System();
 
 		public SystemObjectStringReader()
 		{
-			_parsers = new List<Action<ISystem, TextReader>>();
 			_parsers.Add(ParseBaseProperties);
 			_parsers.Add(ParseSecondaryProperties);
 			_parsers.Add(ParseTariffProperties);

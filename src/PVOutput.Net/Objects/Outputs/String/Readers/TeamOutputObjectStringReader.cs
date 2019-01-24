@@ -1,4 +1,4 @@
-﻿using PVOutput.Net.Objects.Outputs.Implementations;
+using PVOutput.Net.Objects.Outputs.Implementations;
 using PVOutput.Net.Objects.String;
 using System;
 using System.Collections.Generic;
@@ -14,23 +14,22 @@ namespace PVOutput.Net.Objects.Outputs.String.Readers
     {
         public override ITeamOutput CreateObjectInstance() => new TeamOutput();
 
-        protected override Action<ITeamOutput, string>[] ObjectProperties
-        {
-            get
-            {
-                return new Action<ITeamOutput, string>[]
-                {
-                    (target, propertyString) => target.Date = FormatHelper.ParseDate(propertyString),
-                    (target, propertyString) => target.Outputs = Convert.ToInt32(propertyString),
-                    (target, propertyString) => target.Efficiency = Convert.ToDecimal(propertyString, CultureInfo.CreateSpecificCulture("en-US")),
-                    (target, propertyString) => target.TotalGeneration = Convert.ToInt32(propertyString),
-                    (target, propertyString) => target.AverageGeneration  = Convert.ToInt32(propertyString),
-                    (target, propertyString) => target.TotalExported = Convert.ToInt32(propertyString),
-                    (target, propertyString) => target.TotalConsumption = Convert.ToInt32(propertyString),
-                    (target, propertyString) => target.AverageConsumption = Convert.ToInt32(propertyString),
-                    (target, propertyString) => target.TotalImported = Convert.ToInt32(propertyString)
-                };
-            }
-        }
-    }
+		public TeamOutputObjectStringReader()
+		{
+			var properties = new Action<ITeamOutput, string>[]
+			{
+				(t, s) => t.Date = FormatHelper.ParseDate(s),
+				(t, s) => t.Outputs = Convert.ToInt32(s),
+				(t, s) => t.Efficiency = Convert.ToDecimal(s, CultureInfo.CreateSpecificCulture("en-US")),
+				(t, s) => t.TotalGeneration = Convert.ToInt32(s),
+				(t, s) => t.AverageGeneration  = Convert.ToInt32(s),
+				(t, s) => t.TotalExported = Convert.ToInt32(s),
+				(t, s) => t.TotalConsumption = Convert.ToInt32(s),
+				(t, s) => t.AverageConsumption = Convert.ToInt32(s),
+				(t, s) => t.TotalImported = Convert.ToInt32(s)
+			};
+
+			_parsers.Add((target, reader) => ParsePropertyArray(target, reader, properties));
+		}
+	}
 }

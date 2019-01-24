@@ -7,51 +7,19 @@ using System.Threading.Tasks;
 
 namespace PVOutput.Net.Objects.String
 {
-	internal abstract class BaseObjectStringReader<TReturnType> : BaseDelimitedStringReader, IObjectStringReader<TReturnType>
-	{
-		protected abstract Action<TReturnType, string>[] ObjectProperties { get; }
-
-		public abstract TReturnType CreateObjectInstance();
-
-		public virtual async Task<TReturnType> ReadObjectAsync(Stream stream, CancellationToken cancellationToken = default)
-		{
-			if (stream == null)
-				return await Task.FromResult(default(TReturnType));
-
-			using (TextReader textReader = new StreamReader(stream))
-			{
-				return await ReadObjectAsync(textReader, cancellationToken);
-			}
-		}
-
-		public async Task<TReturnType> ReadObjectAsync(TextReader reader, CancellationToken cancellationToken = default)
-		{
-			if (reader == null)
-				return await Task.FromResult(default(TReturnType));
-
-			if (reader.Peek() >= 0)
-			{
-				TReturnType output = CreateObjectInstance();
-
-				int i = 0;
-				foreach (string property in ReadPropertiesForGroup(reader))
-				{
-					ObjectProperties[i](output, property);
-					i++;
-				}
-
-				return output;
-			}
-
-			return await Task.FromResult(default(TReturnType));
-		}
-	}
-
-	internal abstract class ComplexObjectStringReader<TReturnType> : BaseDelimitedStringReader, IObjectStringReader<TReturnType>
+	internal abstract class BaseObjectStringReader<TReturnType> : IObjectStringReader<TReturnType>
     {
+		protected const char ItemDelimiter = ',';
+		protected const char GroupDelimiter = ';';
+
 		public abstract TReturnType CreateObjectInstance();
 
 		protected List<Action<TReturnType, TextReader>> _parsers;
+
+		public BaseObjectStringReader()
+		{
+			_parsers = new List<Action<TReturnType, TextReader>>();
+		}
 
 		public virtual async Task<TReturnType> ReadObjectAsync(Stream stream, CancellationToken cancellationToken = default)
         {
@@ -78,7 +46,7 @@ namespace PVOutput.Net.Objects.String
             return await Task.FromResult(default(TReturnType));
         }
 
-		protected void ParseProperties(TReturnType target, TextReader reader, CancellationToken cancellationToken = default)
+		private void ParseProperties(TReturnType target, TextReader reader, CancellationToken cancellationToken = default)
 		{
 			foreach (var parser in _parsers)
 			{
@@ -94,6 +62,48 @@ namespace PVOutput.Net.Objects.String
 			{
 				properties[i](target, ReadProperty(reader));
 			}
+		}
+
+		protected IEnumerable<string> ReadPropertiesForGroup(TextReader reader)
+		{
+			var characters = new List<char>();
+			while (reader.Peek() >= 0)
+			{
+				var c = (char)reader.Read();
+
+				if (c == ItemDelimiter || c == GroupDelimiter)
+				{
+					yield return new string(characters.ToArray());
+
+					if (c == GroupDelimiter)
+						yield break;
+
+					characters.Clear();
+					continue;
+				}
+
+				characters.Add(c);
+			}
+
+			yield return new string(characters.ToArray());
+		}
+
+		private string ReadProperty(TextReader reader)
+		{
+			var characters = new List<char>();
+			while (reader.Peek() >= 0)
+			{
+				var c = (char)reader.Read();
+
+				if (c == ItemDelimiter || c == GroupDelimiter)
+				{
+					return new string(characters.ToArray());
+				}
+
+				characters.Add(c);
+			}
+
+			return new string(characters.ToArray());
 		}
 	}
 }

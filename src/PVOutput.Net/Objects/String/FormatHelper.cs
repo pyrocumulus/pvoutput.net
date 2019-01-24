@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
@@ -29,7 +29,7 @@ namespace PVOutput.Net.Objects.String
 
         internal static TResultType? ParseValue<TResultType>(string value) where TResultType : struct
         {
-            if (value.Equals("NaN", StringComparison.OrdinalIgnoreCase))
+            if (string.IsNullOrEmpty(value) || value.Equals("NaN", StringComparison.OrdinalIgnoreCase))
             {
                 return null;
             }

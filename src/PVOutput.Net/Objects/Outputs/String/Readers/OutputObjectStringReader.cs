@@ -12,31 +12,30 @@ namespace PVOutput.Net.Objects.Outputs.String.Readers
 {
     internal class OutputObjectStringReader : BaseObjectStringReader<IOutput>
     {
-        public override IOutput CreateObjectInstance() => new Output();
+		public OutputObjectStringReader()
+		{
+			var properties = new Action<IOutput, string>[]
+			{
+				(t, s) => t.Date = FormatHelper.ParseDate(s),
+				(t, s) => t.EnergyGenerated = Convert.ToInt32(s),
+				(t, s) => t.Efficiency = FormatHelper.ParseNumeric(s),
+				(t, s) => t.EnergyExported = Convert.ToInt32(s),
+				(t, s) => t.EnergyUsed = Convert.ToInt32(s),
+				(t, s) => t.PeakPower = FormatHelper.ParseValue<int>(s),
+				(t, s) => t.PeakTime = s.Equals("NaN", StringComparison.OrdinalIgnoreCase) ? (DateTime?)null : t.Date.Add(FormatHelper.ParseTime(s).TimeOfDay),
+				(t, s) => t.Condition = s,
+				(t, s) => t.MinimumTemperature = FormatHelper.ParseValue<int>(s),
+				(t, s) => t.MaximumTemperature = FormatHelper.ParseValue<int>(s),
+				(t, s) => t.PeakEnergyImport = FormatHelper.ParseValue<int>(s),
+				(t, s) => t.OffPeakEnergyImport = FormatHelper.ParseValue<int>(s),
+				(t, s) => t.ShoulderEnergyImport = FormatHelper.ParseValue<int>(s),
+				(t, s) => t.HighShoulderEnergyImport = FormatHelper.ParseValue<int>(s),
+				(t, s) => t.Insolation = FormatHelper.ParseValue<int>(s)
+			};
 
-        protected override Action<IOutput, string>[] ObjectProperties
-        {
-            get
-            {
-                return new Action<IOutput, string>[]
-                {
-                    (target, propertyString) => target.Date = FormatHelper.ParseDate(propertyString),
-                    (target, propertyString) => target.EnergyGenerated = Convert.ToInt32(propertyString),
-                    (target, propertyString) => target.Efficiency = FormatHelper.ParseNumeric(propertyString),
-                    (target, propertyString) => target.EnergyExported = Convert.ToInt32(propertyString),
-                    (target, propertyString) => target.EnergyUsed = Convert.ToInt32(propertyString),
-                    (target, propertyString) => target.PeakPower = FormatHelper.ParseValue<int>(propertyString),
-                    (target, propertyString) => target.PeakTime = propertyString.Equals("NaN", StringComparison.OrdinalIgnoreCase) ? (DateTime?)null : target.Date.Add(FormatHelper.ParseTime(propertyString).TimeOfDay),
-                    (target, propertyString) => target.Condition = propertyString,
-                    (target, propertyString) => target.MinimumTemperature = FormatHelper.ParseValue<int>(propertyString),
-                    (target, propertyString) => target.MaximumTemperature = FormatHelper.ParseValue<int>(propertyString),
-                    (target, propertyString) => target.PeakEnergyImport = FormatHelper.ParseValue<int>(propertyString),
-                    (target, propertyString) => target.OffPeakEnergyImport = FormatHelper.ParseValue<int>(propertyString),
-                    (target, propertyString) => target.ShoulderEnergyImport = FormatHelper.ParseValue<int>(propertyString),
-                    (target, propertyString) => target.HighShoulderEnergyImport = FormatHelper.ParseValue<int>(propertyString),
-                    (target, propertyString) => target.Insolation = FormatHelper.ParseValue<int>(propertyString)
-                };
-            }
-        }
+			_parsers.Add((target, reader) => ParsePropertyArray(target, reader, properties));
+		}
+
+        public override IOutput CreateObjectInstance() => new Output();
     }
 }
