@@ -1,6 +1,6 @@
-# Domoticz.Net
+# PVOutput.Net
 
-> A .NET wrapper library for the [Domoticz JSON api](https://www.domoticz.com/wiki/Domoticz_API/JSON_URL's).
+> A .NET wrapper library for the [PVOutput api](https://pvoutput.org/help.html#api-spec).
 
 ## Install
 
@@ -16,6 +16,6 @@ As the code base is still changing a lot, PRs will probably be more practical, b
 
 ## License
 
-This project's structure and Json/Request handling have been heavily inspired (in part, copied) by Henrik Fröhling's work on [TraktApiSharp](https://github.com/henrikfroehling/TraktApiSharp). While this project is licensed under the same license as TraktApiSharp, I'd still like to stress this.
+This project's structure and Json/Request handling have been seriously inspired (in part, copied) by Henrik Fröhling's work on [TraktApiSharp](https://github.com/henrikfroehling/TraktApiSharp). While this project is licensed under the same license as TraktApiSharp, I'd still like to make this absolutely clear.
 
 MIT © Marcel Boersma
