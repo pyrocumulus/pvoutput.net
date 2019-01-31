@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PVOutput.Net.Tests.Modules.Output
 {
-    public static class OutputModuleTestsData
+    public static class OutputServiceTestsData
     {
         public const string GETOUTPUT_URL = "getoutput.jsp*";
 

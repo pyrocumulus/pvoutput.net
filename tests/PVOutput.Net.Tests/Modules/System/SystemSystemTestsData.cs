@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PVOutput.Net.Tests.Modules.System
 {
-    public static class SystemModuleTestsData
+    public static class SystemSystemTestsData
     {
         public const string GETSYSTEM_URL = "getsystem.jsp*";
 

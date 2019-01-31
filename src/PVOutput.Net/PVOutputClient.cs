@@ -1,4 +1,4 @@
-﻿using PVOutput.Net.Modules;
+using PVOutput.Net.Modules;
 using PVOutput.Net.Requests.Handler;
 using PVOutput.Net.Responses;
 using System;
@@ -20,6 +20,7 @@ namespace PVOutput.Net
 
         public OutputService Output { get; }
         public SystemService System { get; }
+		public StatusService Status { get; }
 
         public PVOutputClient(IHttpClientProvider httpClientProvider = default)
         {
@@ -27,6 +28,7 @@ namespace PVOutput.Net
 
             Output = new OutputService(this);
             System = new SystemService(this);
+			Status = new StatusService(this);
         }
 
         public PVOutputClient(string apiKey, int ownedSystemId, IHttpClientProvider httpClientProvider = default) 

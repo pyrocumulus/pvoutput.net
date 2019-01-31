@@ -53,11 +53,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Modules\Output\OutputModuleTests.cs" />
-    <Compile Include="Modules\Output\OutputModuleTestsData.cs" />
+    <Compile Include="Modules\Output\OutputServiceTests.cs" />
+    <Compile Include="Modules\Output\OutputServiceTestsData.cs" />
     <Compile Include="Modules\Output\OutputObjectTests.cs" />
-    <Compile Include="Modules\System\SystemModuleTests.cs" />
-    <Compile Include="Modules\System\SystemModuleTestsData.cs" />
+    <Compile Include="Modules\Status\StatusServiceTests.cs" />
+    <Compile Include="Modules\Status\StatusServiceTestsData.cs" />
+    <Compile Include="Modules\System\SystemServiceTests.cs" />
+    <Compile Include="Modules\System\SystemSystemTestsData.cs" />
     <Compile Include="Modules\System\SystemObjectTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\Handler\TestHttpClientProvider.cs" />

@@ -4,6 +4,7 @@ using PVOutput.Net.Objects.Systems;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using PVOutput.Net.Objects.Status;
 
 namespace PVOutput.Net.Objects.Factories
 {
@@ -17,7 +18,9 @@ namespace PVOutput.Net.Objects.Factories
             _readerFactories.Add(typeof(ITeamOutput), new TeamOutputFactory());
             _readerFactories.Add(typeof(IAggregatedOutput), new AggregatedOutputFactory());
             _readerFactories.Add(typeof(ISystem), new SystemFactory());
-        }
+			_readerFactories.Add(typeof(IStatus), new StatusFactory());
+			_readerFactories.Add(typeof(IStatusHistory), new StatusHistoryFactory());
+		}
 
         public static IStringFactory<TReturnType> GetStringFactory<TReturnType>()
         {

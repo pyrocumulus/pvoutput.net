@@ -17,17 +17,17 @@ namespace PVOutput.Net.Objects.Core
             return DateTime.ParseExact(timeString, "HH:mm", CultureInfo.InvariantCulture.DateTimeFormat);
         }
 
-        internal static decimal ParseNumeric(string numericString)
-        {
-            return Convert.ToDecimal(numericString, CultureInfo.CreateSpecificCulture("en-US"));
-        }
-
         internal static string GetDateAsString(DateTime date)
         {
             return date.ToString("yyyyMMdd", CultureInfo.InvariantCulture);
         }
 
-        internal static TResultType? ParseValue<TResultType>(string value) where TResultType : struct
+		internal static string GetTimeAsString(DateTime date)
+		{
+			return date.ToString("HH:mm", CultureInfo.InvariantCulture.DateTimeFormat);
+		}
+
+		internal static TResultType? ParseValue<TResultType>(string value) where TResultType : struct
         {
             if (string.IsNullOrEmpty(value) || value.Equals("NaN", StringComparison.OrdinalIgnoreCase))
             {
@@ -37,14 +37,10 @@ namespace PVOutput.Net.Objects.Core
             return (TResultType)Convert.ChangeType(value, typeof(TResultType), CultureInfo.CreateSpecificCulture("en-US"));
         }
 
-        internal static TResultType ParseValueDefault<TResultType>(string value) where TResultType : struct
+        internal static TResultType ParseValueWithDefault<TResultType>(string value) where TResultType : struct
         {
-            if (value.Equals("NaN", StringComparison.OrdinalIgnoreCase))
-            {
-                return default;
-            }
-
-            return (TResultType)Convert.ChangeType(value, typeof(TResultType), CultureInfo.CreateSpecificCulture("en-US"));
-        }
+			TResultType? result = ParseValue<TResultType>(value);
+			return result.HasValue ? result.Value : (default);
+		}
     }
 }

@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 namespace PVOutput.Net.Tests.Modules.System
 {
     [TestFixture]
-    public class SystemModuleTests
+    public class SystemServiceTests
     {
         [Test]
         public async Task SystemService_GetOwnSystem()
         {
-            var client = TestUtility.GetMockClient(SystemModuleTestsData.GETSYSTEM_URL, SystemModuleTestsData.SYSTEM_RESPONSE_EXTENDED);
+            var client = TestUtility.GetMockClient(SystemSystemTestsData.GETSYSTEM_URL, SystemSystemTestsData.SYSTEM_RESPONSE_EXTENDED);
             var response = await client.System.GetOwnSystem();
 
             if (response.Exception != null)

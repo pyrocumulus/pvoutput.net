@@ -18,7 +18,7 @@ namespace PVOutput.Net.Objects.Outputs.String.Readers
 			{
 				(t, s) => t.Date = FormatHelper.ParseDate(s),
 				(t, s) => t.EnergyGenerated = Convert.ToInt32(s),
-				(t, s) => t.Efficiency = FormatHelper.ParseNumeric(s),
+				(t, s) => t.Efficiency = FormatHelper.ParseValueWithDefault<decimal>(s),
 				(t, s) => t.EnergyExported = Convert.ToInt32(s),
 				(t, s) => t.EnergyUsed = Convert.ToInt32(s),
 				(t, s) => t.PeakPower = FormatHelper.ParseValue<int>(s),
