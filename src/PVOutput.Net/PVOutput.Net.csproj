@@ -5,6 +5,10 @@
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\artifacts\</OutputPath>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="System.Runtime" Version="4.3.0" />
     <PackageReference Include="Tavis.UriTemplates" Version="1.1.1" />
