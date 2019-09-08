@@ -15,7 +15,7 @@
 | Get        | Output       | Output            | Implemented | [Get Output](https://pvoutput.org/help.html#api-getoutput) |
 | Get        | Extended     | Extended          |             | [Get Extended](https://pvoutput.org/help.html#api-getextended) |
 | Get        | Favourite    | Favourite         |             | [Get Favourite](https://pvoutput.org/help.html#api-getfavourite) |
-| Get        | Missing      | Missing           |             | [Get Missing](https://pvoutput.org/help.html#api-getmissing) |
+| Get        | Missing      | Missing           | Implemented | [Get Missing](https://pvoutput.org/help.html#api-getmissing) |
 | Get        | Insolation   | Insolation        |             | [Get Insolation](https://pvoutput.org/help.html#api-getinsolation) |
 | Delete     | Status       | Status            |             | [Delete Status](https://pvoutput.org/help.html#api-deletestatus) |
 | Search     |              |                   |             | [Search](https://pvoutput.org/help.html#api-search) |
