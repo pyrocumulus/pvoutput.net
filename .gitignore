@@ -261,3 +261,6 @@ __pycache__/
 *.pyc
 /tools/**
 /samples/PVOutput.Console.Net/Properties/launchSettings.json
+
+# VS Code
+.vscode/

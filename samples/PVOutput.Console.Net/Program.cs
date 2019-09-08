@@ -1,4 +1,4 @@
-﻿using PVOutput.Net;
+using PVOutput.Net;
 using System;
 using System.Threading.Tasks;
 
@@ -18,8 +18,15 @@ namespace PVOutput.Console.Net
             var output = await client.Output.GetOutputForDateAsync(new DateTime(2018, 9, 4), true);
 
             System.Console.WriteLine(output.Value.Date);
+			System.Console.WriteLine(output.Value.EnergyGenerated);
 
             var outputs = await client.Output.GetOutputsForPeriodAsync(new DateTime(2018, 9, 1), new DateTime(2018, 9, 7), true);
+
+			foreach (var dayOutput in outputs.Value)
+			{
+				System.Console.WriteLine(dayOutput.Date);
+				System.Console.WriteLine(dayOutput.EnergyGenerated);
+			}
 
             System.Console.ReadLine();
         }
