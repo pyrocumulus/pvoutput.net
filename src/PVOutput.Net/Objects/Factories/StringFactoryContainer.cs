@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using PVOutput.Net.Objects.Status;
 using PVOutput.Net.Objects.Statistics;
+using PVOutput.Net.Objects.Missing;
 
 namespace PVOutput.Net.Objects.Factories
 {
@@ -22,6 +23,7 @@ namespace PVOutput.Net.Objects.Factories
 			_readerFactories.Add(typeof(IStatus), new StatusFactory());
 			_readerFactories.Add(typeof(IStatusHistory), new StatusHistoryFactory());
 			_readerFactories.Add(typeof(IStatistic), new StatisticFactory());
+			_readerFactories.Add(typeof(IMissing), new MissingFactory());
 		}
 
         public static IStringFactory<TReturnType> GetStringFactory<TReturnType>()

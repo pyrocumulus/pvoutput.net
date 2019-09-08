@@ -25,7 +25,7 @@ namespace PVOutput.Net.Modules
 		public Task<PVOutputResponse<IStatistic>> GetStatisticsForPeriodAsync(DateTime fromDate, DateTime toDate, bool includeConsumptionAndImport = false, bool includeCreditDebit = false, int? systemId = null, CancellationToken cancellationToken = default)
 		{
 			var handler = new RequestHandler(Client);
-			return handler.ExecuteSingleItemRequestAsync<IStatistic>(new StatisticPeriodRequest { From = fromDate, To = toDate, SystemId = systemId, IncludeConsumptionImport = includeConsumptionAndImport, IncludeCreditDebit = includeConsumptionAndImport }, cancellationToken);
+			return handler.ExecuteSingleItemRequestAsync<IStatistic>(new StatisticPeriodRequest { FromDate = fromDate, ToDate = toDate, SystemId = systemId, IncludeConsumptionImport = includeConsumptionAndImport, IncludeCreditDebit = includeConsumptionAndImport }, cancellationToken);
 		}
 	}
 }

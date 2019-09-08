@@ -37,14 +37,17 @@ namespace PVOutput.Net.Objects.Core
             if (reader != null && reader.Peek() >= 0)
             {
                 TReturnType output = CreateObjectInstance();
-
                 ParseProperties(output, reader);
-
-                return output;
+				return output;
             }
 
-            return await Task.FromResult(default(TReturnType));
+            return await Task.FromResult(GetDefaultResult());
         }
+
+		protected virtual TReturnType GetDefaultResult()
+		{
+			return default;
+		}
 
 		private void ParseProperties(TReturnType target, TextReader reader, CancellationToken cancellationToken = default)
 		{
