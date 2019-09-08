@@ -21,6 +21,7 @@ namespace PVOutput.Net
         public OutputService Output { get; }
         public SystemService System { get; }
 		public StatusService Status { get; }
+		public StatisticsService Statistics { get; }
 
         public PVOutputClient(IHttpClientProvider httpClientProvider = default)
         {
@@ -29,6 +30,7 @@ namespace PVOutput.Net
             Output = new OutputService(this);
             System = new SystemService(this);
 			Status = new StatusService(this);
+			Statistics = new StatisticsService(this);
         }
 
         public PVOutputClient(string apiKey, int ownedSystemId, IHttpClientProvider httpClientProvider = default) 

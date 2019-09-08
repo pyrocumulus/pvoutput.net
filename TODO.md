@@ -1,5 +1,7 @@
 # TODO
 
+## API Coverage
+
 | Operation  | Object       | (Expected) Module | Status      | Documentation link      |
 |------------|--------------|-------------------|-------------|-------------------------|
 | Add        | Output       | Output            |             | [Add Output](https://pvoutput.org/help.html#api-addoutput) |
@@ -7,7 +9,7 @@
 | Add        | Batch Output | Output            |             | [Add Batch Output](https://pvoutput.org/help.html#api-addbatchoutput) |
 | Add        | Batch Status | Status            |             | [Add Batch Status](https://pvoutput.org/help.html#api-addbatchstatus) |
 | Get        | Status       | Status            | Implemented | [Get Status](https://pvoutput.org/help.html#api-getstatus) |
-| Get        | Statistic    | Staticics         |             | [Get Statistic](https://pvoutput.org/help.html#api-getstatistic) |
+| Get        | Statistic    | Staticics         | Implemented | [Get Statistic](https://pvoutput.org/help.html#api-getstatistic) |
 | Get        | System       | System            | Implemented | [Get System](https://pvoutput.org/help.html#api-getsystem) |
 | Post       | System       | System            |             | [Post System](https://pvoutput.org/help.html#api-postsystem) |
 | Get        | Output       | Output            | Implemented | [Get Output](https://pvoutput.org/help.html#api-getoutput) |
@@ -23,3 +25,8 @@
 | Get        | Supply       | Supply            |             | [Get Supply](https://pvoutput.org/help.html#api-getsupply) |
 | Register   | Notification | Notification      |             | [Register Notification](https://pvoutput.org/help.html#api-registernotification) |
 | Deregister | Notification | Notification      |             | [Deregister Notification](https://pvoutput.org/help.html#api-deregisternotification) |
+
+## Unit testing
+
+1. Break down tests into separate tests for object reading and using requests
+2. Test if arguments for requests actually call the correct url
