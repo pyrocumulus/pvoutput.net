@@ -1,6 +1,6 @@
-using PVOutput.Net.Objects.Missing;
+using PVOutput.Net.Objects.Modules;
 using PVOutput.Net.Requests.Handler;
-using PVOutput.Net.Requests.Missing;
+using PVOutput.Net.Requests.Modules;
 using PVOutput.Net.Responses;
 using System;
 using System.Collections.Generic;

@@ -1,6 +1,6 @@
 using PVOutput.Net.Objects.Core;
-using PVOutput.Net.Objects.Statistics;
-using PVOutput.Net.Objects.Statistics.String.Readers;
+using PVOutput.Net.Objects.Modules;
+using PVOutput.Net.Objects.Modules.Readers;
 using System;
 using System.Collections.Generic;
 using System.Text;

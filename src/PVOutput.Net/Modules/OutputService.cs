@@ -1,7 +1,7 @@
-using PVOutput.Net.Objects.Outputs;
+using PVOutput.Net.Objects.Modules;
 using PVOutput.Net.Requests;
 using PVOutput.Net.Requests.Handler;
-using PVOutput.Net.Requests.Outputs;
+using PVOutput.Net.Requests.Modules;
 using PVOutput.Net.Responses;
 using System;
 using System.Collections.Generic;

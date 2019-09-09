@@ -1,5 +1,5 @@
 using PVOutput.Net;
-using PVOutput.Net.Objects.Outputs;
+using PVOutput.Net.Objects.Modules;
 using System;
 using System.Threading.Tasks;
 
