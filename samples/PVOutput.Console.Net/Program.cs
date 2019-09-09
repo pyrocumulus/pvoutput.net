@@ -1,34 +1,40 @@
 using PVOutput.Net;
+using PVOutput.Net.Objects.Outputs;
 using System;
 using System.Threading.Tasks;
 
-namespace PVOutput.Console.Net
+namespace PVOutput.Net.Sample
 {
     class Program
     {
         public static async Task Main(string[] args)
         {
-            System.Console.WriteLine("Hello World!");
-
             var apiKey = Environment.GetEnvironmentVariable("PVOutput-ApiKey");
-            var systemId = Environment.GetEnvironmentVariable("PVOutput-SystemId");
+            var systemIdString = Environment.GetEnvironmentVariable("PVOutput-SystemId");
+			var systemId = systemIdString == "" ? 0 : Convert.ToInt32(systemIdString);
+			var client = new PVOutputClient(apiKey, systemId);
 
-            var client = new PVOutputClient(apiKey, systemId == "" ? 0 : Convert.ToInt32(systemId));
+			// Request output for today
+            var outputResponse = await client.Output.GetOutputForDateAsync(DateTime.Today);
+			var output = outputResponse.Value;
 
-            var output = await client.Output.GetOutputForDateAsync(new DateTime(2018, 9, 4), true);
+			Console.WriteLine("Output for past 7 days");
+			Console.WriteLine("----------------------");
+			OutputDate(output);
 
-            System.Console.WriteLine(output.Value.Date);
-			System.Console.WriteLine(output.Value.EnergyGenerated);
-
-            var outputs = await client.Output.GetOutputsForPeriodAsync(new DateTime(2018, 9, 1), new DateTime(2018, 9, 7), true);
-
+			// Request outputs for previous 6 days
+			var outputs = await client.Output.GetOutputsForPeriodAsync(DateTime.Today.AddDays(-6), DateTime.Today.AddDays(-1));
 			foreach (var dayOutput in outputs.Value)
 			{
-				System.Console.WriteLine(dayOutput.Date);
-				System.Console.WriteLine(dayOutput.EnergyGenerated);
+				OutputDate(dayOutput);
 			}
 
-            System.Console.ReadLine();
+			Console.ReadLine();
         }
-    }
+
+		private static void OutputDate(IOutput output)
+		{
+			Console.WriteLine($"Output for date {output.Date.ToShortDateString()}, {output.EnergyGenerated} Wh generated");
+		}
+	}
 }

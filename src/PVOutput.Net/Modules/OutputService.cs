@@ -1,4 +1,4 @@
-﻿using PVOutput.Net.Objects.Outputs;
+using PVOutput.Net.Objects.Outputs;
 using PVOutput.Net.Requests;
 using PVOutput.Net.Requests.Handler;
 using PVOutput.Net.Requests.Outputs;
@@ -17,14 +17,14 @@ namespace PVOutput.Net.Modules
         {
         }
 
-        public Task<PVOutputResponse<IOutput>> GetOutputForDateAsync(DateTime day, bool getInsolation, int? systemId = null, CancellationToken cancellationToken = default)
+        public Task<PVOutputResponse<IOutput>> GetOutputForDateAsync(DateTime day, bool getInsolation = false, int? systemId = null, CancellationToken cancellationToken = default)
         {
             var handler = new RequestHandler(Client);
 
             return handler.ExecuteSingleItemRequestAsync<IOutput>(new OutputRequest { FromDate = day, ToDate = day, SystemId = systemId, Insolation = getInsolation }, cancellationToken);
         }
 
-        public Task<PVOutputArrayResponse<IOutput>> GetOutputsForPeriodAsync(DateTime fromDate, DateTime toDate, bool getInsolation, int? systemId = null, CancellationToken cancellationToken = default)
+		public Task<PVOutputArrayResponse<IOutput>> GetOutputsForPeriodAsync(DateTime fromDate, DateTime toDate, bool getInsolation = false, int? systemId = null, CancellationToken cancellationToken = default)
         {
             var handler = new RequestHandler(Client);
 

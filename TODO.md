@@ -25,8 +25,3 @@
 | Get        | Supply       | Supply            |             | [Get Supply](https://pvoutput.org/help.html#api-getsupply) |
 | Register   | Notification | Notification      |             | [Register Notification](https://pvoutput.org/help.html#api-registernotification) |
 | Deregister | Notification | Notification      |             | [Deregister Notification](https://pvoutput.org/help.html#api-deregisternotification) |
-
-## Unit testing
-
-1. Break down tests into separate tests for object reading and using requests
-2. Test if arguments for requests actually call the correct url
