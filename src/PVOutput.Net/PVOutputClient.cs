@@ -1,4 +1,4 @@
-using PVOutput.Net.Modules;
+﻿using PVOutput.Net.Modules;
 using PVOutput.Net.Requests.Handler;
 
 namespace PVOutput.Net
@@ -17,6 +17,7 @@ namespace PVOutput.Net
         public StatusService Status { get; }
         public StatisticsService Statistics { get; }
         public MissingService Missing { get; }
+        public TeamService Team { get; }
 
         public PVOutputClient(IHttpClientProvider httpClientProvider = default)
         {
@@ -27,6 +28,7 @@ namespace PVOutput.Net
             Status = new StatusService(this);
             Statistics = new StatisticsService(this);
             Missing = new MissingService(this);
+            Team = new TeamService(this);
         }
 
         public PVOutputClient(string apiKey, int ownedSystemId, IHttpClientProvider httpClientProvider = default)

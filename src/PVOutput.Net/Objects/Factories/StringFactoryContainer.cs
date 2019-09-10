@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Objects.Modules;
@@ -19,6 +19,7 @@ namespace PVOutput.Net.Objects.Factories
             _readerFactories.Add(typeof(IStatusHistory), new StatusHistoryFactory());
             _readerFactories.Add(typeof(IStatistic), new StatisticFactory());
             _readerFactories.Add(typeof(IMissing), new MissingFactory());
+            _readerFactories.Add(typeof(ITeam), new TeamFactory());
         }
 
         public static IStringFactory<TReturnType> GetStringFactory<TReturnType>()
