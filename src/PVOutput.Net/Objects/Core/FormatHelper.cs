@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 
 namespace PVOutput.Net.Objects.Core
 {
@@ -22,12 +20,12 @@ namespace PVOutput.Net.Objects.Core
             return date.ToString("yyyyMMdd", CultureInfo.InvariantCulture);
         }
 
-		internal static string GetTimeAsString(DateTime date)
-		{
-			return date.ToString("HH:mm", CultureInfo.InvariantCulture.DateTimeFormat);
-		}
+        internal static string GetTimeAsString(DateTime date)
+        {
+            return date.ToString("HH:mm", CultureInfo.InvariantCulture.DateTimeFormat);
+        }
 
-		internal static TResultType? ParseValue<TResultType>(string value) where TResultType : struct
+        internal static TResultType? ParseValue<TResultType>(string value) where TResultType : struct
         {
             if (string.IsNullOrEmpty(value) || value.Equals("NaN", StringComparison.OrdinalIgnoreCase))
             {
@@ -39,8 +37,8 @@ namespace PVOutput.Net.Objects.Core
 
         internal static TResultType ParseValueWithDefault<TResultType>(string value) where TResultType : struct
         {
-			TResultType? result = ParseValue<TResultType>(value);
-			return result.HasValue ? result.Value : (default);
-		}
+            TResultType? result = ParseValue<TResultType>(value);
+            return result.HasValue ? result.Value : (default);
+        }
     }
 }

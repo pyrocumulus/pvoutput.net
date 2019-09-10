@@ -1,11 +1,5 @@
 using PVOutput.Net.Modules;
 using PVOutput.Net.Requests.Handler;
-using PVOutput.Net.Responses;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PVOutput.Net
 {
@@ -20,9 +14,9 @@ namespace PVOutput.Net
 
         public OutputService Output { get; }
         public SystemService System { get; }
-		public StatusService Status { get; }
-		public StatisticsService Statistics { get; }
-		public MissingService Missing { get; }
+        public StatusService Status { get; }
+        public StatisticsService Statistics { get; }
+        public MissingService Missing { get; }
 
         public PVOutputClient(IHttpClientProvider httpClientProvider = default)
         {
@@ -30,12 +24,12 @@ namespace PVOutput.Net
 
             Output = new OutputService(this);
             System = new SystemService(this);
-			Status = new StatusService(this);
-			Statistics = new StatisticsService(this);
-			Missing = new MissingService(this);
+            Status = new StatusService(this);
+            Statistics = new StatisticsService(this);
+            Missing = new MissingService(this);
         }
 
-        public PVOutputClient(string apiKey, int ownedSystemId, IHttpClientProvider httpClientProvider = default) 
+        public PVOutputClient(string apiKey, int ownedSystemId, IHttpClientProvider httpClientProvider = default)
             : this(httpClientProvider)
         {
             Apikey = apiKey;

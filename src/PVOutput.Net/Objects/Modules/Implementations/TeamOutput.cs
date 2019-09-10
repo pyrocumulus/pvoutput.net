@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using PVOutput.Net.Objects.Modules;
 
 namespace PVOutput.Net.Objects.Modules.Implementations
 {

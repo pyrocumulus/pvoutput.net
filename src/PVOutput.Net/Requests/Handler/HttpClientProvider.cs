@@ -23,7 +23,9 @@ namespace PVOutput.Net.Requests.Handler
         public virtual HttpClient GetHttpClient()
         {
             if (_httpClient == null)
+            {
                 _httpClient = SetupHttpClient();
+            }
 
             return _httpClient;
         }

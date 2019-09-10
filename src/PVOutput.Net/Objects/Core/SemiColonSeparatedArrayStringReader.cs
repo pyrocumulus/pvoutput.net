@@ -1,10 +1,8 @@
-using PVOutput.Net.Objects.Factories;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using PVOutput.Net.Objects.Factories;
 
 namespace PVOutput.Net.Objects.Core
 {
@@ -15,7 +13,9 @@ namespace PVOutput.Net.Objects.Core
         public override async Task<IEnumerable<T>> ReadArrayAsync(TextReader reader, CancellationToken cancellationToken = default)
         {
             if (reader == null)
+            {
                 return await Task.FromResult(default(IEnumerable<T>));
+            }
 
             var content = await reader.ReadToEndAsync();
 
@@ -29,7 +29,7 @@ namespace PVOutput.Net.Objects.Core
                 foreach (string outputString in results)
                 {
 #warning this has to go away
-					T output = await objectReader.ReadObjectAsync(new StringReader(outputString), cancellationToken);
+                    T output = await objectReader.ReadObjectAsync(new StringReader(outputString), cancellationToken);
                     objects.Add(output);
                 }
 

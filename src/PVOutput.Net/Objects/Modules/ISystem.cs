@@ -5,7 +5,7 @@ using PVOutput.Net.Objects.Modules.Implementations;
 
 namespace PVOutput.Net.Objects.Modules
 {
-	public interface ISystem
+    public interface ISystem
     {
         string SystemName { get; set; }
         int SystemSize { get; set; }
@@ -46,8 +46,8 @@ namespace PVOutput.Net.Objects.Modules
         // Extended data config
         IReadOnlyList<ExtendedDataElement> ExtendedDataConfig { get; set; }
 
-		// Estimates - Only owner system
-		IReadOnlyDictionary<PVMonth,int> MonthlyGenerationEstimates { get; set; }
-		IReadOnlyDictionary<PVMonth, int> MonthlyConsumptionEstimates { get; set; }
-	}
+        // Estimates - Only owner system
+        IReadOnlyDictionary<PVMonth, int> MonthlyGenerationEstimates { get; set; }
+        IReadOnlyDictionary<PVMonth, int> MonthlyConsumptionEstimates { get; set; }
+    }
 }

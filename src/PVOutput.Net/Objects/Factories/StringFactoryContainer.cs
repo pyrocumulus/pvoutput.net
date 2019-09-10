@@ -1,8 +1,7 @@
-using PVOutput.Net.Objects.Modules;
-using PVOutput.Net.Objects.Core;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using PVOutput.Net.Objects.Core;
+using PVOutput.Net.Objects.Modules;
 
 namespace PVOutput.Net.Objects.Factories
 {
@@ -16,18 +15,20 @@ namespace PVOutput.Net.Objects.Factories
             _readerFactories.Add(typeof(ITeamOutput), new TeamOutputFactory());
             _readerFactories.Add(typeof(IAggregatedOutput), new AggregatedOutputFactory());
             _readerFactories.Add(typeof(ISystem), new SystemFactory());
-			_readerFactories.Add(typeof(IStatus), new StatusFactory());
-			_readerFactories.Add(typeof(IStatusHistory), new StatusHistoryFactory());
-			_readerFactories.Add(typeof(IStatistic), new StatisticFactory());
-			_readerFactories.Add(typeof(IMissing), new MissingFactory());
-		}
+            _readerFactories.Add(typeof(IStatus), new StatusFactory());
+            _readerFactories.Add(typeof(IStatusHistory), new StatusHistoryFactory());
+            _readerFactories.Add(typeof(IStatistic), new StatisticFactory());
+            _readerFactories.Add(typeof(IMissing), new MissingFactory());
+        }
 
         public static IStringFactory<TReturnType> GetStringFactory<TReturnType>()
         {
             var type = typeof(TReturnType);
 
             if (!_readerFactories.ContainsKey(type))
+            {
                 throw new NotSupportedException($"Factory for {type} is not known");
+            }
 
             return (IStringFactory<TReturnType>)_readerFactories[type];
         }

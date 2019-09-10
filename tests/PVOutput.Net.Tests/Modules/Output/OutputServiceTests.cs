@@ -1,228 +1,228 @@
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using PVOutput.Net.Requests.Modules;
 using PVOutput.Net.Tests.Utils;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PVOutput.Net.Tests.Modules.Output
 {
-	[TestFixture]
-	public class OutputServiceTests
-	{
-		//TODO: vastly improve tests; split by object parsing (deserializing) and just testing the correct response is returned
+    [TestFixture]
+    public class OutputServiceTests
+    {
+        //TODO: vastly improve tests; split by object parsing (deserializing) and just testing the correct response is returned
 
-		[Test]
-		public async Task OutputService_WithBareData_GetDaily()
-		{
-			DateTime mockDate = new DateTime(2016, 10, 1);
+        [Test]
+        public async Task OutputService_WithBareData_GetDaily()
+        {
+            DateTime mockDate = new DateTime(2016, 10, 1);
 
-			var client = TestUtility.GetMockClient(OutputServiceTestsData.GETOUTPUT_URL, OutputServiceTestsData.OUTPUT_RESPONSE_BARE);
-			var response = await client.Output.GetOutputForDateAsync(mockDate, false);
+            var client = TestUtility.GetMockClient(OutputServiceTestsData.GETOUTPUT_URL, OutputServiceTestsData.OUTPUT_RESPONSE_BARE);
+            var response = await client.Output.GetOutputForDateAsync(mockDate, false);
 
-			if (response.Exception != null)
-			{
-				throw response.Exception;
-			}
+            if (response.Exception != null)
+            {
+                throw response.Exception;
+            }
 
-			Assert.IsTrue(response.HasValue);
-			Assert.IsNotNull(response.IsSuccess);
+            Assert.IsTrue(response.HasValue);
+            Assert.IsNotNull(response.IsSuccess);
 
-			var output = response.Value;
-			Assert.AreEqual(mockDate, output.Date);
-		}
-
-
-		[Test]
-		public async Task OutputService_GetDaily()
-		{
-			DateTime mockDate = new DateTime(2018, 9, 1);
-
-			var client = TestUtility.GetMockClient(OutputServiceTestsData.GETOUTPUT_URL, OutputServiceTestsData.OUTPUT_RESPONSE_DAY);
-			var response = await client.Output.GetOutputForDateAsync(mockDate, false);
-
-			if (response.Exception != null)
-			{
-				throw response.Exception;
-			}
-
-			Assert.IsTrue(response.HasValue);
-			Assert.IsNotNull(response.Value);
-			Assert.IsTrue(response.IsSuccess);
-
-			var output = response.Value;
-			Assert.AreEqual(mockDate, output.Date);
-		}
-
-		[Test]
-		public async Task OutputService_GetWeek()
-		{
-			DateTime fromDate = new DateTime(2018, 9, 1);
-			DateTime toDate = new DateTime(2018, 9, 7);
-
-			var client = TestUtility.GetMockClient(OutputServiceTestsData.GETOUTPUT_URL, OutputServiceTestsData.OUTPUT_RESPONSE_WEEK);
-			var response = await client.Output.GetOutputsForPeriodAsync(fromDate, toDate, false);
-
-			if (response.Exception != null)
-			{
-				throw response.Exception;
-			}
-
-			Assert.IsTrue(response.HasValue);
-			Assert.IsNotNull(response.Value);
-			Assert.IsTrue(response.IsSuccess);
-
-			var outputs = response.Value.OrderBy((o) => o.Date);
-
-			Assert.AreEqual(fromDate, outputs.First().Date);
-			Assert.AreEqual(toDate, outputs.Last().Date);
-			Assert.AreEqual(7, outputs.Count());
-		}
+            var output = response.Value;
+            Assert.AreEqual(mockDate, output.Date);
+        }
 
 
-		[Test]
-		public async Task OutputService_WithInsolation_GetDaily()
-		{
-			DateTime mockDate = new DateTime(2018, 9, 1);
+        [Test]
+        public async Task OutputService_GetDaily()
+        {
+            DateTime mockDate = new DateTime(2018, 9, 1);
 
-			var client = TestUtility.GetMockClient(OutputServiceTestsData.GETOUTPUT_URL, OutputServiceTestsData.OUTPUT_WITH_INSOLATION_RESPONSE_DAY);
-			var response = await client.Output.GetOutputForDateAsync(mockDate, true);
+            var client = TestUtility.GetMockClient(OutputServiceTestsData.GETOUTPUT_URL, OutputServiceTestsData.OUTPUT_RESPONSE_DAY);
+            var response = await client.Output.GetOutputForDateAsync(mockDate, false);
 
-			if (response.Exception != null)
-			{
-				throw response.Exception;
-			}
+            if (response.Exception != null)
+            {
+                throw response.Exception;
+            }
 
-			Assert.IsTrue(response.HasValue);
-			Assert.IsNotNull(response.Value);
-			Assert.IsTrue(response.IsSuccess);
+            Assert.IsTrue(response.HasValue);
+            Assert.IsNotNull(response.Value);
+            Assert.IsTrue(response.IsSuccess);
 
-			var output = response.Value;
-			Assert.AreEqual(mockDate, output.Date);
-			Assert.AreEqual(15197, output.Insolation);
-		}
+            var output = response.Value;
+            Assert.AreEqual(mockDate, output.Date);
+        }
 
-		[Test]
-		public async Task OutputService_WithInsolation_GetWeek()
-		{
-			DateTime fromDate = new DateTime(2018, 9, 1);
-			DateTime toDate = new DateTime(2018, 9, 7);
+        [Test]
+        public async Task OutputService_GetWeek()
+        {
+            DateTime fromDate = new DateTime(2018, 9, 1);
+            DateTime toDate = new DateTime(2018, 9, 7);
 
-			var client = TestUtility.GetMockClient(OutputServiceTestsData.GETOUTPUT_URL, OutputServiceTestsData.OUTPUT_WITH_INSOLATION_RESPONSE_WEEK);
-			var response = await client.Output.GetOutputsForPeriodAsync(fromDate, toDate, true);
+            var client = TestUtility.GetMockClient(OutputServiceTestsData.GETOUTPUT_URL, OutputServiceTestsData.OUTPUT_RESPONSE_WEEK);
+            var response = await client.Output.GetOutputsForPeriodAsync(fromDate, toDate, false);
 
-			if (response.Exception != null)
-			{
-				throw response.Exception;
-			}
+            if (response.Exception != null)
+            {
+                throw response.Exception;
+            }
 
-			Assert.IsTrue(response.HasValue);
-			Assert.IsNotNull(response.Value);
-			Assert.IsTrue(response.IsSuccess);
+            Assert.IsTrue(response.HasValue);
+            Assert.IsNotNull(response.Value);
+            Assert.IsTrue(response.IsSuccess);
 
-			var outputs = response.Value.OrderBy((o) => o.Date);
+            var outputs = response.Value.OrderBy((o) => o.Date);
 
-			Assert.AreEqual(15197, outputs.First().Insolation);
-			Assert.AreEqual(fromDate, outputs.First().Date);
-			Assert.AreEqual(toDate, outputs.Last().Date);
-			Assert.AreEqual(7, outputs.Count());
-		}
+            Assert.AreEqual(fromDate, outputs.First().Date);
+            Assert.AreEqual(toDate, outputs.Last().Date);
+            Assert.AreEqual(7, outputs.Count());
+        }
 
-		[Test]
-		public async Task OutputService_Team_GetDaily()
-		{
-			DateTime mockDate = new DateTime(2018, 9, 1);
 
-			var client = TestUtility.GetMockClient(OutputServiceTestsData.GETOUTPUT_URL, OutputServiceTestsData.TEAMOUTPUT_RESPONSE_DAY);
-			var response = await client.Output.GetTeamOutputForDateAsync(mockDate, TestConstants.PVOUTPUT_TEAM_ID);
+        [Test]
+        public async Task OutputService_WithInsolation_GetDaily()
+        {
+            DateTime mockDate = new DateTime(2018, 9, 1);
 
-			if (response.Exception != null)
-			{
-				throw response.Exception;
-			}
+            var client = TestUtility.GetMockClient(OutputServiceTestsData.GETOUTPUT_URL, OutputServiceTestsData.OUTPUT_WITH_INSOLATION_RESPONSE_DAY);
+            var response = await client.Output.GetOutputForDateAsync(mockDate, true);
 
-			Assert.IsTrue(response.HasValue);
-			Assert.IsNotNull(response.Value);
-			Assert.IsTrue(response.IsSuccess);
+            if (response.Exception != null)
+            {
+                throw response.Exception;
+            }
 
-			var output = response.Value;
-			Assert.AreEqual(mockDate, output.Date);
-		}
+            Assert.IsTrue(response.HasValue);
+            Assert.IsNotNull(response.Value);
+            Assert.IsTrue(response.IsSuccess);
 
-		[Test]
-		public async Task OutputService_Team_GetWeek()
-		{
-			DateTime fromDate = new DateTime(2018, 9, 1);
-			DateTime toDate = new DateTime(2018, 9, 7);
+            var output = response.Value;
+            Assert.AreEqual(mockDate, output.Date);
+            Assert.AreEqual(15197, output.Insolation);
+        }
 
-			var client = TestUtility.GetMockClient(OutputServiceTestsData.GETOUTPUT_URL, OutputServiceTestsData.TEAMOUTPUT_RESPONSE_WEEK);
-			var response = await client.Output.GetTeamOutputsForPeriodAsync(fromDate, toDate, TestConstants.PVOUTPUT_TEAM_ID);
+        [Test]
+        public async Task OutputService_WithInsolation_GetWeek()
+        {
+            DateTime fromDate = new DateTime(2018, 9, 1);
+            DateTime toDate = new DateTime(2018, 9, 7);
 
-			if (response.Exception != null)
-			{
-				throw response.Exception;
-			}
+            var client = TestUtility.GetMockClient(OutputServiceTestsData.GETOUTPUT_URL, OutputServiceTestsData.OUTPUT_WITH_INSOLATION_RESPONSE_WEEK);
+            var response = await client.Output.GetOutputsForPeriodAsync(fromDate, toDate, true);
 
-			Assert.IsTrue(response.HasValue);
-			Assert.IsNotNull(response.Value);
-			Assert.IsTrue(response.IsSuccess);
+            if (response.Exception != null)
+            {
+                throw response.Exception;
+            }
 
-			var outputs = response.Value.OrderBy((o) => o.Date);
+            Assert.IsTrue(response.HasValue);
+            Assert.IsNotNull(response.Value);
+            Assert.IsTrue(response.IsSuccess);
 
-			Assert.AreEqual(fromDate, outputs.First().Date);
-			Assert.AreEqual(toDate, outputs.Last().Date);
-			Assert.AreEqual(7, outputs.Count());
-		}
+            var outputs = response.Value.OrderBy((o) => o.Date);
 
-		[Test]
-		public async Task OutputService_Aggregated_GetByMonth()
-		{
-			DateTime fromDate = new DateTime(2018, 1, 1);
-			DateTime toDate = new DateTime(2018, 6, 30);
+            Assert.AreEqual(15197, outputs.First().Insolation);
+            Assert.AreEqual(fromDate, outputs.First().Date);
+            Assert.AreEqual(toDate, outputs.Last().Date);
+            Assert.AreEqual(7, outputs.Count());
+        }
 
-			var client = TestUtility.GetMockClient(OutputServiceTestsData.GETOUTPUT_URL, OutputServiceTestsData.AGGREGATEDOUTPUT_RESPONSE_MONTH);
-			var response = await client.Output.GetAggregatedOutputsAsync(fromDate, toDate, AggregationPeriod.Month);
+        [Test]
+        public async Task OutputService_Team_GetDaily()
+        {
+            DateTime mockDate = new DateTime(2018, 9, 1);
 
-			if (response.Exception != null)
-			{
-				throw response.Exception;
-			}
+            var client = TestUtility.GetMockClient(OutputServiceTestsData.GETOUTPUT_URL, OutputServiceTestsData.TEAMOUTPUT_RESPONSE_DAY);
+            var response = await client.Output.GetTeamOutputForDateAsync(mockDate, TestConstants.PVOUTPUT_TEAM_ID);
 
-			Assert.IsTrue(response.HasValue);
-			Assert.IsNotNull(response.Value);
-			Assert.IsTrue(response.IsSuccess);
+            if (response.Exception != null)
+            {
+                throw response.Exception;
+            }
 
-			var outputs = response.Value.OrderBy((o) => o.Date);
+            Assert.IsTrue(response.HasValue);
+            Assert.IsNotNull(response.Value);
+            Assert.IsTrue(response.IsSuccess);
 
-			Assert.AreEqual(fromDate.Month, outputs.First().Date.Month);
-			Assert.AreEqual(toDate.Month, outputs.Last().Date.Month);
-			Assert.AreEqual(6, outputs.Count());
-		}
+            var output = response.Value;
+            Assert.AreEqual(mockDate, output.Date);
+        }
 
-		[Test]
-		public async Task OutputService_Aggregated_GetByYear()
-		{
-			DateTime fromDate = new DateTime(2016, 1, 1);
-			DateTime toDate = new DateTime(2018, 12, 31);
+        [Test]
+        public async Task OutputService_Team_GetWeek()
+        {
+            DateTime fromDate = new DateTime(2018, 9, 1);
+            DateTime toDate = new DateTime(2018, 9, 7);
 
-			var client = TestUtility.GetMockClient(OutputServiceTestsData.GETOUTPUT_URL, OutputServiceTestsData.AGGREGATEDOUPUT_RESPONSE_YEAR);
-			var response = await client.Output.GetAggregatedOutputsAsync(fromDate, toDate, AggregationPeriod.Year);
+            var client = TestUtility.GetMockClient(OutputServiceTestsData.GETOUTPUT_URL, OutputServiceTestsData.TEAMOUTPUT_RESPONSE_WEEK);
+            var response = await client.Output.GetTeamOutputsForPeriodAsync(fromDate, toDate, TestConstants.PVOUTPUT_TEAM_ID);
 
-			if (response.Exception != null)
-			{
-				throw response.Exception;
-			}
+            if (response.Exception != null)
+            {
+                throw response.Exception;
+            }
 
-			Assert.IsTrue(response.HasValue);
-			Assert.IsNotNull(response.Value);
-			Assert.IsTrue(response.IsSuccess);
+            Assert.IsTrue(response.HasValue);
+            Assert.IsNotNull(response.Value);
+            Assert.IsTrue(response.IsSuccess);
 
-			var outputs = response.Value.OrderBy((o) => o.Date);
+            var outputs = response.Value.OrderBy((o) => o.Date);
 
-			Assert.AreEqual(fromDate.Year, outputs.First().Date.Year);
-			Assert.AreEqual(toDate.Year, outputs.Last().Date.Year);
-			Assert.AreEqual(3, outputs.Count());
-		}
+            Assert.AreEqual(fromDate, outputs.First().Date);
+            Assert.AreEqual(toDate, outputs.Last().Date);
+            Assert.AreEqual(7, outputs.Count());
+        }
 
-	}
+        [Test]
+        public async Task OutputService_Aggregated_GetByMonth()
+        {
+            DateTime fromDate = new DateTime(2018, 1, 1);
+            DateTime toDate = new DateTime(2018, 6, 30);
+
+            var client = TestUtility.GetMockClient(OutputServiceTestsData.GETOUTPUT_URL, OutputServiceTestsData.AGGREGATEDOUTPUT_RESPONSE_MONTH);
+            var response = await client.Output.GetAggregatedOutputsAsync(fromDate, toDate, AggregationPeriod.Month);
+
+            if (response.Exception != null)
+            {
+                throw response.Exception;
+            }
+
+            Assert.IsTrue(response.HasValue);
+            Assert.IsNotNull(response.Value);
+            Assert.IsTrue(response.IsSuccess);
+
+            var outputs = response.Value.OrderBy((o) => o.Date);
+
+            Assert.AreEqual(fromDate.Month, outputs.First().Date.Month);
+            Assert.AreEqual(toDate.Month, outputs.Last().Date.Month);
+            Assert.AreEqual(6, outputs.Count());
+        }
+
+        [Test]
+        public async Task OutputService_Aggregated_GetByYear()
+        {
+            DateTime fromDate = new DateTime(2016, 1, 1);
+            DateTime toDate = new DateTime(2018, 12, 31);
+
+            var client = TestUtility.GetMockClient(OutputServiceTestsData.GETOUTPUT_URL, OutputServiceTestsData.AGGREGATEDOUPUT_RESPONSE_YEAR);
+            var response = await client.Output.GetAggregatedOutputsAsync(fromDate, toDate, AggregationPeriod.Year);
+
+            if (response.Exception != null)
+            {
+                throw response.Exception;
+            }
+
+            Assert.IsTrue(response.HasValue);
+            Assert.IsNotNull(response.Value);
+            Assert.IsTrue(response.IsSuccess);
+
+            var outputs = response.Value.OrderBy((o) => o.Date);
+
+            Assert.AreEqual(fromDate.Year, outputs.First().Date.Year);
+            Assert.AreEqual(toDate.Year, outputs.Last().Date.Year);
+            Assert.AreEqual(3, outputs.Count());
+        }
+
+    }
 }

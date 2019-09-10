@@ -1,7 +1,6 @@
-using PVOutput.Net.Enums;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using PVOutput.Net.Enums;
 
 namespace PVOutput.Net.Objects.Modules.Implementations
 {
@@ -45,11 +44,11 @@ namespace PVOutput.Net.Objects.Modules.Implementations
         // Donations
         public int Donations { get; set; }
 
-		// Extended data config
-		public IReadOnlyList<ExtendedDataElement> ExtendedDataConfig { get; set; }
+        // Extended data config
+        public IReadOnlyList<ExtendedDataElement> ExtendedDataConfig { get; set; }
 
-		// Estimates - Only owner system
-		public IReadOnlyDictionary<PVMonth, int> MonthlyGenerationEstimates { get; set; }
-		public IReadOnlyDictionary<PVMonth, int> MonthlyConsumptionEstimates { get; set; }
-	}
+        // Estimates - Only owner system
+        public IReadOnlyDictionary<PVMonth, int> MonthlyGenerationEstimates { get; set; }
+        public IReadOnlyDictionary<PVMonth, int> MonthlyConsumptionEstimates { get; set; }
+    }
 }

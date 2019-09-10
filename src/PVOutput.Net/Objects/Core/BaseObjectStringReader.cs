@@ -1,30 +1,31 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace PVOutput.Net.Objects.Core
 {
-	internal abstract class BaseObjectStringReader<TReturnType> : IObjectStringReader<TReturnType>
+    internal abstract class BaseObjectStringReader<TReturnType> : IObjectStringReader<TReturnType>
     {
-		protected const char ItemDelimiter = ',';
-		protected const char GroupDelimiter = ';';
+        protected const char ItemDelimiter = ',';
+        protected const char GroupDelimiter = ';';
 
-		public abstract TReturnType CreateObjectInstance();
+        public abstract TReturnType CreateObjectInstance();
 
-		protected List<Action<TReturnType, TextReader>> _parsers;
+        protected List<Action<TReturnType, TextReader>> _parsers;
 
-		public BaseObjectStringReader()
-		{
-			_parsers = new List<Action<TReturnType, TextReader>>();
-		}
+        public BaseObjectStringReader()
+        {
+            _parsers = new List<Action<TReturnType, TextReader>>();
+        }
 
-		public virtual async Task<TReturnType> ReadObjectAsync(Stream stream, CancellationToken cancellationToken = default)
+        public virtual async Task<TReturnType> ReadObjectAsync(Stream stream, CancellationToken cancellationToken = default)
         {
             if (stream == null)
+            {
                 return await Task.FromResult(default(TReturnType));
+            }
 
             using (TextReader textReader = new StreamReader(stream))
             {
@@ -38,77 +39,79 @@ namespace PVOutput.Net.Objects.Core
             {
                 TReturnType output = CreateObjectInstance();
                 ParseProperties(output, reader);
-				return output;
+                return output;
             }
 
             return await Task.FromResult(GetDefaultResult());
         }
 
-		protected virtual TReturnType GetDefaultResult()
-		{
-			return default;
-		}
+        protected virtual TReturnType GetDefaultResult()
+        {
+            return default;
+        }
 
-		private void ParseProperties(TReturnType target, TextReader reader, CancellationToken cancellationToken = default)
-		{
-			foreach (var parser in _parsers)
-			{
-				cancellationToken.ThrowIfCancellationRequested();
+        private void ParseProperties(TReturnType target, TextReader reader, CancellationToken cancellationToken = default)
+        {
+            foreach (var parser in _parsers)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
 
-				parser(target, reader);
-			}
-		}
+                parser(target, reader);
+            }
+        }
 
-		protected void ParsePropertyArray(TReturnType target, TextReader reader, Action<TReturnType, string>[] properties)
-		{
-			for (int i = 0; i < properties.Length; i++)
-			{
-				properties[i](target, ReadProperty(reader));
-			}
-		}
+        protected void ParsePropertyArray(TReturnType target, TextReader reader, Action<TReturnType, string>[] properties)
+        {
+            for (int i = 0; i < properties.Length; i++)
+            {
+                properties[i](target, ReadProperty(reader));
+            }
+        }
 
-		protected IList<string> ReadPropertiesForGroup(TextReader reader)
-		{
-			var result = new List<string>();
-			var characters = new List<char>();
-			while (reader.Peek() >= 0)
-			{
-				var c = (char)reader.Read();
+        protected IList<string> ReadPropertiesForGroup(TextReader reader)
+        {
+            var result = new List<string>();
+            var characters = new List<char>();
+            while (reader.Peek() >= 0)
+            {
+                var c = (char)reader.Read();
 
-				if (c == ItemDelimiter || c == GroupDelimiter)
-				{
-					result.Add(new string(characters.ToArray()));
+                if (c == ItemDelimiter || c == GroupDelimiter)
+                {
+                    result.Add(new string(characters.ToArray()));
 
-					if (c == GroupDelimiter)
-						return result;
+                    if (c == GroupDelimiter)
+                    {
+                        return result;
+                    }
 
-					characters.Clear();
-					continue;
-				}
+                    characters.Clear();
+                    continue;
+                }
 
-				characters.Add(c);
-			}
+                characters.Add(c);
+            }
 
-			result.Add(new string(characters.ToArray()));
-			return result;
-		}
+            result.Add(new string(characters.ToArray()));
+            return result;
+        }
 
-		protected string ReadProperty(TextReader reader)
-		{
-			var characters = new List<char>();
-			while (reader.Peek() >= 0)
-			{
-				var c = (char)reader.Read();
+        protected string ReadProperty(TextReader reader)
+        {
+            var characters = new List<char>();
+            while (reader.Peek() >= 0)
+            {
+                var c = (char)reader.Read();
 
-				if (c == ItemDelimiter || c == GroupDelimiter)
-				{
-					return new string(characters.ToArray());
-				}
+                if (c == ItemDelimiter || c == GroupDelimiter)
+                {
+                    return new string(characters.ToArray());
+                }
 
-				characters.Add(c);
-			}
+                characters.Add(c);
+            }
 
-			return new string(characters.ToArray());
-		}
-	}
+            return new string(characters.ToArray());
+        }
+    }
 }

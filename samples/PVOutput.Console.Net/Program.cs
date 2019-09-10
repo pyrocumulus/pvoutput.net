@@ -1,7 +1,6 @@
-using PVOutput.Net;
-using PVOutput.Net.Objects.Modules;
 using System;
 using System.Threading.Tasks;
+using PVOutput.Net.Objects.Modules;
 
 namespace PVOutput.Net.Sample
 {
@@ -11,30 +10,30 @@ namespace PVOutput.Net.Sample
         {
             var apiKey = Environment.GetEnvironmentVariable("PVOutput-ApiKey");
             var systemIdString = Environment.GetEnvironmentVariable("PVOutput-SystemId");
-			var systemId = systemIdString == "" ? 0 : Convert.ToInt32(systemIdString);
-			var client = new PVOutputClient(apiKey, systemId);
+            var systemId = systemIdString == "" ? 0 : Convert.ToInt32(systemIdString);
+            var client = new PVOutputClient(apiKey, systemId);
 
-			// Request output for today
+            // Request output for today
             var outputResponse = await client.Output.GetOutputForDateAsync(DateTime.Today);
-			var output = outputResponse.Value;
+            var output = outputResponse.Value;
 
-			Console.WriteLine("Output for past 7 days");
-			Console.WriteLine("----------------------");
-			OutputDate(output);
+            Console.WriteLine("Output for past 7 days");
+            Console.WriteLine("----------------------");
+            OutputDate(output);
 
-			// Request outputs for previous 6 days
-			var outputs = await client.Output.GetOutputsForPeriodAsync(DateTime.Today.AddDays(-6), DateTime.Today.AddDays(-1));
-			foreach (var dayOutput in outputs.Value)
-			{
-				OutputDate(dayOutput);
-			}
+            // Request outputs for previous 6 days
+            var outputs = await client.Output.GetOutputsForPeriodAsync(DateTime.Today.AddDays(-6), DateTime.Today.AddDays(-1));
+            foreach (var dayOutput in outputs.Value)
+            {
+                OutputDate(dayOutput);
+            }
 
-			Console.ReadLine();
+            Console.ReadLine();
         }
 
-		private static void OutputDate(IOutput output)
-		{
-			Console.WriteLine($"Output for date {output.Date.ToShortDateString()}, {output.EnergyGenerated} Wh generated");
-		}
-	}
+        private static void OutputDate(IOutput output)
+        {
+            Console.WriteLine($"Output for date {output.Date.ToShortDateString()}, {output.EnergyGenerated} Wh generated");
+        }
+    }
 }

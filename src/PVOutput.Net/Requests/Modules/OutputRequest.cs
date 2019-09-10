@@ -1,10 +1,9 @@
-using PVOutput.Net.Objects.Core;
-using PVOutput.Net.Requests.Base;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
+using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Objects.Modules;
+using PVOutput.Net.Requests.Base;
 
 namespace PVOutput.Net.Requests.Modules
 {
@@ -37,7 +36,9 @@ namespace PVOutput.Net.Requests.Modules
         private string GetAggregationParameter(AggregationPeriod? aggregationPeriod)
         {
             if (aggregationPeriod == null)
+            {
                 return null;
+            }
 
             return aggregationPeriod == Modules.AggregationPeriod.Month ? "m" : "y";
         }

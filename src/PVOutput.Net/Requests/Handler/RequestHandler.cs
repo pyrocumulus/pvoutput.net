@@ -1,14 +1,13 @@
-﻿using PVOutput.Net.Objects.Factories;
-using PVOutput.Net.Requests.Base;
-using PVOutput.Net.Responses;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using PVOutput.Net.Objects.Factories;
+using PVOutput.Net.Requests.Base;
+using PVOutput.Net.Responses;
 using Tavis.UriTemplates;
 
 namespace PVOutput.Net.Requests.Handler
@@ -47,7 +46,9 @@ namespace PVOutput.Net.Requests.Handler
             catch (Exception ex)
             {
                 if (_client.ThrowResponseExceptions)
+                {
                     throw;
+                }
 
                 return new PVOutputResponse<TResponseContentType>() { IsSuccess = false, Exception = ex };
             }
@@ -82,7 +83,9 @@ namespace PVOutput.Net.Requests.Handler
             catch (Exception ex)
             {
                 if (_client.ThrowResponseExceptions)
+                {
                     throw;
+                }
 
                 return new PVOutputArrayResponse<TResponseContentType>() { IsSuccess = false, Exception = ex };
             }
@@ -97,11 +100,19 @@ namespace PVOutput.Net.Requests.Handler
             var result = new PVOutputApiRateInformation();
 
             if (responseMessage.Headers.Contains("X-Rate-Limit-Remaining"))
+            {
                 result.LimitRemaining = Convert.ToInt32(responseMessage.Headers.GetValues("X-Rate-Limit-Remaining").First());
+            }
+
             if (responseMessage.Headers.Contains("X-Rate-Limit-Limit"))
+            {
                 result.CurrentLimit = Convert.ToInt32(responseMessage.Headers.GetValues("X-Rate-Limit-Limit").First());
+            }
+
             if (responseMessage.Headers.Contains("X-Rate-Limit-Reset"))
+            {
                 result.LimitResetAt = DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(responseMessage.Headers.GetValues("X-Rate-Limit-Reset").First())).UtcDateTime;
+            }
 
             return result;
         }
@@ -121,7 +132,9 @@ namespace PVOutput.Net.Requests.Handler
             var requestTemplate = new UriTemplate(request.UriTemplate);
 
             foreach (KeyValuePair<string, object> parameter in request.GetUriPathParameters())
+            {
                 requestTemplate.AddParameter(parameter.Key, parameter.Value);
+            }
 
             string apiUri = requestTemplate.Resolve();
             return $"{_client.PVOutputBaseUri}{apiUri}";

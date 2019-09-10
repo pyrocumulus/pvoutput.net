@@ -1,13 +1,8 @@
-﻿using NUnit.Framework;
+﻿using System.Net.Http;
+using NUnit.Framework;
 using PVOutput.Net.Requests.Handler;
 using PVOutput.Net.Tests.Utils;
 using RichardSzalay.MockHttp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PVOutput.Net.Tests.Requests.Handler
 {
@@ -15,7 +10,7 @@ namespace PVOutput.Net.Tests.Requests.Handler
     {
         private readonly MockHttpMessageHandler _mockHttpMessageHandler;
 
-        public TestHttpClientProvider() 
+        public TestHttpClientProvider()
         {
             _mockHttpMessageHandler = new MockHttpMessageHandler();
         }
