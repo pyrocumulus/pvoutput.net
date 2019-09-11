@@ -20,6 +20,7 @@ namespace PVOutput.Net.Objects.Factories
             _readerFactories.Add(typeof(IStatistic), new StatisticFactory());
             _readerFactories.Add(typeof(IMissing), new MissingFactory());
             _readerFactories.Add(typeof(ITeam), new TeamFactory());
+            _readerFactories.Add(typeof(IExtended), new ExtendedFactory());
         }
 
         public static IStringFactory<TReturnType> GetStringFactory<TReturnType>()

@@ -18,6 +18,7 @@ namespace PVOutput.Net
         public StatisticsService Statistics { get; }
         public MissingService Missing { get; }
         public TeamService Team { get; }
+        public ExtendedService Extended { get; }
 
         public PVOutputClient(IHttpClientProvider httpClientProvider = default)
         {
@@ -29,6 +30,7 @@ namespace PVOutput.Net
             Statistics = new StatisticsService(this);
             Missing = new MissingService(this);
             Team = new TeamService(this);
+            Extended = new ExtendedService(this);
         }
 
         public PVOutputClient(string apiKey, int ownedSystemId, IHttpClientProvider httpClientProvider = default)
