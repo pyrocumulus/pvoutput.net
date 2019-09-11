@@ -6,7 +6,7 @@ namespace PVOutput.Net.Objects.Factories
 {
     internal class StatisticFactory : IStringFactory<IStatistic>
     {
-        public IArrayStringReader<IStatistic> CreateArrayReader() => new SemiColonSeparatedArrayStringReader<IStatistic>();
+        public IArrayStringReader<IStatistic> CreateArrayReader() => new CharacterDelimitedArrayStringReader<IStatistic>();
 
         public IObjectStringReader<IStatistic> CreateObjectReader() => new StatisticObjectStringReader();
     }

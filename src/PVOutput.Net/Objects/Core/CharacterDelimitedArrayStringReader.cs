@@ -1,3 +1,4 @@
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
@@ -6,9 +7,14 @@ using PVOutput.Net.Objects.Factories;
 
 namespace PVOutput.Net.Objects.Core
 {
-    internal class SemiColonSeparatedArrayStringReader<T> : BaseArrayStringReader<T>
+    internal class CharacterDelimitedArrayStringReader<T> : BaseArrayStringReader<T>
     {
-        private const char delimiter = ';';
+        public char[] Delimiter { get; }
+
+        public CharacterDelimitedArrayStringReader(char delimiter = ';')
+        {
+            Delimiter = new char[] { delimiter };
+        }
 
         public override async Task<IEnumerable<T>> ReadArrayAsync(TextReader reader, CancellationToken cancellationToken = default)
         {
@@ -21,14 +27,14 @@ namespace PVOutput.Net.Objects.Core
 
             if (!string.IsNullOrEmpty(content))
             {
-                var results = content.Split(delimiter);
+                var results = content.Split(Delimiter, StringSplitOptions.RemoveEmptyEntries);
 
                 var objectReader = StringFactoryContainer.CreateObjectReader<T>();
                 var objects = new List<T>();
 
                 foreach (string outputString in results)
                 {
-#warning this has to go away
+#warning this should work the same as other readers, while / read / peek, instead of reading and splitting the complete content
                     T output = await objectReader.ReadObjectAsync(new StringReader(outputString), cancellationToken);
                     objects.Add(output);
                 }

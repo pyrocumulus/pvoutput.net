@@ -1,6 +1,6 @@
-using PVOutput.Net.Objects.Core;
+﻿using PVOutput.Net.Objects.Core;
 
-namespace PVOutput.Net.Objects.Factories
+namespace PVOutput.Net.Objects.Core
 {
     public interface IStringFactory<TObjectType>
     {

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
@@ -8,8 +8,11 @@ namespace PVOutput.Net.Objects.Core
 {
     internal abstract class BaseObjectStringReader<TReturnType> : IObjectStringReader<TReturnType>
     {
-        protected const char ItemDelimiter = ',';
-        protected const char GroupDelimiter = ';';
+        protected const char DefaultItemDelimiter = ',';
+        protected const char DefaultGroupDelimiter = ';';
+
+        protected virtual char ItemDelimiter => DefaultItemDelimiter;
+        protected virtual char GroupDelimiter => DefaultGroupDelimiter;
 
         public abstract TReturnType CreateObjectInstance();
 

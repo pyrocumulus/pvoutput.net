@@ -6,7 +6,7 @@ namespace PVOutput.Net.Objects.Factories
 {
     internal class SystemFactory : IStringFactory<ISystem>
     {
-        public IArrayStringReader<ISystem> CreateArrayReader() => new SemiColonSeparatedArrayStringReader<ISystem>();
+        public IArrayStringReader<ISystem> CreateArrayReader() => new CharacterDelimitedArrayStringReader<ISystem>();
 
         public IObjectStringReader<ISystem> CreateObjectReader() => new SystemObjectStringReader();
     }

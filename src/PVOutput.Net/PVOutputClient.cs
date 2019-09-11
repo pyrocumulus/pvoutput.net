@@ -19,7 +19,7 @@ namespace PVOutput.Net
         public MissingService Missing { get; }
         public TeamService Team { get; }
         public ExtendedService Extended { get; }
-
+        public FavouriteService Favourite { get; }
         public PVOutputClient(IHttpClientProvider httpClientProvider = default)
         {
             HttpClientProvider = httpClientProvider ?? new HttpClientProvider(this);
@@ -31,6 +31,7 @@ namespace PVOutput.Net
             Missing = new MissingService(this);
             Team = new TeamService(this);
             Extended = new ExtendedService(this);
+            Favourite = new FavouriteService(this);
         }
 
         public PVOutputClient(string apiKey, int ownedSystemId, IHttpClientProvider httpClientProvider = default)

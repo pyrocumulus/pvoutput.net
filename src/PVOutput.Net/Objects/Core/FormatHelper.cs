@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Globalization;
 
 namespace PVOutput.Net.Objects.Core
@@ -8,6 +8,14 @@ namespace PVOutput.Net.Objects.Core
         internal static DateTime ParseDate(string dateString)
         {
             return DateTime.ParseExact(dateString, new string[] { "yyyyMMdd", "yyyyMM", "yyyy" }, CultureInfo.InvariantCulture.DateTimeFormat, DateTimeStyles.AssumeLocal);
+        }
+
+        internal static DateTime? ParseOptionalDate(string dateString)
+        {
+            if (string.IsNullOrEmpty(dateString))
+                return null;
+
+            return ParseDate(dateString);
         }
 
         internal static DateTime ParseTime(string timeString)

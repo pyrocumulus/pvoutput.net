@@ -7,7 +7,7 @@ namespace PVOutput.Net.Objects.Factories
 {
     internal class ExtendedFactory : IStringFactory<IExtended>
     {
-        public IArrayStringReader<IExtended> CreateArrayReader() => new SemiColonSeparatedArrayStringReader<IExtended>();
+        public IArrayStringReader<IExtended> CreateArrayReader() => new CharacterDelimitedArrayStringReader<IExtended>();
 
         public IObjectStringReader<IExtended> CreateObjectReader() => new ExtendedObjectStringReader();
     }

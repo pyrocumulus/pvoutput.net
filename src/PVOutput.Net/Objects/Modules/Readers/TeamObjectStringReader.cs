@@ -9,6 +9,8 @@ namespace PVOutput.Net.Objects.Modules.Readers
     {
         public override ITeam CreateObjectInstance() => new Team();
 
+        protected override char ItemDelimiter => ';';
+
         public TeamObjectStringReader()
         {
             var properties = new Action<ITeam, string>[]

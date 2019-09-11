@@ -6,7 +6,7 @@ namespace PVOutput.Net.Objects.Factories
 {
     internal class TeamOutputFactory : IStringFactory<ITeamOutput>
     {
-        public IArrayStringReader<ITeamOutput> CreateArrayReader() => new SemiColonSeparatedArrayStringReader<ITeamOutput>();
+        public IArrayStringReader<ITeamOutput> CreateArrayReader() => new CharacterDelimitedArrayStringReader<ITeamOutput>();
 
         public IObjectStringReader<ITeamOutput> CreateObjectReader() => new TeamOutputObjectStringReader();
     }

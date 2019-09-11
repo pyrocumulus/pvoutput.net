@@ -6,7 +6,7 @@ namespace PVOutput.Net.Objects.Factories
 {
     internal class StatusFactory : IStringFactory<IStatus>
     {
-        public IArrayStringReader<IStatus> CreateArrayReader() => new SemiColonSeparatedArrayStringReader<IStatus>();
+        public IArrayStringReader<IStatus> CreateArrayReader() => new CharacterDelimitedArrayStringReader<IStatus>();
 
         public IObjectStringReader<IStatus> CreateObjectReader() => new StatusObjectStringReader();
     }
