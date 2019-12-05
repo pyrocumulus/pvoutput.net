@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using PVOutput.Net.Objects.Modules;
 
@@ -26,6 +26,16 @@ namespace PVOutput.Net.Sample
             foreach (var dayOutput in outputs.Value)
             {
                 OutputDate(dayOutput);
+            }
+
+            Console.WriteLine("Insolation");
+            Console.WriteLine("----------------------");
+
+            // Request insolation values for 1st of june, for own system - DONATION ONLY
+            var insolations = await client.Insolation.GetInsolationForOwnSystem(new DateTime(2019, 6, 1));
+            foreach (var insolation in insolations.Value)
+            {
+                Console.WriteLine($"Insolation on {insolation.Time}, Energy {insolation.Energy} Power {insolation.Power}");
             }
 
             Console.ReadLine();

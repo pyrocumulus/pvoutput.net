@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Objects.Modules;
 using PVOutput.Net.Requests.Base;
 
@@ -18,8 +19,8 @@ namespace PVOutput.Net.Requests.Modules
 
         public override IDictionary<string, object> GetUriPathParameters() => new Dictionary<string, object>
         {
-            ["df"] = FromDate,
-            ["dt"] = ToDate,
+            ["df"] = FromDate != null ? FormatHelper.GetDateAsString(FromDate.Value) : null,
+            ["dt"] = ToDate != null ? FormatHelper.GetDateAsString(ToDate.Value) : null,
             ["limit"] = Limit
         };
     }

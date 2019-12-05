@@ -28,6 +28,19 @@ namespace PVOutput.Net.Objects.Core
             return date.ToString("yyyyMMdd", CultureInfo.InvariantCulture);
         }
 
+        internal static string GetLocationAsString(decimal? latitude, decimal? longitude)
+        {
+            if (latitude == null || longitude == null)
+            {
+                return null;
+            }
+
+            string lat = latitude.Value.ToString("##.####", CultureInfo.CreateSpecificCulture("en-US"));
+            string lon = longitude.Value.ToString("##.####", CultureInfo.CreateSpecificCulture("en-US"));
+
+            return $"{lat},{lon}";
+        }
+
         internal static string GetTimeAsString(DateTime date)
         {
             return date.ToString("HH:mm", CultureInfo.InvariantCulture.DateTimeFormat);

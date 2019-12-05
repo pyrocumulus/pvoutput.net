@@ -20,6 +20,8 @@ namespace PVOutput.Net
         public TeamService Team { get; }
         public ExtendedService Extended { get; }
         public FavouriteService Favourite { get; }
+        public InsolationService Insolation { get; }
+
         public PVOutputClient(IHttpClientProvider httpClientProvider = default)
         {
             HttpClientProvider = httpClientProvider ?? new HttpClientProvider(this);
@@ -32,6 +34,7 @@ namespace PVOutput.Net
             Team = new TeamService(this);
             Extended = new ExtendedService(this);
             Favourite = new FavouriteService(this);
+            Insolation = new InsolationService(this);
         }
 
         public PVOutputClient(string apiKey, int ownedSystemId, IHttpClientProvider httpClientProvider = default)

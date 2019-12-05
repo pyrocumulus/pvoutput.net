@@ -22,6 +22,7 @@ namespace PVOutput.Net.Objects.Factories
             _readerFactories.Add(typeof(ITeam), new TeamFactory());
             _readerFactories.Add(typeof(IExtended), new ExtendedFactory());
             _readerFactories.Add(typeof(IFavourite), new FavouriteFactory());
+            _readerFactories.Add(typeof(IInsolation), new InsolationFactory());
         }
 
         public static IStringFactory<TReturnType> GetStringFactory<TReturnType>()
