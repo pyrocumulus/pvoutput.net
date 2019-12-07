@@ -56,6 +56,16 @@ namespace PVOutput.Net.Objects.Core
             return (TResultType)Convert.ChangeType(value, typeof(TResultType), CultureInfo.CreateSpecificCulture("en-US"));
         }
 
+        internal static string GetValueAsString<TInputType>(TInputType? value) where TInputType : struct
+        {
+            if (value == null)
+            {
+                return null;
+            }
+
+            return (string)Convert.ChangeType(value, typeof(string), CultureInfo.CreateSpecificCulture("en-US"));
+        }
+
         internal static TResultType ParseValueWithDefault<TResultType>(string value) where TResultType : struct
         {
             TResultType? result = ParseValue<TResultType>(value);

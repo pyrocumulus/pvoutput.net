@@ -32,6 +32,6 @@ As the code base is still changing a lot, PRs will probably be more practical, b
 
 ## License
 
-This project's structure and Json/Request handling have been seriously inspired (in part, copied even) by Henrik Fröhling's work on [TraktApiSharp](https://github.com/henrikfroehling/TraktApiSharp). While this project is licensed under the same license as TraktApiSharp, I'd still like to make this absolutely clear.
+This project's structure and Json/Request handling have been seriously inspired (in part, copied even) by Henrik Fröhling's work on [Trakt.NET](https://github.com/henrikfroehling/Trakt.NET), when it was still called TraktApiSharp. While this project is licensed under the same license as TraktApiSharp, I'd still like to make this absolutely clear.
 
 MIT © Marcel Boersma

@@ -19,7 +19,7 @@ namespace PVOutput.Net.Objects.Modules.Readers
                 (t, s) => t.PowerConsumption = FormatHelper.ParseValue<int>(s),
                 (t, s) => t.NormalisedOutput = FormatHelper.ParseValue<decimal>(s),
                 (t, s) => t.Temperature = FormatHelper.ParseValue<decimal>(s),
-                (t, s) => t.Volts = FormatHelper.ParseValue<decimal>(s),
+                (t, s) => t.Voltage = FormatHelper.ParseValue<decimal>(s),
                 (t, s) => t.ExtendedValue1 = FormatHelper.ParseValue<decimal>(s),
                 (t, s) => t.ExtendedValue2 = FormatHelper.ParseValue<decimal>(s),
                 (t, s) => t.ExtendedValue3 = FormatHelper.ParseValue<decimal>(s),

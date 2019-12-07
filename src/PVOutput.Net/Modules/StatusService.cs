@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using PVOutput.Net.Objects.Modules;
@@ -18,7 +18,7 @@ namespace PVOutput.Net.Modules
         {
             var handler = new RequestHandler(Client);
 
-            return handler.ExecuteSingleItemRequestAsync<IStatus>(new StatusRequest { Date = dateTime, SystemId = systemId }, cancellationToken);
+            return handler.ExecuteSingleItemRequestAsync<IStatus>(new GetStatusRequest { Date = dateTime, SystemId = systemId }, cancellationToken);
         }
 
         public Task<PVOutputArrayResponse<IStatusHistory>> GetHistoryForPeriodAsync(DateTime fromDateTime, DateTime toDateTime, bool ascending = true, bool extendedData = false, int? limit = null, CancellationToken cancellationToken = default)
@@ -26,7 +26,7 @@ namespace PVOutput.Net.Modules
             var handler = new RequestHandler(Client);
 
             return handler.ExecuteArrayRequestAsync<IStatusHistory>(
-                new StatusRequest
+                new GetStatusRequest
                 {
                     Date = fromDateTime.Date,
                     From = fromDateTime,
@@ -35,6 +35,12 @@ namespace PVOutput.Net.Modules
                     Extended = extendedData,
                     Limit = limit
                 }, cancellationToken);
+        }
+
+        public Task<PVOutputNoContentResponse> AddStatusAsync(IStatusPost statusToPost, CancellationToken cancellationToken = default)
+        {
+            var handler = new RequestHandler(Client);
+            return handler.ExecutePostRequestAsync(new AddStatusRequest() { StatusPost = statusToPost }, cancellationToken);
         }
     }
 }

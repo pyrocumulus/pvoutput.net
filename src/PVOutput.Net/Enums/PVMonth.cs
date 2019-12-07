@@ -1,4 +1,4 @@
-namespace PVOutput.Net.Enums
+﻿namespace PVOutput.Net.Enums
 {
     public enum PVMonth
     {

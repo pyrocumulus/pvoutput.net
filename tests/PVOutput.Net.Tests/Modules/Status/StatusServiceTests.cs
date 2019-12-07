@@ -31,7 +31,7 @@ namespace PVOutput.Net.Tests.Modules.Status
             Assert.AreEqual(386, status.PowerConsumption);
             Assert.AreEqual(0.111d, status.NormalisedOutput);
             Assert.AreEqual(1.8d, status.Temperature);
-            Assert.AreEqual(230.1d, status.Volts);
+            Assert.AreEqual(230.1d, status.Voltage);
             Assert.AreEqual(1d, status.ExtendedValue1);
             Assert.AreEqual(2d, status.ExtendedValue2);
             Assert.AreEqual(3d, status.ExtendedValue3);

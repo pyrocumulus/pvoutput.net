@@ -95,6 +95,38 @@ namespace PVOutput.Net.Requests.Handler
             }
         }
 
+        internal async Task<PVOutputNoContentResponse> ExecutePostRequestAsync(IRequest request, CancellationToken cancellationToken)
+        {
+            HttpResponseMessage responseMessage = null;
+
+            try
+            {
+                responseMessage = await ExecuteRequestAsync(CreateRequestMessage(request), cancellationToken).ConfigureAwait(false);
+
+                Stream responseStream = await GetResponseContentStreamAsync(responseMessage).ConfigureAwait(false);
+
+
+                return new PVOutputNoContentResponse()
+                {
+                    IsSuccess = true,
+                    ApiRateInformation = GetApiRateInformationfromResponse(responseMessage)
+                };
+            }
+            catch (Exception ex)
+            {
+                if (_client.ThrowResponseExceptions)
+                {
+                    throw;
+                }
+
+                return new PVOutputNoContentResponse() { IsSuccess = false, Exception = ex };
+            }
+            finally
+            {
+                responseMessage?.Dispose();
+            }
+        }
+
         private PVOutputApiRateInformation GetApiRateInformationfromResponse(HttpResponseMessage responseMessage)
         {
             var result = new PVOutputApiRateInformation();
@@ -111,7 +143,7 @@ namespace PVOutput.Net.Requests.Handler
 
             if (responseMessage.Headers.Contains("X-Rate-Limit-Reset"))
             {
-                result.LimitResetAt = DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(responseMessage.Headers.GetValues("X-Rate-Limit-Reset").First())).UtcDateTime;
+                result.LimitResetAt = DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(responseMessage.Headers.GetValues("X-Rate-Limit-Reset").First())).DateTime;
             }
 
             return result;
@@ -124,7 +156,7 @@ namespace PVOutput.Net.Requests.Handler
 
         private HttpRequestMessage CreateRequestMessage(IRequest request)
         {
-            return new HttpRequestMessage(HttpMethod.Get, CreateUrl(request));
+            return new HttpRequestMessage(request.Method, CreateUrl(request));
         }
 
         private string CreateUrl(IRequest request)

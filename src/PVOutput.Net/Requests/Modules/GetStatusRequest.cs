@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using PVOutput.Net.Objects.Core;
@@ -7,7 +7,7 @@ using PVOutput.Net.Requests.Base;
 
 namespace PVOutput.Net.Requests.Modules
 {
-    internal class StatusRequest : GetRequest<IStatus>
+    internal class GetStatusRequest : GetRequest<IStatus>
     {
 
         public int? SystemId { get; set; }

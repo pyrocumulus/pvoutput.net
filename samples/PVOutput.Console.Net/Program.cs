@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using PVOutput.Net.Objects.Builders;
 using PVOutput.Net.Objects.Modules;
 
 namespace PVOutput.Net.Sample
@@ -7,6 +8,15 @@ namespace PVOutput.Net.Sample
     class Program
     {
         public static async Task Main(string[] args)
+        {
+            //TestGettingData();
+
+            await TestPushingData();
+
+            Console.ReadLine();
+        }
+
+        private static async Task TestGettingData()
         {
             var apiKey = Environment.GetEnvironmentVariable("PVOutput-ApiKey");
             var systemIdString = Environment.GetEnvironmentVariable("PVOutput-SystemId");
@@ -37,8 +47,25 @@ namespace PVOutput.Net.Sample
             {
                 Console.WriteLine($"Insolation on {insolation.Time}, Energy {insolation.Energy} Power {insolation.Power}");
             }
+        }
 
-            Console.ReadLine();
+        private static async Task TestPushingData()
+        {
+            var apiKey = Environment.GetEnvironmentVariable("PVOutput-PushApiKey");
+            var pushSystemIdString = Environment.GetEnvironmentVariable("PVOutput-PushSystemId");
+            var systemId = pushSystemIdString == "" ? 0 : Convert.ToInt32(pushSystemIdString);
+            var client = new PVOutputClient(apiKey, systemId);
+
+            Console.WriteLine("Testing pushing data");
+            Console.WriteLine("----------------------");
+
+            var builder = new StatusPostBuilder();
+            var status = builder.SetDate(DateTime.Now)
+                .SetConsumption(null, 1000)
+                .SetTemperature(10.0m)
+                .Build();
+
+            var response = await client.Status.AddStatusAsync(status);
         }
 
         private static void OutputDate(IOutput output)
