@@ -54,7 +54,7 @@ namespace PVOutput.Net.Modules
 
         private PVOutputArrayResponse<IInsolation> AddRequestedDate(Task<PVOutputArrayResponse<IInsolation>> response, DateTime requestedDate)
         {
-            foreach (var insolation in response.Result.Value)
+            foreach (var insolation in response.Result.Values)
             {
                 insolation.Time = requestedDate.Add(insolation.Time.TimeOfDay);
             }

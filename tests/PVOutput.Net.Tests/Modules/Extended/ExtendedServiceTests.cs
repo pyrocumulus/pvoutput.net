@@ -46,11 +46,11 @@ namespace PVOutput.Net.Tests.Modules.Extended
                 throw response.Exception;
             }
 
-            Assert.IsTrue(response.HasValue);
+            Assert.IsTrue(response.HasValues);
             Assert.IsNotNull(response.IsSuccess);
-            Assert.AreEqual(2, response.Value.Count());
+            Assert.AreEqual(2, response.Values.Count());
 
-            var extended1 = response.Value.First();
+            var extended1 = response.Values.First();
             Assert.AreEqual(new DateTime(2014, 3, 7), extended1.Date);
 
             Assert.AreEqual(67.4d, extended1.ExtendedValue1);
@@ -60,7 +60,7 @@ namespace PVOutput.Net.Tests.Modules.Extended
             Assert.AreEqual(1115.0d, extended1.ExtendedValue5);
             Assert.AreEqual(-12.3d, extended1.ExtendedValue6);
 
-            var extended2 = response.Value.Last();
+            var extended2 = response.Values.Last();
             Assert.AreEqual(new DateTime(2014, 3, 8), extended2.Date);
             Assert.AreEqual(68.2d, extended2.ExtendedValue1);
             Assert.AreEqual(846.254d, extended2.ExtendedValue2);

@@ -2,10 +2,10 @@
 
 namespace PVOutput.Net.Responses
 {
-    public class PVOutputArrayResponse<TResponseContentType> : PVOutputNoContentResponse
+    public sealed class PVOutputArrayResponse<TResponseContentType> : PVOutputBaseResponse
     {
-        public bool HasValue { get; set; }
+        public bool HasValues { get; internal set; }
 
-        public IEnumerable<TResponseContentType> Value { get; set; }
+        public IEnumerable<TResponseContentType> Values { get; internal set; }
     }
 }

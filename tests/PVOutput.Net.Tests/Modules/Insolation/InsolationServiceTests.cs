@@ -21,10 +21,10 @@ namespace PVOutput.Net.Tests.Modules.Insolation
                 throw response.Exception;
             }
 
-            Assert.IsTrue(response.HasValue);
+            Assert.IsTrue(response.HasValues);
             Assert.IsNotNull(response.IsSuccess);
 
-            var insolations = response.Value;
+            var insolations = response.Values;
             var insolation = insolations.First();
 
             Assert.AreEqual(0, insolation.Energy);

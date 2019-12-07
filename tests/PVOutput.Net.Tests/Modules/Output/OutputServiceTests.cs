@@ -68,11 +68,11 @@ namespace PVOutput.Net.Tests.Modules.Output
                 throw response.Exception;
             }
 
-            Assert.IsTrue(response.HasValue);
-            Assert.IsNotNull(response.Value);
+            Assert.IsTrue(response.HasValues);
+            Assert.IsNotNull(response.Values);
             Assert.IsTrue(response.IsSuccess);
 
-            var outputs = response.Value.OrderBy((o) => o.Date);
+            var outputs = response.Values.OrderBy((o) => o.Date);
 
             Assert.AreEqual(fromDate, outputs.First().Date);
             Assert.AreEqual(toDate, outputs.Last().Date);
@@ -116,11 +116,11 @@ namespace PVOutput.Net.Tests.Modules.Output
                 throw response.Exception;
             }
 
-            Assert.IsTrue(response.HasValue);
-            Assert.IsNotNull(response.Value);
+            Assert.IsTrue(response.HasValues);
+            Assert.IsNotNull(response.Values);
             Assert.IsTrue(response.IsSuccess);
 
-            var outputs = response.Value.OrderBy((o) => o.Date);
+            var outputs = response.Values.OrderBy((o) => o.Date);
 
             Assert.AreEqual(15197, outputs.First().Insolation);
             Assert.AreEqual(fromDate, outputs.First().Date);
@@ -163,11 +163,11 @@ namespace PVOutput.Net.Tests.Modules.Output
                 throw response.Exception;
             }
 
-            Assert.IsTrue(response.HasValue);
-            Assert.IsNotNull(response.Value);
+            Assert.IsTrue(response.HasValues);
+            Assert.IsNotNull(response.Values);
             Assert.IsTrue(response.IsSuccess);
 
-            var outputs = response.Value.OrderBy((o) => o.Date);
+            var outputs = response.Values.OrderBy((o) => o.Date);
 
             Assert.AreEqual(fromDate, outputs.First().Date);
             Assert.AreEqual(toDate, outputs.Last().Date);
@@ -188,11 +188,11 @@ namespace PVOutput.Net.Tests.Modules.Output
                 throw response.Exception;
             }
 
-            Assert.IsTrue(response.HasValue);
-            Assert.IsNotNull(response.Value);
+            Assert.IsTrue(response.HasValues);
+            Assert.IsNotNull(response.Values);
             Assert.IsTrue(response.IsSuccess);
 
-            var outputs = response.Value.OrderBy((o) => o.Date);
+            var outputs = response.Values.OrderBy((o) => o.Date);
 
             Assert.AreEqual(fromDate.Month, outputs.First().Date.Month);
             Assert.AreEqual(toDate.Month, outputs.Last().Date.Month);
@@ -213,11 +213,11 @@ namespace PVOutput.Net.Tests.Modules.Output
                 throw response.Exception;
             }
 
-            Assert.IsTrue(response.HasValue);
-            Assert.IsNotNull(response.Value);
+            Assert.IsTrue(response.HasValues);
+            Assert.IsNotNull(response.Values);
             Assert.IsTrue(response.IsSuccess);
 
-            var outputs = response.Value.OrderBy((o) => o.Date);
+            var outputs = response.Values.OrderBy((o) => o.Date);
 
             Assert.AreEqual(fromDate.Year, outputs.First().Date.Year);
             Assert.AreEqual(toDate.Year, outputs.Last().Date.Year);

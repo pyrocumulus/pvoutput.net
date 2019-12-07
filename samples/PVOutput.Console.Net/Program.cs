@@ -33,7 +33,7 @@ namespace PVOutput.Net.Sample
 
             // Request outputs for previous 6 days
             var outputs = await client.Output.GetOutputsForPeriodAsync(DateTime.Today.AddDays(-6), DateTime.Today.AddDays(-1));
-            foreach (var dayOutput in outputs.Value)
+            foreach (var dayOutput in outputs.Values)
             {
                 OutputDate(dayOutput);
             }
@@ -43,7 +43,7 @@ namespace PVOutput.Net.Sample
 
             // Request insolation values for 1st of june, for own system - DONATION ONLY
             var insolations = await client.Insolation.GetInsolationForOwnSystem(new DateTime(2019, 6, 1));
-            foreach (var insolation in insolations.Value)
+            foreach (var insolation in insolations.Values)
             {
                 Console.WriteLine($"Insolation on {insolation.Time}, Energy {insolation.Energy} Power {insolation.Power}");
             }
@@ -51,7 +51,7 @@ namespace PVOutput.Net.Sample
 
         private static async Task TestPushingData()
         {
-            var apiKey = Environment.GetEnvironmentVariable("PVOutput-PushApiKey");
+            var apiKey = Environment.GetEnvironmentVariable("PVOutput-ApiKey");
             var pushSystemIdString = Environment.GetEnvironmentVariable("PVOutput-PushSystemId");
             var systemId = pushSystemIdString == "" ? 0 : Convert.ToInt32(pushSystemIdString);
             var client = new PVOutputClient(apiKey, systemId);
@@ -61,8 +61,7 @@ namespace PVOutput.Net.Sample
 
             var builder = new StatusPostBuilder();
             var status = builder.SetDate(DateTime.Now)
-                .SetConsumption(null, 1000)
-                .SetTemperature(10.0m)
+                .SetConsumption(null, 560)
                 .Build();
 
             var response = await client.Status.AddStatusAsync(status);

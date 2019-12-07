@@ -2,10 +2,10 @@
 
 namespace PVOutput.Net.Responses
 {
-    public class PVOutputApiRateInformation
+    public sealed class PVOutputApiRateInformation
     {
-        public int CurrentLimit { get; set; }
-        public int LimitRemaining { get; set; }
-        public DateTime LimitResetAt { get; set; }
+        public int CurrentLimit { get; internal set; }
+        public int LimitRemaining { get; internal set; }
+        public DateTime LimitResetAt { get; internal set; }
     }
 }

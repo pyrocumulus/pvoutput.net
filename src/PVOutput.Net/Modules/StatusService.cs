@@ -37,7 +37,7 @@ namespace PVOutput.Net.Modules
                 }, cancellationToken);
         }
 
-        public Task<PVOutputNoContentResponse> AddStatusAsync(IStatusPost statusToPost, CancellationToken cancellationToken = default)
+        public Task<PVOutputBasicResponse> AddStatusAsync(IStatusPost statusToPost, CancellationToken cancellationToken = default)
         {
             var handler = new RequestHandler(Client);
             return handler.ExecutePostRequestAsync(new AddStatusRequest() { StatusPost = statusToPost }, cancellationToken);
