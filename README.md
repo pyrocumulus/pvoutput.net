@@ -1,3 +1,6 @@
+[![Actions Status](https://github.com/pyrocumulus/pvoutput.net/workflows/build_and_test/badge.svg)](https://github.com/pyrocumulus/pvoutput.net/actions)
+
+
 # PVOutput.Net
 
 > A .NET wrapper library for the [PVOutput api](https://pvoutput.org/help.html#api-spec).
