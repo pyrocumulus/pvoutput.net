@@ -1,4 +1,4 @@
-[![Actions Status](https://github.com/pyrocumulus/pvoutput.net/workflows/build_and_test/badge.svg)](https://github.com/pyrocumulus/pvoutput.net/actions)
+[![Actions Status](https://github.com/pyrocumulus/pvoutput.net/workflows/dotnetcore/badge.svg)](https://github.com/pyrocumulus/pvoutput.net/actions)
 
 
 # PVOutput.Net
