@@ -12,8 +12,6 @@ namespace PVOutput.Net.Sample
             //TestGettingData();
 
             await TestPushingData();
-
-            Console.ReadLine();
         }
 
         private static async Task TestGettingData()
@@ -51,7 +49,7 @@ namespace PVOutput.Net.Sample
 
         private static async Task TestPushingData()
         {
-            var apiKey = Environment.GetEnvironmentVariable("PVOutput-ApiKey");
+            var apiKey = Environment.GetEnvironmentVariable("PVOutput-PushApiKey");
             var pushSystemIdString = Environment.GetEnvironmentVariable("PVOutput-PushSystemId");
             var systemId = pushSystemIdString == "" ? 0 : Convert.ToInt32(pushSystemIdString);
             var client = new PVOutputClient(apiKey, systemId);
@@ -59,12 +57,12 @@ namespace PVOutput.Net.Sample
             Console.WriteLine("Testing pushing data");
             Console.WriteLine("----------------------");
 
-            var builder = new StatusPostBuilder();
-            var status = builder.SetDate(DateTime.Now)
-                .SetConsumption(null, 560)
+            var builder = new OutputPostBuilder();
+            var output = builder.SetDate(DateTime.Today.AddDays(-1))
+                .SetGenerated(10000)
                 .Build();
 
-            var response = await client.Status.AddStatusAsync(status);
+            var response = await client.Output.AddOutputAsync(output);
         }
 
         private static void OutputDate(IOutput output)

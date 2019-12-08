@@ -1,14 +1,13 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using PVOutput.Net.Enums;
 using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Objects.Modules;
 using PVOutput.Net.Requests.Base;
 
 namespace PVOutput.Net.Requests.Modules
 {
-    public enum AggregationPeriod { Month, Year };
-
     // TODO: Split requests per output interfacing type
     internal class OutputRequest : GetRequest<IOutput>
     {
@@ -17,7 +16,7 @@ namespace PVOutput.Net.Requests.Modules
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
         public bool Insolation { get; set; }
-        public AggregationPeriod? AggregationPeriod { get; set; }
+        public AggregationPeriod? Aggregation { get; set; }
 
         public override HttpMethod Method => HttpMethod.Get;
 
@@ -27,7 +26,7 @@ namespace PVOutput.Net.Requests.Modules
         {
             ["sid1"] = SystemId,
             ["tid"] = TeamId,
-            ["a"] = GetAggregationParameter(AggregationPeriod),
+            ["a"] = GetAggregationParameter(Aggregation),
             ["df"] = FormatHelper.GetDateAsString(FromDate),
             ["dt"] = FormatHelper.GetDateAsString(ToDate),
             ["insolation"] = Insolation ? 1 : 0
@@ -40,7 +39,7 @@ namespace PVOutput.Net.Requests.Modules
                 return null;
             }
 
-            return aggregationPeriod == Modules.AggregationPeriod.Month ? "m" : "y";
+            return aggregationPeriod == AggregationPeriod.Month ? "m" : "y";
         }
     }
 }

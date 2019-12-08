@@ -126,7 +126,7 @@ namespace PVOutput.Net.Requests.Handler
                 return new PVOutputBasicResponse()
                 {
                     IsSuccess = apiError == null,
-                    SuccesMessage = apiError != null ? GetBasicResponseState(responseStream) : null,
+                    SuccesMessage = apiError == null ? GetBasicResponseState(responseStream) : null,
                     Error = apiError,
                     ApiRateInformation = GetApiRateInformationfromResponse(responseMessage)
                 };

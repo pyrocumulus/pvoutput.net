@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using PVOutput.Net.Enums;
 using PVOutput.Net.Requests.Modules;
 using PVOutput.Net.Tests.Utils;
 

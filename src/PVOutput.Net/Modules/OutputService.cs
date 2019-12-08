@@ -1,6 +1,7 @@
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using PVOutput.Net.Enums;
 using PVOutput.Net.Objects.Modules;
 using PVOutput.Net.Requests.Handler;
 using PVOutput.Net.Requests.Modules;
@@ -46,7 +47,13 @@ namespace PVOutput.Net.Modules
         {
             var handler = new RequestHandler(Client);
 
-            return handler.ExecuteArrayRequestAsync<IAggregatedOutput>(new OutputRequest { FromDate = fromDate, ToDate = toDate, AggregationPeriod = period }, cancellationToken);
+            return handler.ExecuteArrayRequestAsync<IAggregatedOutput>(new OutputRequest { FromDate = fromDate, ToDate = toDate, Aggregation = period }, cancellationToken);
+        }
+
+        public Task<PVOutputBasicResponse> AddOutputAsync(IOutputPost output, CancellationToken cancellationToken = default)
+        {
+            var handler = new RequestHandler(Client);
+            return handler.ExecutePostRequestAsync(new AddOutputRequest() { Output = output }, cancellationToken);
         }
     }
 }
