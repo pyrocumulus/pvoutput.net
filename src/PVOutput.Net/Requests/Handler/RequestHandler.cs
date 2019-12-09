@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using PVOutput.Net.Objects;
 using PVOutput.Net.Objects.Factories;
 using PVOutput.Net.Requests.Base;
 using PVOutput.Net.Responses;
@@ -30,27 +31,20 @@ namespace PVOutput.Net.Requests.Handler
                 responseMessage = await ExecuteRequestAsync(CreateRequestMessage(request), cancellationToken).ConfigureAwait(false);
                 Stream responseStream = await GetResponseContentStreamAsync(responseMessage).ConfigureAwait(false);
 
-                var apiError = ProcessHttpErrorResults(responseMessage, responseStream);
-                if (apiError != null)
+                var result = new PVOutputResponse<TResponseContentType>();
+                result.ApiRateInformation = GetApiRateInformationfromResponse(responseMessage);
+
+                if (ResponseIsErrorResponse(responseMessage, responseStream, result))
                 {
-                    return new PVOutputResponse<TResponseContentType>()
-                    {
-                        IsSuccess = false,
-                        Error = apiError,
-                        ApiRateInformation = GetApiRateInformationfromResponse(responseMessage)
-                    };
+                    return result;
                 }
 
                 var reader = StringFactoryContainer.CreateObjectReader<TResponseContentType>();
                 TResponseContentType content = await reader.ReadObjectAsync(responseStream, cancellationToken);
 
-                return new PVOutputResponse<TResponseContentType>()
-                {
-                    IsSuccess = true,
-                    HasValue = true,
-                    ApiRateInformation = GetApiRateInformationfromResponse(responseMessage),
-                    Value = content
-                };
+                result.IsSuccess = true;
+                result.Value = content;
+                return result;
             }
             catch (Exception ex)
             {
@@ -76,27 +70,20 @@ namespace PVOutput.Net.Requests.Handler
                 responseMessage = await ExecuteRequestAsync(CreateRequestMessage(request), cancellationToken).ConfigureAwait(false);
                 Stream responseStream = await GetResponseContentStreamAsync(responseMessage).ConfigureAwait(false);
 
-                var apiError = ProcessHttpErrorResults(responseMessage, responseStream);
-                if (apiError != null)
-                {
-                    return new PVOutputArrayResponse<TResponseContentType>()
-                    {
-                        IsSuccess = false,
-                        Error = apiError,
-                        ApiRateInformation = GetApiRateInformationfromResponse(responseMessage)
-                    };
+                var result = new PVOutputArrayResponse<TResponseContentType>();
+                result.ApiRateInformation = GetApiRateInformationfromResponse(responseMessage);
+
+                if (ResponseIsErrorResponse(responseMessage, responseStream, result))
+                { 
+                    return result;
                 }
 
                 var reader = StringFactoryContainer.CreateArrayReader<TResponseContentType>();
                 IEnumerable<TResponseContentType> content = await reader.ReadArrayAsync(responseStream, cancellationToken);
 
-                return new PVOutputArrayResponse<TResponseContentType>()
-                {
-                    IsSuccess = true,
-                    HasValues = true,
-                    ApiRateInformation = GetApiRateInformationfromResponse(responseMessage),
-                    Values = content
-                };
+                result.IsSuccess = true;
+                result.Values = content;
+                return result;
             }
             catch (Exception ex)
             {
@@ -122,14 +109,17 @@ namespace PVOutput.Net.Requests.Handler
                 responseMessage = await ExecuteRequestAsync(CreateRequestMessage(request), cancellationToken).ConfigureAwait(false);
                 Stream responseStream = await GetResponseContentStreamAsync(responseMessage).ConfigureAwait(false);
 
-                var apiError = ProcessHttpErrorResults(responseMessage, responseStream);
-                return new PVOutputBasicResponse()
+                var result = new PVOutputBasicResponse();
+                result.ApiRateInformation = GetApiRateInformationfromResponse(responseMessage);
+
+                if (ResponseIsErrorResponse(responseMessage, responseStream, result))
                 {
-                    IsSuccess = apiError == null,
-                    SuccesMessage = apiError == null ? GetBasicResponseState(responseStream) : null,
-                    Error = apiError,
-                    ApiRateInformation = GetApiRateInformationfromResponse(responseMessage)
-                };
+                    return result;
+                }
+
+                result.IsSuccess = true;
+                result.SuccesMessage = GetBasicResponseState(responseStream);
+                return result;
             }
             catch (Exception ex)
             {
@@ -144,6 +134,18 @@ namespace PVOutput.Net.Requests.Handler
             {
                 responseMessage?.Dispose();
             }
+        }
+
+        private bool ResponseIsErrorResponse(HttpResponseMessage responseMessage, Stream responseStream, PVOutputBaseResponse result)
+        {
+            var apiError = ProcessHttpErrorResults(responseMessage, responseStream);
+            if (apiError != null)
+            {
+                result.IsSuccess = false;
+                result.Error = apiError;
+                return true;
+            }
+            return false;
         }
 
         private PVOutputApiError ProcessHttpErrorResults(HttpResponseMessage response, Stream responseStream)
@@ -173,6 +175,12 @@ namespace PVOutput.Net.Requests.Handler
                     }
                 }
             }
+
+            if (_client.ThrowResponseExceptions)
+            {
+                throw new PVOutputException(error.StatusCode, error.ErrorMessage);
+            }
+
             return error;
         }
 
@@ -196,7 +204,6 @@ namespace PVOutput.Net.Requests.Handler
             return null;
         }
          
-
         private PVOutputApiRateInformation GetApiRateInformationfromResponse(HttpResponseMessage response)
         {
             var result = new PVOutputApiRateInformation();

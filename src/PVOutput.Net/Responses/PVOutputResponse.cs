@@ -2,7 +2,7 @@
 {
     public sealed class PVOutputResponse<TResponseContentType> : PVOutputBaseResponse
     {
-        public bool HasValue { get; internal set; }
+        public bool HasValue => Value != null;
 
         public TResponseContentType Value { get; internal set; }
     }
