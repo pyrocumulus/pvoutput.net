@@ -8,7 +8,6 @@ using PVOutput.Net.Requests.Base;
 
 namespace PVOutput.Net.Requests.Modules
 {
-    // TODO: Split requests per output interfacing type
     internal class AddOutputRequest : PostRequest
     {
         public IOutputPost Output { get; set; }

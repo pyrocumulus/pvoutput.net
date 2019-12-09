@@ -7,92 +7,102 @@ using PVOutput.Net.Objects.Modules.Implementations;
 
 namespace PVOutput.Net.Objects.Builders
 {
-    public class OutputPostBuilder
+    public class OutputPostBuilder<TResultType> where TResultType : class, IBatchOutputPost
     {
-        private readonly OutputPost _outputPost;
+        private OutputPost _outputPost;
 
         public OutputPostBuilder()
         {
             _outputPost = new OutputPost();
         }
 
-        public OutputPostBuilder SetDate(DateTime date)
+        public OutputPostBuilder<TResultType> SetDate(DateTime date)
         {
             _outputPost.Date = date;
             return this;
         }
 
-        public OutputPostBuilder SetGenerated(int energyGenerated)
+        public OutputPostBuilder<TResultType> SetGenerated(int energyGenerated)
         {
             _outputPost.EnergyGenerated = energyGenerated;
             return this;
         }
 
-        public OutputPostBuilder SetExported(int? energyExported)
+        public OutputPostBuilder<TResultType> SetExported(int? energyExported)
         {
             _outputPost.EnergyExported = energyExported;
             return this;
         }
 
-        public OutputPostBuilder SetPeakTime(DateTime peakTime)
+        public OutputPostBuilder<TResultType> SetPeakTime(DateTime peakTime)
         {
             _outputPost.PeakTime = peakTime;
             return this;
         }
 
         // TODO: Verify if any value is accepted or just a fixed list
-        public OutputPostBuilder SetCondition(string condition)
+        public OutputPostBuilder<TResultType> SetCondition(string condition)
         {
             _outputPost.Condition = condition;
             return this;
         }
 
-        public OutputPostBuilder SetTemperatures(decimal? minimumTemperature, decimal? maximumTemperature)
+        public OutputPostBuilder<TResultType> SetTemperatures(decimal? minimumTemperature, decimal? maximumTemperature)
         {
             _outputPost.MinimumTemperature = minimumTemperature;
             _outputPost.MaximumTemperature = maximumTemperature;
             return this;
         }
 
-        public OutputPostBuilder SetComments(string comments)
+        public OutputPostBuilder<TResultType> SetComments(string comments)
         {
             _outputPost.Comments = comments;
             return this;
         }
 
-        public OutputPostBuilder SetPeakImport(int peakImport)
+        public OutputPostBuilder<TResultType> SetPeakImport(int peakImport)
         {
             _outputPost.PeakEnergyImport = peakImport;
             return this;
         }
 
-        public OutputPostBuilder SetOffPeakEnergyImport(int offpeakImport)
+        public OutputPostBuilder<TResultType> SetOffPeakEnergyImport(int offpeakImport)
         {
             _outputPost.OffPeakEnergyImport = offpeakImport;
             return this;
         }
 
-        public OutputPostBuilder SetShoulderImport(int shoulderImport)
+        public OutputPostBuilder<TResultType> SetShoulderImport(int shoulderImport)
         {
             _outputPost.ShoulderEnergyImport = shoulderImport;
             return this;
         }
 
-        public OutputPostBuilder SetHighShoulderImport(int highShoulderImport)
+        public OutputPostBuilder<TResultType> SetHighShoulderImport(int highShoulderImport)
         {
             _outputPost.HighShoulderEnergyImport = highShoulderImport;
             return this;
         }
 
-        public OutputPostBuilder SetConsumption(int consumption)
+        public OutputPostBuilder<TResultType> SetConsumption(int consumption)
         {
+            if (typeof(TResultType) == typeof(IBatchOutputPost))
+            {
+                throw new InvalidOperationException("Cannot set consumption on batch output");
+            }
+
             _outputPost.Consumption = consumption;
             return this;
         }
 
-        public IOutputPost Build()
+        public void Reset()
         {
-            return _outputPost;
+            _outputPost = new OutputPost();
+        }
+
+        public TResultType Build()
+        {
+            return _outputPost as TResultType;
         }
     }
 }

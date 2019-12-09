@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using PVOutput.Net.Objects.Builders;
 using PVOutput.Net.Objects.Modules;
@@ -57,12 +58,20 @@ namespace PVOutput.Net.Sample
             Console.WriteLine("Testing pushing data");
             Console.WriteLine("----------------------");
 
-            var builder = new OutputPostBuilder();
-            var output = builder.SetDate(DateTime.Today.AddDays(-1))
-                .SetGenerated(10000)
+            var builder = new OutputPostBuilder<IBatchOutputPost>();
+            var output1 = builder.SetDate(DateTime.Today.AddDays(-7))
+                .SetGenerated(11000)
+                .Build();
+            builder.Reset();
+            var output2 = builder.SetDate(DateTime.Today.AddDays(-8))
+                .SetGenerated(9000)
                 .Build();
 
-            var response = await client.Output.AddOutputAsync(output);
+            var outputs = new List<IBatchOutputPost>();
+            outputs.Add(output1);
+            outputs.Add(output2);
+
+            var response = await client.Output.AddBatchOutputAsync(outputs);
         }
 
         private static void OutputDate(IOutput output)

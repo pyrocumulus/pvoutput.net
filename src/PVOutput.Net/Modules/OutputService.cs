@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using PVOutput.Net.Enums;
@@ -55,5 +56,12 @@ namespace PVOutput.Net.Modules
             var handler = new RequestHandler(Client);
             return handler.ExecutePostRequestAsync(new AddOutputRequest() { Output = output }, cancellationToken);
         }
+
+        public Task<PVOutputBasicResponse> AddBatchOutputAsync(IEnumerable<IBatchOutputPost> outputs, CancellationToken cancellationToken = default)
+        {
+            var handler = new RequestHandler(Client);
+            return handler.ExecutePostRequestAsync(new AddBatchOutputRequest() { Outputs = outputs }, cancellationToken);
+        }
+
     }
 }
