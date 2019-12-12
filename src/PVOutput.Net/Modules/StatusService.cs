@@ -49,5 +49,11 @@ namespace PVOutput.Net.Modules
             var handler = new RequestHandler(Client);
             return handler.ExecuteArrayRequestAsync<IBatchStatusPostResult>(new AddBatchStatusRequest() { StatusPosts = statusPosts }, cancellationToken); ;
         }
+
+        public Task<PVOutputBasicResponse> DeleteStatusAsync(DateTime timestamp, CancellationToken cancellationToken = default)
+        {
+            var handler = new RequestHandler(Client);
+            return handler.ExecutePostRequestAsync(new DeleteStatusRequest() { Timestamp = timestamp }, cancellationToken);
+        }
     }
 }

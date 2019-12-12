@@ -31,7 +31,7 @@ For now sample code can be found in the samples/ folder of the project. API docu
 | Get        | Favourite    | Favourite         | Implemented | [Get Favourite](https://pvoutput.org/help.html#api-getfavourite) |
 | Get        | Missing      | Missing           | Implemented | [Get Missing](https://pvoutput.org/help.html#api-getmissing) |
 | Get        | Insolation   | Insolation        | Implemented | [Get Insolation](https://pvoutput.org/help.html#api-getinsolation) |
-| Delete     | Status       | Status            |             | [Delete Status](https://pvoutput.org/help.html#api-deletestatus) |
+| Delete     | Status       | Status            | Implemented | [Delete Status](https://pvoutput.org/help.html#api-deletestatus) |
 | Search     |              |                   |             | [Search](https://pvoutput.org/help.html#api-search) |
 | Get        | Team         | Team              | Implemented | [Get Team](https://pvoutput.org/help.html#api-getteam) |
 | Join       | Team         | Team              |             | [Join Team](https://pvoutput.org/help.html#api-jointeam) |

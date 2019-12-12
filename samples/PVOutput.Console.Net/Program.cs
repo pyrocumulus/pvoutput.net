@@ -59,15 +59,20 @@ namespace PVOutput.Net.Sample
             Console.WriteLine("----------------------");
 
             var builder = new StatusPostBuilder<IBatchStatusPost>();
-            var date = DateTime.Today.AddDays(-7);
+            var date = DateTime.Today.AddDays(0);
 
             var outputs = new List<IBatchStatusPost>();
-            outputs.Add(builder.SetDate(date.AddHours(13).AddMinutes(10))
+
+            outputs.Add(builder.SetDate(date.AddHours(13).AddMinutes(0))
+                .SetGeneration(200, null)
+                .Build());
+
+            outputs.Add(builder.SetDate(date.AddHours(13).AddMinutes(5))
                 .SetGeneration(500, null)
                 .Build());
 
-            outputs.Add(builder.SetDate(date.AddHours(13).AddMinutes(20))
-                .SetGeneration(200, null)
+            outputs.Add(builder.SetDate(date.AddHours(13).AddMinutes(10))
+                .SetGeneration(600, null)
                 .Build());
 
             var response = await client.Status.AddBatchStatusAsync(outputs);
