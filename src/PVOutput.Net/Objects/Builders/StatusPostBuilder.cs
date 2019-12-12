@@ -7,60 +7,60 @@ using PVOutput.Net.Objects.Modules.Implementations;
 
 namespace PVOutput.Net.Objects.Builders
 {
-    public class StatusPostBuilder
+    public class StatusPostBuilder<TResultType> where TResultType : class, IBatchStatusPost
     {
-        private readonly StatusPost _statusPost;
+        private StatusPost _statusPost;
 
         public StatusPostBuilder()
         {
             _statusPost = new StatusPost();
         }
 
-        public StatusPostBuilder SetDate(DateTime date)
+        public StatusPostBuilder<TResultType> SetDate(DateTime date)
         {
-            _statusPost.Date = date;
+            _statusPost.Timestamp = date;
             return this;
         }
 
-        public StatusPostBuilder SetGeneration(int? energyGeneration, int? powerGeneration)
+        public StatusPostBuilder<TResultType> SetGeneration(int? energyGeneration, int? powerGeneration)
         {
             _statusPost.EnergyGeneration = energyGeneration;
             _statusPost.PowerGeneration = powerGeneration;
             return this;
         }
 
-        public StatusPostBuilder SetConsumption(int? energyConsumption, int? powerConsumption)
+        public StatusPostBuilder<TResultType> SetConsumption(int? energyConsumption, int? powerConsumption)
         {
             _statusPost.EnergyConsumption = energyConsumption;
             _statusPost.PowerConsumption = powerConsumption;
             return this;
         }
 
-        public StatusPostBuilder SetTemperature(decimal temperature)
+        public StatusPostBuilder<TResultType> SetTemperature(decimal temperature)
         {
             _statusPost.Temperature = temperature;
             return this;
         }
 
-        public StatusPostBuilder SetVoltage(decimal voltage)
+        public StatusPostBuilder<TResultType> SetVoltage(decimal voltage)
         {
             _statusPost.Voltage = voltage;
             return this;
         }
 
-        public StatusPostBuilder SetCumulativeType(CumulativeStatusType type)
+        public StatusPostBuilder<TResultType> SetCumulativeType(CumulativeStatusType type)
         {
             _statusPost.Cumulative = type;
             return this;
         }
 
-        public StatusPostBuilder IsNetValue(bool net = true)
+        public StatusPostBuilder<TResultType> IsNetValue(bool net = true)
         {
             _statusPost.Net = net;
             return this;
         }
 
-        public StatusPostBuilder SetExtendedValues(decimal? value1, decimal? value2, decimal? value3, decimal? value4, decimal? value5, decimal? value6)
+        public StatusPostBuilder<TResultType> SetExtendedValues(decimal? value1, decimal? value2, decimal? value3, decimal? value4, decimal? value5, decimal? value6)
         {
             _statusPost.ExtendedValue1 = value1;
             _statusPost.ExtendedValue2 = value2;
@@ -71,16 +71,24 @@ namespace PVOutput.Net.Objects.Builders
             return this;
         }
 
-        public StatusPostBuilder SetTextMessage(string textMessage)
+        public StatusPostBuilder<TResultType> SetTextMessage(string textMessage)
         {
             _statusPost.TextMessage = textMessage;
             return this;
         }
 
-        public IStatusPost Build()
+        public void Reset()
+        {
+            _statusPost = new StatusPost();
+        }
+
+        public TResultType Build()
         {
             ValidateStatus();
-            return _statusPost;
+            
+            var result = _statusPost as TResultType;
+            Reset();
+            return result;
         }
 
         private void ValidateStatus()

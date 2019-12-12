@@ -17,8 +17,8 @@ namespace PVOutput.Net.Requests.Modules
 
         public override IDictionary<string, object> GetUriPathParameters() => new Dictionary<string, object>
         {
-            ["d"] = FormatHelper.GetDateAsString(StatusPost.Date),
-            ["t"] = FormatHelper.GetTimeAsString(StatusPost.Date),
+            ["d"] = FormatHelper.GetDateAsString(StatusPost.Timestamp),
+            ["t"] = FormatHelper.GetTimeAsString(StatusPost.Timestamp),
             ["v1"] = StatusPost.EnergyGeneration,
             ["v2"] = StatusPost.PowerGeneration,
             ["v3"] = StatusPost.EnergyConsumption,

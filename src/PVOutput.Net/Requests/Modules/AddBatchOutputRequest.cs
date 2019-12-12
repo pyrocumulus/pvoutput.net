@@ -106,7 +106,6 @@ namespace PVOutput.Net.Requests.Modules
             if (output.HighShoulderEnergyImport != null) 
             { sb.Append(FormatHelper.GetValueAsString(output.HighShoulderEnergyImport)); 
             }
-            sb.Append(',');
 
             return sb.ToString();
         }

@@ -34,7 +34,6 @@ namespace PVOutput.Net.Objects.Core
 
                 foreach (string outputString in results)
                 {
-#warning this should work the same as other readers, while / read / peek, instead of reading and splitting the complete content
                     T output = await objectReader.ReadObjectAsync(new StringReader(outputString), cancellationToken);
                     objects.Add(output);
                 }

@@ -5,7 +5,7 @@ namespace PVOutput.Net.Objects.Modules.Implementations
 {
     internal class StatusPost : IStatusPost
     {
-        public DateTime Date { get; set; }
+        public DateTime Timestamp { get; set; }
         public int? EnergyGeneration { get; set; }
         public int? PowerGeneration { get; set; }
         public int? EnergyConsumption { get; set; }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using PVOutput.Net.Objects.Core;
 
 namespace PVOutput.Net.Objects.Modules.Readers
@@ -11,8 +11,8 @@ namespace PVOutput.Net.Objects.Modules.Readers
         {
             var properties = new Action<IStatus, string>[]
             {
-                (t, s) => t.Date = FormatHelper.ParseDate(s),
-                (t, s) => t.Date = s.Equals("NaN", StringComparison.OrdinalIgnoreCase) ? t.Date : t.Date.Add(FormatHelper.ParseTime(s).TimeOfDay),
+                (t, s) => t.Timestamp = FormatHelper.ParseDate(s),
+                (t, s) => t.Timestamp = s.Equals("NaN", StringComparison.OrdinalIgnoreCase) ? t.Timestamp : t.Timestamp.Add(FormatHelper.ParseTime(s).TimeOfDay),
                 (t, s) => t.EnergyGeneration = FormatHelper.ParseValue<int>(s),
                 (t, s) => t.PowerGeneration = FormatHelper.ParseValue<int>(s),
                 (t, s) => t.EnergyConsumption = FormatHelper.ParseValue<int>(s),

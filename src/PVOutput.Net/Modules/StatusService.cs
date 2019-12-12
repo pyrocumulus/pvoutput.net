@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using PVOutput.Net.Objects.Modules;
@@ -41,6 +42,12 @@ namespace PVOutput.Net.Modules
         {
             var handler = new RequestHandler(Client);
             return handler.ExecutePostRequestAsync(new AddStatusRequest() { StatusPost = statusToPost }, cancellationToken);
+        }
+
+        public Task<PVOutputArrayResponse<IBatchStatusPostResult>> AddBatchStatusAsync(IEnumerable<IBatchStatusPost> statusPosts, CancellationToken cancellationToken = default)
+        {
+            var handler = new RequestHandler(Client);
+            return handler.ExecuteArrayRequestAsync<IBatchStatusPostResult>(new AddBatchStatusRequest() { StatusPosts = statusPosts }, cancellationToken); ;
         }
     }
 }

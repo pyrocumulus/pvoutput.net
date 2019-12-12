@@ -24,7 +24,7 @@ namespace PVOutput.Net.Tests.Modules.Status
             Assert.IsNotNull(response.IsSuccess);
 
             var status = response.Value;
-            Assert.AreEqual(new DateTime(2019, 1, 31, 14, 0, 0), status.Date);
+            Assert.AreEqual(new DateTime(2019, 1, 31, 14, 0, 0), status.Timestamp);
             Assert.AreEqual(2930, status.EnergyGeneration);
             Assert.AreEqual(459, status.PowerGeneration);
             Assert.AreEqual(5938, status.EnergyConsumption);

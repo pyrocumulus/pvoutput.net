@@ -58,20 +58,19 @@ namespace PVOutput.Net.Sample
             Console.WriteLine("Testing pushing data");
             Console.WriteLine("----------------------");
 
-            var builder = new OutputPostBuilder<IBatchOutputPost>();
-            var output1 = builder.SetDate(DateTime.Today.AddDays(-7))
-                .SetGenerated(11000)
-                .Build();
-            builder.Reset();
-            var output2 = builder.SetDate(DateTime.Today.AddDays(-8))
-                .SetGenerated(9000)
-                .Build();
+            var builder = new StatusPostBuilder<IBatchStatusPost>();
+            var date = DateTime.Today.AddDays(-7);
 
-            var outputs = new List<IBatchOutputPost>();
-            outputs.Add(output1);
-            outputs.Add(output2);
+            var outputs = new List<IBatchStatusPost>();
+            outputs.Add(builder.SetDate(date.AddHours(13).AddMinutes(10))
+                .SetGeneration(500, null)
+                .Build());
 
-            var response = await client.Output.AddBatchOutputAsync(outputs);
+            outputs.Add(builder.SetDate(date.AddHours(13).AddMinutes(20))
+                .SetGeneration(200, null)
+                .Build());
+
+            var response = await client.Status.AddBatchStatusAsync(outputs);
         }
 
         private static void OutputDate(IOutput output)
