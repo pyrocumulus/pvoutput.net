@@ -7,41 +7,53 @@ using PVOutput.Net.Objects.Factories;
 
 namespace PVOutput.Net.Objects.Core
 {
-    internal class CharacterDelimitedArrayStringReader<T> : BaseArrayStringReader<T>
+    internal class CharacterDelimitedArrayStringReader<TObjectType> : BaseArrayStringReader<TObjectType>
     {
-        public char[] Delimiter { get; }
+        public char Delimiter { get; }
 
         public CharacterDelimitedArrayStringReader(char delimiter = ';')
         {
-            Delimiter = new char[] { delimiter };
+            Delimiter = delimiter;
         }
 
-        public override async Task<IEnumerable<T>> ReadArrayAsync(TextReader reader, CancellationToken cancellationToken = default)
+        public override async Task<IEnumerable<TObjectType>> ReadArrayAsync(TextReader reader, CancellationToken cancellationToken = default)
         {
             if (reader == null)
             {
-                return await Task.FromResult(default(IEnumerable<T>));
+                return await Task.FromResult(default(IEnumerable<TObjectType>));
             }
 
-            var content = await reader.ReadToEndAsync();
+            var objectReader = StringFactoryContainer.CreateObjectReader<TObjectType>();
+            var results = new List<TObjectType>();
+            var characters = new List<char>();
 
-            if (!string.IsNullOrEmpty(content))
+            while (reader.Peek() >= 0)
             {
-                var results = content.Split(Delimiter, StringSplitOptions.RemoveEmptyEntries);
+                var c = (char)reader.Read();
 
-                var objectReader = StringFactoryContainer.CreateObjectReader<T>();
-                var objects = new List<T>();
-
-                foreach (string outputString in results)
+                if (c == Delimiter)
                 {
-                    T output = await objectReader.ReadObjectAsync(new StringReader(outputString), cancellationToken);
-                    objects.Add(output);
+                    await ReadAndAddObjectAsync(objectReader, results, new string(characters.ToArray()), cancellationToken);
+
+                    characters.Clear();
+                    continue;
                 }
 
-                return objects;
+                characters.Add(c);
             }
 
-            return await Task.FromResult(default(IEnumerable<T>));
+            if (characters.Count > 0)
+            {
+                await ReadAndAddObjectAsync(objectReader, results, new string(characters.ToArray()), cancellationToken);
+            }
+
+            return await Task.FromResult(results);
+        }
+
+        private static async Task ReadAndAddObjectAsync(IObjectStringReader<TObjectType> objectReader, List<TObjectType> objectList, string objectContent, CancellationToken cancellationToken)
+        {
+            TObjectType output = await objectReader.ReadObjectAsync(new StringReader(objectContent), cancellationToken);
+            objectList.Add(output);
         }
     }
 }
