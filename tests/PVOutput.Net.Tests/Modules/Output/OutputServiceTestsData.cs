@@ -1,12 +1,12 @@
-namespace PVOutput.Net.Tests.Modules.Output
+﻿namespace PVOutput.Net.Tests.Modules.Output
 {
-    public static class OutputServiceTestsData
+    public partial class OutputTests
     {
         public const string GETOUTPUT_URL = "getoutput.jsp*";
 
         public const string OUTPUT_RESPONSE_BARE = "20161001,8190,1.985,0,0,NaN,NaN,Cloudy,NaN,NaN,NaN,NaN,NaN,NaN";
 
-        public const string OUTPUT_RESPONSE_DAY = "20180901,16784,4.069,12719,8500,3422,12:00,Fine,7,23,4435,0,0,0";
+        public const string OUTPUT_RESPONSE_DAY = "20180901,16784,4.069,12719,8500,3422,12:00,Fine,7,23,4435,123,321,456";
 
         public const string OUTPUT_RESPONSE_WEEK = "20180907,6137,1.488,3693,7410,3717,11:30,Partly Cloudy,11,17,4966,0,0,0;" +
                                                     "20180906,4743,1.150,2203,8118,1190,13:05,Mostly Cloudy,15,20,5578,0,0,0;" +

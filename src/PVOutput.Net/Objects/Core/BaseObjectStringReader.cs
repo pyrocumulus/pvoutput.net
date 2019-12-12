@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
+[assembly: InternalsVisibleTo("PVOutput.Net.Tests")]
 namespace PVOutput.Net.Objects.Core
 {
     internal abstract class BaseObjectStringReader<TReturnType> : IObjectStringReader<TReturnType>
