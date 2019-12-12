@@ -20,8 +20,8 @@ For now sample code can be found in the samples/ folder of the project. API docu
 |------------|--------------|-------------------|-------------|-------------------------|
 | Add        | Output       | Output            | Implemented | [Add Output](https://pvoutput.org/help.html#api-addoutput) |
 | Add        | Status       | Status            | Implemented | [Add Status](https://pvoutput.org/help.html#api-addstatus) |
-| Add        | Batch Output | Output            |             | [Add Batch Output](https://pvoutput.org/help.html#api-addbatchoutput) |
-| Add        | Batch Status | Status            |             | [Add Batch Status](https://pvoutput.org/help.html#api-addbatchstatus) |
+| Add        | Batch Output | Output            | Implemented | [Add Batch Output](https://pvoutput.org/help.html#api-addbatchoutput) |
+| Add        | Batch Status | Status            | Implemented | [Add Batch Status](https://pvoutput.org/help.html#api-addbatchstatus) |
 | Get        | Status       | Status            | Implemented | [Get Status](https://pvoutput.org/help.html#api-getstatus) |
 | Get        | Statistic    | Staticics         | Implemented | [Get Statistic](https://pvoutput.org/help.html#api-getstatistic) |
 | Get        | System       | System            | Implemented | [Get System](https://pvoutput.org/help.html#api-getsystem) |
