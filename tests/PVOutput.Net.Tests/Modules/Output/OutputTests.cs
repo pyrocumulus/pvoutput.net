@@ -14,7 +14,7 @@ namespace PVOutput.Net.Tests.Modules.Output
     [TestFixture]
     public partial class OutputTests
     {
-        //TODO: vastly improve tests; split by object parsing (deserializing) and just testing the correct response is returned
+        //TODO: Test that MockClient receives a call for the right URI
 
         [Test]
         public async Task OutputService_WithBareData_GetDaily()
@@ -228,28 +228,104 @@ namespace PVOutput.Net.Tests.Modules.Output
             Assert.AreEqual(3, outputs.Count());
         }
 
+        /*
+         * Deserialisation tests below
+         */
 
         [Test]
-        public async Task Outputreader_Creates_CorrectObject()
+        public async Task Outputreader_ForResponse_CreatesCorrectObject()
         {
             var reader = StringFactoryContainer.CreateObjectReader<IOutput>();
             IOutput result = await reader.ReadObjectAsync(new StringReader(OUTPUT_RESPONSE_DAY));
 
-            Assert.IsNotNull(result);
-            Assert.AreEqual(new DateTime(2018, 9, 1), result.Date);
-            Assert.AreEqual(16784, result.EnergyGenerated);
-            Assert.AreEqual(4.069, result.Efficiency);
-            Assert.AreEqual(12719, result.EnergyExported);
-            Assert.AreEqual(8500, result.EnergyUsed);
-            Assert.AreEqual(3422, result.PeakPower);
-            Assert.AreEqual(new DateTime(2018, 9, 1, 12, 0, 0), result.PeakTime);
-            Assert.AreEqual("Fine", result.Condition);
-            Assert.AreEqual(7, result.MinimumTemperature);
-            Assert.AreEqual(23, result.MaximumTemperature);
-            Assert.AreEqual(4435, result.PeakEnergyImport);
-            Assert.AreEqual(123, result.OffPeakEnergyImport);
-            Assert.AreEqual(321, result.ShoulderEnergyImport);
-            Assert.AreEqual(456, result.HighShoulderEnergyImport);
+            Assert.Multiple(() =>
+            {
+                Assert.IsNotNull(result);
+                Assert.AreEqual(new DateTime(2018, 9, 1), result.Date);
+                Assert.AreEqual(16784, result.EnergyGenerated);
+                Assert.AreEqual(4.069, result.Efficiency);
+                Assert.AreEqual(12719, result.EnergyExported);
+                Assert.AreEqual(8500, result.EnergyUsed);
+                Assert.AreEqual(3422, result.PeakPower);
+                Assert.AreEqual(new DateTime(2018, 9, 1, 12, 0, 0), result.PeakTime);
+                Assert.AreEqual("Fine", result.Condition);
+                Assert.AreEqual(7, result.MinimumTemperature);
+                Assert.AreEqual(23, result.MaximumTemperature);
+                Assert.AreEqual(4435, result.PeakEnergyImport);
+                Assert.AreEqual(123, result.OffPeakEnergyImport);
+                Assert.AreEqual(321, result.ShoulderEnergyImport);
+                Assert.AreEqual(456, result.HighShoulderEnergyImport);
+            });
+        }
+
+        [Test]
+        public async Task Outputreader_ForResponseWithInsolation_CreatesCorrectObject()
+        {
+            var reader = StringFactoryContainer.CreateObjectReader<IOutput>();
+            IOutput result = await reader.ReadObjectAsync(new StringReader(OUTPUT_WITH_INSOLATION_RESPONSE_DAY));
+
+            Assert.Multiple(() =>
+            {
+                Assert.IsNotNull(result);
+                Assert.AreEqual(new DateTime(2018, 9, 1), result.Date);
+                Assert.AreEqual(16784, result.EnergyGenerated);
+                Assert.AreEqual(4.069, result.Efficiency);
+                Assert.AreEqual(12719, result.EnergyExported);
+                Assert.AreEqual(8500, result.EnergyUsed);
+                Assert.AreEqual(3422, result.PeakPower);
+                Assert.AreEqual(new DateTime(2018, 9, 1, 12, 0, 0), result.PeakTime);
+                Assert.AreEqual("Fine", result.Condition);
+                Assert.AreEqual(7, result.MinimumTemperature);
+                Assert.AreEqual(23, result.MaximumTemperature);
+                Assert.AreEqual(4435, result.PeakEnergyImport);
+                Assert.AreEqual(123, result.OffPeakEnergyImport);
+                Assert.AreEqual(321, result.ShoulderEnergyImport);
+                Assert.AreEqual(456, result.HighShoulderEnergyImport);
+                Assert.AreEqual(15197, result.Insolation);
+            });
+        }
+
+        [Test]
+        public async Task TeamOutputreader_ForResponse_CreatesCorrectObject()
+        {
+            var reader = StringFactoryContainer.CreateObjectReader<ITeamOutput>();
+            ITeamOutput result = await reader.ReadObjectAsync(new StringReader(TEAMOUTPUT_RESPONSE_DAY));
+
+            Assert.Multiple(() =>
+            {
+                Assert.IsNotNull(result);
+                Assert.AreEqual(new DateTime(2018, 9, 1), result.Date);
+                Assert.AreEqual(980, result.Outputs);
+                Assert.AreEqual(4.736, result.Efficiency);
+                Assert.AreEqual(19264849, result.TotalGeneration);
+                Assert.AreEqual(19658, result.AverageGeneration);
+                Assert.AreEqual(5116604, result.TotalExported);
+                Assert.AreEqual(3815116, result.TotalConsumption);
+                Assert.AreEqual(3893, result.AverageConsumption);
+                Assert.AreEqual(2224276, result.TotalImported);
+            });
+        }
+
+        [Test]
+        public async Task AggregatedOutputreader_ForResponse_CreatesCorrectObject()
+        {
+            var reader = StringFactoryContainer.CreateObjectReader<IAggregatedOutput>();
+            IAggregatedOutput result = await reader.ReadObjectAsync(new StringReader(AGGREGATEDOUTPUT_RESPONSE_SINGLE));
+
+            Assert.Multiple(() =>
+            {
+                Assert.IsNotNull(result);
+                Assert.AreEqual(new DateTime(2018, 6, 1), result.Date);
+                Assert.AreEqual(30, result.Outputs);
+                Assert.AreEqual(420107, result.EnergyGenerated);
+                Assert.AreEqual(3.395m, result.Efficiency);
+                Assert.AreEqual(301293, result.EnergyExported);
+                Assert.AreEqual(274773, result.EnergyUsed);
+                Assert.AreEqual(155959, result.PeakEnergyImport);
+                Assert.AreEqual(123, result.OffPeakEnergyImport);
+                Assert.AreEqual(321, result.ShoulderEnergyImport);
+                Assert.AreEqual(456, result.HighShoulderEnergyImport);
+            });
         }
     }
 }
