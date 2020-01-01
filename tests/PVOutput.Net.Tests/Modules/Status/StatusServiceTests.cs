@@ -14,7 +14,7 @@ namespace PVOutput.Net.Tests.Modules.Status
     public partial class StatusServiceTests
     {
         [Test]
-        public async Task StatusService_GetStatusForDateTime()
+        public async Task StatusService_GetStatusForDateTime_CallsCorrectUri()
         {
             var client = TestUtility.GetMockClient(out var testProvider);
             
@@ -38,7 +38,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         }
 
         [Test]
-        public async Task StatusService_GetHistoryForPeriod()
+        public async Task StatusService_GetHistoryForPeriod_CallsCorrectUri()
         {
             var client = TestUtility.GetMockClient(out var testProvider);
 

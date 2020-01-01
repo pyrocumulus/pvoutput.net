@@ -14,7 +14,7 @@ namespace PVOutput.Net.Tests.Modules.Missing
     public partial class MissingServiceTests
     {
         [Test]
-        public async Task MissingService_GetMissingDaysInPeriod_WithResult()
+        public async Task MissingService_GetMissingDaysInPeriod_CallsCorrectUri()
         {
             var client = TestUtility.GetMockClient(out var testProvider);
 
@@ -32,27 +32,6 @@ namespace PVOutput.Net.Tests.Modules.Missing
                 Assert.IsNotNull(response.IsSuccess);
                 Assert.AreEqual(21, response.Value.Dates.Count());
 
-            });
-        }
-
-        [Test]
-        public async Task MissingService_GetMissingDaysInPeriod_NoResult()
-        {
-            var client = TestUtility.GetMockClient(out var testProvider);
-
-            testProvider.ExpectUriFromBase(GETMISSING_URL)
-                        .WithQueryString("df=20180301&dt=20180330")
-                        .RespondPlainText(MISSINGDATES_RESPONSE_NONE);
-
-            var response = await client.Missing.GetMissingDaysInPeriod(new DateTime(2018, 3, 1), new DateTime(2018, 3, 30));
-
-            Assert.Multiple(() =>
-            {
-                Assert.IsNull(response.Exception);
-                Assert.IsTrue(response.HasValue);
-                Assert.IsNotNull(response.IsSuccess);
-                Assert.IsNotNull(response.Value.Dates);
-                Assert.AreEqual(0, response.Value.Dates.Count());
             });
         }
 
