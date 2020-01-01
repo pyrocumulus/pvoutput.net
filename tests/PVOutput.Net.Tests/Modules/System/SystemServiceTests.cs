@@ -1,35 +1,54 @@
-﻿using System.Threading.Tasks;
+﻿using System.IO;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using PVOutput.Net.Enums;
+using PVOutput.Net.Objects.Factories;
+using PVOutput.Net.Objects.Modules;
 using PVOutput.Net.Tests.Utils;
+using RichardSzalay.MockHttp;
 
 namespace PVOutput.Net.Tests.Modules.System
 {
     [TestFixture]
-    public class SystemServiceTests
+    public partial class SystemServiceTests
     {
+        // TODO: not all possible calls on the system service are being tested right now
+
         [Test]
         public async Task SystemService_GetOwnSystem()
         {
-            var client = TestUtility.GetMockClient(SystemSystemTestsData.GETSYSTEM_URL, SystemSystemTestsData.SYSTEM_RESPONSE_EXTENDED);
+            var client = TestUtility.GetMockClient(out var testProvider);
+
+            testProvider.ExpectUriFromBase(GETSYSTEM_URL)
+                        .RespondPlainText(SYSTEM_RESPONSE_EXTENDED);
+
             var response = await client.System.GetOwnSystem();
+            testProvider.VerifyNoOutstandingExpectation();
 
-            if (response.Exception != null)
-            {
-                throw response.Exception;
-            }
-
+            Assert.IsNull(response.Exception);
             Assert.IsTrue(response.HasValue);
             Assert.IsTrue(response.IsSuccess);
+            Assert.IsNotNull(response.Value);
+        }
 
-            var system = response.Value;
-            Assert.AreEqual("Test System", system.SystemName);
+        /*
+         * Deserialisation tests below
+         */
 
-            Assert.AreEqual(1, system.Donations);
-            Assert.AreEqual(10.65, system.ImportDailyCharge);
-            Assert.AreEqual("DC-2 Voltage", system.ExtendedDataConfig[1].Label);
-            Assert.AreEqual(159, system.MonthlyGenerationEstimates[PVMonth.October]);
-            Assert.AreEqual(0, system.MonthlyConsumptionEstimates[PVMonth.January]);
+        // TODO: not all aspects are being tested right now
+
+        [Test]
+        public async Task SystemReader_ForResponse_CreatesCorrectObject()
+        {
+            var reader = StringFactoryContainer.CreateObjectReader<ISystem>();
+            ISystem result = await reader.ReadObjectAsync(new StringReader(SYSTEM_RESPONSE_EXTENDED));
+
+            Assert.AreEqual("Test System", result.SystemName);
+            Assert.AreEqual(1, result.Donations);
+            Assert.AreEqual(10.65, result.ImportDailyCharge);
+            Assert.AreEqual("DC-2 Voltage", result.ExtendedDataConfig[1].Label);
+            Assert.AreEqual(159, result.MonthlyGenerationEstimates[PVMonth.October]);
+            Assert.AreEqual(0, result.MonthlyConsumptionEstimates[PVMonth.January]);
         }
     }
 }

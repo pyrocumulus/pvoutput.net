@@ -18,7 +18,6 @@ namespace PVOutput.Net.Tests.Modules.Statistic
             var client = TestUtility.GetMockClient(out var testProvider);
 
             testProvider.ExpectUriFromBase(GETSTATISTIC_URL)
-                        //.WithQueryString("d=20190131&t=14:00")
                         .RespondPlainText(STATISTIC_RESPONSE_SIMPLE);
 
             var response = await client.Statistics.GetLifetimeStatisticsAsync();
@@ -40,6 +39,7 @@ namespace PVOutput.Net.Tests.Modules.Statistic
                         .RespondPlainText(STATISTIC_RESPONSE_ALL);
 
             var response = await client.Statistics.GetStatisticsForPeriodAsync(new DateTime(2017, 1, 1), new DateTime(2018, 1, 1));
+            testProvider.VerifyNoOutstandingExpectation();
 
             Assert.IsNull(response.Exception);
             Assert.IsTrue(response.HasValue);
