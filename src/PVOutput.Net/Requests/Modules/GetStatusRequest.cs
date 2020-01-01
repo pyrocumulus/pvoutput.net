@@ -28,7 +28,7 @@ namespace PVOutput.Net.Requests.Modules
             ["sid1"] = SystemId,
             ["d"] = FormatHelper.GetDateAsString(Date),
             ["t"] = FormatHelper.GetTimeAsString(Date),
-            ["history"] = History ? 1 : 0,
+            ["h"] = History ? 1 : 0,
             ["asc"] = Ascending ? 1 : 0,
             ["from"] = FormatHelper.GetTimeAsString(From),
             ["to"] = FormatHelper.GetTimeAsString(To),

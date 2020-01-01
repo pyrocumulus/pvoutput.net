@@ -8,23 +8,22 @@ namespace PVOutput.Net.Tests.Requests.Handler
 {
     public class TestHttpClientProvider : IHttpClientProvider
     {
-        private readonly MockHttpMessageHandler _mockHttpMessageHandler;
+        internal MockHttpMessageHandler MockHttpMessageHandler { get; }
 
         public TestHttpClientProvider()
         {
-            _mockHttpMessageHandler = new MockHttpMessageHandler();
+            MockHttpMessageHandler = new MockHttpMessageHandler();
         }
 
         public HttpClient GetHttpClient()
         {
-            Assert.IsNotNull(_mockHttpMessageHandler);
-            return new HttpClient(_mockHttpMessageHandler);
+            Assert.IsNotNull(MockHttpMessageHandler);
+            return new HttpClient(MockHttpMessageHandler);
         }
 
-        internal void SetupMockResponse(string uri, string responseContent)
+        internal void When(string uri, string responseContent)
         {
-            _mockHttpMessageHandler.When(TestConstants.BASE_URL + uri)
-                .Respond("text/plain", responseContent);
+            MockHttpMessageHandler.When(TestConstants.BASE_URL + uri).Respond("text/plain", responseContent);
         }
     }
 }

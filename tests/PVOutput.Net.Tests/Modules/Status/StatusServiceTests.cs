@@ -6,6 +6,7 @@ using NUnit.Framework;
 using PVOutput.Net.Objects.Factories;
 using PVOutput.Net.Objects.Modules;
 using PVOutput.Net.Tests.Utils;
+using RichardSzalay.MockHttp;
 
 namespace PVOutput.Net.Tests.Modules.Status
 {
@@ -15,8 +16,14 @@ namespace PVOutput.Net.Tests.Modules.Status
         [Test]
         public async Task StatusService_GetStatusForDateTime()
         {
-            var client = TestUtility.GetMockClient(GETSTATUS_URL, STATUS_RESPONSE_SINGLE);
+            var client = TestUtility.GetMockClient(out var testProvider);
+            
+            testProvider.ExpectUriFromBase(GETSTATUS_URL)
+                        .WithQueryString("d=20190131&t=14:00")
+                        .RespondPlainText(STATUS_RESPONSE_SINGLE);
+
             var response = await client.Status.GetStatusForDateTimeAsync(new DateTime(2019, 1, 31, 14, 0, 0));
+            testProvider.VerifyNoOutstandingExpectation();
 
             if (response.Exception != null)
             {
@@ -33,23 +40,24 @@ namespace PVOutput.Net.Tests.Modules.Status
         [Test]
         public async Task StatusService_GetHistoryForPeriod()
         {
-            var client = TestUtility.GetMockClient(GETSTATUS_URL, STATUS_RESPONSE_HISTORY);
+            var client = TestUtility.GetMockClient(out var testProvider);
+
+            testProvider.ExpectUriFromBase(GETSTATUS_URL)
+                        .WithQueryString("d=20190131&from=14:00&to=15:00&h=1")
+                        .RespondPlainText(STATUS_RESPONSE_HISTORY);
+
             var response = await client.Status.GetHistoryForPeriodAsync(new DateTime(2019, 1, 31, 14, 0, 0), new DateTime(2019, 1, 31, 15, 0, 0));
-
-            if (response.Exception != null)
-            {
-                throw response.Exception;
-            }
-
-            Assert.IsTrue(response.HasValues);
-            Assert.IsNotNull(response.IsSuccess);
+            testProvider.VerifyNoOutstandingExpectation();
 
             var statusList = response.Values;
-
-            Assert.AreEqual(10, statusList.Count());
-
-            var firstStatus = statusList.First();
-            Assert.IsNotNull(firstStatus);
+            Assert.Multiple(() =>
+            {
+                Assert.IsNull(response.Exception);
+                Assert.IsTrue(response.HasValues);
+                Assert.IsTrue(response.IsSuccess);
+                Assert.AreEqual(10, statusList.Count());
+                Assert.IsNotNull(statusList.First());
+            });
         }
 
         /*

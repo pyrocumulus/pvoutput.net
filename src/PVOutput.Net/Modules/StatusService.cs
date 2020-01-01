@@ -34,7 +34,8 @@ namespace PVOutput.Net.Modules
                     To = toDateTime,
                     Ascending = ascending,
                     Extended = extendedData,
-                    Limit = limit
+                    Limit = limit,
+                    History = true
                 }, cancellationToken);
         }
 
