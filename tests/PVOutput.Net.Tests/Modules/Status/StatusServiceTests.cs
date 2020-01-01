@@ -31,7 +31,7 @@ namespace PVOutput.Net.Tests.Modules.Status
             }
 
             Assert.IsTrue(response.HasValue);
-            Assert.IsNotNull(response.IsSuccess);
+            Assert.IsTrue(response.IsSuccess);
 
             var status = response.Value;
             Assert.IsNotNull(status);

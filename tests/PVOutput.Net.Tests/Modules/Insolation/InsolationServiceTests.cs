@@ -22,7 +22,7 @@ namespace PVOutput.Net.Tests.Modules.Insolation
             }
 
             Assert.IsTrue(response.HasValues);
-            Assert.IsNotNull(response.IsSuccess);
+            Assert.IsTrue(response.IsSuccess);
 
             var insolations = response.Values;
             var insolation = insolations.First();

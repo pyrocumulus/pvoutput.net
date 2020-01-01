@@ -22,7 +22,7 @@ namespace PVOutput.Net.Tests.Modules.Favourite
             }
 
             Assert.IsTrue(response.HasValues);
-            Assert.IsNotNull(response.IsSuccess);
+            Assert.IsTrue(response.IsSuccess);
 
             var favourites = response.Values;
             var favourite = favourites.First();

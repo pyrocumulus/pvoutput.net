@@ -22,7 +22,7 @@ namespace PVOutput.Net.Tests.Modules.Extended
             }
 
             Assert.IsTrue(response.HasValue);
-            Assert.IsNotNull(response.IsSuccess);
+            Assert.IsTrue(response.IsSuccess);
 
             var extended = response.Value;
             Assert.AreEqual(new DateTime(2014, 3, 7), extended.Date);
@@ -47,7 +47,7 @@ namespace PVOutput.Net.Tests.Modules.Extended
             }
 
             Assert.IsTrue(response.HasValues);
-            Assert.IsNotNull(response.IsSuccess);
+            Assert.IsTrue(response.IsSuccess);
             Assert.AreEqual(2, response.Values.Count());
 
             var extended1 = response.Values.First();

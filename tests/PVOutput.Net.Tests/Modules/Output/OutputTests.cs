@@ -30,7 +30,7 @@ namespace PVOutput.Net.Tests.Modules.Output
             }
 
             Assert.IsTrue(response.HasValue);
-            Assert.IsNotNull(response.IsSuccess);
+            Assert.IsTrue(response.IsSuccess);
 
             var output = response.Value;
             Assert.AreEqual(mockDate, output.Date);

@@ -29,7 +29,7 @@ namespace PVOutput.Net.Tests.Modules.Missing
             {
                 Assert.IsNull(response.Exception);
                 Assert.IsTrue(response.HasValue);
-                Assert.IsNotNull(response.IsSuccess);
+                Assert.IsTrue(response.IsSuccess);
                 Assert.AreEqual(21, response.Value.Dates.Count());
 
             });

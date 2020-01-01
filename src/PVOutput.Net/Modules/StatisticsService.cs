@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using PVOutput.Net.Objects.Modules;
@@ -17,13 +17,13 @@ namespace PVOutput.Net.Modules
         public Task<PVOutputResponse<IStatistic>> GetLifetimeStatisticsAsync(bool includeConsumptionAndImport = false, bool includeCreditDebit = false, int? systemId = null, CancellationToken cancellationToken = default)
         {
             var handler = new RequestHandler(Client);
-            return handler.ExecuteSingleItemRequestAsync<IStatistic>(new StatisticRequest { SystemId = systemId, IncludeConsumptionImport = includeConsumptionAndImport, IncludeCreditDebit = includeConsumptionAndImport }, cancellationToken);
+            return handler.ExecuteSingleItemRequestAsync<IStatistic>(new StatisticRequest { SystemId = systemId, IncludeConsumptionImport = includeConsumptionAndImport, IncludeCreditDebit = includeCreditDebit }, cancellationToken);
         }
 
         public Task<PVOutputResponse<IStatistic>> GetStatisticsForPeriodAsync(DateTime fromDate, DateTime toDate, bool includeConsumptionAndImport = false, bool includeCreditDebit = false, int? systemId = null, CancellationToken cancellationToken = default)
         {
             var handler = new RequestHandler(Client);
-            return handler.ExecuteSingleItemRequestAsync<IStatistic>(new StatisticPeriodRequest { FromDate = fromDate, ToDate = toDate, SystemId = systemId, IncludeConsumptionImport = includeConsumptionAndImport, IncludeCreditDebit = includeConsumptionAndImport }, cancellationToken);
+            return handler.ExecuteSingleItemRequestAsync<IStatistic>(new StatisticPeriodRequest { FromDate = fromDate, ToDate = toDate, SystemId = systemId, IncludeConsumptionImport = includeConsumptionAndImport, IncludeCreditDebit = includeCreditDebit }, cancellationToken);
         }
     }
 }

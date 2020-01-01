@@ -26,7 +26,7 @@ namespace PVOutput.Net.Tests.Modules.Team
 
             Assert.IsNull(response.Exception);
             Assert.IsTrue(response.HasValue);
-            Assert.IsNotNull(response.IsSuccess);
+            Assert.IsTrue(response.IsSuccess);
         }
 
         /*

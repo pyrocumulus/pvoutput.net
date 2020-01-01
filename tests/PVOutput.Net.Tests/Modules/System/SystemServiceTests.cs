@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using NUnit.Framework;
 using PVOutput.Net.Enums;
 using PVOutput.Net.Tests.Utils;
@@ -20,7 +20,7 @@ namespace PVOutput.Net.Tests.Modules.System
             }
 
             Assert.IsTrue(response.HasValue);
-            Assert.IsNotNull(response.IsSuccess);
+            Assert.IsTrue(response.IsSuccess);
 
             var system = response.Value;
             Assert.AreEqual("Test System", system.SystemName);
