@@ -54,8 +54,7 @@ namespace PVOutput.Net.Tests.Modules.Statistic
         [Test]
         public async Task StatisticsReader_ForResponse_CreatesCorrectObject()
         {
-            var reader = StringFactoryContainer.CreateObjectReader<IStatistic>();
-            IStatistic result = await reader.ReadObjectAsync(new StringReader(STATISTIC_RESPONSE_SIMPLE));
+            var result = await TestUtility.ExecuteObjectReaderByTypeAsync<IStatistic>(STATISTIC_RESPONSE_SIMPLE);
 
             Assert.Multiple(() =>
             {
@@ -77,8 +76,7 @@ namespace PVOutput.Net.Tests.Modules.Statistic
         [Test]
         public async Task StatisticsReader_ForPeriodResponse_CreatesCorrectObject()
         {
-            var reader = StringFactoryContainer.CreateObjectReader<IStatistic>();
-            IStatistic result = await reader.ReadObjectAsync(new StringReader(STATISTIC_RESPONSE_ALL));
+            var result = await TestUtility.ExecuteObjectReaderByTypeAsync<IStatistic>(STATISTIC_RESPONSE_ALL);
 
             Assert.AreEqual(10052033, result.EnergyGenerated);
             Assert.AreEqual(4366048, result.EnergyExported);

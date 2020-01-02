@@ -2,7 +2,7 @@
 {
     public static class ExtendedTestsData
     {
-        public const string GETEXTENDED_URL = "getextended.jsp*";
+        public const string GETEXTENDED_URL = "getextended.jsp";
 
         public const string EXTENDED_RESPONSE_RECENT = "20140307,67.4,825.321,349.0,1105.0,1115.0,-12.3";
 

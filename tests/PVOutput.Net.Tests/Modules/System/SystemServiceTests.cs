@@ -15,7 +15,7 @@ namespace PVOutput.Net.Tests.Modules.System
         // TODO: not all possible calls on the system service are being tested right now
 
         [Test]
-        public async Task SystemService_GetOwnSystem()
+        public async Task SystemService_GetOwnSystem_CallsCorrectUri()
         {
             var client = TestUtility.GetMockClient(out var testProvider);
 
@@ -40,8 +40,7 @@ namespace PVOutput.Net.Tests.Modules.System
         [Test]
         public async Task SystemReader_ForResponse_CreatesCorrectObject()
         {
-            var reader = StringFactoryContainer.CreateObjectReader<ISystem>();
-            ISystem result = await reader.ReadObjectAsync(new StringReader(SYSTEM_RESPONSE_EXTENDED));
+            ISystem result = await TestUtility.ExecuteObjectReaderByTypeAsync<ISystem>(SYSTEM_RESPONSE_EXTENDED);
 
             Assert.AreEqual("Test System", result.SystemName);
             Assert.AreEqual(1, result.Donations);

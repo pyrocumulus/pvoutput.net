@@ -2,7 +2,7 @@
 {
     public partial class OutputTests
     {
-        public const string GETOUTPUT_URL = "getoutput.jsp*";
+        public const string GETOUTPUT_URL = "getoutput.jsp";
 
         public const string OUTPUT_RESPONSE_BARE = "20161001,8190,1.985,0,0,NaN,NaN,Cloudy,NaN,NaN,NaN,NaN,NaN,NaN";
 
