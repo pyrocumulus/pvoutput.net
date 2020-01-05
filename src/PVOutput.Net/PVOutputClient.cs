@@ -24,7 +24,7 @@ namespace PVOutput.Net
 
         public PVOutputClient(IHttpClientProvider httpClientProvider = default)
         {
-            HttpClientProvider = httpClientProvider ?? new HttpClientProvider(this);
+            HttpClientProvider = httpClientProvider ?? new HttpClientProvider();
 
             Output = new OutputService(this);
             System = new SystemService(this);

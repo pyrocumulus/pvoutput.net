@@ -5,18 +5,15 @@ namespace PVOutput.Net.Requests.Handler
 {
     public class HttpClientProvider : IHttpClientProvider
     {
-        private readonly PVOutputClient _client;
-        private HttpClient _httpClient;
+        protected HttpClient _httpClient;
 
-        public HttpClientProvider(PVOutputClient client)
+        public HttpClientProvider()
         {
-            _client = client ?? throw new ArgumentNullException(nameof(client));
         }
 
         public virtual HttpClient SetupHttpClient()
         {
             var httpClient = new HttpClient();
-            SetupDefaultRequestHeaders(httpClient);
             return httpClient;
         }
 
@@ -28,13 +25,6 @@ namespace PVOutput.Net.Requests.Handler
             }
 
             return _httpClient;
-        }
-
-        protected void SetupDefaultRequestHeaders(HttpClient httpClient)
-        {
-            httpClient.DefaultRequestHeaders.Add("X-Pvoutput-Apikey", _client.Apikey);
-            httpClient.DefaultRequestHeaders.Add("X-Pvoutput-SystemId", _client.OwnedSystemId.ToString());
-            httpClient.DefaultRequestHeaders.Add("X-Rate-Limit", "1");
         }
     }
 }

@@ -10,7 +10,7 @@ using RichardSzalay.MockHttp;
 namespace PVOutput.Net.Tests.Modules.System
 {
     [TestFixture]
-    public partial class SystemServiceTests
+    public partial class SystemServiceTests : BaseRequestsTest
     {
         // TODO: not all possible calls on the system service are being tested right now
 
@@ -24,11 +24,7 @@ namespace PVOutput.Net.Tests.Modules.System
 
             var response = await client.System.GetOwnSystem();
             testProvider.VerifyNoOutstandingExpectation();
-
-            Assert.IsNull(response.Exception);
-            Assert.IsTrue(response.HasValue);
-            Assert.IsTrue(response.IsSuccess);
-            Assert.IsNotNull(response.Value);
+            AssertStandardResponse(response);
         }
 
         /*

@@ -6,7 +6,7 @@ using RichardSzalay.MockHttp;
 
 namespace PVOutput.Net.Tests.Requests.Handler
 {
-    public class TestHttpClientProvider : IHttpClientProvider
+    public class TestHttpClientProvider : HttpClientProvider
     {
         internal MockHttpMessageHandler MockHttpMessageHandler { get; }
 
@@ -15,10 +15,10 @@ namespace PVOutput.Net.Tests.Requests.Handler
             MockHttpMessageHandler = new MockHttpMessageHandler();
         }
 
-        public HttpClient GetHttpClient()
+        public override HttpClient SetupHttpClient()
         {
             Assert.IsNotNull(MockHttpMessageHandler);
-            return new HttpClient(MockHttpMessageHandler);
+            return MockHttpMessageHandler.ToHttpClient();
         }
 
         internal void When(string uri, string responseContent)

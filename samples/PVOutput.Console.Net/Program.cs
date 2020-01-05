@@ -10,9 +10,9 @@ namespace PVOutput.Net.Sample
     {
         public static async Task Main(string[] args)
         {
-            //TestGettingData();
+            await TestGettingData();
 
-            await TestPushingData();
+            //await TestPushingData();
         }
 
         private static async Task TestGettingData()

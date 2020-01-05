@@ -251,7 +251,15 @@ namespace PVOutput.Net.Requests.Handler
 
         internal Task<HttpResponseMessage> ExecuteRequestAsync(HttpRequestMessage requestMessage, CancellationToken cancellationToken = default(CancellationToken))
         {
+            SetRequestHeaders(requestMessage);
             return _client.HttpClientProvider.GetHttpClient().SendAsync(requestMessage, cancellationToken);
+        }
+
+        protected void SetRequestHeaders(HttpRequestMessage request)
+        {
+            request.Headers.Add("X-Pvoutput-Apikey", _client.Apikey);
+            request.Headers.Add("X-Pvoutput-SystemId", _client.OwnedSystemId.ToString());
+            request.Headers.Add("X-Rate-Limit", "1");
         }
     }
 }

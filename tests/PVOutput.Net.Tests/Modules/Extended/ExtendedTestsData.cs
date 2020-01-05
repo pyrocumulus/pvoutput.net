@@ -1,6 +1,6 @@
 ﻿namespace PVOutput.Net.Tests.Modules.Extended
 {
-    public static class ExtendedTestsData
+    public partial class ExtendedServiceTests
     {
         public const string GETEXTENDED_URL = "getextended.jsp";
 

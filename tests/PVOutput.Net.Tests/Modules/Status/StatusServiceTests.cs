@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ using RichardSzalay.MockHttp;
 namespace PVOutput.Net.Tests.Modules.Status
 {
     [TestFixture]
-    public partial class StatusServiceTests
+    public partial class StatusServiceTests : BaseRequestsTest
     {
         [Test]
         public async Task StatusService_GetStatusForDateTime_CallsCorrectUri()
@@ -24,17 +25,7 @@ namespace PVOutput.Net.Tests.Modules.Status
 
             var response = await client.Status.GetStatusForDateTimeAsync(new DateTime(2019, 1, 31, 14, 0, 0));
             testProvider.VerifyNoOutstandingExpectation();
-
-            if (response.Exception != null)
-            {
-                throw response.Exception;
-            }
-
-            Assert.IsTrue(response.HasValue);
-            Assert.IsTrue(response.IsSuccess);
-
-            var status = response.Value;
-            Assert.IsNotNull(status);
+            AssertStandardResponse(response);
         }
 
         [Test]
@@ -48,16 +39,7 @@ namespace PVOutput.Net.Tests.Modules.Status
 
             var response = await client.Status.GetHistoryForPeriodAsync(new DateTime(2019, 1, 31, 14, 0, 0), new DateTime(2019, 1, 31, 15, 0, 0));
             testProvider.VerifyNoOutstandingExpectation();
-
-            var statusList = response.Values;
-            Assert.Multiple(() =>
-            {
-                Assert.IsNull(response.Exception);
-                Assert.IsTrue(response.HasValues);
-                Assert.IsTrue(response.IsSuccess);
-                Assert.AreEqual(10, statusList.Count());
-                Assert.IsNotNull(statusList.First());
-            });
+            AssertStandardResponse(response);
         }
 
         /*
@@ -67,8 +49,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         [Test]
         public async Task StatusReader_ForResponse_CreatesCorrectObject()
         {
-            var reader = StringFactoryContainer.CreateObjectReader<IStatus>();
-            IStatus result = await reader.ReadObjectAsync(new StringReader(STATUS_RESPONSE_SINGLE));
+            IStatus result = await TestUtility.ExecuteObjectReaderByTypeAsync<IStatus>(STATUS_RESPONSE_SINGLE);
 
             Assert.Multiple(() =>
             {
@@ -94,8 +75,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         [Test]
         public async Task StatusHistoryReader_ForResponse_CreatesCorrectObject()
         {
-            var reader = StringFactoryContainer.CreateObjectReader<IStatusHistory>();
-            IStatusHistory result = await reader.ReadObjectAsync(new StringReader(STATUS_RESPONSE_HISTORY_SINGLE));
+            IStatusHistory result = await TestUtility.ExecuteObjectReaderByTypeAsync<IStatusHistory>(STATUS_RESPONSE_HISTORY_SINGLE);
 
             Assert.Multiple(() =>
             {
@@ -114,6 +94,34 @@ namespace PVOutput.Net.Tests.Modules.Status
                 Assert.AreEqual(4d, result.ExtendedValue4);
                 Assert.AreEqual(5d, result.ExtendedValue5);
                 Assert.AreEqual(6d, result.ExtendedValue6);
+            });
+        }
+
+        [Test]
+        public async Task StatusHistoryReader_ForPeriodResponse_CreatesCorrectObjects()
+        {
+            IEnumerable<IStatusHistory> result = await TestUtility.ExecuteArrayReaderByTypeAsync<IStatusHistory>(STATUS_RESPONSE_HISTORY);
+
+            var firstStatus = result.First();
+            Assert.Multiple(() =>
+            {
+                Assert.AreEqual(10, result.Count());
+
+                Assert.AreEqual(2930, firstStatus.EnergyGeneration);
+                Assert.AreEqual(0.710d, firstStatus.EnergyEfficiency);
+                Assert.AreEqual(459, firstStatus.InstantaneousPower);
+                Assert.AreEqual(456, firstStatus.AveragePower);
+                Assert.AreEqual(0.111d, firstStatus.NormalisedOutput);
+                Assert.AreEqual(5938, firstStatus.EnergyConsumption);
+                Assert.AreEqual(386, firstStatus.PowerConsumption);
+                Assert.AreEqual(1.8d, firstStatus.Temperature);
+                Assert.AreEqual(230.1d, firstStatus.Volts);
+                Assert.AreEqual(1d, firstStatus.ExtendedValue1);
+                Assert.AreEqual(2d, firstStatus.ExtendedValue2);
+                Assert.AreEqual(3d, firstStatus.ExtendedValue3);
+                Assert.AreEqual(4d, firstStatus.ExtendedValue4);
+                Assert.AreEqual(5d, firstStatus.ExtendedValue5);
+                Assert.AreEqual(6d, firstStatus.ExtendedValue6);
             });
         }
     }
