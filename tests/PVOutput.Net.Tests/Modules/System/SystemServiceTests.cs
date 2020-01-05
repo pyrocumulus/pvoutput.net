@@ -12,8 +12,6 @@ namespace PVOutput.Net.Tests.Modules.System
     [TestFixture]
     public partial class SystemServiceTests : BaseRequestsTest
     {
-        // TODO: not all possible calls on the system service are being tested right now
-
         [Test]
         public async Task SystemService_GetOwnSystem_CallsCorrectUri()
         {
@@ -23,6 +21,20 @@ namespace PVOutput.Net.Tests.Modules.System
                         .RespondPlainText(SYSTEM_RESPONSE_EXTENDED);
 
             var response = await client.System.GetOwnSystem();
+            testProvider.VerifyNoOutstandingExpectation();
+            AssertStandardResponse(response);
+        }
+
+        [Test]
+        public async Task SystemService_GetOtherSystem_CallsCorrectUri()
+        {
+            var client = TestUtility.GetMockClient(out var testProvider);
+
+            testProvider.ExpectUriFromBase(GETSYSTEM_URL)
+                        .WithQueryString("sid1=54321")
+                        .RespondPlainText(SYSTEM_RESPONSE_EXTENDED);
+
+            var response = await client.System.GetOtherSystem(54321);
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
         }

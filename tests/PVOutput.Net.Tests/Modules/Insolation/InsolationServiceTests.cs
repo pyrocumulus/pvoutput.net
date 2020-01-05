@@ -13,7 +13,7 @@ using RichardSzalay.MockHttp;
 namespace PVOutput.Net.Tests.Modules.Insolation
 {
     [TestFixture]
-    public partial class InsolationServiceTests
+    public partial class InsolationServiceTests : BaseRequestsTest
     {
         [Test]
         public async Task InsolationService_GetForSystem_CallsCorrectUri()
@@ -21,19 +21,17 @@ namespace PVOutput.Net.Tests.Modules.Insolation
             var client = TestUtility.GetMockClient(out var testProvider);
 
             testProvider.ExpectUriFromBase(GETINSOLATION_URL)
-                        .WithQueryString("sid1=12345")
+                        .WithQueryString("sid1=54321")
                         .RespondPlainText(INSOLATION_RESPONSE_BASIC);
 
-            var response = await client.Insolation.GetInsolationForSystem(12345);
+            var response = await client.Insolation.GetInsolationForSystem(54321);
             testProvider.VerifyNoOutstandingExpectation();
-
-            Assert.IsNull(response.Exception);
-            Assert.IsTrue(response.HasValues);
-            Assert.IsTrue(response.IsSuccess);
-
-            Assert.IsNotNull(response.Values);
-
+            AssertStandardResponse(response);
         }
+
+        /*
+         * Deserialisation tests below
+         */
 
         [Test]
         public async Task InsolationReader_ForResponse_CreatesCorrectObject()

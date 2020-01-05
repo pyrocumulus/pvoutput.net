@@ -12,7 +12,7 @@ namespace PVOutput.Net.Modules
 {
     public class TeamService : BaseService
     {
-        public TeamService(PVOutputClient client) : base(client)
+        internal TeamService(PVOutputClient client) : base(client)
         {
         }
 

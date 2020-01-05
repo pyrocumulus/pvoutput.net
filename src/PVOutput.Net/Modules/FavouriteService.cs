@@ -12,7 +12,7 @@ namespace PVOutput.Net.Modules
 {
     public class FavouriteService : BaseService
     {
-        public FavouriteService(PVOutputClient client) : base(client)
+        internal FavouriteService(PVOutputClient client) : base(client)
         {
         }
 

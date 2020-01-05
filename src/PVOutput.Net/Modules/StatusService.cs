@@ -11,7 +11,7 @@ namespace PVOutput.Net.Modules
 {
     public class StatusService : BaseService
     {
-        public StatusService(PVOutputClient client) : base(client)
+        internal StatusService(PVOutputClient client) : base(client)
         {
         }
 
@@ -27,16 +27,7 @@ namespace PVOutput.Net.Modules
             var handler = new RequestHandler(Client);
 
             return handler.ExecuteArrayRequestAsync<IStatusHistory>(
-                new GetStatusRequest
-                {
-                    Date = fromDateTime.Date,
-                    From = fromDateTime,
-                    To = toDateTime,
-                    Ascending = ascending,
-                    Extended = extendedData,
-                    Limit = limit,
-                    History = true
-                }, cancellationToken);
+                new GetStatusRequest { Date = fromDateTime.Date, From = fromDateTime, To = toDateTime, Ascending = ascending, Extended = extendedData, Limit = limit, History = true }, cancellationToken);
         }
 
         public Task<PVOutputBasicResponse> AddStatusAsync(IStatusPost statusToPost, CancellationToken cancellationToken = default)

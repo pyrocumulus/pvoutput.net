@@ -10,7 +10,7 @@ namespace PVOutput.Net.Modules
 {
     public class StatisticsService : BaseService
     {
-        public StatisticsService(PVOutputClient client) : base(client)
+        internal StatisticsService(PVOutputClient client) : base(client)
         {
         }
 

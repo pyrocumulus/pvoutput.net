@@ -1,6 +1,6 @@
 ﻿namespace PVOutput.Net.Tests.Modules.Favourite
 {
-    public static class FavouriteTestsData
+    public partial class FavouriteServiceTests
     {
         public const string GETFAVOURITE_URL = "getfavourite.jsp";
 

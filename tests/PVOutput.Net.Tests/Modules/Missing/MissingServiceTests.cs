@@ -11,7 +11,7 @@ using RichardSzalay.MockHttp;
 namespace PVOutput.Net.Tests.Modules.Missing
 {
     [TestFixture]
-    public partial class MissingServiceTests
+    public partial class MissingServiceTests : BaseRequestsTest
     {
         [Test]
         public async Task MissingService_GetMissingDaysInPeriod_CallsCorrectUri()
@@ -24,15 +24,7 @@ namespace PVOutput.Net.Tests.Modules.Missing
 
             var response = await client.Missing.GetMissingDaysInPeriod(new DateTime(2016, 8, 1), new DateTime(2016, 8, 30));
             testProvider.VerifyNoOutstandingExpectation();
-
-            Assert.Multiple(() =>
-            {
-                Assert.IsNull(response.Exception);
-                Assert.IsTrue(response.HasValue);
-                Assert.IsTrue(response.IsSuccess);
-                Assert.AreEqual(21, response.Value.Dates.Count());
-
-            });
+            AssertStandardResponse(response);
         }
 
         /*
@@ -42,8 +34,7 @@ namespace PVOutput.Net.Tests.Modules.Missing
         [Test]
         public async Task MissingReader_ForResponse_CreatesCorrectObject()
         {
-            var reader = StringFactoryContainer.CreateObjectReader<IMissing>();
-            IMissing result = await reader.ReadObjectAsync(new StringReader(MISSINGDATES_RESPONSE_SIMPLE));
+            IMissing result = await TestUtility.ExecuteObjectReaderByTypeAsync<IMissing>(MISSINGDATES_RESPONSE_SIMPLE);
 
             Assert.Multiple(() =>
             {
@@ -56,13 +47,8 @@ namespace PVOutput.Net.Tests.Modules.Missing
         [Test]
         public async Task MissingReader_ForEmptyResponse_CreatesCorrectObject()
         {
-            var reader = StringFactoryContainer.CreateObjectReader<IMissing>();
-            IMissing result = await reader.ReadObjectAsync(new StringReader(MISSINGDATES_RESPONSE_NONE));
-
-            Assert.Multiple(() =>
-            {
-                Assert.AreEqual(0, result.Dates.Count());
-            });
+            IMissing result = await TestUtility.ExecuteObjectReaderByTypeAsync<IMissing>(MISSINGDATES_RESPONSE_NONE);
+            Assert.AreEqual(0, result.Dates.Count());
         }
     }
 }

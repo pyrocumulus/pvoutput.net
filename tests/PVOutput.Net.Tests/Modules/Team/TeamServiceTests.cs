@@ -10,7 +10,7 @@ using RichardSzalay.MockHttp;
 namespace PVOutput.Net.Tests.Modules.Team
 {
     [TestFixture]
-    public partial class TeamServiceTests
+    public partial class TeamServiceTests : BaseRequestsTest
     {
         [Test]
         public async Task TeamService_GetStatusForTeam_CallsCorrectUri()
@@ -23,10 +23,7 @@ namespace PVOutput.Net.Tests.Modules.Team
 
             var response = await client.Team.GetTeamAsync(350);
             testProvider.VerifyNoOutstandingExpectation();
-
-            Assert.IsNull(response.Exception);
-            Assert.IsTrue(response.HasValue);
-            Assert.IsTrue(response.IsSuccess);
+            AssertStandardResponse(response);
         }
 
         /*
@@ -36,21 +33,21 @@ namespace PVOutput.Net.Tests.Modules.Team
         [Test]
         public async Task TeamReader_ForResponse_CreatesCorrectObject()
         {
-            var reader = StringFactoryContainer.CreateObjectReader<ITeam>();
-            ITeam result = await reader.ReadObjectAsync(new StringReader(TEAM_RESPONSE_SIMPLE));
+            ITeam result = await TestUtility.ExecuteObjectReaderByTypeAsync<ITeam>(TEAM_RESPONSE_SIMPLE);
 
-            Assert.AreEqual("McDonalds Android App", result.Name);
-            Assert.AreEqual("Join the team if you use the app.", result.Description);
-            Assert.AreEqual("Software", result.Type);
-
-            Assert.AreEqual(8554332, result.TeamSize);
-            Assert.AreEqual(5741, result.AverageSize);
-
-            Assert.AreEqual(1490, result.NumberOfSystems);
-            Assert.AreEqual(45566122184, result.EnergyGenerated);
-            Assert.AreEqual(2521753, result.Outputs);
-            Assert.AreEqual(17851, result.EnergyAverage);
-            Assert.AreEqual(new DateTime(2012, 2, 19), result.CreationDate);
+            Assert.Multiple(() =>
+            {
+                Assert.AreEqual("McDonalds Android App", result.Name);
+                Assert.AreEqual("Join the team if you use the app.", result.Description);
+                Assert.AreEqual("Software", result.Type);
+                Assert.AreEqual(8554332, result.TeamSize);
+                Assert.AreEqual(5741, result.AverageSize);
+                Assert.AreEqual(1490, result.NumberOfSystems);
+                Assert.AreEqual(45566122184, result.EnergyGenerated);
+                Assert.AreEqual(2521753, result.Outputs);
+                Assert.AreEqual(17851, result.EnergyAverage);
+                Assert.AreEqual(new DateTime(2012, 2, 19), result.CreationDate);
+            });
         }
     }
 }

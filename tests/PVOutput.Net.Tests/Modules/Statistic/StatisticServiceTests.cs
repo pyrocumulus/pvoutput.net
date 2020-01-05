@@ -10,7 +10,7 @@ using RichardSzalay.MockHttp;
 namespace PVOutput.Net.Tests.Modules.Statistic
 {
     [TestFixture]
-    public partial class StatisticServiceTests
+    public partial class StatisticServiceTests : BaseRequestsTest
     {
         [Test]
         public async Task StatisticsService_GetLifetimeStatistics_CallsCorrectUri()
@@ -22,11 +22,7 @@ namespace PVOutput.Net.Tests.Modules.Statistic
 
             var response = await client.Statistics.GetLifetimeStatisticsAsync();
             testProvider.VerifyNoOutstandingExpectation();
-
-            Assert.IsNull(response.Exception);
-            Assert.IsTrue(response.HasValue);
-            Assert.IsTrue(response.IsSuccess);
-            Assert.IsNotNull(response.Value);
+            AssertStandardResponse(response);
         }
 
         [Test]
@@ -40,11 +36,7 @@ namespace PVOutput.Net.Tests.Modules.Statistic
 
             var response = await client.Statistics.GetStatisticsForPeriodAsync(new DateTime(2017, 1, 1), new DateTime(2018, 1, 1));
             testProvider.VerifyNoOutstandingExpectation();
-
-            Assert.IsNull(response.Exception);
-            Assert.IsTrue(response.HasValue);
-            Assert.IsTrue(response.IsSuccess);
-            Assert.IsNotNull(response.Value);
+            AssertStandardResponse(response);
         }
 
         /*

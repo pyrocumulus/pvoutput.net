@@ -1,4 +1,4 @@
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using PVOutput.Net.Objects.Modules;
 using PVOutput.Net.Requests.Handler;
@@ -9,7 +9,7 @@ namespace PVOutput.Net.Modules
 {
     public class SystemService : BaseService
     {
-        public SystemService(PVOutputClient client) : base(client)
+        internal SystemService(PVOutputClient client) : base(client)
         {
         }
 

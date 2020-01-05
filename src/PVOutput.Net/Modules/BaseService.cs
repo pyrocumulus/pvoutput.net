@@ -1,10 +1,10 @@
-namespace PVOutput.Net.Modules
+﻿namespace PVOutput.Net.Modules
 {
     public abstract class BaseService
     {
-        public PVOutputClient Client { get; }
+        internal PVOutputClient Client { get; }
 
-        public BaseService(PVOutputClient client)
+        internal BaseService(PVOutputClient client)
         {
             Client = client;
         }

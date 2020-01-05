@@ -12,7 +12,7 @@ namespace PVOutput.Net.Modules
 {
     public class OutputService : BaseService
     {
-        public OutputService(PVOutputClient client) : base(client)
+        internal OutputService(PVOutputClient client) : base(client)
         {
         }
 

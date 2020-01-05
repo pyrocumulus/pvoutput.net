@@ -12,7 +12,7 @@ namespace PVOutput.Net.Modules
 {
     public class InsolationService : BaseService
     {
-        public InsolationService(PVOutputClient client) : base(client)
+        internal InsolationService(PVOutputClient client) : base(client)
         {
         }
 

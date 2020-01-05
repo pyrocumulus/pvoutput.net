@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using PVOutput.Net.Objects.Modules;
@@ -10,7 +10,7 @@ namespace PVOutput.Net.Modules
 {
     public class MissingService : BaseService
     {
-        public MissingService(PVOutputClient client) : base(client)
+        internal MissingService(PVOutputClient client) : base(client)
         {
 
         }
