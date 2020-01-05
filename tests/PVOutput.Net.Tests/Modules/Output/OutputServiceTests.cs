@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,79 +9,37 @@ using PVOutput.Net.Objects.Factories;
 using PVOutput.Net.Objects.Modules;
 using PVOutput.Net.Requests.Modules;
 using PVOutput.Net.Tests.Utils;
+using RichardSzalay.MockHttp;
 
 namespace PVOutput.Net.Tests.Modules.Output
 {
     [TestFixture]
-    public partial class OutputTests
+    public partial class OutputServiceTests : BaseRequestsTest
     {
-        //TODO: Test that MockClient receives a call for the right URI
-
         [Test]
-        public async Task OutputService_WithBareData_GetDaily()
+        public async Task OutputService_ForDate_CallsCorrectURi()
         {
-            DateTime mockDate = new DateTime(2016, 10, 1);
+            var client = TestUtility.GetMockClient(out var testProvider);
+            testProvider.ExpectUriFromBase(GETOUTPUT_URL)
+                        .WithQueryString("df=20161001&dt=20161001&insolation=0")
+                        .RespondPlainText(OUTPUT_RESPONSE_BARE);
 
-            var client = TestUtility.GetMockClient(GETOUTPUT_URL, OUTPUT_RESPONSE_BARE);
-            var response = await client.Output.GetOutputForDateAsync(mockDate, false);
-
-            if (response.Exception != null)
-            {
-                throw response.Exception;
-            }
-
-            Assert.IsTrue(response.HasValue);
-            Assert.IsTrue(response.IsSuccess);
-
-            var output = response.Value;
-            Assert.AreEqual(mockDate, output.Date);
-        }
-
-
-        [Test]
-        public async Task OutputService_GetDaily()
-        {
-            DateTime mockDate = new DateTime(2018, 9, 1);
-
-            var client = TestUtility.GetMockClient(GETOUTPUT_URL, OUTPUT_RESPONSE_DAY);
-            var response = await client.Output.GetOutputForDateAsync(mockDate, false);
-
-            if (response.Exception != null)
-            {
-                throw response.Exception;
-            }
-
-            Assert.IsTrue(response.HasValue);
-            Assert.IsNotNull(response.Value);
-            Assert.IsTrue(response.IsSuccess);
-
-            var output = response.Value;
-            Assert.AreEqual(mockDate, output.Date);
+            var response = await client.Output.GetOutputForDateAsync(new DateTime(2016, 10, 1), false);
+            testProvider.VerifyNoOutstandingExpectation();
+            AssertStandardResponse(response);
         }
 
         [Test]
-        public async Task OutputService_GetWeek()
+        public async Task OutputService_ForPeriod_CallsCorrectUri()
         {
-            DateTime fromDate = new DateTime(2018, 9, 1);
-            DateTime toDate = new DateTime(2018, 9, 7);
+            var client = TestUtility.GetMockClient(out var testProvider);
+            testProvider.ExpectUriFromBase(GETOUTPUT_URL)
+                        .WithQueryString("df=20180901&dt=20180907&insolation=0")
+                        .RespondPlainText(OUTPUT_RESPONSE_WEEK);
 
-            var client = TestUtility.GetMockClient(GETOUTPUT_URL, OUTPUT_RESPONSE_WEEK);
-            var response = await client.Output.GetOutputsForPeriodAsync(fromDate, toDate, false);
-
-            if (response.Exception != null)
-            {
-                throw response.Exception;
-            }
-
-            Assert.IsTrue(response.HasValues);
-            Assert.IsNotNull(response.Values);
-            Assert.IsTrue(response.IsSuccess);
-
-            var outputs = response.Values.OrderBy((o) => o.Date);
-
-            Assert.AreEqual(fromDate, outputs.First().Date);
-            Assert.AreEqual(toDate, outputs.Last().Date);
-            Assert.AreEqual(7, outputs.Count());
+            var response = await client.Output.GetOutputsForPeriodAsync(new DateTime(2018, 9, 1), new DateTime(2018, 9, 7), false);
+            testProvider.VerifyNoOutstandingExpectation();
+            AssertStandardResponse(response);
         }
 
 
@@ -233,10 +192,34 @@ namespace PVOutput.Net.Tests.Modules.Output
          */
 
         [Test]
-        public async Task Outputreader_ForResponse_CreatesCorrectObject()
+        public async Task OutputReader_ForBareResponse_CreatesCorrectObject()
         {
-            var reader = StringFactoryContainer.CreateObjectReader<IOutput>();
-            IOutput result = await reader.ReadObjectAsync(new StringReader(OUTPUT_RESPONSE_DAY));
+            IOutput result = await TestUtility.ExecuteObjectReaderByTypeAsync<IOutput>(OUTPUT_RESPONSE_BARE);
+
+            Assert.Multiple(() =>
+            {
+                Assert.IsNotNull(result);
+                Assert.AreEqual(new DateTime(2016, 10, 1), result.Date);
+                Assert.AreEqual(8190, result.EnergyGenerated);
+                Assert.AreEqual(1.985, result.Efficiency);
+                Assert.AreEqual(0, result.EnergyExported);
+                Assert.AreEqual(0, result.EnergyUsed);
+                Assert.IsNull(result.PeakPower);
+                Assert.IsNull(result.PeakTime);
+                Assert.AreEqual("Cloudy", result.Condition);
+                Assert.IsNull(result.MinimumTemperature);
+                Assert.IsNull(result.MaximumTemperature);
+                Assert.IsNull(result.PeakEnergyImport);
+                Assert.IsNull(result.OffPeakEnergyImport);
+                Assert.IsNull(result.ShoulderEnergyImport);
+                Assert.IsNull(result.HighShoulderEnergyImport);
+            });
+        }
+
+        [Test]
+        public async Task OutputReader_ForDayResponse_CreatesCorrectObject()
+        {
+            IOutput result = await TestUtility.ExecuteObjectReaderByTypeAsync<IOutput>(OUTPUT_RESPONSE_DAY);
 
             Assert.Multiple(() =>
             {
@@ -259,10 +242,25 @@ namespace PVOutput.Net.Tests.Modules.Output
         }
 
         [Test]
-        public async Task Outputreader_ForResponseWithInsolation_CreatesCorrectObject()
+        public async Task OutputReader_ForPeriodResponse_CreatesCorrectObject()
         {
-            var reader = StringFactoryContainer.CreateObjectReader<IOutput>();
-            IOutput result = await reader.ReadObjectAsync(new StringReader(OUTPUT_WITH_INSOLATION_RESPONSE_DAY));
+            IEnumerable<IOutput> result = await TestUtility.ExecuteArrayReaderByTypeAsync<IOutput>(OUTPUT_RESPONSE_WEEK);
+
+            var firstOutput = result.First();
+            var lastOutput = result.Last();
+
+            Assert.Multiple(() =>
+            {
+                Assert.AreEqual(7, result.Count());
+                Assert.AreEqual(new DateTime(2018, 9, 7), firstOutput.Date);
+                Assert.AreEqual(new DateTime(2018, 9, 1), lastOutput.Date);
+            });
+        }
+
+        [Test]
+        public async Task OutputReader_ForResponseWithInsolation_CreatesCorrectObject()
+        {
+            IOutput result = await TestUtility.ExecuteObjectReaderByTypeAsync<IOutput>(OUTPUT_WITH_INSOLATION_RESPONSE_DAY);
 
             Assert.Multiple(() =>
             {
@@ -286,10 +284,9 @@ namespace PVOutput.Net.Tests.Modules.Output
         }
 
         [Test]
-        public async Task TeamOutputreader_ForResponse_CreatesCorrectObject()
+        public async Task TeamOutputReader_ForResponse_CreatesCorrectObject()
         {
-            var reader = StringFactoryContainer.CreateObjectReader<ITeamOutput>();
-            ITeamOutput result = await reader.ReadObjectAsync(new StringReader(TEAMOUTPUT_RESPONSE_DAY));
+            ITeamOutput result = await TestUtility.ExecuteObjectReaderByTypeAsync<ITeamOutput>(TEAMOUTPUT_RESPONSE_DAY);
 
             Assert.Multiple(() =>
             {
@@ -307,10 +304,9 @@ namespace PVOutput.Net.Tests.Modules.Output
         }
 
         [Test]
-        public async Task AggregatedOutputreader_ForResponse_CreatesCorrectObject()
+        public async Task AggregatedOutputReader_ForResponse_CreatesCorrectObject()
         {
-            var reader = StringFactoryContainer.CreateObjectReader<IAggregatedOutput>();
-            IAggregatedOutput result = await reader.ReadObjectAsync(new StringReader(AGGREGATEDOUTPUT_RESPONSE_SINGLE));
+            IAggregatedOutput result = await TestUtility.ExecuteObjectReaderByTypeAsync<IAggregatedOutput>(AGGREGATEDOUTPUT_RESPONSE_SINGLE);
 
             Assert.Multiple(() =>
             {

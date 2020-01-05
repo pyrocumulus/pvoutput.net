@@ -1,6 +1,6 @@
 ﻿namespace PVOutput.Net.Tests.Modules.Output
 {
-    public partial class OutputTests
+    public partial class OutputServiceTests
     {
         public const string GETOUTPUT_URL = "getoutput.jsp";
 
