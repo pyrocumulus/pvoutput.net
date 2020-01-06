@@ -44,147 +44,81 @@ namespace PVOutput.Net.Tests.Modules.Output
 
 
         [Test]
-        public async Task OutputService_WithInsolation_GetDaily()
+        public async Task OutputService_WithDailyInsolation_CallsCorrectUri()
         {
-            DateTime mockDate = new DateTime(2018, 9, 1);
+            var client = TestUtility.GetMockClient(out var testProvider);
+            testProvider.ExpectUriFromBase(GETOUTPUT_URL)
+                        .WithQueryString("df=20180901&dt=20180901&insolation=1")
+                        .RespondPlainText(OUTPUT_WITH_INSOLATION_RESPONSE_DAY);
 
-            var client = TestUtility.GetMockClient(GETOUTPUT_URL, OUTPUT_WITH_INSOLATION_RESPONSE_DAY);
-            var response = await client.Output.GetOutputForDateAsync(mockDate, true);
-
-            if (response.Exception != null)
-            {
-                throw response.Exception;
-            }
-
-            Assert.IsTrue(response.HasValue);
-            Assert.IsNotNull(response.Value);
-            Assert.IsTrue(response.IsSuccess);
-
-            var output = response.Value;
-            Assert.AreEqual(mockDate, output.Date);
-            Assert.AreEqual(15197, output.Insolation);
+            var response = await client.Output.GetOutputForDateAsync(new DateTime(2018, 9, 1), true);
+            testProvider.VerifyNoOutstandingExpectation();
+            AssertStandardResponse(response);
         }
 
         [Test]
-        public async Task OutputService_WithInsolation_GetWeek()
+        public async Task OutputService_WithWeeklyInsolation_CallsCorrectUri()
         {
-            DateTime fromDate = new DateTime(2018, 9, 1);
-            DateTime toDate = new DateTime(2018, 9, 7);
+            var client = TestUtility.GetMockClient(out var testProvider);
+            testProvider.ExpectUriFromBase(GETOUTPUT_URL)
+                        .WithQueryString("df=20180901&dt=20180907&insolation=1")
+                        .RespondPlainText(OUTPUT_WITH_INSOLATION_RESPONSE_WEEK);
 
-            var client = TestUtility.GetMockClient(GETOUTPUT_URL, OUTPUT_WITH_INSOLATION_RESPONSE_WEEK);
-            var response = await client.Output.GetOutputsForPeriodAsync(fromDate, toDate, true);
-
-            if (response.Exception != null)
-            {
-                throw response.Exception;
-            }
-
-            Assert.IsTrue(response.HasValues);
-            Assert.IsNotNull(response.Values);
-            Assert.IsTrue(response.IsSuccess);
-
-            var outputs = response.Values.OrderBy((o) => o.Date);
-
-            Assert.AreEqual(15197, outputs.First().Insolation);
-            Assert.AreEqual(fromDate, outputs.First().Date);
-            Assert.AreEqual(toDate, outputs.Last().Date);
-            Assert.AreEqual(7, outputs.Count());
+            var response = await client.Output.GetOutputsForPeriodAsync(new DateTime(2018, 9, 1), new DateTime(2018, 9, 7), true);
+            testProvider.VerifyNoOutstandingExpectation();
+            AssertStandardResponse(response);
         }
 
         [Test]
-        public async Task OutputService_Team_GetDaily()
+        public async Task OutputService_GetDailyTeam_CallsCorrectUri()
         {
-            DateTime mockDate = new DateTime(2018, 9, 1);
+            var client = TestUtility.GetMockClient(out var testProvider);
+            testProvider.ExpectUriFromBase(GETOUTPUT_URL)
+                        .WithQueryString("df=20180901&dt=20180901&tid=" + TestConstants.PVOUTPUT_TEAM_ID)
+                        .RespondPlainText(TEAMOUTPUT_RESPONSE_DAY);
 
-            var client = TestUtility.GetMockClient(GETOUTPUT_URL, TEAMOUTPUT_RESPONSE_DAY);
-            var response = await client.Output.GetTeamOutputForDateAsync(mockDate, TestConstants.PVOUTPUT_TEAM_ID);
-
-            if (response.Exception != null)
-            {
-                throw response.Exception;
-            }
-
-            Assert.IsTrue(response.HasValue);
-            Assert.IsNotNull(response.Value);
-            Assert.IsTrue(response.IsSuccess);
-
-            var output = response.Value;
-            Assert.AreEqual(mockDate, output.Date);
+            var response = await client.Output.GetTeamOutputForDateAsync(new DateTime(2018, 9, 1), TestConstants.PVOUTPUT_TEAM_ID);
+            testProvider.VerifyNoOutstandingExpectation();
+            AssertStandardResponse(response);
         }
 
         [Test]
-        public async Task OutputService_Team_GetWeek()
+        public async Task OutputService_GetWeeklyTeam_CallsCorrectUri()
         {
-            DateTime fromDate = new DateTime(2018, 9, 1);
-            DateTime toDate = new DateTime(2018, 9, 7);
+            var client = TestUtility.GetMockClient(out var testProvider);
+            testProvider.ExpectUriFromBase(GETOUTPUT_URL)
+                        .WithQueryString("df=20180901&dt=20180907&tid=" + TestConstants.PVOUTPUT_TEAM_ID)
+                        .RespondPlainText(TEAMOUTPUT_RESPONSE_WEEK);
 
-            var client = TestUtility.GetMockClient(GETOUTPUT_URL, TEAMOUTPUT_RESPONSE_WEEK);
-            var response = await client.Output.GetTeamOutputsForPeriodAsync(fromDate, toDate, TestConstants.PVOUTPUT_TEAM_ID);
-
-            if (response.Exception != null)
-            {
-                throw response.Exception;
-            }
-
-            Assert.IsTrue(response.HasValues);
-            Assert.IsNotNull(response.Values);
-            Assert.IsTrue(response.IsSuccess);
-
-            var outputs = response.Values.OrderBy((o) => o.Date);
-
-            Assert.AreEqual(fromDate, outputs.First().Date);
-            Assert.AreEqual(toDate, outputs.Last().Date);
-            Assert.AreEqual(7, outputs.Count());
+            var response = await client.Output.GetTeamOutputsForPeriodAsync(new DateTime(2018, 9, 1), new DateTime(2018, 9, 7), TestConstants.PVOUTPUT_TEAM_ID);
+            testProvider.VerifyNoOutstandingExpectation();
+            AssertStandardResponse(response);
         }
 
         [Test]
-        public async Task OutputService_Aggregated_GetByMonth()
+        public async Task OutputService_GetAggregatedByMonth_CallsCorrectUri()
         {
-            DateTime fromDate = new DateTime(2018, 1, 1);
-            DateTime toDate = new DateTime(2018, 6, 30);
+            var client = TestUtility.GetMockClient(out var testProvider);
+            testProvider.ExpectUriFromBase(GETOUTPUT_URL)
+                        .WithQueryString("df=20180101&dt=20180630&a=m")
+                        .RespondPlainText(AGGREGATEDOUTPUT_RESPONSE_MONTH);
 
-            var client = TestUtility.GetMockClient(GETOUTPUT_URL, AGGREGATEDOUTPUT_RESPONSE_MONTH);
-            var response = await client.Output.GetAggregatedOutputsAsync(fromDate, toDate, AggregationPeriod.Month);
-
-            if (response.Exception != null)
-            {
-                throw response.Exception;
-            }
-
-            Assert.IsTrue(response.HasValues);
-            Assert.IsNotNull(response.Values);
-            Assert.IsTrue(response.IsSuccess);
-
-            var outputs = response.Values.OrderBy((o) => o.Date);
-
-            Assert.AreEqual(fromDate.Month, outputs.First().Date.Month);
-            Assert.AreEqual(toDate.Month, outputs.Last().Date.Month);
-            Assert.AreEqual(6, outputs.Count());
+            var response = await client.Output.GetAggregatedOutputsAsync(new DateTime(2018, 1, 1), new DateTime(2018, 6, 30), AggregationPeriod.Month);
+            testProvider.VerifyNoOutstandingExpectation();
+            AssertStandardResponse(response);
         }
 
         [Test]
-        public async Task OutputService_Aggregated_GetByYear()
+        public async Task OutputService_GetAggregatedByYear_CallsCorrectUri()
         {
-            DateTime fromDate = new DateTime(2016, 1, 1);
-            DateTime toDate = new DateTime(2018, 12, 31);
+            var client = TestUtility.GetMockClient(out var testProvider);
+            testProvider.ExpectUriFromBase(GETOUTPUT_URL)
+                        .WithQueryString("df=20160101&dt=20181231&a=y")
+                        .RespondPlainText(AGGREGATEDOUTPUT_RESPONSE_YEAR);
 
-            var client = TestUtility.GetMockClient(GETOUTPUT_URL, AGGREGATEDOUPUT_RESPONSE_YEAR);
-            var response = await client.Output.GetAggregatedOutputsAsync(fromDate, toDate, AggregationPeriod.Year);
-
-            if (response.Exception != null)
-            {
-                throw response.Exception;
-            }
-
-            Assert.IsTrue(response.HasValues);
-            Assert.IsNotNull(response.Values);
-            Assert.IsTrue(response.IsSuccess);
-
-            var outputs = response.Values.OrderBy((o) => o.Date);
-
-            Assert.AreEqual(fromDate.Year, outputs.First().Date.Year);
-            Assert.AreEqual(toDate.Year, outputs.Last().Date.Year);
-            Assert.AreEqual(3, outputs.Count());
+            var response = await client.Output.GetAggregatedOutputsAsync(new DateTime(2016, 1, 1), new DateTime(2018, 12, 31), AggregationPeriod.Year);
+            testProvider.VerifyNoOutstandingExpectation();
+            AssertStandardResponse(response);
         }
 
         /*
@@ -284,6 +218,25 @@ namespace PVOutput.Net.Tests.Modules.Output
         }
 
         [Test]
+        public async Task OutputReader_ForPeriodResponseWithInsolation_CreatesCorrectObjects()
+        {
+            IEnumerable<IOutput> result = await TestUtility.ExecuteArrayReaderByTypeAsync<IOutput>(OUTPUT_WITH_INSOLATION_RESPONSE_WEEK);
+
+            var firstOutput = result.First();
+            var lastOutput = result.Last();
+
+            Assert.Multiple(() =>
+            {
+                Assert.IsNotNull(result);
+                Assert.AreEqual(7, result.Count());
+                Assert.AreEqual(new DateTime(2018, 9, 7), firstOutput.Date);
+                Assert.AreEqual(new DateTime(2018, 9, 1), lastOutput.Date);
+                Assert.AreEqual(14189, firstOutput.Insolation);
+                Assert.AreEqual(15197, lastOutput.Insolation);
+            });
+        }
+
+        [Test]
         public async Task TeamOutputReader_ForResponse_CreatesCorrectObject()
         {
             ITeamOutput result = await TestUtility.ExecuteObjectReaderByTypeAsync<ITeamOutput>(TEAMOUTPUT_RESPONSE_DAY);
@@ -300,6 +253,25 @@ namespace PVOutput.Net.Tests.Modules.Output
                 Assert.AreEqual(3815116, result.TotalConsumption);
                 Assert.AreEqual(3893, result.AverageConsumption);
                 Assert.AreEqual(2224276, result.TotalImported);
+            });
+        }
+
+        [Test]
+        public async Task TeamOutputReader_ForPeriodResponse_CreatesCorrectObjects()
+        {
+            IEnumerable<ITeamOutput> result = await TestUtility.ExecuteArrayReaderByTypeAsync<ITeamOutput>(TEAMOUTPUT_RESPONSE_WEEK);
+
+            var firstOutput = result.First();
+            var lastOutput = result.Last();
+
+            Assert.Multiple(() =>
+            {
+                Assert.IsNotNull(result);
+                Assert.AreEqual(7, result.Count());
+                Assert.AreEqual(new DateTime(2018, 9, 7), firstOutput.Date);
+                Assert.AreEqual(15628240, firstOutput.TotalGeneration);
+                Assert.AreEqual(new DateTime(2018, 9, 1), lastOutput.Date);
+                Assert.AreEqual(19264849, lastOutput.TotalGeneration);
             });
         }
 
@@ -321,6 +293,40 @@ namespace PVOutput.Net.Tests.Modules.Output
                 Assert.AreEqual(123, result.OffPeakEnergyImport);
                 Assert.AreEqual(321, result.ShoulderEnergyImport);
                 Assert.AreEqual(456, result.HighShoulderEnergyImport);
+            });
+        }
+
+        [Test]
+        public async Task AggregatedOutputReader_ForPeriodMonthAggregationResponse_CreatesCorrectObjects()
+        {
+            IEnumerable<IAggregatedOutput> result = await TestUtility.ExecuteArrayReaderByTypeAsync<IAggregatedOutput>(AGGREGATEDOUTPUT_RESPONSE_MONTH);
+
+            var firstAggregate = result.First();
+            var lastAggregate = result.Last();
+
+            Assert.Multiple(() =>
+            {
+                Assert.IsNotNull(result);
+                Assert.AreEqual(6, firstAggregate.Date.Month);
+                Assert.AreEqual(1, lastAggregate.Date.Month);
+                Assert.AreEqual(6, result.Count());
+            });
+        }
+
+        [Test]
+        public async Task AggregatedOutputReader_ForPeriodYearAggregationResponse_CreatesCorrectObjects()
+        {
+            IEnumerable<IAggregatedOutput> result = await TestUtility.ExecuteArrayReaderByTypeAsync<IAggregatedOutput>(AGGREGATEDOUTPUT_RESPONSE_YEAR);
+
+            var firstAggregate = result.First();
+            var lastAggregate = result.Last();
+
+            Assert.Multiple(() =>
+            {
+                Assert.IsNotNull(result);
+                Assert.AreEqual(2018, firstAggregate.Date.Year);
+                Assert.AreEqual(2016, lastAggregate.Date.Year);
+                Assert.AreEqual(3, result.Count());
             });
         }
     }
