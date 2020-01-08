@@ -4,6 +4,8 @@
     {
         public const string GETOUTPUT_URL = "getoutput.jsp";
 
+        public const string ADDOUTPUT_URL = "addoutput.jsp";
+
         public const string OUTPUT_RESPONSE_BARE = "20161001,8190,1.985,0,0,NaN,NaN,Cloudy,NaN,NaN,NaN,NaN,NaN,NaN";
 
         public const string OUTPUT_RESPONSE_DAY = "20180901,16784,4.069,12719,8500,3422,12:00,Fine,7,23,4435,123,321,456";

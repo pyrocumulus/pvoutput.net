@@ -9,7 +9,7 @@ namespace PVOutput.Net.Objects.Builders
 {
     public class OutputPostBuilder<TResultType> where TResultType : class, IBatchOutputPost
     {
-        private OutputPost _outputPost;
+        internal OutputPost _outputPost;
 
         public OutputPostBuilder()
         {
@@ -28,7 +28,7 @@ namespace PVOutput.Net.Objects.Builders
             return this;
         }
 
-        public OutputPostBuilder<TResultType> SetExported(int? energyExported)
+        public OutputPostBuilder<TResultType> SetExported(int energyExported)
         {
             _outputPost.EnergyExported = energyExported;
             return this;
@@ -37,6 +37,12 @@ namespace PVOutput.Net.Objects.Builders
         public OutputPostBuilder<TResultType> SetPeakTime(DateTime peakTime)
         {
             _outputPost.PeakTime = peakTime;
+            return this;
+        }
+
+        public OutputPostBuilder<TResultType> SetPeakPower(int peakPower)
+        {
+            _outputPost.PeakPower = peakPower;
             return this;
         }
 
@@ -102,6 +108,11 @@ namespace PVOutput.Net.Objects.Builders
 
         public TResultType Build()
         {
+            if (_outputPost.Date == DateTime.MinValue)
+            {
+                throw new InvalidOperationException("Output has no date");
+            }
+
             return _outputPost as TResultType;
         }
     }

@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using PVOutput.Net.Enums;
+using PVOutput.Net.Objects.Builders;
 using PVOutput.Net.Objects.Factories;
 using PVOutput.Net.Objects.Modules;
 using PVOutput.Net.Requests.Modules;
@@ -119,6 +121,42 @@ namespace PVOutput.Net.Tests.Modules.Output
             var response = await client.Output.GetAggregatedOutputsAsync(new DateTime(2016, 1, 1), new DateTime(2018, 12, 31), AggregationPeriod.Year);
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
+        }
+
+        public static IEnumerable AddOutputTestCases
+        {
+            get
+            {
+                yield return new TestCaseData(new OutputPostBuilder<IOutputPost>()
+                    .SetDate(new DateTime(2020, 1, 1)).SetGenerated(11000).SetExported(9000).Build(), "d=20200101&g=11000&e=9000");
+
+                yield return new TestCaseData(new OutputPostBuilder<IOutputPost>()
+                    .SetDate(new DateTime(2020, 1, 1)).SetPeakPower(6500).SetPeakTime(new DateTime(2020, 1, 1, 10, 10, 0)).Build(), "d=20200101&pp=6500&pt=10:10");
+
+                yield return new TestCaseData(new OutputPostBuilder<IOutputPost>()
+                    .SetDate(new DateTime(2020, 1, 1)).SetTemperatures(11.2m, 17.8m).Build(), "d=20200101&tm=11.2&tx=17.8");
+
+                yield return new TestCaseData(new OutputPostBuilder<IOutputPost>()
+                    .SetDate(new DateTime(2020, 1, 1)).SetCondition("Fine").SetComments("Test").Build(), "d=20200101&cd=Fine&cm=Test");
+
+                yield return new TestCaseData(new OutputPostBuilder<IOutputPost>()
+                    .SetDate(new DateTime(2020, 1, 1)).SetPeakImport(1200).SetOffPeakEnergyImport(1300).SetShoulderImport(1400).SetHighShoulderImport(1500)
+                    .Build(), 
+                    "d=20200101&ip=1200&io=1300&is=1400&ih=1500");
+            }
+        }
+
+        [Test]
+        [TestCaseSource(typeof(OutputServiceTests), "AddOutputTestCases")]
+        public async Task OutputService_AddOutput_CallsCorrectUri(IOutputPost outputToPost, string expectedQueryString)
+        {
+            var client = TestUtility.GetMockClient(out var testProvider);
+            testProvider.ExpectUriFromBase(ADDOUTPUT_URL)
+                        .WithQueryString(expectedQueryString)
+                        .RespondPlainText("");
+
+            await client.Output.AddOutputAsync(outputToPost);
+            testProvider.VerifyNoOutstandingExpectation();
         }
 
         /*

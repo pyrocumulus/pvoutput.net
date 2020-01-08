@@ -21,7 +21,7 @@ namespace PVOutput.Net.Requests.Modules
             ["d"] = FormatHelper.GetDateAsString(Output.Date),
             ["g"] = Output.EnergyGenerated,
             ["e"] = Output.EnergyExported,
-            ["pp"] = Output.PeakTime != null ? FormatHelper.GetDateAsString(Output.PeakTime.Value) : null,
+            ["pp"] = Output.PeakPower,
             ["pt"] = Output.PeakTime != null ? FormatHelper.GetTimeAsString(Output.PeakTime.Value) : null,
             ["cd"] = Output.Condition,
             ["tm"] = FormatHelper.GetValueAsString(Output.MinimumTemperature),

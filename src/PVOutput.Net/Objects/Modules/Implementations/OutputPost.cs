@@ -6,7 +6,7 @@ namespace PVOutput.Net.Objects.Modules.Implementations
 {
     internal class OutputPost : IOutputPost
     {
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.MinValue;
         public int? EnergyGenerated { get; set; }
         public int? EnergyExported { get; set; }
         public int? PeakPower { get; set; }
