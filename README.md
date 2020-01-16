@@ -12,33 +12,35 @@ The project will adhere to [Semver](https://semver.org/) for versioning. Version
 
 ## Usage
 
-For now sample code can be found in the samples/ folder of the project. API documentation will come eventually.
+For now sample code can be found in the samples/folder of the project. Documentation will come eventually.
 
 ## API Coverage
 
-| Operation  | Object       | (Expected) Module | Status      | Documentation link      |
-|------------|--------------|-------------------|-------------|-------------------------|
-| Add        | Output       | Output            | Implemented | [Add Output](https://pvoutput.org/help.html#api-addoutput) |
-| Add        | Status       | Status            | Implemented | [Add Status](https://pvoutput.org/help.html#api-addstatus) |
-| Add        | Batch Output | Output            | Implemented | [Add Batch Output](https://pvoutput.org/help.html#api-addbatchoutput) |
-| Add        | Batch Status | Status            | Implemented | [Add Batch Status](https://pvoutput.org/help.html#api-addbatchstatus) |
-| Get        | Status       | Status            | Implemented | [Get Status](https://pvoutput.org/help.html#api-getstatus) |
-| Get        | Statistic    | Staticics         | Implemented | [Get Statistic](https://pvoutput.org/help.html#api-getstatistic) |
-| Get        | System       | System            | Implemented | [Get System](https://pvoutput.org/help.html#api-getsystem) |
-| Post       | System       | System            |             | [Post System](https://pvoutput.org/help.html#api-postsystem) |
-| Get        | Output       | Output            | Implemented | [Get Output](https://pvoutput.org/help.html#api-getoutput) |
-| Get        | Extended     | Extended          | Implemented | [Get Extended](https://pvoutput.org/help.html#api-getextended) |
-| Get        | Favourite    | Favourite         | Implemented | [Get Favourite](https://pvoutput.org/help.html#api-getfavourite) |
-| Get        | Missing      | Missing           | Implemented | [Get Missing](https://pvoutput.org/help.html#api-getmissing) |
-| Get        | Insolation   | Insolation        | Implemented | [Get Insolation](https://pvoutput.org/help.html#api-getinsolation) |
-| Delete     | Status       | Status            | Implemented | [Delete Status](https://pvoutput.org/help.html#api-deletestatus) |
-| Search     |              |                   |             | [Search](https://pvoutput.org/help.html#api-search) |
-| Get        | Team         | Team              | Implemented | [Get Team](https://pvoutput.org/help.html#api-getteam) |
-| Join       | Team         | Team              |             | [Join Team](https://pvoutput.org/help.html#api-jointeam) |
-| Leave      | Team         | Team              |             | [Leave Team](https://pvoutput.org/help.html#api-leaveteam) |
-| Get        | Supply       | Supply            |             | [Get Supply](https://pvoutput.org/help.html#api-getsupply) |
-| Register   | Notification | Notification      |             | [Register Notification](https://pvoutput.org/help.html#api-registernotification) |
-| Deregister | Notification | Notification      |             | [Deregister Notification](https://pvoutput.org/help.html#api-deregisternotification) |
+Currently all read operations of the API are implemented as are all of the operations for adding data.
+
+| Operation  | Object       | (Expected) Module | Status             | Documentation link      |
+|------------|--------------|-------------------|--------------------|-------------------------|
+| Add        | Output       | Output            | :heavy_check_mark: | [Add Output](https://pvoutput.org/help.html#api-addoutput) |
+| Add        | Status       | Status            | :heavy_check_mark: | [Add Status](https://pvoutput.org/help.html#api-addstatus) |
+| Add        | Batch Output | Output            | :heavy_check_mark: | [Add Batch Output](https://pvoutput.org/help.html#api-addbatchoutput) |
+| Add        | Batch Status | Status            | :heavy_check_mark: | [Add Batch Status](https://pvoutput.org/help.html#api-addbatchstatus) |
+| Get        | Status       | Status            | :heavy_check_mark: | [Get Status](https://pvoutput.org/help.html#api-getstatus) |
+| Get        | Statistic    | Staticics         | :heavy_check_mark: | [Get Statistic](https://pvoutput.org/help.html#api-getstatistic) |
+| Get        | System       | System            | :heavy_check_mark: | [Get System](https://pvoutput.org/help.html#api-getsystem) |
+| Get        | Output       | Output            | :heavy_check_mark: | [Get Output](https://pvoutput.org/help.html#api-getoutput) |
+| Get        | Extended     | Extended          | :heavy_check_mark: | [Get Extended](https://pvoutput.org/help.html#api-getextended) |
+| Get        | Favourite    | Favourite         | :heavy_check_mark: | [Get Favourite](https://pvoutput.org/help.html#api-getfavourite) |
+| Get        | Missing      | Missing           | :heavy_check_mark: | [Get Missing](https://pvoutput.org/help.html#api-getmissing) |
+| Get        | Insolation   | Insolation        | :heavy_check_mark: | [Get Insolation](https://pvoutput.org/help.html#api-getinsolation) |
+| Delete     | Status       | Status            | :heavy_check_mark: | [Delete Status](https://pvoutput.org/help.html#api-deletestatus) |
+| Get        | Team         | Team              | :heavy_check_mark: | [Get Team](https://pvoutput.org/help.html#api-getteam) |
+| Get        | Supply       | Supply            | :heavy_check_mark: | [Get Supply](https://pvoutput.org/help.html#api-getsupply) |
+| Post       | System       | System            |                    | [Post System](https://pvoutput.org/help.html#api-postsystem) |
+| Search     |              |                   |                    | [Search](https://pvoutput.org/help.html#api-search) |
+| Join       | Team         | Team              |                    | [Join Team](https://pvoutput.org/help.html#api-jointeam) |
+| Leave      | Team         | Team              |                    | [Leave Team](https://pvoutput.org/help.html#api-leaveteam) |
+| Register   | Notification | Notification      |                    | [Register Notification](https://pvoutput.org/help.html#api-registernotification) |
+| Deregister | Notification | Notification      |                    | [Deregister Notification](https://pvoutput.org/help.html#api-deregisternotification) |
 
 ## Building the source
 
