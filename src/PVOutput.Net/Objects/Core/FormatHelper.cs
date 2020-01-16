@@ -10,6 +10,11 @@ namespace PVOutput.Net.Objects.Core
             return DateTime.ParseExact(dateString, new string[] { "yyyyMMdd", "yyyyMM", "yyyy" }, CultureInfo.InvariantCulture.DateTimeFormat, DateTimeStyles.AssumeLocal);
         }
 
+        internal static DateTimeOffset ParseTimeStamp(string timestamp)
+        {
+            return DateTimeOffset.Parse(timestamp, null, DateTimeStyles.RoundtripKind);
+        }
+
         internal static DateTime? ParseOptionalDate(string dateString)
         {
             if (string.IsNullOrEmpty(dateString))

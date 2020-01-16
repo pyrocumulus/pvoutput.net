@@ -19,7 +19,7 @@ namespace PVOutput.Net.Tests.Modules.Output
     public partial class OutputServiceTests : BaseRequestsTest
     {
         [Test]
-        public async Task OutputService_ForDate_CallsCorrectURi()
+        public async Task OutputService_ForDate_CallsCorrectUri()
         {
             var client = TestUtility.GetMockClient(out var testProvider);
             testProvider.ExpectUriFromBase(GETOUTPUT_URL)
