@@ -123,6 +123,10 @@ namespace PVOutput.Net.Tests.Modules.Output
             AssertStandardResponse(response);
         }
 
+        /* 
+            Adding outputs
+        */
+
         public static IEnumerable AddOutputTestCases
         {
             get
@@ -140,7 +144,7 @@ namespace PVOutput.Net.Tests.Modules.Output
                     .SetDate(new DateTime(2020, 1, 1)).SetCondition("Fine").SetComments("Test").Build(), "d=20200101&cd=Fine&cm=Test");
 
                 yield return new TestCaseData(new OutputPostBuilder<IOutputPost>()
-                    .SetDate(new DateTime(2020, 1, 1)).SetPeakImport(1200).SetOffPeakEnergyImport(1300).SetShoulderImport(1400).SetHighShoulderImport(1500)
+                    .SetDate(new DateTime(2020, 1, 1)).SetPeakEnergyImport(1200).SetOffPeakEnergyImport(1300).SetShoulderEnergyImport(1400).SetHighShoulderEnergyImport(1500)
                     .Build(), 
                     "d=20200101&ip=1200&io=1300&is=1400&ih=1500");
             }

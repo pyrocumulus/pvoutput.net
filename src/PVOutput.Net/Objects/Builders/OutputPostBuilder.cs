@@ -66,7 +66,7 @@ namespace PVOutput.Net.Objects.Builders
             return this;
         }
 
-        public OutputPostBuilder<TResultType> SetPeakImport(int peakImport)
+        public OutputPostBuilder<TResultType> SetPeakEnergyImport(int peakImport)
         {
             _outputPost.PeakEnergyImport = peakImport;
             return this;
@@ -78,13 +78,13 @@ namespace PVOutput.Net.Objects.Builders
             return this;
         }
 
-        public OutputPostBuilder<TResultType> SetShoulderImport(int shoulderImport)
+        public OutputPostBuilder<TResultType> SetShoulderEnergyImport(int shoulderImport)
         {
             _outputPost.ShoulderEnergyImport = shoulderImport;
             return this;
         }
 
-        public OutputPostBuilder<TResultType> SetHighShoulderImport(int highShoulderImport)
+        public OutputPostBuilder<TResultType> SetHighShoulderEnergyImport(int highShoulderImport)
         {
             _outputPost.HighShoulderEnergyImport = highShoulderImport;
             return this;
@@ -112,6 +112,10 @@ namespace PVOutput.Net.Objects.Builders
             {
                 throw new InvalidOperationException("Output has no date");
             }
+
+            if (_outputPost.PeakTime.HasValue && !_outputPost.Date.Date.Equals(_outputPost.PeakTime.Value.Date))
+            {
+                throw new InvalidOperationException($"Peaktime registered on different date ({_outputPost.PeakTime.Value.ToShortDateString()}) than output itself ({_outputPost.Date.ToShortDateString()})");            }
 
             return _outputPost as TResultType;
         }
