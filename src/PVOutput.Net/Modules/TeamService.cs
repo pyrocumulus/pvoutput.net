@@ -21,5 +21,17 @@ namespace PVOutput.Net.Modules
             var handler = new RequestHandler(Client);
             return handler.ExecuteSingleItemRequestAsync<ITeam>(new TeamRequest { TeamId = teamId }, cancellationToken);
         }
+
+        public Task<PVOutputBasicResponse> JoinTeamAsync(int teamId, CancellationToken cancellationToken = default)
+        {
+            var handler = new RequestHandler(Client);
+            return handler.ExecutePostRequestAsync(new JoinTeamRequest() { TeamId = teamId }, cancellationToken);
+        }
+
+        public Task<PVOutputBasicResponse> LeaveTeamAsync(int teamId, CancellationToken cancellationToken = default)
+        {
+            var handler = new RequestHandler(Client);
+            return handler.ExecutePostRequestAsync(new LeaveTeamRequest() { TeamId = teamId }, cancellationToken);
+        }
     }
 }

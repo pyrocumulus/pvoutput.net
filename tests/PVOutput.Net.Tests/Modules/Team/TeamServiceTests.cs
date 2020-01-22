@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Net;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using PVOutput.Net.Objects.Factories;
@@ -24,6 +25,63 @@ namespace PVOutput.Net.Tests.Modules.Team
             var response = await client.Team.GetTeamAsync(350);
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
+        }
+
+        [Test]
+        public async Task TeamService_JoinTeam_CallsCorrectUri()
+        {
+            var client = TestUtility.GetMockClient(out var testProvider);
+
+            testProvider.ExpectUriFromBase(JOINTEAM_URL)
+                        .WithQueryString("tid=360")
+                        .Respond(HttpStatusCode.OK, "text/plain", "You have joined team [team_name]");
+
+            var response = await client.Team.JoinTeamAsync(360);
+            testProvider.VerifyNoOutstandingExpectation();
+
+            Assert.Multiple(() =>
+            {
+                Assert.IsTrue(response.IsSuccess);
+                Assert.AreEqual("You have joined team [team_name]", response.SuccesMessage);
+            });
+        }
+
+        [Test]
+        public async Task TeamService_LeaveTeam_CallsCorrectUri()
+        {
+            var client = TestUtility.GetMockClient(out var testProvider);
+
+            testProvider.ExpectUriFromBase(JOINTEAM_URL)
+                        .WithQueryString("tid=340")
+                        .Respond(HttpStatusCode.OK, "text/plain", "You have left team [team_name]");
+
+            var response = await client.Team.JoinTeamAsync(340);
+            testProvider.VerifyNoOutstandingExpectation();
+
+            Assert.Multiple(() =>
+            {
+                Assert.IsTrue(response.IsSuccess);
+                Assert.AreEqual("You have left team [team_name]", response.SuccesMessage);
+            });
+        }
+
+        [Test]
+        public async Task TeamService_JoinTeamWithInvalidResponse_ReturnsCorrectResponse()
+        {
+            var client = TestUtility.GetMockClient(out var testProvider);
+            client.ThrowResponseExceptions = false;
+
+            testProvider.ExpectUriFromBase(JOINTEAM_URL)
+                        .Respond(HttpStatusCode.BadRequest, "text/plain", "You cannot join a team that does not exist");
+
+            var response = await client.Team.JoinTeamAsync(340);
+
+            Assert.Multiple(() => 
+            {
+                Assert.IsFalse(response.IsSuccess);
+                Assert.AreEqual(HttpStatusCode.BadRequest, response.Error.StatusCode);
+                Assert.AreEqual("You cannot join a team that does not exist", response.Error.ErrorMessage);
+            });
         }
 
         /*

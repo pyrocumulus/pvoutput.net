@@ -198,6 +198,7 @@ namespace PVOutput.Net.Requests.Handler
                     {
                         return fullContent.Substring(splitterIndex + 1).Trim();
                     }
+                    return fullContent;
                 }
             }
 
