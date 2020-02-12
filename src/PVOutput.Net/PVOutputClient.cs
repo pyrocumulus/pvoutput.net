@@ -22,6 +22,7 @@ namespace PVOutput.Net
         public FavouriteService Favourite { get; }
         public InsolationService Insolation { get; }
         public SupplyService Supply { get; }
+        public SearchService Search { get; }
 
         public PVOutputClient(IHttpClientProvider httpClientProvider = default)
         {
@@ -37,6 +38,7 @@ namespace PVOutput.Net
             Favourite = new FavouriteService(this);
             Insolation = new InsolationService(this);
             Supply = new SupplyService(this);
+            Search = new SearchService(this); 
         }
 
         public PVOutputClient(string apiKey, int ownedSystemId, IHttpClientProvider httpClientProvider = default)
