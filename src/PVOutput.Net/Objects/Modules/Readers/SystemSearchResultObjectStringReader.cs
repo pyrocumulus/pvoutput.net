@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using PVOutput.Net.Objects.Core;
 
 namespace PVOutput.Net.Objects.Modules.Readers
 {
     internal class SystemSearchResultObjectStringReader : BaseObjectStringReader<ISystemSearchResult>
     {
+        internal static Regex PostcodeParsingRegex = new Regex(@"(?'country'\D*?)(?'postcode'\d*)$", RegexOptions.Compiled | RegexOptions.Singleline);
+
         public override ISystemSearchResult CreateObjectInstance() => new Implementations.SystemSearchResult();
 
         public SystemSearchResultObjectStringReader()
@@ -35,18 +38,21 @@ namespace PVOutput.Net.Objects.Modules.Readers
             _parsers.Add((target, reader) => ParsePropertyArray(target, reader, properties));
         }
 
-        private void SplitPostCode(string value, out int postcode, out string country)
+        internal static void SplitPostCode(string value, out int postcode, out string country)
         {
-            if (!value.Contains(" "))
+            Match match = PostcodeParsingRegex.Match(value);
+
+            country = "";
+            postcode = 0;
+            if (!string.IsNullOrEmpty(match.Groups["country"].Value))
             {
-                postcode = Convert.ToInt32(value);
-                country = null;
-                return;
+                country = match.Groups["country"].Value.Trim();
             }
 
-            var parts = value.Split(' ');
-            country = parts[0];
-            postcode = Convert.ToInt32(parts[1]);
+            if (!string.IsNullOrEmpty(match.Groups["postcode"].Value))
+            {
+                postcode = Convert.ToInt32(match.Groups["postcode"].Value.Trim());
+            }
         }
     }
 }

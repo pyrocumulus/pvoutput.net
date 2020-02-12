@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using PVOutput.Net.Objects.Modules;
+using PVOutput.Net.Objects.Modules.Readers;
 using PVOutput.Net.Tests.Utils;
 using RichardSzalay.MockHttp;
 
@@ -29,6 +31,18 @@ namespace PVOutput.Net.Tests.Modules.Search
         /*
          * Deserialisation tests below
          */
+
+        [Test]
+        [TestCase(new object[] { "South Africa 1235", 1235, "South Africa" })]
+        [TestCase(new object[] { "Australia 3502", 3502, "Australia" })]
+        [TestCase(new object[] { "Sweden", 0, "Sweden" })]
+        [TestCase(new object[] { "2560", 2560, "" })]
+        public void LocationInformation_Parsing_GetsCorrectInformation(string inputString, int expectedPostcode, string expectedCountry)
+        {
+            SystemSearchResultObjectStringReader.SplitPostCode(inputString, out int postcode, out string country);
+            Assert.AreEqual(expectedPostcode, postcode);
+            Assert.AreEqual(expectedCountry, country);
+        }
 
         [Test]
         public async Task SearchReader_ForResponse_CreatesCorrectObject()

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using PVOutput.Net.Enums;
 using PVOutput.Net.Objects.Modules.Implementations;
@@ -20,8 +20,8 @@ namespace PVOutput.Net.Objects.Modules
         decimal ArrayTilt { get; set; }
         string Shade { get; set; }
         DateTime InstallDate { get; set; }
-        decimal Latitude { get; set; }
-        decimal Longitude { get; set; }
+        double Latitude { get; set; }
+        double Longitude { get; set; }
         int StatusInterval { get; set; }
 
         int? SecondaryNumberOfPanels { get; set; }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using PVOutput.Net.Enums;
@@ -38,8 +38,8 @@ namespace PVOutput.Net.Objects.Modules.Readers
                 (t, s) => t.ArrayTilt = FormatHelper.ParseValueWithDefault<decimal>(s),
                 (t, s) => t.Shade = s,
                 (t, s) => t.InstallDate = FormatHelper.ParseDate(s),
-                (t, s) => t.Latitude = FormatHelper.ParseValueWithDefault<decimal>(s),
-                (t, s) => t.Longitude = FormatHelper.ParseValueWithDefault<decimal>(s),
+                (t, s) => t.Latitude = FormatHelper.ParseValueWithDefault<double>(s),
+                (t, s) => t.Longitude = FormatHelper.ParseValueWithDefault<double>(s),
                 (t, s) => t.StatusInterval = Convert.ToInt32(s),
                 (t, s) => t.SecondaryNumberOfPanels = FormatHelper.ParseValue<int>(s),
                 (t, s) => t.SecondaryPanelPower = FormatHelper.ParseValue<int>(s),
