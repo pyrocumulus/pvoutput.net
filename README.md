@@ -1,7 +1,6 @@
-[![Actions Status](https://github.com/pyrocumulus/pvoutput.net/workflows/dotnetcore/badge.svg)](https://github.com/pyrocumulus/pvoutput.net/actions)
-
-
 # PVOutput.Net
+
+[![Actions Status](https://github.com/pyrocumulus/pvoutput.net/workflows/dotnetcore/badge.svg)](https://github.com/pyrocumulus/pvoutput.net/actions)
 
 > A .NET wrapper library for the [PVOutput api](https://pvoutput.org/help.html#api-spec).
 
@@ -38,7 +37,7 @@ Currently all read operations of the API are implemented as are all of the opera
 | Join       | Team         | Team              | :heavy_check_mark: | [Join Team](https://pvoutput.org/help.html#api-jointeam) |
 | Leave      | Team         | Team              | :heavy_check_mark: | [Leave Team](https://pvoutput.org/help.html#api-leaveteam) |
 | Get        | Supply       | Supply            | :heavy_check_mark: | [Get Supply](https://pvoutput.org/help.html#api-getsupply) |
-| Search     |              |                   |                    | [Search](https://pvoutput.org/help.html#api-search) |
+| Search     | Search       | Search            | :heavy_check_mark: | [Search](https://pvoutput.org/help.html#api-search) |
 | Register   | Notification | Notification      |                    | [Register Notification](https://pvoutput.org/help.html#api-registernotification) |
 | Deregister | Notification | Notification      |                    | [Deregister Notification](https://pvoutput.org/help.html#api-deregisternotification) |
 
