@@ -6,7 +6,7 @@ namespace PVOutput.Net.Objects.Modules.Implementations
 {
     internal class Extended : IExtended
     {
-        public DateTime Date { get; set; }
+        public DateTime ExtendedDate { get; set; }
         public decimal? ExtendedValue1 { get; set; }
         public decimal? ExtendedValue2 { get; set; }
         public decimal? ExtendedValue3 { get; set; }

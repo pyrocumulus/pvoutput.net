@@ -17,7 +17,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         [Test]
         public async Task StatusService_GetStatusForDateTime_CallsCorrectUri()
         {
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
             
             testProvider.ExpectUriFromBase(GETSTATUS_URL)
                         .WithQueryString("d=20190131&t=14:00")
@@ -31,7 +31,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         [Test]
         public async Task StatusService_GetHistoryForPeriod_CallsCorrectUri()
         {
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
             testProvider.ExpectUriFromBase(GETSTATUS_URL)
                         .WithQueryString("d=20190131&from=14:00&to=15:00&h=1")

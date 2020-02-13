@@ -18,7 +18,7 @@ namespace PVOutput.Net.Requests.Modules
 
         public override IDictionary<string, object> GetUriPathParameters() => new Dictionary<string, object>
         {
-            ["d"] = FormatHelper.GetDateAsString(Output.Date),
+            ["d"] = FormatHelper.GetDateAsString(Output.OutputDate),
             ["g"] = Output.EnergyGenerated,
             ["e"] = Output.EnergyExported,
             ["pp"] = Output.PeakPower,

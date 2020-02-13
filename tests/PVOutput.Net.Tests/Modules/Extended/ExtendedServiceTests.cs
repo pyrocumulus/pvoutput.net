@@ -16,7 +16,7 @@ namespace PVOutput.Net.Tests.Modules.Extended
         [Test]
         public async Task ExtendedService_GetRecent_CallsCorrectUri()
         {
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
             testProvider.ExpectUriFromBase(GETEXTENDED_URL)
                         .RespondPlainText(EXTENDED_RESPONSE_RECENT);
@@ -29,7 +29,7 @@ namespace PVOutput.Net.Tests.Modules.Extended
         [Test]
         public async Task ExtendedService_GetPeriod_CallsCorrectUri()
         {
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
             testProvider.ExpectUriFromBase(GETEXTENDED_URL)
                         .WithQueryString("df=20140307&dt=20140308")
@@ -43,7 +43,7 @@ namespace PVOutput.Net.Tests.Modules.Extended
         [Test]
         public async Task ExtendedService_WithPeriodAndLimit_CallsCorrectUri()
         {
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
             testProvider.ExpectUriFromBase(GETEXTENDED_URL)
                         .WithQueryString("df=20160307&dt=20160308&limit=10")
@@ -85,7 +85,7 @@ namespace PVOutput.Net.Tests.Modules.Extended
             Assert.Multiple(() =>
             {
                 Assert.AreEqual(2, result.Count());
-                Assert.AreEqual(new DateTime(2014, 3, 7), extended1.Date);
+                Assert.AreEqual(new DateTime(2014, 3, 7), extended1.ExtendedDate);
 
                 Assert.AreEqual(67.4d, extended1.ExtendedValue1);
                 Assert.AreEqual(825.321d, extended1.ExtendedValue2);
@@ -94,7 +94,7 @@ namespace PVOutput.Net.Tests.Modules.Extended
                 Assert.AreEqual(1115.0d, extended1.ExtendedValue5);
                 Assert.AreEqual(-12.3d, extended1.ExtendedValue6);
 
-                Assert.AreEqual(new DateTime(2014, 3, 8), extended2.Date);
+                Assert.AreEqual(new DateTime(2014, 3, 8), extended2.ExtendedDate);
                 Assert.AreEqual(68.2d, extended2.ExtendedValue1);
                 Assert.AreEqual(846.254d, extended2.ExtendedValue2);
                 Assert.AreEqual(323.0d, extended2.ExtendedValue3);

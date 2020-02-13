@@ -16,7 +16,7 @@ namespace PVOutput.Net.Modules
         {
         }
 
-        public Task<PVOutputArrayResponse<IFavourite>> GetFavourites(int? systemId = null, CancellationToken cancellationToken = default)
+        public Task<PVOutputArrayResponse<IFavourite>> GetFavouritesAsync(int? systemId = null, CancellationToken cancellationToken = default)
         {
             var handler = new RequestHandler(Client);
             return handler.ExecuteArrayRequestAsync<IFavourite>(new FavouriteRequest() { SystemId = systemId }, cancellationToken);

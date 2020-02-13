@@ -18,7 +18,7 @@ namespace PVOutput.Net.Objects
 
         public OutputPostBuilder<TResultType> SetDate(DateTime date)
         {
-            _outputPost.Date = date;
+            _outputPost.OutputDate = date;
             return this;
         }
 
@@ -108,14 +108,14 @@ namespace PVOutput.Net.Objects
 
         public TResultType Build()
         {
-            if (_outputPost.Date == DateTime.MinValue)
+            if (_outputPost.OutputDate == DateTime.MinValue)
             {
                 throw new InvalidOperationException("Output has no date");
             }
 
-            if (_outputPost.PeakTime.HasValue && !_outputPost.Date.Date.Equals(_outputPost.PeakTime.Value.Date))
+            if (_outputPost.PeakTime.HasValue && !_outputPost.OutputDate.Date.Equals(_outputPost.PeakTime.Value.Date))
             {
-                throw new InvalidOperationException($"Peaktime registered on different date ({_outputPost.PeakTime.Value.ToShortDateString()}) than output itself ({_outputPost.Date.ToShortDateString()})");            }
+                throw new InvalidOperationException($"Peaktime registered on different date ({_outputPost.PeakTime.Value.ToShortDateString()}) than output itself ({_outputPost.OutputDate.ToShortDateString()})");            }
 
             return _outputPost as TResultType;
         }

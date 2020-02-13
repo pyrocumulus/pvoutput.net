@@ -22,7 +22,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         {
             var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today);
 
-            Assert.AreEqual(DateTime.Today, builder._outputPost.Date);
+            Assert.AreEqual(DateTime.Today, builder._outputPost.OutputDate);
         }
 
         [Test]

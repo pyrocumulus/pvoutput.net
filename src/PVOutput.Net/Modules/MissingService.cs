@@ -15,7 +15,7 @@ namespace PVOutput.Net.Modules
 
         }
 
-        public Task<PVOutputResponse<IMissing>> GetMissingDaysInPeriod(DateTime fromDate, DateTime toDate, CancellationToken cancellationToken = default)
+        public Task<PVOutputResponse<IMissing>> GetMissingDaysInPeriodAsync(DateTime fromDate, DateTime toDate, CancellationToken cancellationToken = default)
         {
             var handler = new RequestHandler(Client);
             return handler.ExecuteSingleItemRequestAsync<IMissing>(new MissingRequest { FromDate = fromDate, ToDate = toDate }, cancellationToken);

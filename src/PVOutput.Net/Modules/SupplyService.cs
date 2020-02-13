@@ -17,7 +17,7 @@ namespace PVOutput.Net.Modules
 
         }
 
-        public Task<PVOutputArrayResponse<ISupply>> GetSupply(string timeZone = null, string regionKey = null, CancellationToken cancellationToken = default)
+        public Task<PVOutputArrayResponse<ISupply>> GetSupplyAsync(string timeZone = null, string regionKey = null, CancellationToken cancellationToken = default)
         {
             var handler = new RequestHandler(Client);
 

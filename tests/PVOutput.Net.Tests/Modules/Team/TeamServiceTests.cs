@@ -16,7 +16,7 @@ namespace PVOutput.Net.Tests.Modules.Team
         [Test]
         public async Task TeamService_GetStatusForTeam_CallsCorrectUri()
         {
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
             testProvider.ExpectUriFromBase(GETTEAM_URL)
                         .WithQueryString("tid=350")
@@ -30,7 +30,7 @@ namespace PVOutput.Net.Tests.Modules.Team
         [Test]
         public async Task TeamService_JoinTeam_CallsCorrectUri()
         {
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
             testProvider.ExpectUriFromBase(JOINTEAM_URL)
                         .WithQueryString("tid=360")
@@ -49,7 +49,7 @@ namespace PVOutput.Net.Tests.Modules.Team
         [Test]
         public async Task TeamService_LeaveTeam_CallsCorrectUri()
         {
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
             testProvider.ExpectUriFromBase(JOINTEAM_URL)
                         .WithQueryString("tid=340")
@@ -68,7 +68,7 @@ namespace PVOutput.Net.Tests.Modules.Team
         [Test]
         public async Task TeamService_JoinTeamWithInvalidResponse_ReturnsCorrectResponse()
         {
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
             client.ThrowResponseExceptions = false;
 
             testProvider.ExpectUriFromBase(JOINTEAM_URL)

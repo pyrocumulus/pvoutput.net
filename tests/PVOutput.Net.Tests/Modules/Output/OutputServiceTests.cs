@@ -21,7 +21,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         [Test]
         public async Task OutputService_ForDate_CallsCorrectUri()
         {
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
             testProvider.ExpectUriFromBase(GETOUTPUT_URL)
                         .WithQueryString("df=20161001&dt=20161001&insolation=0")
                         .RespondPlainText(OUTPUT_RESPONSE_BARE);
@@ -34,7 +34,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         [Test]
         public async Task OutputService_ForPeriod_CallsCorrectUri()
         {
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
             testProvider.ExpectUriFromBase(GETOUTPUT_URL)
                         .WithQueryString("df=20180901&dt=20180907&insolation=0")
                         .RespondPlainText(OUTPUT_RESPONSE_WEEK);
@@ -48,7 +48,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         [Test]
         public async Task OutputService_WithDailyInsolation_CallsCorrectUri()
         {
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
             testProvider.ExpectUriFromBase(GETOUTPUT_URL)
                         .WithQueryString("df=20180901&dt=20180901&insolation=1")
                         .RespondPlainText(OUTPUT_WITH_INSOLATION_RESPONSE_DAY);
@@ -61,7 +61,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         [Test]
         public async Task OutputService_WithWeeklyInsolation_CallsCorrectUri()
         {
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
             testProvider.ExpectUriFromBase(GETOUTPUT_URL)
                         .WithQueryString("df=20180901&dt=20180907&insolation=1")
                         .RespondPlainText(OUTPUT_WITH_INSOLATION_RESPONSE_WEEK);
@@ -74,7 +74,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         [Test]
         public async Task OutputService_GetDailyTeam_CallsCorrectUri()
         {
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
             testProvider.ExpectUriFromBase(GETOUTPUT_URL)
                         .WithQueryString("df=20180901&dt=20180901&tid=" + TestConstants.PVOUTPUT_TEAM_ID)
                         .RespondPlainText(TEAMOUTPUT_RESPONSE_DAY);
@@ -87,7 +87,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         [Test]
         public async Task OutputService_GetWeeklyTeam_CallsCorrectUri()
         {
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
             testProvider.ExpectUriFromBase(GETOUTPUT_URL)
                         .WithQueryString("df=20180901&dt=20180907&tid=" + TestConstants.PVOUTPUT_TEAM_ID)
                         .RespondPlainText(TEAMOUTPUT_RESPONSE_WEEK);
@@ -100,7 +100,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         [Test]
         public async Task OutputService_GetAggregatedByMonth_CallsCorrectUri()
         {
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
             testProvider.ExpectUriFromBase(GETOUTPUT_URL)
                         .WithQueryString("df=20180101&dt=20180630&a=m")
                         .RespondPlainText(AGGREGATEDOUTPUT_RESPONSE_MONTH);
@@ -113,7 +113,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         [Test]
         public async Task OutputService_GetAggregatedByYear_CallsCorrectUri()
         {
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
             testProvider.ExpectUriFromBase(GETOUTPUT_URL)
                         .WithQueryString("df=20160101&dt=20181231&a=y")
                         .RespondPlainText(AGGREGATEDOUTPUT_RESPONSE_YEAR);
@@ -154,7 +154,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         [TestCaseSource(typeof(OutputServiceTests), "AddOutputTestCases")]
         public async Task OutputService_AddOutput_CallsCorrectUri(IOutputPost outputToPost, string expectedQueryString)
         {
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
             testProvider.ExpectUriFromBase(ADDOUTPUT_URL)
                         .WithQueryString(expectedQueryString)
                         .RespondPlainText("");
@@ -175,7 +175,7 @@ namespace PVOutput.Net.Tests.Modules.Output
             Assert.Multiple(() =>
             {
                 Assert.IsNotNull(result);
-                Assert.AreEqual(new DateTime(2016, 10, 1), result.Date);
+                Assert.AreEqual(new DateTime(2016, 10, 1), result.OutputDate);
                 Assert.AreEqual(8190, result.EnergyGenerated);
                 Assert.AreEqual(1.985, result.Efficiency);
                 Assert.AreEqual(0, result.EnergyExported);
@@ -200,7 +200,7 @@ namespace PVOutput.Net.Tests.Modules.Output
             Assert.Multiple(() =>
             {
                 Assert.IsNotNull(result);
-                Assert.AreEqual(new DateTime(2018, 9, 1), result.Date);
+                Assert.AreEqual(new DateTime(2018, 9, 1), result.OutputDate);
                 Assert.AreEqual(16784, result.EnergyGenerated);
                 Assert.AreEqual(4.069, result.Efficiency);
                 Assert.AreEqual(12719, result.EnergyExported);
@@ -228,8 +228,8 @@ namespace PVOutput.Net.Tests.Modules.Output
             Assert.Multiple(() =>
             {
                 Assert.AreEqual(7, result.Count());
-                Assert.AreEqual(new DateTime(2018, 9, 7), firstOutput.Date);
-                Assert.AreEqual(new DateTime(2018, 9, 1), lastOutput.Date);
+                Assert.AreEqual(new DateTime(2018, 9, 7), firstOutput.OutputDate);
+                Assert.AreEqual(new DateTime(2018, 9, 1), lastOutput.OutputDate);
             });
         }
 
@@ -241,7 +241,7 @@ namespace PVOutput.Net.Tests.Modules.Output
             Assert.Multiple(() =>
             {
                 Assert.IsNotNull(result);
-                Assert.AreEqual(new DateTime(2018, 9, 1), result.Date);
+                Assert.AreEqual(new DateTime(2018, 9, 1), result.OutputDate);
                 Assert.AreEqual(16784, result.EnergyGenerated);
                 Assert.AreEqual(4.069, result.Efficiency);
                 Assert.AreEqual(12719, result.EnergyExported);
@@ -271,8 +271,8 @@ namespace PVOutput.Net.Tests.Modules.Output
             {
                 Assert.IsNotNull(result);
                 Assert.AreEqual(7, result.Count());
-                Assert.AreEqual(new DateTime(2018, 9, 7), firstOutput.Date);
-                Assert.AreEqual(new DateTime(2018, 9, 1), lastOutput.Date);
+                Assert.AreEqual(new DateTime(2018, 9, 7), firstOutput.OutputDate);
+                Assert.AreEqual(new DateTime(2018, 9, 1), lastOutput.OutputDate);
                 Assert.AreEqual(14189, firstOutput.Insolation);
                 Assert.AreEqual(15197, lastOutput.Insolation);
             });
@@ -286,7 +286,7 @@ namespace PVOutput.Net.Tests.Modules.Output
             Assert.Multiple(() =>
             {
                 Assert.IsNotNull(result);
-                Assert.AreEqual(new DateTime(2018, 9, 1), result.Date);
+                Assert.AreEqual(new DateTime(2018, 9, 1), result.OutputDate);
                 Assert.AreEqual(980, result.Outputs);
                 Assert.AreEqual(4.736, result.Efficiency);
                 Assert.AreEqual(19264849, result.TotalGeneration);
@@ -310,9 +310,9 @@ namespace PVOutput.Net.Tests.Modules.Output
             {
                 Assert.IsNotNull(result);
                 Assert.AreEqual(7, result.Count());
-                Assert.AreEqual(new DateTime(2018, 9, 7), firstOutput.Date);
+                Assert.AreEqual(new DateTime(2018, 9, 7), firstOutput.OutputDate);
                 Assert.AreEqual(15628240, firstOutput.TotalGeneration);
-                Assert.AreEqual(new DateTime(2018, 9, 1), lastOutput.Date);
+                Assert.AreEqual(new DateTime(2018, 9, 1), lastOutput.OutputDate);
                 Assert.AreEqual(19264849, lastOutput.TotalGeneration);
             });
         }
@@ -325,7 +325,7 @@ namespace PVOutput.Net.Tests.Modules.Output
             Assert.Multiple(() =>
             {
                 Assert.IsNotNull(result);
-                Assert.AreEqual(new DateTime(2018, 6, 1), result.Date);
+                Assert.AreEqual(new DateTime(2018, 6, 1), result.AggregatedDate);
                 Assert.AreEqual(30, result.Outputs);
                 Assert.AreEqual(420107, result.EnergyGenerated);
                 Assert.AreEqual(3.395m, result.Efficiency);
@@ -349,8 +349,8 @@ namespace PVOutput.Net.Tests.Modules.Output
             Assert.Multiple(() =>
             {
                 Assert.IsNotNull(result);
-                Assert.AreEqual(6, firstAggregate.Date.Month);
-                Assert.AreEqual(1, lastAggregate.Date.Month);
+                Assert.AreEqual(6, firstAggregate.AggregatedDate.Month);
+                Assert.AreEqual(1, lastAggregate.AggregatedDate.Month);
                 Assert.AreEqual(6, result.Count());
             });
         }
@@ -366,8 +366,8 @@ namespace PVOutput.Net.Tests.Modules.Output
             Assert.Multiple(() =>
             {
                 Assert.IsNotNull(result);
-                Assert.AreEqual(2018, firstAggregate.Date.Year);
-                Assert.AreEqual(2016, lastAggregate.Date.Year);
+                Assert.AreEqual(2018, firstAggregate.AggregatedDate.Year);
+                Assert.AreEqual(2016, lastAggregate.AggregatedDate.Year);
                 Assert.AreEqual(3, result.Count());
             });
         }

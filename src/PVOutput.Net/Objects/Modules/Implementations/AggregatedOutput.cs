@@ -4,7 +4,7 @@ namespace PVOutput.Net.Objects.Modules.Implementations
 {
     internal class AggregatedOutput : IAggregatedOutput
     {
-        public DateTime Date { get; set; }
+        public DateTime AggregatedDate { get; set; }
         public int Outputs { get; set; }
         public int EnergyGenerated { get; set; }
         public decimal Efficiency { get; set; }

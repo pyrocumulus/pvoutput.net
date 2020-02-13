@@ -10,13 +10,13 @@ namespace PVOutput.Net.Objects.Modules.Readers
         {
             var properties = new Action<IOutput, string>[]
             {
-                (t, s) => t.Date = FormatHelper.ParseDate(s),
+                (t, s) => t.OutputDate = FormatHelper.ParseDate(s),
                 (t, s) => t.EnergyGenerated = Convert.ToInt32(s),
                 (t, s) => t.Efficiency = FormatHelper.ParseValueWithDefault<decimal>(s),
                 (t, s) => t.EnergyExported = Convert.ToInt32(s),
                 (t, s) => t.EnergyUsed = Convert.ToInt32(s),
                 (t, s) => t.PeakPower = FormatHelper.ParseValue<int>(s),
-                (t, s) => t.PeakTime = s.Equals("NaN", StringComparison.OrdinalIgnoreCase) ? (DateTime?)null : t.Date.Add(FormatHelper.ParseTime(s).TimeOfDay),
+                (t, s) => t.PeakTime = s.Equals("NaN", StringComparison.OrdinalIgnoreCase) ? (DateTime?)null : t.OutputDate.Add(FormatHelper.ParseTime(s).TimeOfDay),
                 (t, s) => t.Condition = s,
                 (t, s) => t.MinimumTemperature = FormatHelper.ParseValue<int>(s),
                 (t, s) => t.MaximumTemperature = FormatHelper.ParseValue<int>(s),

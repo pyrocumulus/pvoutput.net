@@ -11,8 +11,8 @@ namespace PVOutput.Net.Objects.Modules.Readers
         {
             var properties = new Action<IStatusHistory, string>[]
             {
-                (t, s) => t.Date = FormatHelper.ParseDate(s),
-                (t, s) => t.Date = s.Equals("NaN", StringComparison.OrdinalIgnoreCase) ? t.Date : t.Date.Add(FormatHelper.ParseTime(s).TimeOfDay),
+                (t, s) => t.StatusDate = FormatHelper.ParseDate(s),
+                (t, s) => t.StatusDate = s.Equals("NaN", StringComparison.OrdinalIgnoreCase) ? t.StatusDate : t.StatusDate.Add(FormatHelper.ParseTime(s).TimeOfDay),
                 (t, s) => t.EnergyGeneration = FormatHelper.ParseValue<int>(s),
                 (t, s) => t.EnergyEfficiency = FormatHelper.ParseValue<decimal>(s),
                 (t, s) => t.InstantaneousPower = FormatHelper.ParseValue<int>(s),

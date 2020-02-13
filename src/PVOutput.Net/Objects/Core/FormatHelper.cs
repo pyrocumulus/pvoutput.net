@@ -40,8 +40,8 @@ namespace PVOutput.Net.Objects.Core
                 return null;
             }
 
-            string lat = latitude.Value.ToString("##.####", CultureInfo.CreateSpecificCulture("en-US"));
-            string lon = longitude.Value.ToString("##.####", CultureInfo.CreateSpecificCulture("en-US"));
+            var lat = latitude.Value.ToString("##.####", CultureInfo.CreateSpecificCulture("en-US"));
+            var lon = longitude.Value.ToString("##.####", CultureInfo.CreateSpecificCulture("en-US"));
 
             return $"{lat},{lon}";
         }
@@ -74,7 +74,7 @@ namespace PVOutput.Net.Objects.Core
         internal static TResultType ParseValueWithDefault<TResultType>(string value) where TResultType : struct
         {
             TResultType? result = ParseValue<TResultType>(value);
-            return result.HasValue ? result.Value : (default);
+            return result ?? (default);
         }
     }
 }

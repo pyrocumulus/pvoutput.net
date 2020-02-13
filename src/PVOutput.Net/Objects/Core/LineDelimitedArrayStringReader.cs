@@ -17,7 +17,7 @@ namespace PVOutput.Net.Objects.Core
         {
             if (reader == null)
             {
-                return await Task.FromResult(default(IEnumerable<TObjectType>));
+                return await Task.FromResult(default(IEnumerable<TObjectType>)).ConfigureAwait(false);
             }
 
             var objectReader = StringFactoryContainer.CreateObjectReader<TObjectType>();
@@ -26,16 +26,19 @@ namespace PVOutput.Net.Objects.Core
             while (reader.Peek() >= 0)
             {
                 var line = reader.ReadLine();
-                await ReadAndAddObjectAsync(objectReader, results, line, cancellationToken);
+                await ReadAndAddObjectAsync(objectReader, results, line, cancellationToken).ConfigureAwait(false);
             }
 
-            return await Task.FromResult(results);
+            return await Task.FromResult(results).ConfigureAwait(false);
         }
 
         private static async Task ReadAndAddObjectAsync(IObjectStringReader<TObjectType> objectReader, List<TObjectType> objectList, string objectContent, CancellationToken cancellationToken)
         {
-            TObjectType output = await objectReader.ReadObjectAsync(new StringReader(objectContent), cancellationToken);
-            objectList.Add(output);
+            using (var reader = new StringReader(objectContent))
+            {
+                TObjectType output = await objectReader.ReadObjectAsync(reader, cancellationToken).ConfigureAwait(false);
+                objectList.Add(output);
+            }
         }
     }
 }

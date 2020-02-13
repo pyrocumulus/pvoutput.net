@@ -4,7 +4,7 @@ namespace PVOutput.Net.Objects
 {
     public interface IAggregatedOutput
     {
-        DateTime Date { get; set; }
+        DateTime AggregatedDate { get; set; }
         int Outputs { get; set; }
         int EnergyGenerated { get; set; }
         decimal Efficiency { get; set; }

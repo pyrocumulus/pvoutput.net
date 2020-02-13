@@ -19,11 +19,11 @@ namespace PVOutput.Net.Tests.Modules.Search
         [Test]
         public async Task SearchService_WithNoParameters_CallsCorrectUri()
         {
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
             testProvider.ExpectUriFromBase(SEARCH_URL)
                         .RespondPlainText("");
 
-            var response = await client.Search.Search("");
+            var response = await client.Search.SearchAsync("");
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
         }

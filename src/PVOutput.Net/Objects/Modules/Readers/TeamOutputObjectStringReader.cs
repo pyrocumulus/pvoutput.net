@@ -13,7 +13,7 @@ namespace PVOutput.Net.Objects.Modules.Readers
         {
             var properties = new Action<ITeamOutput, string>[]
             {
-                (t, s) => t.Date = FormatHelper.ParseDate(s),
+                (t, s) => t.OutputDate = FormatHelper.ParseDate(s),
                 (t, s) => t.Outputs = Convert.ToInt32(s),
                 (t, s) => t.Efficiency = Convert.ToDecimal(s, CultureInfo.CreateSpecificCulture("en-US")),
                 (t, s) => t.TotalGeneration = Convert.ToInt32(s),

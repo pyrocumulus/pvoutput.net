@@ -4,7 +4,7 @@ namespace PVOutput.Net.Objects.Modules.Implementations
 {
     internal class Output : IOutput
     {
-        public DateTime Date { get; set; }
+        public DateTime OutputDate { get; set; }
         public int EnergyGenerated { get; set; }
         public decimal Efficiency { get; set; }
         public int EnergyExported { get; set; }

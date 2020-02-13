@@ -16,7 +16,7 @@ namespace PVOutput.Net.Modules
         {
         }
 
-        public Task<PVOutputArrayResponse<IInsolation>> GetInsolationForOwnSystem(DateTime? date = null, CancellationToken cancellationToken = default)
+        public Task<PVOutputArrayResponse<IInsolation>> GetInsolationForOwnSystemAsync(DateTime? date = null, CancellationToken cancellationToken = default)
         {
             var handler = new RequestHandler(Client);
             var response = handler.ExecuteArrayRequestAsync<IInsolation>(new InsolationRequest { Date = date }, cancellationToken);
@@ -28,7 +28,7 @@ namespace PVOutput.Net.Modules
             return response;
         }
 
-        public Task<PVOutputArrayResponse<IInsolation>> GetInsolationForSystem(int systemId, DateTime? date = null, CancellationToken cancellationToken = default)
+        public Task<PVOutputArrayResponse<IInsolation>> GetInsolationForSystemAsync(int systemId, DateTime? date = null, CancellationToken cancellationToken = default)
         {
             var handler = new RequestHandler(Client);
             var response = handler.ExecuteArrayRequestAsync<IInsolation>(new InsolationRequest { SystemId = systemId, Date = date }, cancellationToken);
@@ -40,7 +40,7 @@ namespace PVOutput.Net.Modules
             return response;
         }
 
-        public Task<PVOutputArrayResponse<IInsolation>> GetInsolationForLocation(decimal latitude, decimal longitude, DateTime? date = null, CancellationToken cancellationToken = default)
+        public Task<PVOutputArrayResponse<IInsolation>> GetInsolationForLocationAsync(decimal latitude, decimal longitude, DateTime? date = null, CancellationToken cancellationToken = default)
         {
             var handler = new RequestHandler(Client);
             var response = handler.ExecuteArrayRequestAsync<IInsolation>(new InsolationRequest { Latitude = latitude, Longitude = longitude, Date = date }, cancellationToken);
@@ -52,7 +52,7 @@ namespace PVOutput.Net.Modules
             return response;
         }
 
-        private PVOutputArrayResponse<IInsolation> AddRequestedDate(Task<PVOutputArrayResponse<IInsolation>> response, DateTime requestedDate)
+        private static PVOutputArrayResponse<IInsolation> AddRequestedDate(Task<PVOutputArrayResponse<IInsolation>> response, DateTime requestedDate)
         {
             foreach (var insolation in response.Result.Values)
             {

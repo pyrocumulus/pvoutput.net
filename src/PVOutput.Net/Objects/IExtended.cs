@@ -6,7 +6,7 @@ namespace PVOutput.Net.Objects
 {
     public interface IExtended
     {
-        DateTime Date { get; set; }
+        DateTime ExtendedDate { get; set; }
         decimal? ExtendedValue1 { get; set; }
         decimal? ExtendedValue2 { get; set; }
         decimal? ExtendedValue3 { get; set; }

@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using PVOutput.Net.Objects;
+using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Objects.Factories;
 using PVOutput.Net.Requests.Base;
 using PVOutput.Net.Responses;
@@ -28,7 +29,10 @@ namespace PVOutput.Net.Requests.Handler
 
             try
             {
-                responseMessage = await ExecuteRequestAsync(CreateRequestMessage(request), cancellationToken).ConfigureAwait(false);
+                using (HttpRequestMessage requestMessage = CreateRequestMessage(request))
+                {
+                    responseMessage = await ExecuteRequestAsync(requestMessage, cancellationToken).ConfigureAwait(false);
+                }
                 Stream responseStream = await GetResponseContentStreamAsync(responseMessage).ConfigureAwait(false);
 
                 var result = new PVOutputResponse<TResponseContentType>();
@@ -39,8 +43,8 @@ namespace PVOutput.Net.Requests.Handler
                     return result;
                 }
 
-                var reader = StringFactoryContainer.CreateObjectReader<TResponseContentType>();
-                TResponseContentType content = await reader.ReadObjectAsync(responseStream, cancellationToken);
+                Objects.Core.IObjectStringReader<TResponseContentType> reader = StringFactoryContainer.CreateObjectReader<TResponseContentType>();
+                TResponseContentType content = await reader.ReadObjectAsync(responseStream, cancellationToken).ConfigureAwait(false);
 
                 result.IsSuccess = true;
                 result.Value = content;
@@ -58,7 +62,10 @@ namespace PVOutput.Net.Requests.Handler
 
             try
             {
-                responseMessage = await ExecuteRequestAsync(CreateRequestMessage(request), cancellationToken).ConfigureAwait(false);
+                using (HttpRequestMessage requestMessage = CreateRequestMessage(request))
+                {
+                    responseMessage = await ExecuteRequestAsync(requestMessage, cancellationToken).ConfigureAwait(false);
+                }
                 Stream responseStream = await GetResponseContentStreamAsync(responseMessage).ConfigureAwait(false);
 
                 var result = new PVOutputArrayResponse<TResponseContentType>();
@@ -69,8 +76,8 @@ namespace PVOutput.Net.Requests.Handler
                     return result;
                 }
 
-                var reader = StringFactoryContainer.CreateArrayReader<TResponseContentType>();
-                IEnumerable<TResponseContentType> content = await reader.ReadArrayAsync(responseStream, cancellationToken);
+                IArrayStringReader<TResponseContentType> reader = StringFactoryContainer.CreateArrayReader<TResponseContentType>();
+                IEnumerable<TResponseContentType> content = await reader.ReadArrayAsync(responseStream, cancellationToken).ConfigureAwait(false);
 
                 result.IsSuccess = true;
                 result.Values = content;
@@ -88,7 +95,10 @@ namespace PVOutput.Net.Requests.Handler
 
             try
             {
-                responseMessage = await ExecuteRequestAsync(CreateRequestMessage(request), cancellationToken).ConfigureAwait(false);
+                using (HttpRequestMessage requestMessage = CreateRequestMessage(request))
+                {
+                    responseMessage = await ExecuteRequestAsync(requestMessage, cancellationToken).ConfigureAwait(false);
+                }
                 Stream responseStream = await GetResponseContentStreamAsync(responseMessage).ConfigureAwait(false);
 
                 var result = new PVOutputBasicResponse();
@@ -111,7 +121,7 @@ namespace PVOutput.Net.Requests.Handler
 
         private bool ResponseIsErrorResponse(HttpResponseMessage responseMessage, Stream responseStream, PVOutputBaseResponse result)
         {
-            var apiError = ProcessHttpErrorResults(responseMessage, responseStream);
+            PVOutputApiError apiError = ProcessHttpErrorResults(responseMessage, responseStream);
             if (apiError != null)
             {
                 result.IsSuccess = false;
@@ -136,7 +146,7 @@ namespace PVOutput.Net.Requests.Handler
 
                 if (!string.IsNullOrEmpty(fullContent))
                 {
-                    int splitterIndex = fullContent.IndexOf(':');
+                    var splitterIndex = fullContent.IndexOf(':');
 
                     if (splitterIndex > -1)
                     {
@@ -157,7 +167,7 @@ namespace PVOutput.Net.Requests.Handler
             return error;
         }
 
-        private string GetBasicResponseState(Stream responseStream)
+        private static string GetBasicResponseState(Stream responseStream)
         {
             using (TextReader textReader = new StreamReader(responseStream))
             {
@@ -165,7 +175,7 @@ namespace PVOutput.Net.Requests.Handler
 
                 if (!string.IsNullOrEmpty(fullContent))
                 {
-                    int splitterIndex = fullContent.IndexOf(':');
+                    var splitterIndex = fullContent.IndexOf(':');
 
                     if (splitterIndex > -1)
                     {
@@ -178,7 +188,7 @@ namespace PVOutput.Net.Requests.Handler
             return null;
         }
          
-        private PVOutputApiRateInformation GetApiRateInformationfromResponse(HttpResponseMessage response)
+        private static PVOutputApiRateInformation GetApiRateInformationfromResponse(HttpResponseMessage response)
         {
             var result = new PVOutputApiRateInformation();
 
@@ -200,17 +210,17 @@ namespace PVOutput.Net.Requests.Handler
             return result;
         }
 
-        private Task<Stream> GetResponseContentStreamAsync(HttpResponseMessage response)
+        private static Task<Stream> GetResponseContentStreamAsync(HttpResponseMessage response)
         {
             return response.Content != null ? response.Content.ReadAsStreamAsync() : Task.FromResult(default(Stream));
         }
 
-        private HttpRequestMessage CreateRequestMessage(IRequest request)
+        private static HttpRequestMessage CreateRequestMessage(IRequest request)
         {
             return new HttpRequestMessage(request.Method, CreateUrl(request));
         }
 
-        private string CreateUrl(IRequest request)
+        private static string CreateUrl(IRequest request)
         {
             var requestTemplate = new UriTemplate(request.UriTemplate);
 
@@ -219,11 +229,11 @@ namespace PVOutput.Net.Requests.Handler
                 requestTemplate.AddParameter(parameter.Key, parameter.Value);
             }
 
-            string apiUri = requestTemplate.Resolve();
+            var apiUri = requestTemplate.Resolve();
             return $"{PVOutputClient.PVOutputBaseUri}{apiUri}";
         }
 
-        internal Task<HttpResponseMessage> ExecuteRequestAsync(HttpRequestMessage requestMessage, CancellationToken cancellationToken = default(CancellationToken))
+        internal Task<HttpResponseMessage> ExecuteRequestAsync(HttpRequestMessage requestMessage, CancellationToken cancellationToken = default)
         {
             SetRequestHeaders(requestMessage);
             return _client.HttpClientProvider.GetHttpClient().SendAsync(requestMessage, cancellationToken);

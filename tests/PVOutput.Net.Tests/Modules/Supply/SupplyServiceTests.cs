@@ -15,11 +15,11 @@ namespace PVOutput.Net.Tests.Modules.Supply
         [Test]
         public async Task SupplyService_WithNoParameters_CallsCorrectUri()
         {
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
             testProvider.ExpectUriFromBase(GETSUPPLY_URL)
                         .RespondPlainText("");
 
-            var response = await client.Supply.GetSupply();
+            var response = await client.Supply.GetSupplyAsync();
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
         }
@@ -27,12 +27,12 @@ namespace PVOutput.Net.Tests.Modules.Supply
         [Test]
         public async Task SupplyService_WithTimezone_CallsCorrectUri()
         {
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
             testProvider.ExpectUriFromBase(GETSUPPLY_URL)
                         .WithQueryString("tz=Europe/London")
                         .RespondPlainText("");
 
-            var response = await client.Supply.GetSupply("Europe/London");
+            var response = await client.Supply.GetSupplyAsync("Europe/London");
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
         }
@@ -40,12 +40,12 @@ namespace PVOutput.Net.Tests.Modules.Supply
         [Test]
         public async Task SupplyService_WithRegionKey_CallsCorrectUri()
         {
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
             testProvider.ExpectUriFromBase(GETSUPPLY_URL)
                         .WithQueryString("r=1:victoria")
                         .RespondPlainText("");
 
-            var response = await client.Supply.GetSupply(regionKey: "1:victoria");
+            var response = await client.Supply.GetSupplyAsync(regionKey: "1:victoria");
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
         }

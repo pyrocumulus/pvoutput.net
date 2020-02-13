@@ -13,6 +13,8 @@ namespace PVOutput.Net.Responses
         public bool Equals(PVOutputNoContentResponse other)
             => other != null && IsSuccess == other.IsSuccess && Error == other.Error;
 
-        public static implicit operator bool(PVOutputBaseResponse response) => response.IsSuccess;
+        public static implicit operator bool(PVOutputBaseResponse response) => response?.IsSuccess == true;
+
+        public bool ToBoolean() => IsSuccess;
     }
 }

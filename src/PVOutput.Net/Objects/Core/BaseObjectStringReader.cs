@@ -29,12 +29,12 @@ namespace PVOutput.Net.Objects.Core
         {
             if (stream == null)
             {
-                return await Task.FromResult(default(TReturnType));
+                return await Task.FromResult(default(TReturnType)).ConfigureAwait(false);
             }
 
             using (TextReader textReader = new StreamReader(stream))
             {
-                return await ReadObjectAsync(textReader, cancellationToken);
+                return await ReadObjectAsync(textReader, cancellationToken).ConfigureAwait(false);
             }
         }
 
@@ -47,7 +47,7 @@ namespace PVOutput.Net.Objects.Core
                 return output;
             }
 
-            return await Task.FromResult(GetDefaultResult());
+            return await Task.FromResult(GetDefaultResult()).ConfigureAwait(false);
         }
 
         protected virtual TReturnType GetDefaultResult()

@@ -13,7 +13,7 @@ namespace PVOutput.Net.Objects.Modules.Readers
         {
             var properties = new Action<IExtended, string>[]
             {
-                (t, s) => t.Date = FormatHelper.ParseDate(s),
+                (t, s) => t.ExtendedDate = FormatHelper.ParseDate(s),
                 (t, s) => t.ExtendedValue1 = FormatHelper.ParseValue<decimal>(s),
                 (t, s) => t.ExtendedValue2 = FormatHelper.ParseValue<decimal>(s),
                 (t, s) => t.ExtendedValue3 = FormatHelper.ParseValue<decimal>(s),

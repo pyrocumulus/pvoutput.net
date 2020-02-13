@@ -4,7 +4,7 @@ namespace PVOutput.Net.Objects.Modules.Implementations
 {
     internal class TeamOutput : ITeamOutput
     {
-        public DateTime Date { get; set; }
+        public DateTime OutputDate { get; set; }
         public int Outputs { get; set; }
         public decimal Efficiency { get; set; }
         public int TotalGeneration { get; set; }

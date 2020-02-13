@@ -15,13 +15,13 @@ namespace PVOutput.Net.Tests.Modules.Missing
         [Test]
         public async Task MissingService_GetMissingDaysInPeriod_CallsCorrectUri()
         {
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
             testProvider.ExpectUriFromBase(GETMISSING_URL)
                         .WithQueryString("df=20160801&dt=20160830")
                         .RespondPlainText(MISSINGDATES_RESPONSE_SIMPLE);
 
-            var response = await client.Missing.GetMissingDaysInPeriod(new DateTime(2016, 8, 1), new DateTime(2016, 8, 30));
+            var response = await client.Missing.GetMissingDaysInPeriodAsync(new DateTime(2016, 8, 1), new DateTime(2016, 8, 30));
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
         }

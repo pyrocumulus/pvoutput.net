@@ -15,7 +15,7 @@ namespace PVOutput.Net.Tests.Modules.Statistic
         [Test]
         public async Task StatisticsService_GetLifetimeStatistics_CallsCorrectUri()
         {
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
             testProvider.ExpectUriFromBase(GETSTATISTIC_URL)
                         .RespondPlainText(STATISTIC_RESPONSE_SIMPLE);
@@ -28,7 +28,7 @@ namespace PVOutput.Net.Tests.Modules.Statistic
         [Test]
         public async Task StatisticsService_GetPeriodStatistics_CallsCorrectUri()
         {
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
             testProvider.ExpectUriFromBase(GETSTATISTIC_URL)
                         .WithQueryString("df=20170101&dt=20180101")

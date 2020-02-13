@@ -26,7 +26,7 @@ namespace PVOutput.Net.Requests.Modules
         {
             var sb = new StringBuilder();
 
-            foreach (var output in Outputs)
+            foreach (IBatchOutputPost output in Outputs)
             {
                 sb.Append(FormatOutput(output)).Append(';');
             }
@@ -34,10 +34,10 @@ namespace PVOutput.Net.Requests.Modules
             return sb.ToString();
         }
 
-        private string FormatOutput(IBatchOutputPost output)
+        private static string FormatOutput(IBatchOutputPost output)
         {
             var sb = new StringBuilder();
-            sb.Append(FormatHelper.GetDateAsString(output.Date));
+            sb.Append(FormatHelper.GetDateAsString(output.OutputDate));
             sb.Append(',');
 
             if (output.EnergyGenerated != null)

@@ -6,6 +6,7 @@ using NUnit.Framework;
 using PVOutput.Net.Enums;
 using PVOutput.Net.Objects;
 using PVOutput.Net.Tests.Utils;
+using RichardSzalay.MockHttp;
 
 namespace PVOutput.Net.Tests.Modules.Favourite
 {
@@ -15,12 +16,12 @@ namespace PVOutput.Net.Tests.Modules.Favourite
         [Test]
         public async Task FavouriteService_GetSingle()
         {
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
             testProvider.ExpectUriFromBase(GETFAVOURITE_URL)
                         .RespondPlainText(FAVOURITE_RESPONSE_SINGLE);
 
-            var response = await client.Favourite.GetFavourites();
+            var response = await client.Favourite.GetFavouritesAsync();
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
         }

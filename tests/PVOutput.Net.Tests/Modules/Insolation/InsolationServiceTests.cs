@@ -18,13 +18,13 @@ namespace PVOutput.Net.Tests.Modules.Insolation
         [Test]
         public async Task InsolationService_GetForSystem_CallsCorrectUri()
         {
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
             testProvider.ExpectUriFromBase(GETINSOLATION_URL)
                         .WithQueryString("sid1=54321")
                         .RespondPlainText(INSOLATION_RESPONSE_BASIC);
 
-            var response = await client.Insolation.GetInsolationForSystem(54321);
+            var response = await client.Insolation.GetInsolationForSystemAsync(54321);
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
         }

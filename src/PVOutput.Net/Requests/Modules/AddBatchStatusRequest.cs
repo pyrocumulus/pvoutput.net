@@ -32,7 +32,7 @@ namespace PVOutput.Net.Requests.Modules
         {
             var sb = new StringBuilder();
 
-            foreach (var status in StatusPosts)
+            foreach (IBatchStatusPost status in StatusPosts)
             {
                 sb.Append(FormatStatusPost(status)).Append(';');
             }
@@ -40,7 +40,7 @@ namespace PVOutput.Net.Requests.Modules
             return sb.ToString();
         }
 
-        private string FormatStatusPost(IBatchStatusPost status)
+        private static string FormatStatusPost(IBatchStatusPost status)
         {
             var sb = new StringBuilder();
             sb.Append(FormatHelper.GetDateAsString(status.Timestamp));

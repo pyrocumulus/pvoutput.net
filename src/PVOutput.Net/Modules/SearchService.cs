@@ -17,7 +17,7 @@ namespace PVOutput.Net.Modules
             
         }
 
-        public Task<PVOutputArrayResponse<ISystemSearchResult>> Search(string searchQuery, double? latitude = null, double? longitude = null, CancellationToken cancellationToken = default)
+        public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchAsync(string searchQuery, double? latitude = null, double? longitude = null, CancellationToken cancellationToken = default)
         {
             var handler = new RequestHandler(Client);
 

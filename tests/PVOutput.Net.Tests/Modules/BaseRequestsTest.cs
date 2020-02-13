@@ -5,7 +5,7 @@ namespace PVOutput.Net.Tests.Modules
 {
     public class BaseRequestsTest
     {
-        protected void AssertStandardResponse<TResponseContentType>(PVOutputResponse<TResponseContentType> response)
+        protected static void AssertStandardResponse<TResponseContentType>(PVOutputResponse<TResponseContentType> response)
         {
             Assert.Multiple(() =>
             {
@@ -16,7 +16,7 @@ namespace PVOutput.Net.Tests.Modules
             });
         }
 
-        protected void AssertStandardResponse<TResponseContentType>(PVOutputArrayResponse<TResponseContentType> response)
+        protected static void AssertStandardResponse<TResponseContentType>(PVOutputArrayResponse<TResponseContentType> response)
         {
             Assert.Multiple(() =>
             {

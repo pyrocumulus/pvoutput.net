@@ -4,7 +4,7 @@ namespace PVOutput.Net.Objects
 {
     public interface IBatchOutputPost
     {
-        DateTime Date { get; set; }
+        DateTime OutputDate { get; set; }
         int? EnergyGenerated { get; set; }
         int? EnergyExported { get; set; }
         int? PeakPower { get; set; }

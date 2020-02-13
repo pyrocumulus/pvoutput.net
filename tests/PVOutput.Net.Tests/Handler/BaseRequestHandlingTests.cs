@@ -17,7 +17,7 @@ namespace PVOutput.Net.Tests.Handler
         [Test]
         public async Task RequestHandler_OnRequest_SetsRequiredHeaders()
         {
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
             testProvider.ExpectUriFromBase("getsystem.jsp")
                         .WithHeaders(new Dictionary<string, string>()
@@ -28,7 +28,7 @@ namespace PVOutput.Net.Tests.Handler
                         })
                         .RespondPlainText("");
 
-            _ = await client.System.GetOwnSystem();
+            _ = await client.System.GetOwnSystemAsync();
             testProvider.VerifyNoOutstandingExpectation();
         }
 
@@ -39,13 +39,13 @@ namespace PVOutput.Net.Tests.Handler
             const HttpStatusCode statusCode = HttpStatusCode.Unauthorized;
             const string responseContent = "Invalid API Key";
 
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
             testProvider.ExpectUriFromBase("getsystem.jsp")
                         .Respond(statusCode, "text/plain", responseContent);
 
             var exception = Assert.ThrowsAsync<PVOutputException>(async () =>
             {
-                _ = await client.System.GetOwnSystem();
+                _ = await client.System.GetOwnSystemAsync();
             });
             Assert.AreEqual(responseContent, exception.Message);
             Assert.AreEqual(statusCode, exception.StatusCode);
@@ -59,12 +59,12 @@ namespace PVOutput.Net.Tests.Handler
             const HttpStatusCode statusCode = HttpStatusCode.Unauthorized;
             const string responseContent = "Invalid API Key";
 
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
             client.ThrowResponseExceptions = false;
             testProvider.ExpectUriFromBase("getsystem.jsp")
                         .Respond(statusCode, "text/plain", responseContent);
 
-            var response = await client.System.GetOwnSystem();
+            var response = await client.System.GetOwnSystemAsync();
 
             Assert.AreEqual(responseContent, response.Error.Message);
             Assert.AreEqual(statusCode, response.Error.StatusCode);

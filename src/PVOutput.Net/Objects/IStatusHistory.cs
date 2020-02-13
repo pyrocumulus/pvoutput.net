@@ -1,10 +1,10 @@
-using System;
+﻿using System;
 
 namespace PVOutput.Net.Objects
 {
     public interface IStatusHistory
     {
-        DateTime Date { get; set; }
+        DateTime StatusDate { get; set; }
         int? EnergyGeneration { get; set; }
         decimal? EnergyEfficiency { get; set; }
         int? InstantaneousPower { get; set; }

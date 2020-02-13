@@ -4,7 +4,7 @@ namespace PVOutput.Net.Objects
 {
     public interface ITeamOutput
     {
-        DateTime Date { get; set; }
+        DateTime OutputDate { get; set; }
         int Outputs { get; set; }
         decimal Efficiency { get; set; }
         int TotalGeneration { get; set; }

@@ -13,14 +13,14 @@ namespace PVOutput.Net.Modules
         {
         }
 
-        public Task<PVOutputResponse<ISystem>> GetOwnSystem(CancellationToken cancellationToken = default)
+        public Task<PVOutputResponse<ISystem>> GetOwnSystemAsync(CancellationToken cancellationToken = default)
         {
             var handler = new RequestHandler(Client);
 
             return handler.ExecuteSingleItemRequestAsync<ISystem>(new SystemRequest(), cancellationToken);
         }
 
-        public Task<PVOutputResponse<ISystem>> GetOtherSystem(int systemId, CancellationToken cancellationToken = default)
+        public Task<PVOutputResponse<ISystem>> GetOtherSystemAsync(int systemId, CancellationToken cancellationToken = default)
         {
             var handler = new RequestHandler(Client);
 

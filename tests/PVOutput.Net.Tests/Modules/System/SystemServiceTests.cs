@@ -15,12 +15,12 @@ namespace PVOutput.Net.Tests.Modules.System
         [Test]
         public async Task SystemService_GetOwnSystem_CallsCorrectUri()
         {
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
             testProvider.ExpectUriFromBase(GETSYSTEM_URL)
                         .RespondPlainText(SYSTEM_RESPONSE_EXTENDED);
 
-            var response = await client.System.GetOwnSystem();
+            var response = await client.System.GetOwnSystemAsync();
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
         }
@@ -28,13 +28,13 @@ namespace PVOutput.Net.Tests.Modules.System
         [Test]
         public async Task SystemService_GetOtherSystem_CallsCorrectUri()
         {
-            var client = TestUtility.GetMockClient(out var testProvider);
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
             testProvider.ExpectUriFromBase(GETSYSTEM_URL)
                         .WithQueryString("sid1=54321")
                         .RespondPlainText(SYSTEM_RESPONSE_EXTENDED);
 
-            var response = await client.System.GetOtherSystem(54321);
+            var response = await client.System.GetOtherSystemAsync(54321);
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
         }
