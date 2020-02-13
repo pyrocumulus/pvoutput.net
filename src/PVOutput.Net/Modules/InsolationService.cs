@@ -23,7 +23,7 @@ namespace PVOutput.Net.Modules
 
             if (date.HasValue)
             {
-                return response.ContinueWith(antecedent => AddRequestedDate(antecedent, date.Value), TaskContinuationOptions.OnlyOnRanToCompletion);
+                return response.ContinueWith(antecedent => AddRequestedDate(antecedent, date.Value), cancellationToken, TaskContinuationOptions.OnlyOnRanToCompletion, TaskScheduler.Default);
             }
             return response;
         }
@@ -35,7 +35,7 @@ namespace PVOutput.Net.Modules
 
             if (date.HasValue)
             {
-                return response.ContinueWith(antecedent => AddRequestedDate(antecedent, date.Value), TaskContinuationOptions.OnlyOnRanToCompletion);
+                return response.ContinueWith(antecedent => AddRequestedDate(antecedent, date.Value), cancellationToken, TaskContinuationOptions.OnlyOnRanToCompletion, TaskScheduler.Default);
             }
             return response;
         }
@@ -47,7 +47,7 @@ namespace PVOutput.Net.Modules
 
             if (date.HasValue)
             {
-                return response.ContinueWith(antecedent => AddRequestedDate(antecedent, date.Value), TaskContinuationOptions.OnlyOnRanToCompletion);
+                return response.ContinueWith(antecedent => AddRequestedDate(antecedent, date.Value), cancellationToken, TaskContinuationOptions.OnlyOnRanToCompletion, TaskScheduler.Default);
             }
             return response;
         }

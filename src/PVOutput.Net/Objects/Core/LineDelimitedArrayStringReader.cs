@@ -20,7 +20,7 @@ namespace PVOutput.Net.Objects.Core
                 return await Task.FromResult(default(IEnumerable<TObjectType>)).ConfigureAwait(false);
             }
 
-            var objectReader = StringFactoryContainer.CreateObjectReader<TObjectType>();
+            IObjectStringReader<TObjectType> objectReader = StringFactoryContainer.CreateObjectReader<TObjectType>();
             var results = new List<TObjectType>();
 
             while (reader.Peek() >= 0)

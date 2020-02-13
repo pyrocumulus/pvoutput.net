@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using PVOutput.Net.Objects.Builders;
-using PVOutput.Net.Objects.Modules;
+using PVOutput.Net.Objects;
+using PVOutput.Net.Requests;
 
 namespace PVOutput.Net.Sample
 {
@@ -19,7 +19,7 @@ namespace PVOutput.Net.Sample
         {
             var apiKey = Environment.GetEnvironmentVariable("PVOutput-ApiKey");
             var systemIdString = Environment.GetEnvironmentVariable("PVOutput-SystemId");
-            var systemId = systemIdString == "" ? 0 : Convert.ToInt32(systemIdString);
+            var systemId = string.IsNullOrEmpty(systemIdString) ? 0 : Convert.ToInt32(systemIdString);
             var client = new PVOutputClient(apiKey, systemId);
 
             // Request output for today
@@ -41,7 +41,7 @@ namespace PVOutput.Net.Sample
             Console.WriteLine("----------------------");
 
             // Request insolation values for 1st of june, for own system - DONATION ONLY
-            var insolations = await client.Insolation.GetInsolationForOwnSystem(new DateTime(2019, 6, 1));
+            var insolations = await client.Insolation.GetInsolationForOwnSystemAsync(new DateTime(2019, 6, 1));
             foreach (var insolation in insolations.Values)
             {
                 Console.WriteLine($"Insolation on {insolation.Time}, Energy {insolation.Energy} Power {insolation.Power}");
@@ -52,7 +52,7 @@ namespace PVOutput.Net.Sample
         {
             var apiKey = Environment.GetEnvironmentVariable("PVOutput-PushApiKey");
             var pushSystemIdString = Environment.GetEnvironmentVariable("PVOutput-PushSystemId");
-            var systemId = pushSystemIdString == "" ? 0 : Convert.ToInt32(pushSystemIdString);
+            var systemId = string.IsNullOrEmpty(pushSystemIdString) ? 0 : Convert.ToInt32(pushSystemIdString);
             var client = new PVOutputClient(apiKey, systemId);
 
             Console.WriteLine("Testing pushing data");
@@ -80,7 +80,7 @@ namespace PVOutput.Net.Sample
 
         private static void OutputDate(IOutput output)
         {
-            Console.WriteLine($"Output for date {output.Date.ToShortDateString()}, {output.EnergyGenerated} Wh generated");
+            Console.WriteLine($"Output for date {output.OutputDate.ToShortDateString()}, {output.EnergyGenerated} Wh generated");
         }
     }
 }

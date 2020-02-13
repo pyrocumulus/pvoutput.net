@@ -67,7 +67,7 @@ namespace PVOutput.Net.Objects.Modules.Readers
 
         private void ParseTeamProperties(ISystem target, TextReader reader)
         {
-            var teamIds = ReadPropertiesForGroup(reader);
+            IList<string> teamIds = ReadPropertiesForGroup(reader);
 
             if (teamIds.Count == 0)
             {
@@ -76,7 +76,7 @@ namespace PVOutput.Net.Objects.Modules.Readers
             }
 
             var result = new List<int>();
-            foreach (string teamId in teamIds)
+            foreach (var teamId in teamIds)
             {
                 result.Add(FormatHelper.GetValueOrDefault<int>(teamId));
             }
@@ -85,7 +85,7 @@ namespace PVOutput.Net.Objects.Modules.Readers
 
         private void ParseExtendedProperties(ISystem target, TextReader reader)
         {
-            var extendedData = ReadPropertiesForGroup(reader);
+            IList<string> extendedData = ReadPropertiesForGroup(reader);
 
             if (extendedData.Count == 0)
             {
@@ -94,7 +94,7 @@ namespace PVOutput.Net.Objects.Modules.Readers
             }
 
             var result = new List<ExtendedDataElement>(5);
-            var enumerator = extendedData.GetEnumerator();
+            IEnumerator<string> enumerator = extendedData.GetEnumerator();
             while (enumerator.MoveNext())
             {
                 var label = enumerator.Current;
@@ -108,7 +108,7 @@ namespace PVOutput.Net.Objects.Modules.Readers
 
         private void ParseMonthlyEstimates(ISystem target, TextReader reader)
         {
-            var estimates = ReadPropertiesForGroup(reader);
+            IList<string> estimates = ReadPropertiesForGroup(reader);
 
             if (estimates.Count == 0)
             {
@@ -120,7 +120,7 @@ namespace PVOutput.Net.Objects.Modules.Readers
             var consumptionEstimates = new Dictionary<PVMonth, int>();
             var generationEstimates = new Dictionary<PVMonth, int>();
 
-            for (int i = 0; i < estimates.Count; i++)
+            for (var i = 0; i < estimates.Count; i++)
             {
                 var month = (PVMonth)(i % 12 + 1);
                 var estimate = FormatHelper.GetValueOrDefault<int>(estimates[i]);

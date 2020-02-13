@@ -57,7 +57,7 @@ namespace PVOutput.Net.Objects.Core
 
         private void ParseProperties(TReturnType target, TextReader reader, CancellationToken cancellationToken = default)
         {
-            foreach (var parser in _parsers)
+            foreach (Action<TReturnType, TextReader> parser in _parsers)
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
@@ -67,7 +67,7 @@ namespace PVOutput.Net.Objects.Core
 
         protected void ParsePropertyArray(TReturnType target, TextReader reader, Action<TReturnType, string>[] properties)
         {
-            for (int i = 0; i < properties.Length; i++)
+            for (var i = 0; i < properties.Length; i++)
             {
                 properties[i](target, ReadProperty(reader));
             }
