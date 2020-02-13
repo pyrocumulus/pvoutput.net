@@ -6,13 +6,17 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Authors>Marcel Boersma</Authors>
-    <Version>0.5.0</Version>
-    <Copyright>Marcel Boersma</Copyright>
+    <Version>0.5.0-alpha</Version>
+    <Copyright></Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageProjectUrl></PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/pyrocumulus/pvoutput.net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/pyrocumulus/pvoutput.net</RepositoryUrl>
     <PackageTags>dotnet, solar, pvoutput</PackageTags>
+    <Title>PVOutput.Net</Title>
     <Description>A .NET library built around the API of the popular website PVOutput.net.</Description>
+    <Company />
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
