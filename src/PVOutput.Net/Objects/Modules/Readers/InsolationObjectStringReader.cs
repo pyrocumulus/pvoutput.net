@@ -14,8 +14,8 @@ namespace PVOutput.Net.Objects.Modules.Readers
             var properties = new Action<IInsolation, string>[]
             {
                 (t, s) => t.Time = FormatHelper.ParseTime(s),
-                (t, s) => t.Power = Convert.ToInt32(s),
-                (t, s) => t.Energy = Convert.ToInt32(s)
+                (t, s) => t.Power = FormatHelper.GetValueOrDefault<int>(s),
+                (t, s) => t.Energy = FormatHelper.GetValueOrDefault<int>(s)
             };
 
             _parsers.Add((target, reader) => ParsePropertyArray(target, reader, properties));

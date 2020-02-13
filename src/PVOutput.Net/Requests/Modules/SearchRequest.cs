@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Net.Http;
 using System.Text;
 using PVOutput.Net.Objects;
@@ -31,7 +32,7 @@ namespace PVOutput.Net.Requests.Modules
                 return null;
             }
 
-            return string.Format("{0:N5},{1:N5}", Latitude, Longitude);
+            return string.Format(CultureInfo.CreateSpecificCulture("en-US"), "{0:N5},{1:N5}", Latitude, Longitude);
         }
     }
 }

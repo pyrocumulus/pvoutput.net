@@ -91,6 +91,7 @@ namespace PVOutput.Net.Objects
             return result;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "Exception messages are non translatable for now")]
         private void ValidateStatus()
         {
             if (_statusPost.EnergyGeneration == null 

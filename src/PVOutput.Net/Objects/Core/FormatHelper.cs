@@ -51,16 +51,6 @@ namespace PVOutput.Net.Objects.Core
             return date.ToString("HH:mm", CultureInfo.InvariantCulture.DateTimeFormat);
         }
 
-        internal static TResultType? ParseValue<TResultType>(string value) where TResultType : struct
-        {
-            if (string.IsNullOrEmpty(value) || value.Equals("NaN", StringComparison.OrdinalIgnoreCase))
-            {
-                return null;
-            }
-
-            return (TResultType)Convert.ChangeType(value, typeof(TResultType), CultureInfo.CreateSpecificCulture("en-US"));
-        }
-
         internal static string GetValueAsString<TInputType>(TInputType? value) where TInputType : struct
         {
             if (value == null)
@@ -71,9 +61,19 @@ namespace PVOutput.Net.Objects.Core
             return (string)Convert.ChangeType(value, typeof(string), CultureInfo.CreateSpecificCulture("en-US"));
         }
 
-        internal static TResultType ParseValueWithDefault<TResultType>(string value) where TResultType : struct
+        internal static TResultType? GetValue<TResultType>(string value) where TResultType : struct
         {
-            TResultType? result = ParseValue<TResultType>(value);
+            if (string.IsNullOrEmpty(value) || value.Equals("NaN", StringComparison.OrdinalIgnoreCase))
+            {
+                return null;
+            }
+
+            return (TResultType)Convert.ChangeType(value, typeof(TResultType), CultureInfo.CreateSpecificCulture("en-US"));
+        }
+
+        internal static TResultType GetValueOrDefault<TResultType>(string value) where TResultType : struct
+        {
+            TResultType? result = GetValue<TResultType>(value);
             return result ?? (default);
         }
     }

@@ -16,12 +16,12 @@ namespace PVOutput.Net.Objects.Modules.Readers
             var properties = new Action<ITeam, string>[]
             {
                 (t, s) => t.Name = s,
-                (t, s) => t.TeamSize = Convert.ToInt32(s),
-                (t, s) => t.AverageSize = Convert.ToInt32(s),
-                (t, s) => t.NumberOfSystems = Convert.ToInt32(s),
-                (t, s) => t.EnergyGenerated  = Convert.ToInt64(s),
-                (t, s) => t.Outputs = Convert.ToInt32(s),
-                (t, s) => t.EnergyAverage = Convert.ToInt32(s),
+                (t, s) => t.TeamSize = FormatHelper.GetValueOrDefault<int>(s),
+                (t, s) => t.AverageSize = FormatHelper.GetValueOrDefault<int>(s),
+                (t, s) => t.NumberOfSystems = FormatHelper.GetValueOrDefault<int>(s),
+                (t, s) => t.EnergyGenerated = FormatHelper.GetValueOrDefault<long>(s),
+                (t, s) => t.Outputs = FormatHelper.GetValueOrDefault<int>(s),
+                (t, s) => t.EnergyAverage = FormatHelper.GetValueOrDefault<int>(s),
                 (t, s) => t.Type = s,
                 (t, s) => t.Description = s,
                 (t, s) => t.CreationDate = FormatHelper.ParseDate(s)

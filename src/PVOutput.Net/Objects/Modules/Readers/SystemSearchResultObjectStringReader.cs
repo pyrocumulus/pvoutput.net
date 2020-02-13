@@ -17,7 +17,7 @@ namespace PVOutput.Net.Objects.Modules.Readers
             var properties = new Action<ISystemSearchResult, string>[]
             {
                 (t, s) => t.SystemName = s,
-                (t, s) => t.SystemSize = Convert.ToInt32(s),
+                (t, s) => t.SystemSize = FormatHelper.GetValueOrDefault<int>(s),
                 (t, s) => 
                 {
                     SplitPostCode(s, out int postcode, out string country);
@@ -25,14 +25,14 @@ namespace PVOutput.Net.Objects.Modules.Readers
                     t.Country = country;
                 },
                 (t, s) => t.Orientation = s,
-                (t, s) => t.NumberOfOutputs = Convert.ToInt32(s),
+                (t, s) => t.NumberOfOutputs = FormatHelper.GetValueOrDefault<int>(s),
                 (t, s) => t.LastOutput = s,
-                (t, s) => t.SystemId = Convert.ToInt32(s),
+                (t, s) => t.SystemId = FormatHelper.GetValueOrDefault<int>(s),
                 (t, s) => t.Panel = s,
                 (t, s) => t.Inverter = s,
-                (t, s) => t.Distance = FormatHelper.ParseValue<int>(s),
-                (t, s) => t.Latitude = FormatHelper.ParseValue<double>(s),
-                (t, s) => t.Longitude = FormatHelper.ParseValue<double>(s)
+                (t, s) => t.Distance = FormatHelper.GetValue<int>(s),
+                (t, s) => t.Latitude = FormatHelper.GetValue<double>(s),
+                (t, s) => t.Longitude = FormatHelper.GetValue<double>(s)
             };
 
             _parsers.Add((target, reader) => ParsePropertyArray(target, reader, properties));
@@ -51,7 +51,7 @@ namespace PVOutput.Net.Objects.Modules.Readers
 
             if (!string.IsNullOrEmpty(match.Groups["postcode"].Value))
             {
-                postcode = Convert.ToInt32(match.Groups["postcode"].Value.Trim());
+                postcode = FormatHelper.GetValueOrDefault<int>(match.Groups["postcode"].Value.Trim());
             }
         }
     }

@@ -14,15 +14,15 @@ namespace PVOutput.Net.Objects.Modules.Readers
             var properties = new Action<IAggregatedOutput, string>[]
             {
                 (t, s) => t.AggregatedDate = FormatHelper.ParseDate(s),
-                (t, s) => t.Outputs = Convert.ToInt32(s),
-                (t, s) => t.EnergyGenerated = Convert.ToInt32(s),
-                (t, s) => t.Efficiency = Convert.ToDecimal(s, CultureInfo.CreateSpecificCulture("en-US")),
-                (t, s) => t.EnergyExported = Convert.ToInt32(s),
-                (t, s) => t.EnergyUsed  = Convert.ToInt32(s),
-                (t, s) => t.PeakEnergyImport = FormatHelper.ParseValue<int>(s),
-                (t, s) => t.OffPeakEnergyImport = FormatHelper.ParseValue<int>(s),
-                (t, s) => t.ShoulderEnergyImport = FormatHelper.ParseValue<int>(s),
-                (t, s) => t.HighShoulderEnergyImport = FormatHelper.ParseValue<int>(s)
+                (t, s) => t.Outputs = FormatHelper.GetValueOrDefault<int>(s),
+                (t, s) => t.EnergyGenerated = FormatHelper.GetValueOrDefault<int>(s),
+                (t, s) => t.Efficiency = FormatHelper.GetValueOrDefault<decimal>(s),
+                (t, s) => t.EnergyExported = FormatHelper.GetValueOrDefault<int>(s),
+                (t, s) => t.EnergyUsed  = FormatHelper.GetValueOrDefault<int>(s),
+                (t, s) => t.PeakEnergyImport = FormatHelper.GetValue<int>(s),
+                (t, s) => t.OffPeakEnergyImport = FormatHelper.GetValue<int>(s),
+                (t, s) => t.ShoulderEnergyImport = FormatHelper.GetValue<int>(s),
+                (t, s) => t.HighShoulderEnergyImport = FormatHelper.GetValue<int>(s)
             };
 
             _parsers.Add((target, reader) => ParsePropertyArray(target, reader, properties));

@@ -15,16 +15,16 @@ namespace PVOutput.Net.Objects.Modules.Readers
             {
                 (t, s) => t.Timestamp = FormatHelper.ParseTimeStamp(s),
                 (t, s) => t.RegionName = s,
-                (t, s) => t.Utilisation = FormatHelper.ParseValueWithDefault<decimal>(s),
-                (t, s) => t.TotalPowerOutput = FormatHelper.ParseValueWithDefault<int>(s),
-                (t, s) => t.TotalPowerInput = FormatHelper.ParseValueWithDefault<int>(s),
-                (t, s) => t.AveragePowerOutput = FormatHelper.ParseValueWithDefault<int>(s),
-                (t, s) => t.AveragePowerInput = FormatHelper.ParseValueWithDefault<int>(s),
-                (t, s) => t.AverageNetPower = FormatHelper.ParseValueWithDefault<int>(s),
-                (t, s) => t.SystemsOut = FormatHelper.ParseValueWithDefault<int>(s),
-                (t, s) => t.SystemsIn = FormatHelper.ParseValueWithDefault<int>(s),
-                (t, s) => t.TotalSize = FormatHelper.ParseValueWithDefault<int>(s),
-                (t, s) => t.AverageSize = FormatHelper.ParseValueWithDefault<int>(s)
+                (t, s) => t.Utilisation = FormatHelper.GetValueOrDefault<decimal>(s),
+                (t, s) => t.TotalPowerOutput = FormatHelper.GetValueOrDefault<int>(s),
+                (t, s) => t.TotalPowerInput = FormatHelper.GetValueOrDefault<int>(s),
+                (t, s) => t.AveragePowerOutput = FormatHelper.GetValueOrDefault<int>(s),
+                (t, s) => t.AveragePowerInput = FormatHelper.GetValueOrDefault<int>(s),
+                (t, s) => t.AverageNetPower = FormatHelper.GetValueOrDefault<int>(s),
+                (t, s) => t.SystemsOut = FormatHelper.GetValueOrDefault<int>(s),
+                (t, s) => t.SystemsIn = FormatHelper.GetValueOrDefault<int>(s),
+                (t, s) => t.TotalSize = FormatHelper.GetValueOrDefault<int>(s),
+                (t, s) => t.AverageSize = FormatHelper.GetValueOrDefault<int>(s)
             };
 
             _parsers.Add((target, reader) => ParsePropertyArray(target, reader, properties));

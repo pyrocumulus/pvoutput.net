@@ -13,7 +13,7 @@ namespace PVOutput.Net.Objects.Modules.Readers
             {
                 (t, s) => t.Timestamp = FormatHelper.ParseDate(s),
                 (t, s) => t.Timestamp = s.Equals("NaN", StringComparison.OrdinalIgnoreCase) ? t.Timestamp : t.Timestamp.Add(FormatHelper.ParseTime(s).TimeOfDay),
-                (t, s) => t.AddedOrUpdated = FormatHelper.ParseValueWithDefault<int>(s) == 1
+                (t, s) => t.AddedOrUpdated = FormatHelper.GetValueOrDefault<int>(s) == 1
             };
 
             _parsers.Add((target, reader) => ParsePropertyArray(target, reader, properties));

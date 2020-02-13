@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -194,17 +195,17 @@ namespace PVOutput.Net.Requests.Handler
 
             if (response.Headers.Contains("X-Rate-Limit-Remaining"))
             {
-                result.LimitRemaining = Convert.ToInt32(response.Headers.GetValues("X-Rate-Limit-Remaining").First());
+                result.LimitRemaining = Convert.ToInt32(response.Headers.GetValues("X-Rate-Limit-Remaining").First(), CultureInfo.CreateSpecificCulture("en-US"));
             }
 
             if (response.Headers.Contains("X-Rate-Limit-Limit"))
             {
-                result.CurrentLimit = Convert.ToInt32(response.Headers.GetValues("X-Rate-Limit-Limit").First());
+                result.CurrentLimit = Convert.ToInt32(response.Headers.GetValues("X-Rate-Limit-Limit").First(), CultureInfo.CreateSpecificCulture("en-US"));
             }
 
             if (response.Headers.Contains("X-Rate-Limit-Reset"))
             {
-                result.LimitResetAt = DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(response.Headers.GetValues("X-Rate-Limit-Reset").First())).DateTime;
+                result.LimitResetAt = DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(response.Headers.GetValues("X-Rate-Limit-Reset").First(), CultureInfo.CreateSpecificCulture("en-US"))).DateTime;
             }
 
             return result;
@@ -242,7 +243,7 @@ namespace PVOutput.Net.Requests.Handler
         protected void SetRequestHeaders(HttpRequestMessage request)
         {
             request.Headers.Add("X-Pvoutput-Apikey", _client.ApiKey);
-            request.Headers.Add("X-Pvoutput-SystemId", _client.OwnedSystemId.ToString());
+            request.Headers.Add("X-Pvoutput-SystemId", FormatHelper.GetValueAsString<int>(_client.OwnedSystemId));
             request.Headers.Add("X-Rate-Limit", "1");
         }
     }

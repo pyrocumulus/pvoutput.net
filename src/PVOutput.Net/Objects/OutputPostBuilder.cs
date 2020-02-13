@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Resources;
 using System.Text;
 using PVOutput.Net.Enums;
 using PVOutput.Net.Objects.Modules;
@@ -90,11 +91,12 @@ namespace PVOutput.Net.Objects
             return this;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "Exception messages are non translatable for now")]
         public OutputPostBuilder<TResultType> SetConsumption(int consumption)
         {
             if (typeof(TResultType) == typeof(IBatchOutputPost))
             {
-                throw new InvalidOperationException("Cannot set consumption on batch output");
+                throw new InvalidOperationException("Cannot set consumption for batch output");
             }
 
             _outputPost.Consumption = consumption;
@@ -106,6 +108,7 @@ namespace PVOutput.Net.Objects
             _outputPost = new OutputPost();
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "Exception messages are non translatable for now")]
         public TResultType Build()
         {
             if (_outputPost.OutputDate == DateTime.MinValue)
