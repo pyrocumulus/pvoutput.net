@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
-using PVOutput.Net.Objects.Modules;
+using PVOutput.Net.Objects;
 using PVOutput.Net.Requests.Base;
 
 namespace PVOutput.Net.Requests.Modules

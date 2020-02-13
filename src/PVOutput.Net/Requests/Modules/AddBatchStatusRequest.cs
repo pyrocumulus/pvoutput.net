@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Text;
 using PVOutput.Net.Enums;
 using PVOutput.Net.Objects.Core;
-using PVOutput.Net.Objects.Modules;
+using PVOutput.Net.Objects;
 using PVOutput.Net.Requests.Base;
 
 namespace PVOutput.Net.Requests.Modules

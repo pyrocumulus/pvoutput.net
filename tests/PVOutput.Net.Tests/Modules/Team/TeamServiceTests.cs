@@ -4,7 +4,7 @@ using System.Net;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using PVOutput.Net.Objects.Factories;
-using PVOutput.Net.Objects.Modules;
+using PVOutput.Net.Objects;
 using PVOutput.Net.Tests.Utils;
 using RichardSzalay.MockHttp;
 
@@ -80,7 +80,7 @@ namespace PVOutput.Net.Tests.Modules.Team
             {
                 Assert.IsFalse(response.IsSuccess);
                 Assert.AreEqual(HttpStatusCode.BadRequest, response.Error.StatusCode);
-                Assert.AreEqual("You cannot join a team that does not exist", response.Error.ErrorMessage);
+                Assert.AreEqual("You cannot join a team that does not exist", response.Error.Message);
             });
         }
 

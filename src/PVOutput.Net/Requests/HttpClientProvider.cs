@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Net.Http;
 
-namespace PVOutput.Net.Requests.Handler
+namespace PVOutput.Net.Requests
 {
-    public class HttpClientProvider : IHttpClientProvider
+    internal class HttpClientProvider : IHttpClientProvider
     {
         protected HttpClient _httpClient;
 

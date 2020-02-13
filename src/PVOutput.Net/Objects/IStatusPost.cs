@@ -1,6 +1,6 @@
 ﻿using PVOutput.Net.Enums;
 
-namespace PVOutput.Net.Objects.Modules
+namespace PVOutput.Net.Objects
 {
     public interface IStatusPost : IBatchStatusPost
     {

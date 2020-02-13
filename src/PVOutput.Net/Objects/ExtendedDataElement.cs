@@ -1,4 +1,4 @@
-﻿namespace PVOutput.Net.Objects.Modules.Implementations
+﻿namespace PVOutput.Net.Objects
 {
     public struct ExtendedDataElement
     {

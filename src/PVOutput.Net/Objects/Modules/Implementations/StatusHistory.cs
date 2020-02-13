@@ -1,8 +1,8 @@
-using System;
+﻿using System;
 
 namespace PVOutput.Net.Objects.Modules.Implementations
 {
-    public class StatusHistory : IStatusHistory
+    internal class StatusHistory : IStatusHistory
     {
         public DateTime Date { get; set; }
         public int? EnergyGeneration { get; set; }

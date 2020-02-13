@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PVOutput.Net.Responses
 {
-    public class PVOutputException : Exception
+    public sealed class PVOutputException : Exception
     {
         public HttpStatusCode StatusCode { get; }
 

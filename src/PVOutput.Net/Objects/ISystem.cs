@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using PVOutput.Net.Enums;
 using PVOutput.Net.Objects.Modules.Implementations;
 
-namespace PVOutput.Net.Objects.Modules
+namespace PVOutput.Net.Objects
 {
     public interface ISystem
     {

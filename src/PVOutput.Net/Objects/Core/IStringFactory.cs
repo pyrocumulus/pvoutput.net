@@ -2,7 +2,7 @@
 
 namespace PVOutput.Net.Objects.Core
 {
-    public interface IStringFactory<TObjectType>
+    internal interface IStringFactory<TObjectType>
     {
         IObjectStringReader<TObjectType> CreateObjectReader();
 

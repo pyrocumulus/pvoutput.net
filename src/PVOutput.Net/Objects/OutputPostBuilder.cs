@@ -5,9 +5,9 @@ using PVOutput.Net.Enums;
 using PVOutput.Net.Objects.Modules;
 using PVOutput.Net.Objects.Modules.Implementations;
 
-namespace PVOutput.Net.Objects.Builders
+namespace PVOutput.Net.Objects
 {
-    public class OutputPostBuilder<TResultType> where TResultType : class, IBatchOutputPost
+    public sealed class OutputPostBuilder<TResultType> where TResultType : class, IBatchOutputPost
     {
         internal OutputPost _outputPost;
 

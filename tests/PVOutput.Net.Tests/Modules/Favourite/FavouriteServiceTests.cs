@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using PVOutput.Net.Enums;
-using PVOutput.Net.Objects.Modules;
+using PVOutput.Net.Objects;
 using PVOutput.Net.Tests.Utils;
 
 namespace PVOutput.Net.Tests.Modules.Favourite

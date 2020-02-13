@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace PVOutput.Net.Objects.Modules
+namespace PVOutput.Net.Objects
 {
     public interface IMissing
     {

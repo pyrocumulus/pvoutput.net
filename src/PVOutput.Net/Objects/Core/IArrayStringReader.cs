@@ -1,11 +1,11 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace PVOutput.Net.Objects.Core
 {
-    public interface IArrayStringReader<TReturnType>
+    internal interface IArrayStringReader<TReturnType>
     {
         Task<IEnumerable<TReturnType>> ReadArrayAsync(Stream stream, CancellationToken cancellationToken = default);
 

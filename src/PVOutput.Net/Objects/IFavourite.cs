@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PVOutput.Net.Objects.Modules
+namespace PVOutput.Net.Objects
 {
     public interface IFavourite
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using PVOutput.Net.Objects.Modules;
+using PVOutput.Net.Objects;
 using PVOutput.Net.Tests.Utils;
 using RichardSzalay.MockHttp;
 

@@ -1,14 +1,15 @@
 ﻿using System;
 
-namespace PVOutput.Net.Objects.Modules
+namespace PVOutput.Net.Objects
 {
-    public interface IBatchStatusPost
+    public interface IStatus
     {
         DateTime Timestamp { get; set; }
         int? EnergyGeneration { get; set; }
         int? PowerGeneration { get; set; }
         int? EnergyConsumption { get; set; }
         int? PowerConsumption { get; set; }
+        decimal? NormalisedOutput { get; set; }
         decimal? Temperature { get; set; }
         decimal? Voltage { get; set; }
         decimal? ExtendedValue1 { get; set; }

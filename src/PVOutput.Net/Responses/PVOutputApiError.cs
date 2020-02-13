@@ -8,6 +8,6 @@ namespace PVOutput.Net.Responses
     public sealed class PVOutputApiError
     {
         public HttpStatusCode StatusCode { get; internal set; }
-        public string ErrorMessage { get; internal set; }
+        public string Message { get; internal set; }
     }
 }

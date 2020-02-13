@@ -1,13 +1,13 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using PVOutput.Net.Objects.Modules;
+using PVOutput.Net.Objects;
 using PVOutput.Net.Requests.Handler;
 using PVOutput.Net.Requests.Modules;
 using PVOutput.Net.Responses;
 
 namespace PVOutput.Net.Modules
 {
-    public class SystemService : BaseService
+    public sealed class SystemService : BaseService
     {
         internal SystemService(PVOutputClient client) : base(client)
         {

@@ -1,12 +1,12 @@
 ﻿using System.Net.Http;
 using NUnit.Framework;
-using PVOutput.Net.Requests.Handler;
+using PVOutput.Net.Requests;
 using PVOutput.Net.Tests.Utils;
 using RichardSzalay.MockHttp;
 
 namespace PVOutput.Net.Tests.Requests.Handler
 {
-    public class TestHttpClientProvider : HttpClientProvider
+    internal class TestHttpClientProvider : HttpClientProvider
     {
         internal MockHttpMessageHandler MockHttpMessageHandler { get; }
 

@@ -1,14 +1,15 @@
 ﻿using PVOutput.Net.Modules;
+using PVOutput.Net.Requests;
 using PVOutput.Net.Requests.Handler;
 
 namespace PVOutput.Net
 {
-    public class PVOutputClient
+    public sealed class PVOutputClient
     {
-        internal readonly string PVOutputBaseUri = @"https://pvoutput.org/service/r2/";
+        internal const string PVOutputBaseUri = @"https://pvoutput.org/service/r2/";
         internal IHttpClientProvider HttpClientProvider { get; }
 
-        public string Apikey { get; set; }
+        public string ApiKey { get; set; }
         public int OwnedSystemId { get; set; }
         public bool ThrowResponseExceptions { get; set; } = true;
 
@@ -24,7 +25,13 @@ namespace PVOutput.Net
         public SupplyService Supply { get; }
         public SearchService Search { get; }
 
-        public PVOutputClient(IHttpClientProvider httpClientProvider = default)
+        public PVOutputClient(string apiKey, int ownedSystemId) : this(new HttpClientProvider())
+        {
+            ApiKey = apiKey;
+            OwnedSystemId = ownedSystemId;
+        }
+
+        internal PVOutputClient(IHttpClientProvider httpClientProvider)
         {
             HttpClientProvider = httpClientProvider ?? new HttpClientProvider();
 
@@ -41,10 +48,9 @@ namespace PVOutput.Net
             Search = new SearchService(this); 
         }
 
-        public PVOutputClient(string apiKey, int ownedSystemId, IHttpClientProvider httpClientProvider = default)
-            : this(httpClientProvider)
+        internal PVOutputClient(string apiKey, int ownedSystemId, IHttpClientProvider httpClientProvider) : this(httpClientProvider)
         {
-            Apikey = apiKey;
+            ApiKey = apiKey;
             OwnedSystemId = ownedSystemId;
         }
     }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using PVOutput.Net.Objects.Modules;
+using PVOutput.Net.Objects;
 using PVOutput.Net.Objects.Modules.Readers;
 using PVOutput.Net.Tests.Utils;
 using RichardSzalay.MockHttp;

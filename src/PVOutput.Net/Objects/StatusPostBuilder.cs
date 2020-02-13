@@ -5,9 +5,9 @@ using PVOutput.Net.Enums;
 using PVOutput.Net.Objects.Modules;
 using PVOutput.Net.Objects.Modules.Implementations;
 
-namespace PVOutput.Net.Objects.Builders
+namespace PVOutput.Net.Objects
 {
-    public class StatusPostBuilder<TResultType> where TResultType : class, IBatchStatusPost
+    public sealed class StatusPostBuilder<TResultType> where TResultType : class, IBatchStatusPost
     {
         private StatusPost _statusPost;
 

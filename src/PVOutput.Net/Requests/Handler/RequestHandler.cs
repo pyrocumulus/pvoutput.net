@@ -46,15 +46,6 @@ namespace PVOutput.Net.Requests.Handler
                 result.Value = content;
                 return result;
             }
-            catch (Exception ex)
-            {
-                if (_client.ThrowResponseExceptions)
-                {
-                    throw;
-                }
-
-                return new PVOutputResponse<TResponseContentType>() { IsSuccess = false, Exception = ex };
-            }
             finally
             {
                 responseMessage?.Dispose();
@@ -85,15 +76,6 @@ namespace PVOutput.Net.Requests.Handler
                 result.Values = content;
                 return result;
             }
-            catch (Exception ex)
-            {
-                if (_client.ThrowResponseExceptions)
-                {
-                    throw;
-                }
-
-                return new PVOutputArrayResponse<TResponseContentType>() { IsSuccess = false, Exception = ex };
-            }
             finally
             {
                 responseMessage?.Dispose();
@@ -120,15 +102,6 @@ namespace PVOutput.Net.Requests.Handler
                 result.IsSuccess = true;
                 result.SuccesMessage = GetBasicResponseState(responseStream);
                 return result;
-            }
-            catch (Exception ex)
-            {
-                if (_client.ThrowResponseExceptions)
-                {
-                    throw;
-                }
-
-                return new PVOutputBasicResponse() { IsSuccess = false, Exception = ex };
             }
             finally
             {
@@ -167,18 +140,18 @@ namespace PVOutput.Net.Requests.Handler
 
                     if (splitterIndex > -1)
                     {
-                        error.ErrorMessage = fullContent.Substring(splitterIndex + 1).Trim();
+                        error.Message = fullContent.Substring(splitterIndex + 1).Trim();
                     }
                     else
                     {
-                        error.ErrorMessage = fullContent;
+                        error.Message = fullContent;
                     }
                 }
             }
 
             if (_client.ThrowResponseExceptions)
             {
-                throw new PVOutputException(error.StatusCode, error.ErrorMessage);
+                throw new PVOutputException(error.StatusCode, error.Message);
             }
 
             return error;
@@ -247,7 +220,7 @@ namespace PVOutput.Net.Requests.Handler
             }
 
             string apiUri = requestTemplate.Resolve();
-            return $"{_client.PVOutputBaseUri}{apiUri}";
+            return $"{PVOutputClient.PVOutputBaseUri}{apiUri}";
         }
 
         internal Task<HttpResponseMessage> ExecuteRequestAsync(HttpRequestMessage requestMessage, CancellationToken cancellationToken = default(CancellationToken))
@@ -258,7 +231,7 @@ namespace PVOutput.Net.Requests.Handler
 
         protected void SetRequestHeaders(HttpRequestMessage request)
         {
-            request.Headers.Add("X-Pvoutput-Apikey", _client.Apikey);
+            request.Headers.Add("X-Pvoutput-Apikey", _client.ApiKey);
             request.Headers.Add("X-Pvoutput-SystemId", _client.OwnedSystemId.ToString());
             request.Headers.Add("X-Rate-Limit", "1");
         }

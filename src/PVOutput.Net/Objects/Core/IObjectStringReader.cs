@@ -1,10 +1,10 @@
-using System.IO;
+﻿using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace PVOutput.Net.Objects.Core
 {
-    public interface IObjectStringReader<TReturnType>
+    internal interface IObjectStringReader<TReturnType>
     {
         Task<TReturnType> ReadObjectAsync(Stream stream, CancellationToken cancellationToken = default);
 

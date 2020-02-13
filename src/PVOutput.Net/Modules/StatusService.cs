@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using PVOutput.Net.Objects.Modules;
+using PVOutput.Net.Objects;
 using PVOutput.Net.Requests.Handler;
 using PVOutput.Net.Requests.Modules;
 using PVOutput.Net.Responses;
 
 namespace PVOutput.Net.Modules
 {
-    public class StatusService : BaseService
+    public sealed class StatusService : BaseService
     {
         internal StatusService(PVOutputClient client) : base(client)
         {

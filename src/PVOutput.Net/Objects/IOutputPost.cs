@@ -1,4 +1,4 @@
-﻿namespace PVOutput.Net.Objects.Modules
+﻿namespace PVOutput.Net.Objects
 {
     public interface IOutputPost : IBatchOutputPost
     {

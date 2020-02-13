@@ -3,7 +3,7 @@ using System.Net.Http;
 
 namespace PVOutput.Net.Requests.Base
 {
-    public abstract class GetRequest<TResponseContentType> : IRequest
+    internal abstract class GetRequest<TResponseContentType> : IRequest
     {
         public abstract HttpMethod Method { get; }
 

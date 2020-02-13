@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Objects.Modules.Implementations;
 
@@ -8,7 +8,6 @@ namespace PVOutput.Net.Objects.Modules.Readers
     {
         public override IStatistic CreateObjectInstance() => new Statistic();
 
-        // 10051596,4365732,9031,0,25473,2.189,1113,20160822,20190908,6.175,20180701,7667511,5675645,0,0,0,10969,697,30851
         public StatisticObjectStringReader()
         {
             var properties = new Action<IStatistic, string>[]
