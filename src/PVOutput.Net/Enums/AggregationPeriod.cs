@@ -4,5 +4,18 @@ using System.Text;
 
 namespace PVOutput.Net.Enums
 {
-    public enum AggregationPeriod { Month, Year };
+    /// <summary>
+    /// Contains the periods by which data can be aggregated
+    /// </summary>
+    public enum AggregationPeriod { 
+        /// <summary>
+        /// Aggregate by month
+        /// </summary>
+        Month,
+
+        /// <summary>
+        /// Aggregate by year
+        /// </summary>
+        Year
+    };
 }
