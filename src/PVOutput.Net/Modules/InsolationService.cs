@@ -10,12 +10,24 @@ using PVOutput.Net.Responses;
 
 namespace PVOutput.Net.Modules
 {
+    /// <summary>
+    /// The Get Insolation service retrieves 5-minute insolation data (power and energy) under ideal weather conditions.
+    /// <para>See the official <see href="https://pvoutput.org/help.html#api-getinsolation">API information</see>.</para>
+    /// <para><strong>Note: this is a donation only service.</strong></para>
+    /// </summary>
     public sealed class InsolationService : BaseService
     {
         internal InsolationService(PVOutputClient client) : base(client)
         {
         }
 
+        /// <summary>
+        /// Get insolation data for own system.
+        /// <para><strong>Note: this is a donation only request.</strong></para>
+        /// </summary>
+        /// <param name="date">The DateTime to calculate the insolation for. If empty, the current date will be calculated.</param>
+        /// <param name="cancellationToken">A cancellation token for the request.</param>
+        /// <returns>Insolation data for the owned system.</returns>
         public Task<PVOutputArrayResponse<IInsolation>> GetInsolationForOwnSystemAsync(DateTime? date = null, CancellationToken cancellationToken = default)
         {
             var handler = new RequestHandler(Client);
@@ -28,6 +40,14 @@ namespace PVOutput.Net.Modules
             return response;
         }
 
+        /// <summary>
+        /// Get insolation data for a system.
+        /// <para><strong>Note: this is a donation only request.</strong></para>
+        /// </summary>
+        /// <param name="systemId">Id of the system to get insolation for.</param>
+        /// <param name="date">The DateTime to calculate the insolation for. If empty, the current date will be calculated.</param>
+        /// <param name="cancellationToken">A cancellation token for the request.</param>
+        /// <returns>Insolation data for the requested system.</returns>
         public Task<PVOutputArrayResponse<IInsolation>> GetInsolationForSystemAsync(int systemId, DateTime? date = null, CancellationToken cancellationToken = default)
         {
             var handler = new RequestHandler(Client);
@@ -40,6 +60,15 @@ namespace PVOutput.Net.Modules
             return response;
         }
 
+        /// <summary>
+        /// Get insolation data for a location.
+        /// <para><strong>Note: this is a donation only request.</strong></para>
+        /// </summary>
+        /// <param name="latitude">A latitude position, to request insolation for.</param>
+        /// <param name="longitude">A longitude position, to request insolation for.</param>
+        /// <param name="date">The DateTime to calculate the insolation for. If empty, the current date will be calculated.</param>
+        /// <param name="cancellationToken">A cancellation token for the request.</param>
+        /// <returns>Insolation data for the requested location.</returns>
         public Task<PVOutputArrayResponse<IInsolation>> GetInsolationForLocationAsync(decimal latitude, decimal longitude, DateTime? date = null, CancellationToken cancellationToken = default)
         {
             var handler = new RequestHandler(Client);

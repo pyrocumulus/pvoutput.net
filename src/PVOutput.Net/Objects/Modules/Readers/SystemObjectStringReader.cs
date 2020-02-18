@@ -89,18 +89,18 @@ namespace PVOutput.Net.Objects.Modules.Readers
 
             if (extendedData.Count == 0)
             {
-                target.ExtendedDataConfig = new List<ExtendedDataElement>();
+                target.ExtendedDataConfig = new List<ExtendedDataConfiguration>();
                 return;
             }
 
-            var result = new List<ExtendedDataElement>(5);
+            var result = new List<ExtendedDataConfiguration>(5);
             IEnumerator<string> enumerator = extendedData.GetEnumerator();
             while (enumerator.MoveNext())
             {
                 var label = enumerator.Current;
                 enumerator.MoveNext();
                 var unit = enumerator.Current;
-                result.Add(new ExtendedDataElement(label, unit));
+                result.Add(new ExtendedDataConfiguration(label, unit));
             }
 
             target.ExtendedDataConfig = result;

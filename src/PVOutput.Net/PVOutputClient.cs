@@ -4,27 +4,94 @@ using PVOutput.Net.Requests.Handler;
 
 namespace PVOutput.Net
 {
+    /// <summary>
+    /// The client used to talk to PVOutput with.
+    /// </summary>
     public sealed class PVOutputClient
     {
         internal const string PVOutputBaseUri = @"https://pvoutput.org/service/r2/";
         internal IHttpClientProvider HttpClientProvider { get; }
 
+        /// <summary>ApiKey to use with authenticating.</summary>
         public string ApiKey { get; set; }
+
+        /// <summary>Id of the currently owned system used for authenticating.</summary>
         public int OwnedSystemId { get; set; }
+
+        /// <summary>Indicates whether or not the client should throw exceptions when the api returns errors.</summary>
         public bool ThrowResponseExceptions { get; set; } = true;
 
+        /// <summary>
+        /// The output service.
+        /// <para>See the official <see href="https://pvoutput.org/help.html#api-getoutput">API information</see>.</para>
+        /// </summary>
         public OutputService Output { get; }
+
+        /// <summary>
+        /// The system service.
+        /// <para>See the official <see href="https://pvoutput.org/help.html#api-getsystem">API information</see>.</para>
+        /// </summary>
         public SystemService System { get; }
+
+        /// <summary>
+        /// The status service.
+        /// <para>See the official <see href="https://pvoutput.org/help.html#api-getstatus">API information</see>.</para>
+        /// </summary>
         public StatusService Status { get; }
+
+        /// <summary>
+        /// The statistic service.
+        /// <para>See the official <see href="https://pvoutput.org/help.html#api-getstatistic">API information</see>.</para>
+        /// </summary>
         public StatisticsService Statistics { get; }
+
+        /// <summary>
+        /// The missing service.
+        /// <para>See the official <see href="https://pvoutput.org/help.html#api-getmissing">API information</see>.</para>
+        /// </summary>
         public MissingService Missing { get; }
+
+        /// <summary>
+        /// The team service.
+        /// <para>See the official <see href="https://pvoutput.org/help.html#api-getsupply">API information</see>.</para>
+        /// </summary>
         public TeamService Team { get; }
+
+        /// <summary>
+        /// The extended service.
+        /// <para>See the official <see href="https://pvoutput.org/help.html#api-getextended">API information</see>.</para>
+        /// </summary>
         public ExtendedService Extended { get; }
+
+        /// <summary>
+        /// The favourite service.
+        /// <para>See the official <see href="https://pvoutput.org/help.html#api-getfavourite">API information</see>.</para>
+        /// </summary>
         public FavouriteService Favourite { get; }
+
+        /// <summary>
+        /// The insolation service.
+        /// <para>See the official <see href="https://pvoutput.org/help.html#api-getinsolation">API information</see>.</para>
+        /// </summary>
         public InsolationService Insolation { get; }
+
+        /// <summary>
+        /// The supply service.
+        /// <para>See the official <see href="https://pvoutput.org/help.html#api-getsupply">API information</see>.</para>
+        /// </summary>
         public SupplyService Supply { get; }
+
+        /// <summary>
+        /// The search service
+        /// <para>See the official <see href="https://pvoutput.org/help.html#api-search">API information</see>.</para>
+        /// .</summary>
         public SearchService Search { get; }
 
+        /// <summary>
+        /// Creates a new PVOutputClient.
+        /// </summary>
+        /// <param name="apiKey">ApiKey to use with authenticating.</param>
+        /// <param name="ownedSystemId">Id of the currently owned system used for authenticating.</param>
         public PVOutputClient(string apiKey, int ownedSystemId) : this(new HttpClientProvider())
         {
             ApiKey = apiKey;

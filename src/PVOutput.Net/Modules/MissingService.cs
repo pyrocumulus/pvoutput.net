@@ -8,6 +8,10 @@ using PVOutput.Net.Responses;
 
 namespace PVOutput.Net.Modules
 {
+    /// <summary>
+    /// The Get Missing service retrieves a list of output dates missing from a system.
+    /// <para>See the official <see href="https://pvoutput.org/help.html#api-getmissing">API information</see>.</para>
+    /// </summary>
     public sealed class MissingService : BaseService
     {
         internal MissingService(PVOutputClient client) : base(client)
@@ -15,6 +19,13 @@ namespace PVOutput.Net.Modules
 
         }
 
+        /// <summary>
+        /// Retrieves a list of output dates with no data
+        /// </summary>
+        /// <param name="fromDate">Minimum DateTime for the requested range.</param>
+        /// <param name="toDate">Maximum DateTime for the requested range.</param>
+        /// <param name="cancellationToken">A cancellation token for the request.</param>
+        /// <returns>List of missing dates</returns>
         public Task<PVOutputResponse<IMissing>> GetMissingDaysInPeriodAsync(DateTime fromDate, DateTime toDate, CancellationToken cancellationToken = default)
         {
             var handler = new RequestHandler(Client);

@@ -44,7 +44,7 @@ namespace PVOutput.Net.Objects
         int Donations { get; set; }
 
         // Extended data config
-        IReadOnlyList<ExtendedDataElement> ExtendedDataConfig { get; set; }
+        IReadOnlyList<ExtendedDataConfiguration> ExtendedDataConfig { get; set; }
 
         // Estimates - Only owner system
         IReadOnlyDictionary<PVMonth, int> MonthlyGenerationEstimates { get; set; }

@@ -45,7 +45,7 @@ namespace PVOutput.Net.Objects.Modules.Implementations
         public int Donations { get; set; }
 
         // Extended data config
-        public IReadOnlyList<ExtendedDataElement> ExtendedDataConfig { get; set; }
+        public IReadOnlyList<ExtendedDataConfiguration> ExtendedDataConfig { get; set; }
 
         // Estimates - Only owner system
         public IReadOnlyDictionary<PVMonth, int> MonthlyGenerationEstimates { get; set; }
