@@ -35,6 +35,7 @@ namespace PVOutput.Net.Modules
 
         /// <summary>
         /// Adds a system to a team.
+        /// <para>See the official <see href="https://pvoutput.org/help.html#api-jointeam">API information</see>.</para>
         /// </summary>
         /// <param name="teamId">Id of the team to join.</param>
         /// <param name="cancellationToken">A cancellation token for the request.</param>
@@ -47,6 +48,7 @@ namespace PVOutput.Net.Modules
 
         /// <summary>
         /// Removes a system from a team.
+        /// <para>See the official <see href="https://pvoutput.org/help.html#api-leaveteam">API information</see>.</para>
         /// </summary>
         /// <param name="teamId">Id of the team to leave.</param>
         /// <param name="cancellationToken">A cancellation token for the request.</param>

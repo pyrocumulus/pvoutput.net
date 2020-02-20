@@ -37,8 +37,8 @@ namespace PVOutput.Net.Modules
         /// Retrieve lifetime statistics for a system, in a certain period.
         /// <para><strong>Donation makes it possible to retrieve any system</strong></para>
         /// </summary>
-        /// <param name="fromDate">Minimum DateTime for the requested range.</param>
-        /// <param name="toDate">Maximum DateTime for the requested range.</param>
+        /// <param name="fromDate">Minimum date for the requested range.</param>
+        /// <param name="toDate">Maximum date for the requested range.</param>
         /// <param name="includeConsumptionAndImport">Whether or not to include consumption and import data. <strong>System owner only.</strong></param>
         /// <param name="includeCreditDebit">Whether or not to include credit and debit data. <strong>System owner only.</strong></param>
         /// <param name="systemId">Id of the system to retrieve statistical information for.</param>
