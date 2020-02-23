@@ -63,15 +63,15 @@ namespace PVOutput.Net.Sample
 
             var outputs = new List<IBatchStatusPost>();
 
-            outputs.Add(builder.SetDate(date.AddHours(13).AddMinutes(0))
+            outputs.Add(builder.SetTimeStamp(date.AddHours(13).AddMinutes(0))
                 .SetGeneration(200, null)
                 .Build());
 
-            outputs.Add(builder.SetDate(date.AddHours(13).AddMinutes(5))
+            outputs.Add(builder.SetTimeStamp(date.AddHours(13).AddMinutes(5))
                 .SetGeneration(500, null)
                 .Build());
 
-            outputs.Add(builder.SetDate(date.AddHours(13).AddMinutes(10))
+            outputs.Add(builder.SetTimeStamp(date.AddHours(13).AddMinutes(10))
                 .SetGeneration(600, null)
                 .Build());
 
