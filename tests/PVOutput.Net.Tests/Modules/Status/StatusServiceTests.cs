@@ -48,12 +48,15 @@ namespace PVOutput.Net.Tests.Modules.Status
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
             testProvider.ExpectUriFromBase(GETSTATUS_URL)
-                        .WithQueryString("d=20200131&from=14:00&to=15:00&stats=1")
-                        .RespondPlainText(STATUS_RESPONSE_DAYSTATISTICS_SMALL);
+                        .WithQueryString("d=20200131&from=10:00&to=16:00&stats=1")
+                        .RespondPlainText(STATUS_RESPONSE_DAYSTATISTICS_MEDIUM);
 
-            var response = await client.Status.GetDayStatisticsForPeriodAsync(new DateTime(2020, 1, 31, 14, 0, 0), new DateTime(2019, 1, 31, 15, 0, 0));
+            var response = await client.Status.GetDayStatisticsForPeriodAsync(new DateTime(2020, 1, 31, 10, 0, 0), new DateTime(2019, 1, 31, 16, 0, 0));
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
+
+            Assert.AreEqual(new DateTime(2020, 1, 31, 14, 40, 0), response.Value.PeakTime);
+            Assert.AreEqual(new DateTime(2020, 1, 31, 15, 5, 0), response.Value.StandbyPowerTime);
         }
 
         /*

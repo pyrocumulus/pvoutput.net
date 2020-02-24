@@ -58,11 +58,25 @@ namespace PVOutput.Net.Modules
         /// <param name="systemId">Retrieve statuses for a specific system. <strong>Note: this is a donation only parameter.</strong></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<PVOutputArrayResponse<IDayStatistics>> GetDayStatisticsForPeriodAsync(DateTime fromDateTime, DateTime toDateTime, int? systemId = null, CancellationToken cancellationToken = default)
+        public Task<PVOutputResponse<IDayStatistics>> GetDayStatisticsForPeriodAsync(DateTime fromDateTime, DateTime toDateTime, int? systemId = null, CancellationToken cancellationToken = default)
         {
             var handler = new RequestHandler(Client);
-            return handler.ExecuteArrayRequestAsync<IDayStatistics>(
-                new GetDayStatisticsRequest { Date = fromDateTime.Date, From = fromDateTime, To = toDateTime, SystemId = systemId }, cancellationToken);
+            var response = handler.ExecuteSingleItemRequestAsync<IDayStatistics>(new GetDayStatisticsRequest { Date = fromDateTime.Date, From = fromDateTime, To = toDateTime, SystemId = systemId }, cancellationToken);
+
+            return response.ContinueWith(antecedent => AddRequestedDate(antecedent, fromDateTime.Date), cancellationToken, TaskContinuationOptions.OnlyOnRanToCompletion, TaskScheduler.Default);
+        }
+
+        private static PVOutputResponse<IDayStatistics> AddRequestedDate(Task<PVOutputResponse<IDayStatistics>> response, DateTime requestedDate)
+        {
+            IDayStatistics statistics = response.Result.Value;
+            statistics.PeakTime = requestedDate.Add(statistics.PeakTime.TimeOfDay);
+
+            if (statistics.StandbyPowerTime != null)
+            {
+                statistics.StandbyPowerTime = requestedDate.Add(statistics.StandbyPowerTime.Value.TimeOfDay);
+            }
+
+            return response.Result;
         }
 
         /// <summary>
