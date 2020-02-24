@@ -1,4 +1,4 @@
-using PVOutput.Net.Objects.Core;
+﻿using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Objects.Modules;
 using PVOutput.Net.Objects.Modules.Readers;
 

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace PVOutput.Net.Objects.Modules.Implementations
 {

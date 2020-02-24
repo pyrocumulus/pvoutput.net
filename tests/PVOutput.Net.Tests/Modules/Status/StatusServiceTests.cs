@@ -42,6 +42,20 @@ namespace PVOutput.Net.Tests.Modules.Status
             AssertStandardResponse(response);
         }
 
+        [Test]
+        public async Task StatusService_GetDayStatistics_CallsCorrectUri()
+        {
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+
+            testProvider.ExpectUriFromBase(GETSTATUS_URL)
+                        .WithQueryString("d=20200131&from=14:00&to=15:00&stats=1")
+                        .RespondPlainText(STATUS_RESPONSE_DAYSTATISTICS_SMALL);
+
+            var response = await client.Status.GetDayStatisticsForPeriodAsync(new DateTime(2020, 1, 31, 14, 0, 0), new DateTime(2019, 1, 31, 15, 0, 0));
+            testProvider.VerifyNoOutstandingExpectation();
+            AssertStandardResponse(response);
+        }
+
         /*
          * Deserialisation tests below
          */
@@ -122,6 +136,62 @@ namespace PVOutput.Net.Tests.Modules.Status
                 Assert.AreEqual(4d, firstStatus.ExtendedValue4);
                 Assert.AreEqual(5d, firstStatus.ExtendedValue5);
                 Assert.AreEqual(6d, firstStatus.ExtendedValue6);
+            });
+        }
+
+        [Test]
+        public async Task DayStatisticsReader_ForSmallResponse_CreatesCorrectObjects()
+        {
+            IDayStatistics result = await TestUtility.ExecuteObjectReaderByTypeAsync<IDayStatistics>(STATUS_RESPONSE_DAYSTATISTICS_SMALL);
+
+            Assert.Multiple(() =>
+            {
+                Assert.AreEqual(334, result.EnergyGeneration);
+                Assert.AreEqual(1, result.PowerGeneration);
+                Assert.AreEqual(191, result.PeakPower);
+                Assert.AreEqual(DateTime.Today.AddHours(11), result.PeakTime);
+            });
+        }
+
+        [Test]
+        public async Task DayStatisticsReader_ForMediumResponse_CreatesCorrectObjects()
+        {
+            IDayStatistics result = await TestUtility.ExecuteObjectReaderByTypeAsync<IDayStatistics>(STATUS_RESPONSE_DAYSTATISTICS_MEDIUM);
+
+            Assert.Multiple(() =>
+            {
+                Assert.AreEqual(334, result.EnergyGeneration);
+                Assert.AreEqual(2, result.PowerGeneration);
+                Assert.AreEqual(82, result.PeakPower);
+                Assert.AreEqual(DateTime.Today.AddHours(14).AddMinutes(40), result.PeakTime);
+
+                Assert.AreEqual(5811, result.EnergyConsumption);
+                Assert.AreEqual(417, result.PowerConsumption);
+                Assert.AreEqual(255, result.StandbyPower);
+                Assert.AreEqual(DateTime.Today.AddHours(15).AddMinutes(5), result.StandbyPowerTime);
+            });
+        }
+
+        [Test]
+        public async Task DayStatisticsReader_ForFullResponse_CreatesCorrectObjects()
+        {
+            IDayStatistics result = await TestUtility.ExecuteObjectReaderByTypeAsync<IDayStatistics>(STATUS_RESPONSE_DAYSTATISTICS_FULL);
+
+            Assert.Multiple(() =>
+            {
+                Assert.AreEqual(35302, result.EnergyGeneration);
+                Assert.AreEqual(3, result.PowerGeneration);
+                Assert.AreEqual(5369, result.PeakPower);
+                Assert.AreEqual(DateTime.Today.AddHours(12).AddMinutes(45), result.PeakTime);
+
+                Assert.AreEqual(31476, result.EnergyConsumption);
+                Assert.AreEqual(606, result.PowerConsumption);
+                Assert.AreEqual(495, result.StandbyPower);
+                Assert.AreEqual(DateTime.Today.AddHours(9).AddMinutes(35), result.StandbyPowerTime);
+
+                Assert.AreEqual(18.1d, result.MinimumTemperature);
+                Assert.AreEqual(26.6d, result.MaximumTemperature);
+                Assert.AreEqual(21.7d, result.AverageTemperature);
             });
         }
     }

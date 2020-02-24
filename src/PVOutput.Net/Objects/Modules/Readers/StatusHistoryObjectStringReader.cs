@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using PVOutput.Net.Objects.Core;
 
 namespace PVOutput.Net.Objects.Modules.Readers

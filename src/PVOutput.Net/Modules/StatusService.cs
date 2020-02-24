@@ -51,6 +51,21 @@ namespace PVOutput.Net.Modules
         }
 
         /// <summary>
+        /// Gets the day statistics for specific period.
+        /// </summary>
+        /// <param name="fromDateTime">Minimum datetime for the requested range.</param>
+        /// <param name="toDateTime">Maximum datetime for the requested range.</param>
+        /// <param name="systemId">Retrieve statuses for a specific system. <strong>Note: this is a donation only parameter.</strong></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public Task<PVOutputArrayResponse<IDayStatistics>> GetDayStatisticsForPeriodAsync(DateTime fromDateTime, DateTime toDateTime, int? systemId = null, CancellationToken cancellationToken = default)
+        {
+            var handler = new RequestHandler(Client);
+            return handler.ExecuteArrayRequestAsync<IDayStatistics>(
+                new GetDayStatisticsRequest { Date = fromDateTime.Date, From = fromDateTime, To = toDateTime, SystemId = systemId }, cancellationToken);
+        }
+
+        /// <summary>
         /// Adds a single status to the owned system.
         /// <para>See the official <see href="https://pvoutput.org/help.html#api-addstatus">API information</see>.</para>
         /// </summary>
