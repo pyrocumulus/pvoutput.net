@@ -62,8 +62,8 @@ namespace PVOutput.Net.Tests.Modules.Search
                 Assert.AreEqual("Solarfun", result.Panel);
                 Assert.AreEqual("Aurora", result.Inverter);
                 Assert.IsNull(result.Distance);
-                Assert.AreEqual(-27.831402, result.Latitude);
-                Assert.AreEqual(153.028469, result.Longitude);
+                Assert.AreEqual(-27.831402, result.Location.Latitude);
+                Assert.AreEqual(153.028469, result.Location.Longitude);
             });
         }
 
@@ -83,10 +83,10 @@ namespace PVOutput.Net.Tests.Modules.Search
                 Assert.AreEqual("Solar 4 US", first.SystemName);
                 Assert.AreEqual("solar powered muso", last.SystemName);
 
-                Assert.AreEqual(-27.831402, first.Latitude);
-                Assert.AreEqual(153.028469, first.Longitude);
-                Assert.AreEqual(-34.878302, last.Latitude);
-                Assert.AreEqual(138.663553, last.Longitude);
+                Assert.AreEqual(-27.831402, first.Location.Latitude);
+                Assert.AreEqual(153.028469, first.Location.Longitude);
+                Assert.AreEqual(-34.878302, last.Location.Latitude);
+                Assert.AreEqual(138.663553, last.Location.Longitude);
             });
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using PVOutput.Net.Objects.Core;
@@ -18,7 +19,7 @@ namespace PVOutput.Net.Objects.Modules.Readers
             {
                 (t, s) => t.SystemName = s,
                 (t, s) => t.SystemSize = FormatHelper.GetValueOrDefault<int>(s),
-                (t, s) => 
+                (t, s) =>
                 {
                     SplitPostCode(s, out int postcode, out string country);
                     t.Postcode = postcode;
@@ -31,8 +32,8 @@ namespace PVOutput.Net.Objects.Modules.Readers
                 (t, s) => t.Panel = s,
                 (t, s) => t.Inverter = s,
                 (t, s) => t.Distance = FormatHelper.GetValue<int>(s),
-                (t, s) => t.Latitude = FormatHelper.GetValue<double>(s),
-                (t, s) => t.Longitude = FormatHelper.GetValue<double>(s)
+                (t, s) => t.Location = new PVCoordinate(FormatHelper.GetValueOrDefault<double>(s), 0), // Latitude
+                (t, s) => t.Location = new PVCoordinate(t.Location.Latitude, FormatHelper.GetValueOrDefault<double>(s)) // Add longitude
             };
 
             _parsers.Add((target, reader) => ParsePropertyArray(target, reader, properties));

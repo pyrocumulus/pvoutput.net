@@ -26,15 +26,14 @@ namespace PVOutput.Net.Modules
         /// <para>See <see href="https://pvoutput.org/help.html#search">this page</see> for help with the query syntax.</para>
         /// </summary>
         /// <param name="searchQuery">A search query to retrieve systems for.</param>
-        /// <param name="latitude">A latitude position, used for distance queries.</param>
-        /// <param name="longitude">A longitude position, used for distance queries.</param>
+        /// <param name="coordinate">A GPS coordinate, used for distance queries.</param>
         /// <param name="cancellationToken">A cancellation token for the request.</param>
         /// <returns>A list of search results.</returns>
-        public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchAsync(string searchQuery, double? latitude = null, double? longitude = null, CancellationToken cancellationToken = default)
+        public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchAsync(string searchQuery, PVCoordinate? coordinate = null, CancellationToken cancellationToken = default)
         {
             var handler = new RequestHandler(Client);
 
-            return handler.ExecuteArrayRequestAsync<ISystemSearchResult>(new SearchRequest { SearchQuery = searchQuery, Latitude = latitude, Longitude = longitude }, cancellationToken);
+            return handler.ExecuteArrayRequestAsync<ISystemSearchResult>(new SearchRequest { SearchQuery = searchQuery, Coordinate = coordinate }, cancellationToken);
         }
     }
 }

@@ -11,8 +11,7 @@ namespace PVOutput.Net.Requests.Modules
     {
         public DateTime? Date { get; set; }
         public int? SystemId { get; set; }
-        public decimal? Latitude { get; set; }
-        public decimal? Longitude { get; set; }
+        public PVCoordinate? Coordinate { get; set; }
 
         public override HttpMethod Method => HttpMethod.Get;
 
@@ -21,7 +20,7 @@ namespace PVOutput.Net.Requests.Modules
         public override IDictionary<string, object> GetUriPathParameters() => new Dictionary<string, object>
         {
             ["d"] = Date != null ? FormatHelper.GetDateAsString(Date.Value) : null,
-            ["ll"] = FormatHelper.GetLocationAsString(Latitude, Longitude),
+            ["ll"] = Coordinate != null ? FormatHelper.GetLocationAsString(Coordinate?.Latitude, Coordinate?.Longitude) : null,
             ["sid1"] = SystemId
         };
     }

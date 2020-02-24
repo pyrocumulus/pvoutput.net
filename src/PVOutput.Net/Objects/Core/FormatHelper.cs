@@ -33,7 +33,15 @@ namespace PVOutput.Net.Objects.Core
             return date.ToString("yyyyMMdd", CultureInfo.InvariantCulture);
         }
 
-        internal static string GetLocationAsString(decimal? latitude, decimal? longitude)
+        internal static string GetCoordinateAsString(PVCoordinate coordinate)
+        {
+            var lat = coordinate.Latitude.ToString("##.####", CultureInfo.CreateSpecificCulture("en-US"));
+            var lon = coordinate.Longitude.ToString("##.####", CultureInfo.CreateSpecificCulture("en-US"));
+
+            return $"{lat},{lon}";
+        }
+
+        internal static string GetLocationAsString(double? latitude, double? longitude)
         {
             if (latitude == null || longitude == null)
             {

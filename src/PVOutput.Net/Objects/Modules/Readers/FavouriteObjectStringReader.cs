@@ -28,8 +28,8 @@ namespace PVOutput.Net.Objects.Modules.Readers
                 (t, s) => t.ArrayTilt = FormatHelper.GetValue<decimal>(s),
                 (t, s) => t.Shade = s,
                 (t, s) => t.InstallDate = FormatHelper.ParseOptionalDate(s),
-                (t, s) => t.Latitude = FormatHelper.GetValue<decimal>(s),
-                (t, s) => t.Longitude = FormatHelper.GetValue<decimal>(s),
+                (t, s) => t.Location = new PVCoordinate(FormatHelper.GetValueOrDefault<double>(s), 0), // Latitude
+                (t, s) => t.Location = new PVCoordinate(t.Location.Latitude, FormatHelper.GetValueOrDefault<double>(s)), // Add longitude
                 (t, s) => t.StatusInterval = FormatHelper.GetValueOrDefault<int>(s)
             };
 

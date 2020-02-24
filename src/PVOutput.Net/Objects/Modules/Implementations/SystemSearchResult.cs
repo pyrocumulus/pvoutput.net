@@ -17,7 +17,6 @@ namespace PVOutput.Net.Objects.Modules.Implementations
         public string Panel { get; set; }
         public string Inverter { get; set; }
         public int? Distance { get; set; }
-        public double? Latitude { get; set; }
-        public double? Longitude { get; set; }
+        public PVCoordinate Location { get; set; }
     }
 }

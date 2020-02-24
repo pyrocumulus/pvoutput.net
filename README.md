@@ -1,6 +1,6 @@
 # PVOutput.Net
 
-[![Actions Status](https://github.com/pyrocumulus/pvoutput.net/workflows/dotnetcore/badge.svg)](https://github.com/pyrocumulus/pvoutput.net/actions)
+![.NET Core](https://github.com/pyrocumulus/pvoutput.net/workflows/.NET%20Core/badge.svg)
 
 > A .NET wrapper library for the [PVOutput api](https://pvoutput.org/help.html#api-spec).
 

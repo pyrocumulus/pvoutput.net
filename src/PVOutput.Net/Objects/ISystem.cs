@@ -76,14 +76,9 @@ namespace PVOutput.Net.Objects
         DateTime InstallDate { get; set; }
 
         /// <summary>
-        /// Latitudinal position of the system. 
+        /// Location of the system.
         /// </summary>
-        double Latitude { get; set; }
-
-        /// <summary>
-        /// Longitudinal position of the system.
-        /// </summary>
-        double Longitude { get; set; }
+        PVCoordinate Location { get; set; }
 
         /// <summary>
         /// The interval the system records statuses in (5, 10 or 15 minutes).

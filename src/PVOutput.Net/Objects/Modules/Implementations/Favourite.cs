@@ -20,8 +20,7 @@ namespace PVOutput.Net.Objects.Modules.Implementations
         public decimal? ArrayTilt { get; set; }
         public string Shade { get; set; }
         public DateTime? InstallDate { get; set; }
-        public decimal? Latitude { get; set; }
-        public decimal? Longitude { get; set; }
+        public PVCoordinate Location { get; set; }
         public int StatusInterval { get; set; }
     }
 }

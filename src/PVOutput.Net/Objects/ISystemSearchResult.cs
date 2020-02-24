@@ -65,13 +65,8 @@ namespace PVOutput.Net.Objects
         int? Distance { get; set; }
 
         /// <summary>
-        /// Latitudinal position of the system.
+        /// Location of the system.
         /// </summary>
-        double? Latitude { get; set; }
-
-        /// <summary>
-        /// Longitudinal position of the system.
-        /// </summary>
-        double? Longitude { get; set; }
+        PVCoordinate Location { get; set; }
     }
 }

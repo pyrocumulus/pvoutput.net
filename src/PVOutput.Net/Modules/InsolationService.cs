@@ -64,15 +64,14 @@ namespace PVOutput.Net.Modules
         /// Get insolation data for a location.
         /// <para><strong>Note: this is a donation only request.</strong></para>
         /// </summary>
-        /// <param name="latitude">A latitude position, to request insolation for.</param>
-        /// <param name="longitude">A longitude position, to request insolation for.</param>
+        /// <param name="coordinate">GPS coordinate, to request insolation for.</param>
         /// <param name="date">The DateTime to calculate the insolation for. If empty, the current date will be calculated.</param>
         /// <param name="cancellationToken">A cancellation token for the request.</param>
         /// <returns>Insolation data for the requested location.</returns>
-        public Task<PVOutputArrayResponse<IInsolation>> GetInsolationForLocationAsync(decimal latitude, decimal longitude, DateTime? date = null, CancellationToken cancellationToken = default)
+        public Task<PVOutputArrayResponse<IInsolation>> GetInsolationForLocationAsync(PVCoordinate coordinate, DateTime? date = null, CancellationToken cancellationToken = default)
         {
             var handler = new RequestHandler(Client);
-            var response = handler.ExecuteArrayRequestAsync<IInsolation>(new InsolationRequest { Latitude = latitude, Longitude = longitude, Date = date }, cancellationToken);
+            var response = handler.ExecuteArrayRequestAsync<IInsolation>(new InsolationRequest { Coordinate = coordinate, Date = date }, cancellationToken);
 
             if (date.HasValue)
             {

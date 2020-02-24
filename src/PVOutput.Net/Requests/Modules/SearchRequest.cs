@@ -11,8 +11,7 @@ namespace PVOutput.Net.Requests.Modules
     internal class SearchRequest : GetRequest<ISystemSearchResult>
     {
         public string SearchQuery { get; set; }
-        public double? Latitude { get; set; }
-        public double? Longitude { get; set; }
+        public PVCoordinate? Coordinate { get; set; }
 
         public override HttpMethod Method => HttpMethod.Get;
 
@@ -27,12 +26,12 @@ namespace PVOutput.Net.Requests.Modules
 
         private string GetFormatLocation()
         {
-            if (Latitude == null || Longitude == null)
+            if (Coordinate == null)
             {
                 return null;
             }
 
-            return string.Format(CultureInfo.CreateSpecificCulture("en-US"), "{0:N5},{1:N5}", Latitude, Longitude);
+            return string.Format(CultureInfo.CreateSpecificCulture("en-US"), "{0:N5},{1:N5}", Coordinate?.Latitude, Coordinate?.Longitude);
         }
     }
 }

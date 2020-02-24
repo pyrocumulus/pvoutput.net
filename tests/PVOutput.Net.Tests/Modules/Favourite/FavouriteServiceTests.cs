@@ -51,8 +51,8 @@ namespace PVOutput.Net.Tests.Modules.Favourite
                 Assert.AreEqual(30.5d, favourite.ArrayTilt);
                 Assert.AreEqual("No", favourite.Shade);
                 Assert.AreEqual(new DateTime(2010, 1, 1), favourite.InstallDate);
-                Assert.AreEqual(-33.907725d, favourite.Latitude);
-                Assert.AreEqual(151.026108d, favourite.Longitude);
+                Assert.AreEqual(-33.907725d, favourite.Location.Latitude);
+                Assert.AreEqual(151.026108d, favourite.Location.Longitude);
                 Assert.AreEqual(5, favourite.StatusInterval);
             });
         }
