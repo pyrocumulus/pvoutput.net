@@ -1,23 +1,24 @@
 # PVOutput.Net
 
-![.NET Core](https://github.com/pyrocumulus/pvoutput.net/workflows/.NET%20Core/badge.svg)
+> A .NET wrapper library for API of the popular [PVOutput](https://pvoutput.org) service.
+> PVOutput is a free service for sharing and comparing PV output data.
 
-> A .NET wrapper library for the [PVOutput api](https://pvoutput.org/help.html#api-spec).
+![.NET Core](https://github.com/pyrocumulus/pvoutput.net/workflows/.NET%20Core/badge.svg) 
+[![NuGet Badge](https://buildstats.info/nuget/PVOutput.Net)](https://www.nuget.org/packages/PVOutput.Net/)
 
 ## Install
 
-Nuget package will come when the implementation reaches a usable version. A version that's getting the basic information out of PVOutput and is able to push basic data back to PVOutput, is regarded as usable.
-The project will adhere to [Semver](https://semver.org/) for versioning. Version 1.x will take a good amount of time, because for that there needs to be stability in the API and 100% API coverage.
+Installation can be done through installation of the [NuGet package](https://www.nuget.org/packages/PVOutput.Net/).
 
 ## Usage
 
-For now sample code can be found in the samples/folder of the project. Documentation will come eventually.
+For now sample code can be found in the samples/folder of the project. Full API documentation will come soon.
 
 ## API Coverage
 
 Currently all read operations of the API are implemented as are all of the operations for adding data.
 
-| Operation  | Object       | (Expected) Module | Status             | Documentation link      |
+| Operation  | Object       | Module            | Status             | Documentation link      |
 |------------|--------------|-------------------|--------------------|-------------------------|
 | Add        | Output       | Output            | :heavy_check_mark: | [Add Output](https://pvoutput.org/help.html#api-addoutput) |
 | Add        | Batch Output | Output            | :heavy_check_mark: | [Add Batch Output](https://pvoutput.org/help.html#api-addbatchoutput) |
@@ -49,7 +50,7 @@ As the whole solution has all that dotnet magic, you can just run:
 dotnet build
 ```
 
-to build the solution or a single project. 
+to build the solution or a single project.
 
 For unit testing, just run:
 
@@ -59,7 +60,7 @@ dotnet test
 
 ## Contribute
 
-As the code base is still changing a lot, PRs will probably be more practical, benefical and succesful after things have settled down a bit. But you can try.
+The project adheres to [Semver 2.0](https://semver.org/) for versioning. As the code base is still changing a lot, PRs will probably be more practical, benefical and succesful after things have settled down a bit. But you can try.
 
 ## License
 
