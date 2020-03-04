@@ -43,8 +43,9 @@
       "_appTitle": "PVOutput.Net",
       "_gitContribute": {
         "repo": "https://github.com/pyrocumulus/pvoutput.net",
-        "branch": "develop",
-      },
+        "branch": "develop"
+      }
+    },
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
     "template": [
