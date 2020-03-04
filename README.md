@@ -1,48 +1,52 @@
 # PVOutput.Net
 
-> A .NET wrapper library for API of the popular [PVOutput](https://pvoutput.org) service.
+> A .NET Core (Standard 2.0 compatible) wrapper library for API of the popular [PVOutput](https://pvoutput.org) service.
 > PVOutput is a free service for sharing and comparing PV output data.
 
 ![.NET Core](https://github.com/pyrocumulus/pvoutput.net/workflows/.NET%20Core/badge.svg) 
 [![NuGet Badge](https://buildstats.info/nuget/PVOutput.Net)](https://www.nuget.org/packages/PVOutput.Net/)
 
-## Install
+## Installation
 
 Installation can be done through installation of the [NuGet package](https://www.nuget.org/packages/PVOutput.Net/).
 
 ## Usage
 
-For now sample code can be found in the samples/folder of the project. Full API documentation will come soon.
+Getting data out of PVOutput.org:
+
+```csharp
+var client = new PVOutputClient(apiKey: "myPvOutputKey", systemId: 1);
+
+// Request output for today
+var outputResponse = await client.Output.GetOutputForDateAsync(DateTime.Today);
+var output = outputResponse.Value;
+Console.WriteLine($"Output for date {output.OutputDate.ToShortDateString()}, {output.EnergyGenerated} Wh generated");
+
+```
+
+Adding data to a system in PVOutput.org:
+
+```csharp
+var client = new PVOutputClient(apiKey: "myPvOutputKey", systemId: 1);
+var builder = new StatusPostBuilder<IStatusPost>();
+
+// Build the status
+var status = builder.SetTimeStamp(DateTime.Now)
+                .SetGeneration(200, null)
+                .Build();
+
+// Push the status back to PVOutput
+var response = await client.Status.AddStatusAsync(status);
+
+```
+
+For more information on usage, please see the [documentation](https://pyrocumulus.github.io/pvoutput.net/).
 
 ## API Coverage
 
-Currently all read operations of the API are implemented as are all of the operations for adding data.
+The library covers almost nearly all the official PVOutput API exposes. See documentation for details.
 
-| Operation  | Object       | Module            | Status             | Documentation link      |
-|------------|--------------|-------------------|--------------------|-------------------------|
-| Add        | Output       | Output            | :heavy_check_mark: | [Add Output](https://pvoutput.org/help.html#api-addoutput) |
-| Add        | Batch Output | Output            | :heavy_check_mark: | [Add Batch Output](https://pvoutput.org/help.html#api-addbatchoutput) |
-| Get        | Output       | Output            | :heavy_check_mark: | [Get Output](https://pvoutput.org/help.html#api-getoutput) |
-| Add        | Status       | Status            | :heavy_check_mark: | [Add Status](https://pvoutput.org/help.html#api-addstatus) |
-| Add        | Batch Status | Status            | :heavy_check_mark: | [Add Batch Status](https://pvoutput.org/help.html#api-addbatchstatus) |
-| Get        | Status       | Status            | :heavy_check_mark: | [Get Status](https://pvoutput.org/help.html#api-getstatus) |
-| Delete     | Status       | Status            | :heavy_check_mark: | [Delete Status](https://pvoutput.org/help.html#api-deletestatus) |
-| Get        | Statistic    | Statistics        | :heavy_check_mark: | [Get Statistic](https://pvoutput.org/help.html#api-getstatistic) |
-| Get        | System       | System            | :heavy_check_mark: | [Get System](https://pvoutput.org/help.html#api-getsystem) |
-| Post       | System       | System            |                    | [Post System](https://pvoutput.org/help.html#api-postsystem) |
-| Get        | Extended     | Extended          | :heavy_check_mark: | [Get Extended](https://pvoutput.org/help.html#api-getextended) |
-| Get        | Favourite    | Favourite         | :heavy_check_mark: | [Get Favourite](https://pvoutput.org/help.html#api-getfavourite) |
-| Get        | Missing      | Missing           | :heavy_check_mark: | [Get Missing](https://pvoutput.org/help.html#api-getmissing) |
-| Get        | Insolation   | Insolation        | :heavy_check_mark: | [Get Insolation](https://pvoutput.org/help.html#api-getinsolation) |
-| Get        | Team         | Team              | :heavy_check_mark: | [Get Team](https://pvoutput.org/help.html#api-getteam) |
-| Join       | Team         | Team              | :heavy_check_mark: | [Join Team](https://pvoutput.org/help.html#api-jointeam) |
-| Leave      | Team         | Team              | :heavy_check_mark: | [Leave Team](https://pvoutput.org/help.html#api-leaveteam) |
-| Get        | Supply       | Supply            | :heavy_check_mark: | [Get Supply](https://pvoutput.org/help.html#api-getsupply) |
-| Search     | Search       | Search            | :heavy_check_mark: | [Search](https://pvoutput.org/help.html#api-search) |
-| Register   | Notification | Notification      |                    | [Register Notification](https://pvoutput.org/help.html#api-registernotification) |
-| Deregister | Notification | Notification      |                    | [Deregister Notification](https://pvoutput.org/help.html#api-deregisternotification) |
-
-## Building the source
+## Building the project
 
 As the whole solution has all that dotnet magic, you can just run:
 
@@ -50,9 +54,9 @@ As the whole solution has all that dotnet magic, you can just run:
 dotnet build
 ```
 
-to build the solution or a single project.
+to build the solution as a whole or a single project.
 
-For unit testing, just run:
+Running the Nunit tests can also be done from the cli, just run:
 
 ```posh
 dotnet test
@@ -60,7 +64,7 @@ dotnet test
 
 ## Contribute
 
-The project adheres to [Semver 2.0](https://semver.org/) for versioning. As the code base is still changing a lot, PRs will probably be more practical, benefical and succesful after things have settled down a bit. But you can try.
+See [Contributing](CONTRIBUTING.md) for information on how to contribute to this project.
 
 ## License
 

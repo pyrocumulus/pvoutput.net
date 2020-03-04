@@ -9,7 +9,7 @@
     <Version>0.5.0</Version>
     <Copyright></Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageProjectUrl>https://github.com/pyrocumulus/pvoutput.net</PackageProjectUrl>
+    <PackageProjectUrl>https://pyrocumulus.github.io/pvoutput.net/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/pyrocumulus/pvoutput.net</RepositoryUrl>
     <PackageTags>dotnet, solar, pvoutput, api</PackageTags>
     <Title>PVOutput.Net</Title>

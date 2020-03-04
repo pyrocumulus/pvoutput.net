@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.29230.47
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PVOutput.Net", "src\PVOutput.Net\PVOutput.Net.csproj", "{7FC8B929-495F-49ED-99C2-96A48AAAC325}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PVOutput.Console.Net", "samples\PVOutput.Console.Net\PVOutput.Console.Net.csproj", "{662667E2-0686-48FE-A7C4-5AB0D513C704}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PVOutput.Net.Tests", "tests\PVOutput.Net.Tests\PVOutput.Net.Tests.csproj", "{273E81BB-9AA6-455D-87E6-1D5E7600867B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Project files", "Project files", "{0BCF7233-827B-4A45-8FB8-CDE08CB4B9AE}"
@@ -29,10 +27,6 @@ Global
 		{7FC8B929-495F-49ED-99C2-96A48AAAC325}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FC8B929-495F-49ED-99C2-96A48AAAC325}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FC8B929-495F-49ED-99C2-96A48AAAC325}.Release|Any CPU.Build.0 = Release|Any CPU
-		{662667E2-0686-48FE-A7C4-5AB0D513C704}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{662667E2-0686-48FE-A7C4-5AB0D513C704}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{662667E2-0686-48FE-A7C4-5AB0D513C704}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{662667E2-0686-48FE-A7C4-5AB0D513C704}.Release|Any CPU.Build.0 = Release|Any CPU
 		{273E81BB-9AA6-455D-87E6-1D5E7600867B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{273E81BB-9AA6-455D-87E6-1D5E7600867B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{273E81BB-9AA6-455D-87E6-1D5E7600867B}.Release|Any CPU.ActiveCfg = Release|Any CPU
