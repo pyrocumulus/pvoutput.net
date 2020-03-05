@@ -12,10 +12,10 @@ Installation can be done through installation of the [NuGet package](https://www
 
 ## Usage
 
-Getting data out of PVOutput.org:
+### Getting data out of PVOutput.org
 
 ```csharp
-var client = new PVOutputClient(apiKey: "myPvOutputKey", systemId: 1);
+var client = new PVOutputClient(apiKey: "myPvOutputKey", ownedSystemId: 1);
 
 // Request output for today
 var outputResponse = await client.Output.GetOutputForDateAsync(DateTime.Today);
@@ -24,10 +24,10 @@ Console.WriteLine($"Output for date {output.OutputDate.ToShortDateString()}, {ou
 
 ```
 
-Adding data to a system in PVOutput.org:
+### Adding data to a system in PVOutput.org
 
 ```csharp
-var client = new PVOutputClient(apiKey: "myPvOutputKey", systemId: 1);
+var client = new PVOutputClient(apiKey: "myPvOutputKey", ownedSystemId: 1);
 var builder = new StatusPostBuilder<IStatusPost>();
 
 // Build the status
@@ -40,11 +40,24 @@ var response = await client.Status.AddStatusAsync(status);
 
 ```
 
+### Using the client in an ASP.Net Core application
+
+```csharp
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddPVOutputClient(options =>
+        {
+            options.ApiKey = "myPvOutputKey";
+            options.OwnedSystemId = 1;
+        });
+    }
+```
+
 For more information on usage, please see the [documentation](https://pyrocumulus.github.io/pvoutput.net/).
 
 ## API Coverage
 
-The library covers almost nearly all the official PVOutput API exposes. See documentation for details.
+The library covers almost nearly all the official PVOutput API exposes. See [documentation](https://pyrocumulus.github.io/pvoutput.net/) for details.
 
 ## Building the project
 
