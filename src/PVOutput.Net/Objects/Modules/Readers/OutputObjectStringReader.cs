@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using PVOutput.Net.Enums;
 using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Objects.Modules.Implementations;
 
@@ -17,7 +18,7 @@ namespace PVOutput.Net.Objects.Modules.Readers
                 (t, s) => t.EnergyUsed = FormatHelper.GetValueOrDefault<int>(s),
                 (t, s) => t.PeakPower = FormatHelper.GetValue<int>(s),
                 (t, s) => t.PeakTime = s.Equals("NaN", StringComparison.OrdinalIgnoreCase) ? (DateTime?)null : t.OutputDate.Add(FormatHelper.ParseTime(s).TimeOfDay),
-                (t, s) => t.Condition = s,
+                (t, s) => t.Condition = FormatHelper.DescriptionToEnumValue<WeatherCondition>(s),
                 (t, s) => t.MinimumTemperature = FormatHelper.GetValue<int>(s),
                 (t, s) => t.MaximumTemperature = FormatHelper.GetValue<int>(s),
                 (t, s) => t.PeakEnergyImport = FormatHelper.GetValue<int>(s),

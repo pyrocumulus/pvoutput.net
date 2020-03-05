@@ -1,5 +1,8 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Globalization;
+using System.Reflection;
+using PVOutput.Net.Enums;
 
 namespace PVOutput.Net.Objects.Core
 {
@@ -83,6 +86,47 @@ namespace PVOutput.Net.Objects.Core
         {
             TResultType? result = GetValue<TResultType>(value);
             return result ?? (default);
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "Exception messages are non translatable for now")]
+        internal static string GetEnumerationDescription<TEnumType>(this TEnumType enumerationValue) where TEnumType : struct
+        {
+            Type type = enumerationValue.GetType();
+            if (!type.IsEnum)
+            {
+                throw new ArgumentException("EnumerationValue must be of Enum type", nameof(enumerationValue));
+            }
+
+            string name = Enum.GetName(type, enumerationValue);
+            if (name != null)
+            {
+                FieldInfo field = type.GetField(name);
+                if (field != null)
+                {
+                    if (Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) is DescriptionAttribute attr)
+                    {
+                        return attr.Description;
+                    }
+                }
+            }
+            return null;
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "Exception messages are non translatable for now")]
+        public static TEnumType DescriptionToEnumValue<TEnumType>(this string enumerationDescription) where TEnumType : struct
+        {
+            var type = typeof(TEnumType);
+
+            if (!type.IsEnum)
+                throw new ArgumentException("Type parameter must be of Enum type");
+
+            foreach (TEnumType val in Enum.GetValues(type))
+            {
+                if (val.GetEnumerationDescription() == enumerationDescription)
+                    return val;
+            }
+
+            throw new ArgumentException("Invalid description for enum " + type.Name, nameof(enumerationDescription));
         }
     }
 }

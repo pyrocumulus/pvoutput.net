@@ -34,7 +34,6 @@ namespace PVOutput.Net.Tests.Modules.Output
             Assert.AreEqual(12121, builder._outputPost.EnergyGenerated);
         }
 
-
         [Test]
         public void OutputPostBuilder_WithExported_SetsExported()
         {
@@ -78,7 +77,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         [Test]
         public void OutputPostBuilder_WithCondition_SetsCondition()
         {
-            const string testCondition = "Test";
+            const WeatherCondition testCondition = WeatherCondition.PartlyCloudy;
             var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today)
                 .SetCondition(testCondition);
 

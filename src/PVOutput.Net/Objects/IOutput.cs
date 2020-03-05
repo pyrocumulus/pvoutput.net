@@ -1,4 +1,5 @@
 ﻿using System;
+using PVOutput.Net.Enums;
 
 namespace PVOutput.Net.Objects
 {
@@ -45,7 +46,7 @@ namespace PVOutput.Net.Objects
         /// <summary>
         /// Solar conditions on the output date.
         /// </summary>
-        string Condition { get; set; }
+        WeatherCondition Condition { get; set; }
 
         /// <summary>
         /// Minimum temperature recorded on the output date.

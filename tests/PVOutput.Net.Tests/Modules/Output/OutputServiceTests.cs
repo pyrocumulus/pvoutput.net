@@ -141,7 +141,7 @@ namespace PVOutput.Net.Tests.Modules.Output
                     .SetDate(new DateTime(2020, 1, 1)).SetTemperatures(11.2m, 17.8m).Build(), "d=20200101&tm=11.2&tx=17.8");
 
                 yield return new TestCaseData(new OutputPostBuilder<IOutputPost>()
-                    .SetDate(new DateTime(2020, 1, 1)).SetCondition("Fine").SetComments("Test").Build(), "d=20200101&cd=Fine&cm=Test");
+                    .SetDate(new DateTime(2020, 1, 1)).SetCondition(WeatherCondition.PartlyCloudy).SetComments("Test").Build(), "d=20200101&cd=Partly%20Cloudy&cm=Test");
 
                 yield return new TestCaseData(new OutputPostBuilder<IOutputPost>()
                     .SetDate(new DateTime(2020, 1, 1)).SetPeakEnergyImport(1200).SetOffPeakEnergyImport(1300).SetShoulderEnergyImport(1400).SetHighShoulderEnergyImport(1500)
@@ -160,6 +160,25 @@ namespace PVOutput.Net.Tests.Modules.Output
                         .RespondPlainText("");
 
             await client.Output.AddOutputAsync(outputToPost);
+            testProvider.VerifyNoOutstandingExpectation();
+        }
+
+
+        [Test]
+        public async Task OutputService_AddBatchOutput_SendsCorrectContent()
+        {
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+            testProvider.ExpectUriFromBase(ADDBATCHOUTPUT_URL)
+                        .WithQueryString("data=20200101,11000,9000,,,,,,,,,,;20200101,,,,,Partly Cloudy,,,Test,,,,;")
+                        .RespondPlainText("");
+
+            var builder = new OutputPostBuilder<IBatchOutputPost>();
+            var outputs = new List<IBatchOutputPost>();
+
+            outputs.Add(builder.SetDate(new DateTime(2020, 1, 1)).SetGenerated(11000).SetExported(9000).BuildAndReset());
+            outputs.Add(builder.SetDate(new DateTime(2020, 1, 1)).SetCondition(WeatherCondition.PartlyCloudy).SetComments("Test").BuildAndReset());
+
+            await client.Output.AddBatchOutputAsync(outputs);
             testProvider.VerifyNoOutstandingExpectation();
         }
 
@@ -182,7 +201,7 @@ namespace PVOutput.Net.Tests.Modules.Output
                 Assert.AreEqual(0, result.EnergyUsed);
                 Assert.IsNull(result.PeakPower);
                 Assert.IsNull(result.PeakTime);
-                Assert.AreEqual("Cloudy", result.Condition);
+                Assert.AreEqual(WeatherCondition.Cloudy, result.Condition);
                 Assert.IsNull(result.MinimumTemperature);
                 Assert.IsNull(result.MaximumTemperature);
                 Assert.IsNull(result.PeakEnergyImport);
@@ -207,7 +226,7 @@ namespace PVOutput.Net.Tests.Modules.Output
                 Assert.AreEqual(8500, result.EnergyUsed);
                 Assert.AreEqual(3422, result.PeakPower);
                 Assert.AreEqual(new DateTime(2018, 9, 1, 12, 0, 0), result.PeakTime);
-                Assert.AreEqual("Fine", result.Condition);
+                Assert.AreEqual(WeatherCondition.Fine, result.Condition);
                 Assert.AreEqual(7, result.MinimumTemperature);
                 Assert.AreEqual(23, result.MaximumTemperature);
                 Assert.AreEqual(4435, result.PeakEnergyImport);
@@ -229,7 +248,9 @@ namespace PVOutput.Net.Tests.Modules.Output
             {
                 Assert.AreEqual(7, result.Count());
                 Assert.AreEqual(new DateTime(2018, 9, 7), firstOutput.OutputDate);
+                Assert.AreEqual(WeatherCondition.PartlyCloudy, firstOutput.Condition);
                 Assert.AreEqual(new DateTime(2018, 9, 1), lastOutput.OutputDate);
+                Assert.AreEqual(WeatherCondition.Fine, lastOutput.Condition);
             });
         }
 
@@ -248,7 +269,7 @@ namespace PVOutput.Net.Tests.Modules.Output
                 Assert.AreEqual(8500, result.EnergyUsed);
                 Assert.AreEqual(3422, result.PeakPower);
                 Assert.AreEqual(new DateTime(2018, 9, 1, 12, 0, 0), result.PeakTime);
-                Assert.AreEqual("Fine", result.Condition);
+                Assert.AreEqual(WeatherCondition.Fine, result.Condition);
                 Assert.AreEqual(7, result.MinimumTemperature);
                 Assert.AreEqual(23, result.MaximumTemperature);
                 Assert.AreEqual(4435, result.PeakEnergyImport);

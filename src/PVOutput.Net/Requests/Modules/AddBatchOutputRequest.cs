@@ -64,9 +64,9 @@ namespace PVOutput.Net.Requests.Modules
             }
             sb.Append(',');
 
-            if (output.Condition != null)
+            if (output.Condition != WeatherCondition.NotSure)
             {
-                sb.Append(output.Condition);
+                sb.Append(FormatHelper.GetEnumerationDescription(output.Condition));
             }
             sb.Append(',');
 
@@ -89,22 +89,26 @@ namespace PVOutput.Net.Requests.Modules
             sb.Append(',');
 
             if (output.PeakEnergyImport != null) 
-            { sb.Append(FormatHelper.GetValueAsString(output.PeakEnergyImport)); 
+            { 
+                sb.Append(FormatHelper.GetValueAsString(output.PeakEnergyImport)); 
             }
             sb.Append(',');
 
             if (output.OffPeakEnergyImport != null) 
-            { sb.Append(FormatHelper.GetValueAsString(output.OffPeakEnergyImport)); 
+            { 
+                sb.Append(FormatHelper.GetValueAsString(output.OffPeakEnergyImport)); 
             }
             sb.Append(',');
 
             if (output.ShoulderEnergyImport != null) 
-            { sb.Append(FormatHelper.GetValueAsString(output.ShoulderEnergyImport)); 
+            { 
+                sb.Append(FormatHelper.GetValueAsString(output.ShoulderEnergyImport)); 
             }
             sb.Append(',');
 
             if (output.HighShoulderEnergyImport != null) 
-            { sb.Append(FormatHelper.GetValueAsString(output.HighShoulderEnergyImport)); 
+            { 
+                sb.Append(FormatHelper.GetValueAsString(output.HighShoulderEnergyImport)); 
             }
 
             return sb.ToString();

@@ -3,8 +3,11 @@
 > A .NET Core (Standard 2.0 compatible) wrapper library for API of the popular [PVOutput](https://pvoutput.org) service.
 > PVOutput is a free service for sharing and comparing PV output data.
 
-![.NET Core](https://github.com/pyrocumulus/pvoutput.net/workflows/.NET%20Core/badge.svg) 
-[![NuGet Badge](https://buildstats.info/nuget/PVOutput.Net)](https://www.nuget.org/packages/PVOutput.Net/)
+![GitHub last commit (master)](https://img.shields.io/github/last-commit/pyrocumulus/PVOutput.Net/master?label=last%20commit%20%28master%29)
+[![NuGet Version](https://img.shields.io/nuget/v/PVOutput.Net.svg?logo=nuget)](https://www.nuget.org/packages/PVOutput.Net/)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/PVOutput.Net.svg?logo=nuget)](https://www.nuget.org/packages/PVOutput.Net/)
+[![fuget](https://www.fuget.org/packages/PVOutput.Net/badge.svg)](https://www.fuget.org/packages/PVOutput.Net)
+![.NET Core](https://img.shields.io/github/workflow/status/pyrocumulus/PVOutput.Net/.NET%20Core/develop)
 
 ## Installation
 
@@ -20,7 +23,8 @@ var client = new PVOutputClient(apiKey: "myPvOutputKey", ownedSystemId: 1);
 // Request output for today
 var outputResponse = await client.Output.GetOutputForDateAsync(DateTime.Today);
 var output = outputResponse.Value;
-Console.WriteLine($"Output for date {output.OutputDate.ToShortDateString()}, {output.EnergyGenerated} Wh generated");
+Console.WriteLine($"Output for date {output.OutputDate.ToShortDateString()}, 
+    {output.EnergyGenerated} Wh generated");
 
 ```
 

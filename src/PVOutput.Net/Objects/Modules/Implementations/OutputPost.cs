@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using PVOutput.Net.Enums;
 
 namespace PVOutput.Net.Objects.Modules.Implementations
 {
@@ -11,7 +12,7 @@ namespace PVOutput.Net.Objects.Modules.Implementations
         public int? EnergyExported { get; set; }
         public int? PeakPower { get; set; }
         public DateTime? PeakTime { get; set; }
-        public string Condition { get; set; }
+        public WeatherCondition Condition { get; set; }
         public decimal? MinimumTemperature { get; set; }
         public decimal? MaximumTemperature { get; set; }
         public string Comments { get; set; }

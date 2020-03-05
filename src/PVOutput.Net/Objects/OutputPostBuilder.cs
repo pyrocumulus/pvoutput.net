@@ -82,9 +82,9 @@ namespace PVOutput.Net.Objects
         /// <summary>
         /// Sets the condition for the output.
         /// </summary>
-        /// <param name="condition">The condition.</param>
+        /// <param name="condition">The weather conditions on the output day.</param>
         /// <returns>The builder.</returns>
-        public OutputPostBuilder<TResultType> SetCondition(string condition)
+        public OutputPostBuilder<TResultType> SetCondition(WeatherCondition condition)
         {
             _outputPost.Condition = condition;
             return this;
@@ -187,8 +187,26 @@ namespace PVOutput.Net.Objects
         /// Uses information within the builder to return the built output.
         /// </summary>
         /// <returns>The output <typeparamref name="TResultType"/>.</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "Exception messages are non translatable for now")]
         public TResultType Build()
+        {
+            ValidateStatus();
+            return _outputPost as TResultType;
+        }
+
+        /// <summary>
+        /// Uses information within the builder to return the built output.
+        /// Resets the builder to it's default state after building.
+        /// </summary>
+        /// <returns>The output <typeparamref name="TResultType"/>.</returns>
+        public TResultType BuildAndReset()
+        {
+            TResultType result = Build();
+            Reset();
+            return result;
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "Exception messages are non translatable for now")]
+        private void ValidateStatus()
         {
             if (_outputPost.OutputDate == DateTime.MinValue)
             {
@@ -197,9 +215,8 @@ namespace PVOutput.Net.Objects
 
             if (_outputPost.PeakTime.HasValue && !_outputPost.OutputDate.Date.Equals(_outputPost.PeakTime.Value.Date))
             {
-                throw new InvalidOperationException($"Peaktime registered on different date ({_outputPost.PeakTime.Value.ToShortDateString()}) than output itself ({_outputPost.OutputDate.ToShortDateString()})");            }
-
-            return _outputPost as TResultType;
+                throw new InvalidOperationException($"Peaktime registered on different date ({_outputPost.PeakTime.Value.ToShortDateString()}) than output itself ({_outputPost.OutputDate.ToShortDateString()})");
+            }
         }
     }
 }

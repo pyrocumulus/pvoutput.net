@@ -23,7 +23,7 @@ namespace PVOutput.Net.Requests.Modules
             ["e"] = Output.EnergyExported,
             ["pp"] = Output.PeakPower,
             ["pt"] = Output.PeakTime != null ? FormatHelper.GetTimeAsString(Output.PeakTime.Value) : null,
-            ["cd"] = Output.Condition,
+            ["cd"] = FormatHelper.GetEnumerationDescription(Output.Condition),
             ["tm"] = FormatHelper.GetValueAsString(Output.MinimumTemperature),
             ["tx"] = FormatHelper.GetValueAsString(Output.MaximumTemperature),
             ["cm"] = Output.Comments,

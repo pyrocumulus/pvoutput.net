@@ -164,6 +164,18 @@ namespace PVOutput.Net.Objects
             return result;
         }
 
+        /// <summary>
+        /// Uses information within the builder to return the built output.
+        /// Resets the builder to it's default state after building.
+        /// </summary>
+        /// <returns>The output <typeparamref name="TResultType"/>.</returns>
+        public TResultType BuildAndReset()
+        {
+            TResultType result = Build();
+            Reset();
+            return result;
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "Exception messages are non translatable for now")]
         private void ValidateStatus()
         {
