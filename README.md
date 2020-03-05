@@ -23,8 +23,7 @@ var client = new PVOutputClient(apiKey: "myPvOutputKey", ownedSystemId: 1);
 // Request output for today
 var outputResponse = await client.Output.GetOutputForDateAsync(DateTime.Today);
 var output = outputResponse.Value;
-Console.WriteLine($"Output for date {output.OutputDate.ToShortDateString()},
-    {output.EnergyGenerated} Wh generated");
+Console.WriteLine($"Output for date {output.OutputDate.ToShortDateString()}, {output.EnergyGenerated} Wh generated");
 
 ```
 
