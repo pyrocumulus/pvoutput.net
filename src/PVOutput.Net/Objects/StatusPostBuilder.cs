@@ -13,7 +13,7 @@ namespace PVOutput.Net.Objects
     /// <typeparam name="TResultType">The status type to post.</typeparam>
     public sealed class StatusPostBuilder<TResultType> where TResultType : class, IBatchStatusPost
     {
-        private StatusPost _statusPost;
+        internal StatusPost _statusPost;
 
         /// <summary>
         /// Creates a new builder.
@@ -159,9 +159,7 @@ namespace PVOutput.Net.Objects
         {
             ValidateStatus();
             
-            var result = _statusPost as TResultType;
-            Reset();
-            return result;
+            return _statusPost as TResultType;
         }
 
         /// <summary>
@@ -184,7 +182,7 @@ namespace PVOutput.Net.Objects
                 && _statusPost.EnergyConsumption == null 
                 && _statusPost.PowerConsumption == null)
             {
-                throw new InvalidOperationException("Status has no power or consumption values");
+                throw new InvalidOperationException("Status has no generation or consumption values");
             }
         }
     }

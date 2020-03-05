@@ -174,6 +174,15 @@ namespace PVOutput.Net.Tests.Modules.Output
         }
 
         [Test]
+        public void OutputPostBuilder_AfterBuildAndReset_HasNoStateLeft()
+        {
+            var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today);
+            IOutputPost output = builder.BuildAndReset();
+
+            Assert.AreNotSame(output, builder._outputPost);
+        }
+
+        [Test]
         public void BatchOutputPostBuilder_WithConsumption_ThrowsException()
         {
             var builder = new OutputPostBuilder<IBatchOutputPost>().SetDate(DateTime.Today);
