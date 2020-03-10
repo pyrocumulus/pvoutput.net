@@ -17,16 +17,41 @@ namespace PVOutput.Net.Tests.Modules.Search
     public partial class SearchServiceTests : BaseRequestsTest
     {
         [Test]
-        public async Task SearchService_WithNoParameters_CallsCorrectUri()
+        public async Task SearchService_WithQuery_CallsCorrectUri()
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
             testProvider.ExpectUriFromBase(SEARCH_URL)
                         .RespondPlainText("");
 
-            var response = await client.Search.SearchAsync("");
+            var response = await client.Search.SearchAsync("test query");
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
         }
+
+
+        [Test]
+        public void SearchService_Search_WithNullOrEmptyQuery_Throws()
+        {
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () =>
+            {
+                _ = await client.Search.SearchAsync(null);
+            });
+        }
+
+
+        [Test]
+        public void SearchService_Search_WithEmptyQuery_Throws()
+        {
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+
+            Assert.ThrowsAsync<ArgumentException>(async () =>
+            {
+                _ = await client.Search.SearchAsync("");
+            });
+        }
+
 
         /*
          * Deserialisation tests below

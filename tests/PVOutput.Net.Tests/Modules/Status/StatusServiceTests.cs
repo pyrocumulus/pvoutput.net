@@ -51,7 +51,7 @@ namespace PVOutput.Net.Tests.Modules.Status
                         .WithQueryString("d=20200131&from=10:00&to=16:00&stats=1")
                         .RespondPlainText(STATUS_RESPONSE_DAYSTATISTICS_MEDIUM);
 
-            var response = await client.Status.GetDayStatisticsForPeriodAsync(new DateTime(2020, 1, 31, 10, 0, 0), new DateTime(2019, 1, 31, 16, 0, 0));
+            var response = await client.Status.GetDayStatisticsForPeriodAsync(new DateTime(2020, 1, 31, 10, 0, 0), new DateTime(2020, 1, 31, 16, 0, 0));
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
 

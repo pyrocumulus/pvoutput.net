@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Dawn;
 using PVOutput.Net.Objects;
 using PVOutput.Net.Requests.Handler;
 using PVOutput.Net.Requests.Modules;
@@ -44,6 +45,9 @@ namespace PVOutput.Net.Modules
         /// <returns>List of extended data objects.</returns>
         public Task<PVOutputArrayResponse<IExtended>> GetExtendedDataForPeriodAsync(DateTime fromDate, DateTime toDate, int? limit = null, CancellationToken cancellationToken = default)
         {
+            Guard.Argument(toDate, nameof(toDate)).GreaterThan(fromDate);
+            Guard.Argument(limit, nameof(limit)).LessThan(50);
+
             var handler = new RequestHandler(Client);
             return handler.ExecuteArrayRequestAsync<IExtended>(new ExtendedRequest() { FromDate = fromDate, ToDate = toDate, Limit = limit }, cancellationToken);
         }
