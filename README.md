@@ -11,9 +11,20 @@
 
 ## Installation
 
-Installation can be done through installation of the [NuGet package](https://www.nuget.org/packages/PVOutput.Net/).
+Installation can be done through installation of the [NuGet package](https://www.nuget.org/packages/PVOutput.Net/):
 
-## Usage
+```posh
+PM> Install-Package PVOutput.Net
+```
+
+## Support
+
+This library is targeting .NET Standard 2.0 and above. For full compatibility details, check the [Microsoft Docs](https://docs.microsoft.com/nl-nl/dotnet/standard/net-standard#net-implementation-support).
+
+**Please note:** that the default branch of the repository is `develop`. This means that it can contain bugfixes/features that are not yet available in the NuGet package.
+See [master](https://github.com/pyrocumulus/pvoutput.net/tree/master) for the source code, that was used for building the NuGet package.
+
+## Basic usage
 
 ### Getting data out of PVOutput.org
 
@@ -60,7 +71,7 @@ For more information on usage, please see the [documentation](https://pyrocumulu
 
 ## API Coverage
 
-The library covers almost nearly all the official PVOutput API exposes. See [documentation](https://pyrocumulus.github.io/pvoutput.net/) for details.
+The library covers almost all of the methods the official PVOutput API exposes. See [documentation](https://pyrocumulus.github.io/pvoutput.net/) for details.
 
 ## Building the project
 

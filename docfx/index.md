@@ -5,7 +5,15 @@
 
 ## Installation
 
-Installation can be done through installation of the [NuGet package](https://www.nuget.org/packages/PVOutput.Net/).
+Installation can be done through installation of the [NuGet package](https://www.nuget.org/packages/PVOutput.Net/):
+
+```posh
+PM> Install-Package PVOutput.Net
+```
+
+## Support
+
+This library is targeting .NET Standard 2.0 and above. For full compatibility details, check the [Microsoft Docs](https://docs.microsoft.com/nl-nl/dotnet/standard/net-standard#net-implementation-support).
 
 ## Usage
 
