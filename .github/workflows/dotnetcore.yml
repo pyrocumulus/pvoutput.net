@@ -2,9 +2,8 @@ name: .NET Core
 
 on: 
   push:
-    branches:    
-      - master         # Push events on master branch
-      - develop        # Push events to branches matching refs/heads/mona/octocat
+    branches-ignore:
+      - gh-pages
 
 jobs:
   build_and_test:
