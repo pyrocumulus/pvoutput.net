@@ -19,4 +19,6 @@ jobs:
     - name: Build with dotnet
       run: dotnet build --configuration Release
     - name: Test with dotnet
-      run: dotnet test --configuration Release
+      run: dotnet test --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+    - name: Code coverage
+      uses: codecov/codecov-action@v1
