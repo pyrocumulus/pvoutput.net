@@ -8,6 +8,7 @@
 [![NuGet Downloads](https://img.shields.io/nuget/dt/PVOutput.Net.svg?logo=nuget)](https://www.nuget.org/packages/PVOutput.Net/)
 [![fuget](https://www.fuget.org/packages/PVOutput.Net/badge.svg)](https://www.fuget.org/packages/PVOutput.Net)
 ![.NET Core](https://img.shields.io/github/workflow/status/pyrocumulus/PVOutput.Net/.NET%20Core/develop)
+![Code coverage](https://img.shields.io/codecov/c/github/pyrocumulus/PVOutput.Net/develop)
 
 ## Installation
 
