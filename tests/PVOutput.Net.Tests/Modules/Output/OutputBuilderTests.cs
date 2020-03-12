@@ -26,6 +26,15 @@ namespace PVOutput.Net.Tests.Modules.Output
         }
 
         [Test]
+        public void OutputPostBuilder_WithTimeComponent_Throws()
+        {
+            Assert.Throws<ArgumentException>(() => 
+            {
+                _ = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today.AddMinutes(10));
+            });
+        }
+
+        [Test]
         public void OutputPostBuilder_WithGeneration_SetsGeneration()
         { 
             var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today)
@@ -98,6 +107,28 @@ namespace PVOutput.Net.Tests.Modules.Output
         }
 
         [Test]
+        public void OutputPostBuilder_WithReversedTemperatures_Throws()
+        {
+            var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today);
+
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            {
+                builder.SetTemperatures(15, 10);
+            });
+        }
+
+        [Test]
+        public void OutputPostBuilder_WithBothNullTemperatures_Throws()
+        {
+            var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today);
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                builder.SetTemperatures(null, null);
+            });
+        }
+
+        [Test]
         public void OutputPostBuilder_WithComment_SetsComment()
         {
             const string testComment = "This is a comment";
@@ -105,6 +136,28 @@ namespace PVOutput.Net.Tests.Modules.Output
                 .SetComments(testComment);
 
             Assert.AreEqual(testComment, builder._outputPost.Comments);
+        }
+
+        [Test]
+        public void OutputPostBuilder_WithEmptyComment_Throws()
+        {
+            var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today);
+
+            Assert.Throws<ArgumentException>(() =>
+            {
+                builder.SetComments("");
+            });
+        }
+
+        [Test]
+        public void OutputPostBuilder_WithNullComment_Throws()
+        {
+            var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today);
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                builder.SetComments(null);
+            });
         }
 
         [Test]

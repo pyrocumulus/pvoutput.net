@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Dawn;
 using PVOutput.Net.Enums;
 using PVOutput.Net.Objects;
+using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Requests.Handler;
 using PVOutput.Net.Requests.Modules;
 using PVOutput.Net.Responses;
@@ -48,7 +49,8 @@ namespace PVOutput.Net.Modules
         /// <returns>Outputs for the requested period.</returns>
         public Task<PVOutputArrayResponse<IOutput>> GetOutputsForPeriodAsync(DateTime fromDate, DateTime toDate, bool getInsolation = false, int? systemId = null, CancellationToken cancellationToken = default)
         {
-            Guard.Argument(toDate, nameof(toDate)).GreaterThan(fromDate).Max(DateTime.Today);
+            Guard.Argument(toDate, nameof(toDate)).GreaterThan(fromDate).IsNoFutureDate().NoTimeComponent();
+            Guard.Argument(fromDate, nameof(fromDate)).NoTimeComponent();
 
             var handler = new RequestHandler(Client);
             return handler.ExecuteArrayRequestAsync<IOutput>(new OutputRequest { FromDate = fromDate, ToDate = toDate, SystemId = systemId, Insolation = getInsolation }, cancellationToken);
@@ -79,7 +81,8 @@ namespace PVOutput.Net.Modules
         /// <returns>Team outputs Outputs for the requested period.</returns>
         public Task<PVOutputArrayResponse<ITeamOutput>> GetTeamOutputsForPeriodAsync(DateTime fromDate, DateTime toDate, int teamId, CancellationToken cancellationToken = default)
         {
-            Guard.Argument(toDate, nameof(toDate)).GreaterThan(fromDate).Max(DateTime.Today);
+            Guard.Argument(toDate, nameof(toDate)).GreaterThan(fromDate).IsNoFutureDate().NoTimeComponent();
+            Guard.Argument(fromDate, nameof(fromDate)).NoTimeComponent();
 
             var handler = new RequestHandler(Client);
             return handler.ExecuteArrayRequestAsync<ITeamOutput>(new OutputRequest { FromDate = fromDate, ToDate = toDate, TeamId = teamId }, cancellationToken);
@@ -95,7 +98,8 @@ namespace PVOutput.Net.Modules
         /// <returns>Aggregated outputs for the requested period.</returns>
         public Task<PVOutputArrayResponse<IAggregatedOutput>> GetAggregatedOutputsAsync(DateTime fromDate, DateTime toDate, AggregationPeriod period, CancellationToken cancellationToken = default)
         {
-            Guard.Argument(toDate, nameof(toDate)).GreaterThan(fromDate).Max(DateTime.Today);
+            Guard.Argument(toDate, nameof(toDate)).GreaterThan(fromDate).IsNoFutureDate().NoTimeComponent();
+            Guard.Argument(fromDate, nameof(fromDate)).NoTimeComponent();
 
             var handler = new RequestHandler(Client);
             return handler.ExecuteArrayRequestAsync<IAggregatedOutput>(new OutputRequest { FromDate = fromDate, ToDate = toDate, Aggregation = period }, cancellationToken);

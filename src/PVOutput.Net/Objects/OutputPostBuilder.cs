@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Resources;
 using System.Text;
+using Dawn;
 using PVOutput.Net.Enums;
+using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Objects.Modules;
 using PVOutput.Net.Objects.Modules.Implementations;
 
@@ -31,6 +33,8 @@ namespace PVOutput.Net.Objects
         /// <returns>The builder.</returns>
         public OutputPostBuilder<TResultType> SetDate(DateTime date)
         {
+            Guard.Argument(date, nameof(date)).IsNoFutureDate().NoTimeComponent();
+
             _outputPost.OutputDate = date;
             return this;
         }
@@ -98,6 +102,13 @@ namespace PVOutput.Net.Objects
         /// <returns>The builder.</returns>
         public OutputPostBuilder<TResultType> SetTemperatures(decimal? minimumTemperature, decimal? maximumTemperature)
         {
+            Guard.NotAllNull(Guard.Argument(minimumTemperature, nameof(minimumTemperature)), Guard.Argument(maximumTemperature, nameof(maximumTemperature)));
+
+            if (minimumTemperature.HasValue && maximumTemperature.HasValue)
+            {
+                Guard.Argument(maximumTemperature.Value, nameof(maximumTemperature)).GreaterThan(minimumTemperature.Value);
+            }
+
             _outputPost.MinimumTemperature = minimumTemperature;
             _outputPost.MaximumTemperature = maximumTemperature;
             return this;
@@ -110,6 +121,8 @@ namespace PVOutput.Net.Objects
         /// <returns>The builder.</returns>
         public OutputPostBuilder<TResultType> SetComments(string comments)
         {
+            Guard.Argument(comments, nameof(comments)).NotEmpty().NotNull();
+
             _outputPost.Comments = comments;
             return this;
         }

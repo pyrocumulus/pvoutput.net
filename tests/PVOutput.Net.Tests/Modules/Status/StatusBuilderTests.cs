@@ -27,6 +27,18 @@ namespace PVOutput.Net.Tests.Modules.Status
         }
 
         [Test]
+        public void StatusPostBuilder_WithFutureTimeStamp_Throws()
+        {
+            var timeStamp = DateTime.Now.AddDays(1);
+            var builder = new StatusPostBuilder<IStatusPost>();
+
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            {
+                builder.SetTimeStamp(timeStamp);
+            });
+        }
+
+        [Test]
         [TestCase(new object[] { 10, 20 })]
         [TestCase(new object[] { null, 30 })]
         [TestCase(new object[] { 15, null })]
@@ -114,9 +126,11 @@ namespace PVOutput.Net.Tests.Modules.Status
         [Test]
         public void StatusPostBuilder_WithTooLongTextMessage_Throws()
         {
-            var exception = Assert.Throws<ArgumentException>(() =>
+            var builder = new StatusPostBuilder<IStatusPost>();
+
+            Assert.Throws<ArgumentException>(() =>
             {
-                var builder = new StatusPostBuilder<IStatusPost>().SetTextMessage("0123456789001234567890012345678901");
+                builder.SetTextMessage("0123456789001234567890012345678901");
             });
         }
 
@@ -145,6 +159,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         public void StatusPostBuilder_WithoutPowerOrConsumption_CannotBuild()
         {
             var builder = new StatusPostBuilder<IStatusPost>().SetTextMessage("Test");
+
             Assert.Throws<InvalidOperationException>(() =>
             {
                 builder.Build();

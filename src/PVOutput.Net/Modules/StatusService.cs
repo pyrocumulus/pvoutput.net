@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Dawn;
 using PVOutput.Net.Objects;
+using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Requests.Handler;
 using PVOutput.Net.Requests.Modules;
 using PVOutput.Net.Responses;
@@ -29,7 +30,7 @@ namespace PVOutput.Net.Modules
         /// <returns>Status at the specified moment.</returns>
         public Task<PVOutputResponse<IStatus>> GetStatusForDateTimeAsync(DateTime moment, int? systemId = null, CancellationToken cancellationToken = default)
         {
-            Guard.Argument(moment, nameof(moment)).LessThan(DateTime.Today.AddDays(1));
+            Guard.Argument(moment, nameof(moment)).IsNoFutureDate();
 
             var handler = new RequestHandler(Client);
             return handler.ExecuteSingleItemRequestAsync<IStatus>(new GetStatusRequest { Date = moment, SystemId = systemId }, cancellationToken);
@@ -48,7 +49,7 @@ namespace PVOutput.Net.Modules
         /// <returns>Statusses for the specified period.</returns>
         public Task<PVOutputArrayResponse<IStatusHistory>> GetHistoryForPeriodAsync(DateTime fromDateTime, DateTime toDateTime, bool ascending = false, int? systemId = null, bool extendedData = false, int? limit = null, CancellationToken cancellationToken = default)
         {
-            Guard.Argument(toDateTime, nameof(toDateTime)).GreaterThan(fromDateTime).LessThan(DateTime.Today.AddDays(1));
+            Guard.Argument(toDateTime, nameof(toDateTime)).GreaterThan(fromDateTime).IsNoFutureDate();
 
             var handler = new RequestHandler(Client);
             return handler.ExecuteArrayRequestAsync<IStatusHistory>(
@@ -65,7 +66,7 @@ namespace PVOutput.Net.Modules
         /// <returns>Day statistics for the specified period.</returns>
         public Task<PVOutputResponse<IDayStatistics>> GetDayStatisticsForPeriodAsync(DateTime fromDateTime, DateTime toDateTime, int? systemId = null, CancellationToken cancellationToken = default)
         {
-            Guard.Argument(toDateTime, nameof(toDateTime)).GreaterThan(fromDateTime).LessThan(DateTime.Today.AddDays(1));
+            Guard.Argument(toDateTime, nameof(toDateTime)).GreaterThan(fromDateTime).IsNoFutureDate();
 
             var handler = new RequestHandler(Client);
             var response = handler.ExecuteSingleItemRequestAsync<IDayStatistics>(new GetDayStatisticsRequest { Date = fromDateTime.Date, From = fromDateTime, To = toDateTime, SystemId = systemId }, cancellationToken);
@@ -125,7 +126,7 @@ namespace PVOutput.Net.Modules
         /// <returns>If the operation succeeded.</returns>
         public Task<PVOutputBasicResponse> DeleteStatusAsync(DateTime moment, CancellationToken cancellationToken = default)
         {
-            Guard.Argument(moment, nameof(moment)).LessThan(DateTime.Today.AddDays(1));
+            Guard.Argument(moment, nameof(moment)).IsNoFutureDate();
 
             var handler = new RequestHandler(Client);
             return handler.ExecutePostRequestAsync(new DeleteStatusRequest() { Timestamp = moment }, cancellationToken);

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Dawn;
 using PVOutput.Net.Enums;
+using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Objects.Modules;
 using PVOutput.Net.Objects.Modules.Implementations;
 
@@ -30,6 +32,8 @@ namespace PVOutput.Net.Objects
         /// <returns>The builder.</returns>
         public StatusPostBuilder<TResultType> SetTimeStamp(DateTime timestamp)
         {
+            Guard.Argument(timestamp, nameof(timestamp)).IsNoFutureDate();
+            
             _statusPost.Timestamp = timestamp;
             return this;
         
@@ -134,10 +138,7 @@ namespace PVOutput.Net.Objects
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "Exception messages are non translatable for now")]
         public StatusPostBuilder<TResultType> SetTextMessage(string textMessage)
         {
-            if (textMessage?.Length > 30)
-            {
-                throw new ArgumentException("Length cannot be longer than 30 characters", nameof(textMessage));
-            }
+            Guard.Argument(textMessage, nameof(textMessage)).NotEmpty().LengthInRange(1, 30);
 
             _statusPost.TextMessage = textMessage;
             return this;
