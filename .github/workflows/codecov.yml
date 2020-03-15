@@ -6,7 +6,7 @@ on:
       - gh-pages
 
 jobs:
-  build_and_test:
+  test_and_upload_coverage:
 
     runs-on: ubuntu-latest
 
