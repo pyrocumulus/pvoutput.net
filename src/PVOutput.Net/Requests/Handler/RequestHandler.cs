@@ -238,16 +238,17 @@ namespace PVOutput.Net.Requests.Handler
             var cloneStream = new MemoryStream();
 
             var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
-            stream.CopyTo(cloneStream);
+            await stream.CopyToAsync(cloneStream).ConfigureAwait(false);
             stream.Seek(0, SeekOrigin.Begin);
+            cloneStream.Seek(0, SeekOrigin.Begin);
 
-            using (var stringReader = new StreamReader(cloneStream))
+            using (TextReader textReader = new StreamReader(cloneStream))
             {
-                string completeContent = stringReader.ReadToEnd();
+                string completeContent = textReader.ReadToEnd();
 
                 if (completeContent.Length > 0)
                 {
-                    Logger.LogDebug(LoggingEvents.ReceivedResponseContent, "Response content" + Environment.NewLine + "{content}", stringReader.ReadToEnd());
+                    Logger.LogDebug(LoggingEvents.ReceivedResponseContent, "Response content" + Environment.NewLine + "{content}", completeContent);
                 }
             }
 
