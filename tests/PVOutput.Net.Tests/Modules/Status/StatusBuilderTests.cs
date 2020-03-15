@@ -51,6 +51,17 @@ namespace PVOutput.Net.Tests.Modules.Status
         }
 
         [Test]
+        [TestCase(new object[] { null, -1 })]
+        [TestCase(new object[] { -1, null })]
+        public void StatusPostBuilder_WithNegativeGeneration_Throws(int? energyGeneration, int? powerGeneration)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            {
+                _ = new StatusPostBuilder<IStatusPost>().SetGeneration(energyGeneration, powerGeneration);
+            });
+        }
+
+        [Test]
         [TestCase(new object[] { 10, 20 })]
         [TestCase(new object[] { null, 30 })]
         [TestCase(new object[] { 15, null })]
@@ -60,6 +71,17 @@ namespace PVOutput.Net.Tests.Modules.Status
 
             Assert.AreEqual(energyConsumption, builder._statusPost.EnergyConsumption);
             Assert.AreEqual(powerConsumption, builder._statusPost.PowerConsumption);
+        }
+
+        [Test]
+        [TestCase(new object[] { null, -1 })]
+        [TestCase(new object[] { -1, null })]
+        public void StatusPostBuilder_WithNegativeConsumption_Throws(int? energyConsumption, int? powerConsumption)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            {
+                _ = new StatusPostBuilder<IStatusPost>().SetConsumption(energyConsumption, powerConsumption);
+            });
         }
 
         [Test]
@@ -76,6 +98,17 @@ namespace PVOutput.Net.Tests.Modules.Status
             var builder = new StatusPostBuilder<IStatusPost>().SetVoltage(231.2m);
 
             Assert.AreEqual(231.2m, builder._statusPost.Voltage);
+        }
+
+        [Test]
+        [TestCase(-1)]
+        [TestCase(301)]
+        public void StatusPostBuilder_WithVoltageOutOfRange_Throws(decimal voltage)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            {
+                _ = new StatusPostBuilder<IStatusPost>().SetVoltage(voltage);
+            });
         }
 
         [Test]
