@@ -1,4 +1,6 @@
-﻿using PVOutput.Net.Modules;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
+using PVOutput.Net.Modules;
 using PVOutput.Net.Requests;
 using PVOutput.Net.Requests.Handler;
 
@@ -11,6 +13,8 @@ namespace PVOutput.Net
     {
         internal const string PVOutputBaseUri = @"https://pvoutput.org/service/r2/";
         internal IHttpClientProvider HttpClientProvider { get; }
+
+        internal ILogger Logger { get; }
 
         /// <summary>ApiKey to use with authenticating.</summary>
         public string ApiKey { get; set; }
@@ -92,15 +96,27 @@ namespace PVOutput.Net
         /// </summary>
         /// <param name="apiKey">ApiKey to use with authenticating.</param>
         /// <param name="ownedSystemId">Id of the currently owned system used for authenticating.</param>
-        public PVOutputClient(string apiKey, int ownedSystemId) : this(new HttpClientProvider())
+        public PVOutputClient(string apiKey, int ownedSystemId) : this(apiKey, ownedSystemId,  null)
+        {
+
+        }
+
+        /// <summary>
+        /// Creates a new PVOutputClient, with a ILogger attached.
+        /// </summary>
+        /// <param name="apiKey">ApiKey to use with authenticating.</param>
+        /// <param name="ownedSystemId">Id of the currently owned system used for authenticating.</param>
+        /// <param name="logger">The ILogger implementation, used for logging purposes.</param>
+        public PVOutputClient(string apiKey, int ownedSystemId, ILogger logger) : this(apiKey, ownedSystemId, new HttpClientProvider(), logger)
+        {
+        }
+
+        internal PVOutputClient(string apiKey, int ownedSystemId, IHttpClientProvider httpClientProvider, ILogger logger)
         {
             ApiKey = apiKey;
             OwnedSystemId = ownedSystemId;
-        }
-
-        internal PVOutputClient(IHttpClientProvider httpClientProvider)
-        {
             HttpClientProvider = httpClientProvider ?? new HttpClientProvider();
+            Logger = logger ?? NullLogger.Instance;
 
             Output = new OutputService(this);
             System = new SystemService(this);
@@ -113,12 +129,6 @@ namespace PVOutput.Net
             Insolation = new InsolationService(this);
             Supply = new SupplyService(this);
             Search = new SearchService(this); 
-        }
-
-        internal PVOutputClient(string apiKey, int ownedSystemId, IHttpClientProvider httpClientProvider) : this(httpClientProvider)
-        {
-            ApiKey = apiKey;
-            OwnedSystemId = ownedSystemId;
         }
     }
 }

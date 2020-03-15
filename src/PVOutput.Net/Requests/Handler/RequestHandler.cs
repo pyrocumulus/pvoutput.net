@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using PVOutput.Net.Objects;
 using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Objects.Factories;
@@ -18,6 +19,8 @@ namespace PVOutput.Net.Requests.Handler
     internal class RequestHandler
     {
         private readonly PVOutputClient _client;
+
+        private ILogger Logger => _client.Logger;
 
         public RequestHandler(PVOutputClient client)
         {
@@ -44,7 +47,7 @@ namespace PVOutput.Net.Requests.Handler
                     return result;
                 }
 
-                Objects.Core.IObjectStringReader<TResponseContentType> reader = StringFactoryContainer.CreateObjectReader<TResponseContentType>();
+                IObjectStringReader<TResponseContentType> reader = StringFactoryContainer.CreateObjectReader<TResponseContentType>();
                 TResponseContentType content = await reader.ReadObjectAsync(responseStream, cancellationToken).ConfigureAwait(false);
 
                 result.IsSuccess = true;
@@ -132,10 +135,12 @@ namespace PVOutput.Net.Requests.Handler
             return false;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
         private PVOutputApiError ProcessHttpErrorResults(HttpResponseMessage response, Stream responseStream)
         {
             if (response.IsSuccessStatusCode)
             {
+                Logger.LogInformation(LoggingEvents.RequestStatusSuccesful, "Request successful - Status {StatusCode}", response.StatusCode);
                 return null;
             }
 
@@ -159,6 +164,8 @@ namespace PVOutput.Net.Requests.Handler
                     }
                 }
             }
+
+            Logger.LogError(LoggingEvents.RequestStatusFailed, "Request failed - Status {StatusCode} - Content - {Message} ", error.StatusCode, error.Message);
 
             if (_client.ThrowResponseExceptions)
             {
@@ -211,9 +218,40 @@ namespace PVOutput.Net.Requests.Handler
             return result;
         }
 
-        private static Task<Stream> GetResponseContentStreamAsync(HttpResponseMessage response)
+        private async Task<Stream> GetResponseContentStreamAsync(HttpResponseMessage response)
         {
-            return response.Content != null ? response.Content.ReadAsStreamAsync() : Task.FromResult(default(Stream));
+            if (response.Content == null)
+            {
+                return default;
+            }
+
+            if (Logger.IsEnabled(LogLevel.Debug))
+            {
+                return await LogResponseContentStreamAsync(response).ConfigureAwait(false);
+            }
+
+            return await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+        }
+
+        private async Task<Stream> LogResponseContentStreamAsync(HttpResponseMessage response)
+        {
+            var cloneStream = new MemoryStream();
+
+            var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+            stream.CopyTo(cloneStream);
+            stream.Seek(0, SeekOrigin.Begin);
+
+            using (var stringReader = new StreamReader(cloneStream))
+            {
+                string completeContent = stringReader.ReadToEnd();
+
+                if (completeContent.Length > 0)
+                {
+                    Logger.LogDebug(LoggingEvents.ReceivedResponseContent, "Response content" + Environment.NewLine + "{content}", stringReader.ReadToEnd());
+                }
+            }
+
+            return stream;
         }
 
         private static HttpRequestMessage CreateRequestMessage(IRequest request)
@@ -234,9 +272,11 @@ namespace PVOutput.Net.Requests.Handler
             return $"{PVOutputClient.PVOutputBaseUri}{apiUri}";
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "Logging")]
         internal Task<HttpResponseMessage> ExecuteRequestAsync(HttpRequestMessage requestMessage, CancellationToken cancellationToken = default)
         {
             SetRequestHeaders(requestMessage);
+            Logger.LogDebug(LoggingEvents.ExecuteRequest, "Executing request - {RequestUri}", requestMessage.RequestUri);
             return _client.HttpClientProvider.GetHttpClient().SendAsync(requestMessage, cancellationToken);
         }
 
