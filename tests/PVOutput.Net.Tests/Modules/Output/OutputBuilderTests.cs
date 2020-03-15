@@ -26,6 +26,15 @@ namespace PVOutput.Net.Tests.Modules.Output
         }
 
         [Test]
+        public void OutputPostBuilder_WithTimeComponent_Throws()
+        {
+            Assert.Throws<ArgumentException>(() => 
+            {
+                _ = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today.AddMinutes(10));
+            });
+        }
+
+        [Test]
         public void OutputPostBuilder_WithGeneration_SetsGeneration()
         { 
             var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today)
@@ -35,12 +44,31 @@ namespace PVOutput.Net.Tests.Modules.Output
         }
 
         [Test]
+        public void OutputPostBuilder_WithNegativeGeneration_Throws()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            {
+                _ = new OutputPostBuilder<IOutputPost>().SetGenerated(-1);
+            });
+        }
+
+        [Test]
         public void OutputPostBuilder_WithExported_SetsExported()
         {
             var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today)
                 .SetExported(12121);
 
             Assert.AreEqual(12121, builder._outputPost.EnergyExported);
+        }
+
+
+        [Test]
+        public void OutputPostBuilder_WithNegativeExported_Throws()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            {
+                _ = new OutputPostBuilder<IOutputPost>().SetExported(-1);
+            });
         }
 
         [Test]
@@ -75,6 +103,15 @@ namespace PVOutput.Net.Tests.Modules.Output
         }
 
         [Test]
+        public void OutputPostBuilder_WithNegativePeakPower_Throws()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            {
+                _ = new OutputPostBuilder<IOutputPost>().SetPeakPower(-1);
+            });
+        }
+
+        [Test]
         public void OutputPostBuilder_WithCondition_SetsCondition()
         {
             const WeatherCondition testCondition = WeatherCondition.PartlyCloudy;
@@ -98,6 +135,28 @@ namespace PVOutput.Net.Tests.Modules.Output
         }
 
         [Test]
+        public void OutputPostBuilder_WithReversedTemperatures_Throws()
+        {
+            var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today);
+
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            {
+                builder.SetTemperatures(15, 10);
+            });
+        }
+
+        [Test]
+        public void OutputPostBuilder_WithBothNullTemperatures_Throws()
+        {
+            var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today);
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                builder.SetTemperatures(null, null);
+            });
+        }
+
+        [Test]
         public void OutputPostBuilder_WithComment_SetsComment()
         {
             const string testComment = "This is a comment";
@@ -105,6 +164,28 @@ namespace PVOutput.Net.Tests.Modules.Output
                 .SetComments(testComment);
 
             Assert.AreEqual(testComment, builder._outputPost.Comments);
+        }
+
+        [Test]
+        public void OutputPostBuilder_WithEmptyComment_Throws()
+        {
+            var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today);
+
+            Assert.Throws<ArgumentException>(() =>
+            {
+                builder.SetComments("");
+            });
+        }
+
+        [Test]
+        public void OutputPostBuilder_WithNullComment_Throws()
+        {
+            var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today);
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                builder.SetComments(null);
+            });
         }
 
         [Test]
@@ -117,12 +198,30 @@ namespace PVOutput.Net.Tests.Modules.Output
         }
 
         [Test]
+        public void OutputPostBuilder_WithNegativePeakEnergyImport_Throws()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            {
+                _ = new OutputPostBuilder<IOutputPost>().SetPeakEnergyImport(-1);
+            });
+        }
+
+        [Test]
         public void OutputPostBuilder_WithOffPeakImport_SetsOffPeakEnergyImport()
         {
             var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today)
                 .SetOffPeakEnergyImport(13131);
 
             Assert.AreEqual(13131, builder._outputPost.OffPeakEnergyImport);
+        }
+
+        [Test]
+        public void OutputPostBuilder_WithNegativeOffPeakEnergyImport_Throws()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            {
+                _ = new OutputPostBuilder<IOutputPost>().SetOffPeakEnergyImport(-1);
+            });
         }
 
         [Test]
@@ -135,6 +234,15 @@ namespace PVOutput.Net.Tests.Modules.Output
         }
 
         [Test]
+        public void OutputPostBuilder_WithNegativeShoulderEnergyImport_Throws()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            {
+                _ = new OutputPostBuilder<IOutputPost>().SetShoulderEnergyImport(-1);
+            });
+        }
+
+        [Test]
         public void OutputPostBuilder_WithHighShoulderEnergyImport_SetHighShoulderEnergyImport()
         {
             var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today)
@@ -144,12 +252,30 @@ namespace PVOutput.Net.Tests.Modules.Output
         }
 
         [Test]
+        public void OutputPostBuilder_WithNegativeHighShoulderEnergyImport_Throws()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            {
+                _ = new OutputPostBuilder<IOutputPost>().SetHighShoulderEnergyImport(-1);
+            });
+        }
+
+        [Test]
         public void OutputPostBuilder_WithConsumption_SetConsumption()
         {
             var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today)
                 .SetConsumption(25000);
 
             Assert.AreEqual(25000, builder._outputPost.Consumption);
+        }
+
+        [Test]
+        public void OutputPostBuilder_WithNegativeConsumption_Throws()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            {
+                _ = new OutputPostBuilder<IOutputPost>().SetConsumption(-1);
+            });
         }
 
         [Test]

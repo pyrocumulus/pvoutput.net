@@ -31,9 +31,7 @@ namespace PVOutput.Net.Modules
         public Task<PVOutputArrayResponse<ISupply>> GetSupplyAsync(string timeZone = null, string regionKey = null, CancellationToken cancellationToken = default)
         {
             var handler = new RequestHandler(Client);
-
-            return handler.ExecuteArrayRequestAsync<ISupply>(
-                new SupplyRequest { TimeZone = timeZone, RegionKey = regionKey }, cancellationToken);
+            return handler.ExecuteArrayRequestAsync<ISupply>(new SupplyRequest { TimeZone = timeZone, RegionKey = regionKey }, cancellationToken);
         }
     }
 }

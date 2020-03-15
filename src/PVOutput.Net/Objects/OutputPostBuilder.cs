@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Resources;
 using System.Text;
+using Dawn;
 using PVOutput.Net.Enums;
+using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Objects.Modules;
 using PVOutput.Net.Objects.Modules.Implementations;
 
@@ -31,6 +33,8 @@ namespace PVOutput.Net.Objects
         /// <returns>The builder.</returns>
         public OutputPostBuilder<TResultType> SetDate(DateTime date)
         {
+            Guard.Argument(date, nameof(date)).IsNoFutureDate().NoTimeComponent();
+
             _outputPost.OutputDate = date;
             return this;
         }
@@ -42,6 +46,8 @@ namespace PVOutput.Net.Objects
         /// <returns>The builder.</returns>
         public OutputPostBuilder<TResultType> SetGenerated(int energyGenerated)
         {
+            Guard.Argument(energyGenerated, nameof(energyGenerated)).Min(0);
+
             _outputPost.EnergyGenerated = energyGenerated;
             return this;
         }
@@ -53,6 +59,8 @@ namespace PVOutput.Net.Objects
         /// <returns>The builder.</returns>
         public OutputPostBuilder<TResultType> SetExported(int energyExported)
         {
+            Guard.Argument(energyExported, nameof(energyExported)).Min(0);
+
             _outputPost.EnergyExported = energyExported;
             return this;
         }
@@ -75,6 +83,8 @@ namespace PVOutput.Net.Objects
         /// <returns>The builder.</returns>
         public OutputPostBuilder<TResultType> SetPeakPower(int peakPower)
         {
+            Guard.Argument(peakPower, nameof(peakPower)).Min(0);
+
             _outputPost.PeakPower = peakPower;
             return this;
         }
@@ -98,6 +108,13 @@ namespace PVOutput.Net.Objects
         /// <returns>The builder.</returns>
         public OutputPostBuilder<TResultType> SetTemperatures(decimal? minimumTemperature, decimal? maximumTemperature)
         {
+            Guard.NotAllNull(Guard.Argument(minimumTemperature, nameof(minimumTemperature)), Guard.Argument(maximumTemperature, nameof(maximumTemperature)));
+
+            if (minimumTemperature.HasValue && maximumTemperature.HasValue)
+            {
+                Guard.Argument(maximumTemperature.Value, nameof(maximumTemperature)).GreaterThan(minimumTemperature.Value);
+            }
+
             _outputPost.MinimumTemperature = minimumTemperature;
             _outputPost.MaximumTemperature = maximumTemperature;
             return this;
@@ -110,6 +127,8 @@ namespace PVOutput.Net.Objects
         /// <returns>The builder.</returns>
         public OutputPostBuilder<TResultType> SetComments(string comments)
         {
+            Guard.Argument(comments, nameof(comments)).NotEmpty().NotNull();
+
             _outputPost.Comments = comments;
             return this;
         }
@@ -121,6 +140,8 @@ namespace PVOutput.Net.Objects
         /// <returns>The builder.</returns>
         public OutputPostBuilder<TResultType> SetPeakEnergyImport(int peakImport)
         {
+            Guard.Argument(peakImport, nameof(peakImport)).Min(0);
+
             _outputPost.PeakEnergyImport = peakImport;
             return this;
         }
@@ -132,6 +153,8 @@ namespace PVOutput.Net.Objects
         /// <returns>The builder.</returns>
         public OutputPostBuilder<TResultType> SetOffPeakEnergyImport(int offpeakImport)
         {
+            Guard.Argument(offpeakImport, nameof(offpeakImport)).Min(0);
+
             _outputPost.OffPeakEnergyImport = offpeakImport;
             return this;
         }
@@ -143,6 +166,8 @@ namespace PVOutput.Net.Objects
         /// <returns>The builder.</returns>
         public OutputPostBuilder<TResultType> SetShoulderEnergyImport(int shoulderImport)
         {
+            Guard.Argument(shoulderImport, nameof(shoulderImport)).Min(0);
+
             _outputPost.ShoulderEnergyImport = shoulderImport;
             return this;
         }
@@ -154,6 +179,8 @@ namespace PVOutput.Net.Objects
         /// <returns>The builder.</returns>
         public OutputPostBuilder<TResultType> SetHighShoulderEnergyImport(int highShoulderImport)
         {
+            Guard.Argument(highShoulderImport, nameof(highShoulderImport)).Min(0);
+
             _outputPost.HighShoulderEnergyImport = highShoulderImport;
             return this;
         }
@@ -166,6 +193,8 @@ namespace PVOutput.Net.Objects
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "Exception messages are non translatable for now")]
         public OutputPostBuilder<TResultType> SetConsumption(int consumption)
         {
+            Guard.Argument(consumption, nameof(consumption)).Min(0);
+
             if (typeof(TResultType) == typeof(IBatchOutputPost))
             {
                 throw new InvalidOperationException("Cannot set consumption for batch output");

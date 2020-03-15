@@ -8,7 +8,7 @@ namespace PVOutput.Net.Objects
     /// <summary>
     /// Describes a location using a Latitude and Longitude.
     /// </summary>
-    public struct PVCoordinate : IEquatable<PVCoordinate>
+    public readonly struct PVCoordinate : IEquatable<PVCoordinate>
     {
         /// <summary>
         /// Latitudinal part of the coordinate. 

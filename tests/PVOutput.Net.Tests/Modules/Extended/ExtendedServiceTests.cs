@@ -54,6 +54,28 @@ namespace PVOutput.Net.Tests.Modules.Extended
             AssertStandardResponse(response);
         }
 
+        [Test]
+        public void ExtendedService_GetExtendedDataForPeriod_WithReversedRange_Throws()
+        {
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+
+            Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
+            {
+                _ = await client.Extended.GetExtendedDataForPeriodAsync(new DateTime(2016, 3, 7), new DateTime(2016, 3, 6));
+            });
+        }
+
+        [Test]
+        public void ExtendedService_GetExtendedDataForPeriod_WithLimitThatIsTooHigh_Throws()
+        {
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+
+            Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
+            {
+                _ = await client.Extended.GetExtendedDataForPeriodAsync(DateTime.Today.AddDays(-1), DateTime.Today, 100);
+            });
+        }
+
         /*
          * Deserialisation tests below
          */

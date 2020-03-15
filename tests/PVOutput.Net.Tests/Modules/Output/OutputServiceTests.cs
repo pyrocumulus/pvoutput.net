@@ -123,9 +123,130 @@ namespace PVOutput.Net.Tests.Modules.Output
             AssertStandardResponse(response);
         }
 
+        [Test]
+        public void OutputService_GetOutputForDate_WithFutureDate_Throws()
+        {
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+
+            Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
+            {
+                _ = await client.Output.GetOutputForDateAsync(DateTime.Today.AddDays(1));
+            });
+        }
+
+        [Test]
+        public void OutputService_GetOutputsForPeriod_WithFutureRange_Throws()
+        {
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+
+            Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
+            {
+                _ = await client.Output.GetOutputsForPeriodAsync(DateTime.Today, DateTime.Today.AddDays(1));
+            });
+        }
+
+        [Test]
+        public void OutputService_GetOutputsForPeriod_WithReversedRange_Throws()
+        {
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+
+            Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
+            {
+                _ = await client.Output.GetOutputsForPeriodAsync(new DateTime(2016, 8, 30), new DateTime(2016, 8, 29));
+            });
+        }
+
+        [Test]
+        public void OutputService_GetTeamOutputForDate_WithFutureDate_Throws()
+        {
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+
+            Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
+            {
+                _ = await client.Output.GetTeamOutputForDateAsync(DateTime.Today.AddDays(1), 1234);
+            });
+        }
+
+        [Test]
+        public void OutputService_GetTeamOutputsForPeriod_WithFutureRange_Throws()
+        {
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+
+            Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
+            {
+                _ = await client.Output.GetTeamOutputsForPeriodAsync(DateTime.Today, DateTime.Today.AddDays(1), 1234);
+            });
+        }
+
+        [Test]
+        public void OutputService_GetTeamOutputsForPeriod_WithReversedRange_Throws()
+        {
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+
+            Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
+            {
+                _ = await client.Output.GetTeamOutputsForPeriodAsync(new DateTime(2016, 8, 30), new DateTime(2016, 8, 29), 1234);
+            });
+        }
+
+        [Test]
+        public void OutputService_GetAggregatedOutputs_WithFutureRange_Throws()
+        {
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+
+            Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
+            {
+                _ = await client.Output.GetAggregatedOutputsAsync(DateTime.Today, DateTime.Today.AddDays(1), AggregationPeriod.Month);
+            });
+        }
+
+        [Test]
+        public void OutputService_GetAggregatedOutputs_WithReversedRange_Throws()
+        {
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+
+            Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
+            {
+                _ = await client.Output.GetAggregatedOutputsAsync(new DateTime(2016, 8, 30), new DateTime(2016, 8, 29), AggregationPeriod.Month);
+            });
+        }
+
         /* 
             Adding outputs
         */
+
+        [Test]
+        public void OutputService_AddOutput_WithNullOutput_Throws()
+        {
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () =>
+            {
+                _ = await client.Output.AddOutputAsync(null);
+            });
+        }
+
+        [Test]
+        public void OutputService_AddBatchOutput_WithNullOutputs_Throws()
+        {
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () =>
+            {
+                _ = await client.Output.AddBatchOutputAsync(null);
+            });
+        }
+
+        [Test]
+        public void OutputService_AddBatchOutput_WithEmptyOutputs_Throws()
+        {
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+
+            Assert.ThrowsAsync<ArgumentException>(async () =>
+            {
+                _ = await client.Output.AddBatchOutputAsync(new List<IBatchOutputPost>());
+            });
+        }
 
         public static IEnumerable AddOutputTestCases
         {

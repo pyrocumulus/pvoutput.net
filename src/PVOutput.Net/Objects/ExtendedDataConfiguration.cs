@@ -6,7 +6,7 @@ namespace PVOutput.Net.Objects
     /// <summary>
     /// Element describing a configured extended data value
     /// </summary>
-    public struct ExtendedDataConfiguration : IEquatable<ExtendedDataConfiguration>
+    public readonly struct ExtendedDataConfiguration : IEquatable<ExtendedDataConfiguration>
     {
         /// <summary>The label that the extended value has</summary>
         public string Label { get; }

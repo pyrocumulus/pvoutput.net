@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Dawn;
 using PVOutput.Net.Enums;
+using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Objects.Modules;
 using PVOutput.Net.Objects.Modules.Implementations;
 
@@ -30,6 +32,8 @@ namespace PVOutput.Net.Objects
         /// <returns>The builder.</returns>
         public StatusPostBuilder<TResultType> SetTimeStamp(DateTime timestamp)
         {
+            Guard.Argument(timestamp, nameof(timestamp)).IsNoFutureDate();
+            
             _statusPost.Timestamp = timestamp;
             return this;
         
@@ -43,6 +47,9 @@ namespace PVOutput.Net.Objects
         /// <returns>The builder.</returns>
         public StatusPostBuilder<TResultType> SetGeneration(int? energyGeneration, int? powerGeneration)
         {
+            Guard.Argument(energyGeneration, nameof(energyGeneration)).Min(0);
+            Guard.Argument(powerGeneration, nameof(powerGeneration)).Min(0);
+
             _statusPost.EnergyGeneration = energyGeneration;
             _statusPost.PowerGeneration = powerGeneration;
             return this;
@@ -56,6 +63,9 @@ namespace PVOutput.Net.Objects
         /// <returns>The builder.</returns>
         public StatusPostBuilder<TResultType> SetConsumption(int? energyConsumption, int? powerConsumption)
         {
+            Guard.Argument(energyConsumption, nameof(energyConsumption)).Min(0);
+            Guard.Argument(powerConsumption, nameof(powerConsumption)).Min(0);
+
             _statusPost.EnergyConsumption = energyConsumption;
             _statusPost.PowerConsumption = powerConsumption;
             return this;
@@ -79,6 +89,8 @@ namespace PVOutput.Net.Objects
         /// <returns>The builder.</returns>
         public StatusPostBuilder<TResultType> SetVoltage(decimal voltage)
         {
+            Guard.Argument(voltage, nameof(voltage)).InRange(0, 300);
+
             _statusPost.Voltage = voltage;
             return this;
         }
@@ -134,10 +146,7 @@ namespace PVOutput.Net.Objects
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "Exception messages are non translatable for now")]
         public StatusPostBuilder<TResultType> SetTextMessage(string textMessage)
         {
-            if (textMessage?.Length > 30)
-            {
-                throw new ArgumentException("Length cannot be longer than 30 characters", nameof(textMessage));
-            }
+            Guard.Argument(textMessage, nameof(textMessage)).NotEmpty().LengthInRange(1, 30);
 
             _statusPost.TextMessage = textMessage;
             return this;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Dawn;
 using PVOutput.Net.Objects;
 using PVOutput.Net.Requests.Handler;
 using PVOutput.Net.Requests.Modules;
@@ -46,6 +47,8 @@ namespace PVOutput.Net.Modules
         /// <returns>Statistical information for the requested period.</returns>
         public Task<PVOutputResponse<IStatistic>> GetStatisticsForPeriodAsync(DateTime fromDate, DateTime toDate, bool includeConsumptionAndImport = false, bool includeCreditDebit = false, int? systemId = null, CancellationToken cancellationToken = default)
         {
+            Guard.Argument(toDate, nameof(toDate)).GreaterThan(fromDate);
+
             var handler = new RequestHandler(Client);
             return handler.ExecuteSingleItemRequestAsync<IStatistic>(new StatisticPeriodRequest { FromDate = fromDate, ToDate = toDate, SystemId = systemId, IncludeConsumptionImport = includeConsumptionAndImport, IncludeCreditDebit = includeCreditDebit }, cancellationToken);
         }

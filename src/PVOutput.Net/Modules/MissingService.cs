@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Dawn;
 using PVOutput.Net.Objects;
 using PVOutput.Net.Requests.Handler;
 using PVOutput.Net.Requests.Modules;
@@ -28,6 +29,8 @@ namespace PVOutput.Net.Modules
         /// <returns>List of missing dates</returns>
         public Task<PVOutputResponse<IMissing>> GetMissingDaysInPeriodAsync(DateTime fromDate, DateTime toDate, CancellationToken cancellationToken = default)
         {
+            Guard.Argument(toDate, nameof(toDate)).GreaterThan(fromDate);
+
             var handler = new RequestHandler(Client);
             return handler.ExecuteSingleItemRequestAsync<IMissing>(new MissingRequest { FromDate = fromDate, ToDate = toDate }, cancellationToken);
         }

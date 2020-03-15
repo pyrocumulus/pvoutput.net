@@ -1,4 +1,4 @@
-name: .NET Core
+name: Codecov
 
 on: 
   push:
@@ -6,7 +6,7 @@ on:
       - gh-pages
 
 jobs:
-  build_and_test:
+  test_and_upload_coverage:
 
     runs-on: ubuntu-latest
 
@@ -16,8 +16,8 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.100
-    - name: Build with dotnet
-      run: dotnet build --configuration Release
     - name: Test with dotnet
-      run: dotnet test
+      run: dotnet test --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+    - name: Code coverage
+      uses: codecov/codecov-action@v1
 

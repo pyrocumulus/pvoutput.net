@@ -71,5 +71,33 @@ namespace PVOutput.Net.Tests.Handler
 
             testProvider.VerifyNoOutstandingExpectation();
         }
+
+        [Test]
+        public async Task Response_WithApiRateInformation_ParsesCorrectInformation()
+        {
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+
+            var resetTimeStamp = new DateTime(2020, 3, 15, 11, 20, 0);
+            var offset = (DateTimeOffset)DateTime.SpecifyKind(resetTimeStamp, DateTimeKind.Utc);
+
+            var responseHeaders = new Dictionary<string, string>()
+                        {
+                            { "X-Rate-Limit-Remaining", "156" },
+                            { "X-Rate-Limit-Limit", "300" },
+                            { "X-Rate-Limit-Reset", offset.ToUnixTimeSeconds().ToString() }
+                        };
+
+            testProvider.ExpectUriFromBase("getsystem.jsp")
+                        .Respond(responseHeaders, "text/plain", "");
+
+            var response = await client.System.GetOwnSystemAsync();
+            testProvider.VerifyNoOutstandingExpectation();
+
+            Assert.Multiple(() => {
+                Assert.AreEqual(156, response.ApiRateInformation.LimitRemaining);
+                Assert.AreEqual(300, response.ApiRateInformation.CurrentLimit);
+                Assert.AreEqual(resetTimeStamp, response.ApiRateInformation.LimitResetAt);
+            });
+        }
     }
 }
