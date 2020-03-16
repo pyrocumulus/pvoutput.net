@@ -30,10 +30,17 @@ namespace PVOutput.Net.Modules
         /// <returns>Status at the specified moment.</returns>
         public Task<PVOutputResponse<IStatus>> GetStatusForDateTimeAsync(DateTime moment, int? systemId = null, CancellationToken cancellationToken = default)
         {
+            var loggingScope = new Dictionary<string, object>()
+            {
+                [LoggingEvents.RequestId] = LoggingEvents.StatusService_GetStatusForDateTime,
+                [LoggingEvents.Parameter_Moment] = moment,
+                [LoggingEvents.Parameter_SystemId] = systemId
+            };
+
             Guard.Argument(moment, nameof(moment)).IsNoFutureDate();
 
             var handler = new RequestHandler(Client);
-            return handler.ExecuteSingleItemRequestAsync<IStatus>(new GetStatusRequest { Date = moment, SystemId = systemId }, cancellationToken);
+            return handler.ExecuteSingleItemRequestAsync<IStatus>(new GetStatusRequest { Date = moment, SystemId = systemId }, loggingScope, cancellationToken);
         }
 
         /// <summary>
@@ -49,11 +56,22 @@ namespace PVOutput.Net.Modules
         /// <returns>Statusses for the specified period.</returns>
         public Task<PVOutputArrayResponse<IStatusHistory>> GetHistoryForPeriodAsync(DateTime fromDateTime, DateTime toDateTime, bool ascending = false, int? systemId = null, bool extendedData = false, int? limit = null, CancellationToken cancellationToken = default)
         {
+            var loggingScope = new Dictionary<string, object>()
+            {
+                [LoggingEvents.RequestId] = LoggingEvents.StatusService_GetHistoryForPeriod,
+                [LoggingEvents.Parameter_FromDate] = fromDateTime,
+                [LoggingEvents.Parameter_ToDate] = toDateTime,
+                [LoggingEvents.Parameter_Ascending] = ascending,
+                [LoggingEvents.Parameter_SystemId] = systemId,
+                [LoggingEvents.Parameter_ExtendedData] = extendedData,
+                [LoggingEvents.Parameter_Limit] = limit
+            };
+
             Guard.Argument(toDateTime, nameof(toDateTime)).GreaterThan(fromDateTime).IsNoFutureDate();
 
             var handler = new RequestHandler(Client);
             return handler.ExecuteArrayRequestAsync<IStatusHistory>(
-                new GetStatusRequest { Date = fromDateTime.Date, From = fromDateTime, To = toDateTime, Ascending = ascending, SystemId = systemId, Extended = extendedData, Limit = limit, History = true }, cancellationToken);
+                new GetStatusRequest { Date = fromDateTime.Date, From = fromDateTime, To = toDateTime, Ascending = ascending, SystemId = systemId, Extended = extendedData, Limit = limit, History = true }, loggingScope, cancellationToken);
         }
 
         /// <summary>
@@ -66,10 +84,18 @@ namespace PVOutput.Net.Modules
         /// <returns>Day statistics for the specified period.</returns>
         public Task<PVOutputResponse<IDayStatistics>> GetDayStatisticsForPeriodAsync(DateTime fromDateTime, DateTime toDateTime, int? systemId = null, CancellationToken cancellationToken = default)
         {
+            var loggingScope = new Dictionary<string, object>()
+            {
+                [LoggingEvents.RequestId] = LoggingEvents.StatusService_GetDayStatisticsForPeriod,
+                [LoggingEvents.Parameter_FromDate] = fromDateTime,
+                [LoggingEvents.Parameter_ToDate] = toDateTime,
+                [LoggingEvents.Parameter_SystemId] = systemId
+            };
+
             Guard.Argument(toDateTime, nameof(toDateTime)).GreaterThan(fromDateTime).IsNoFutureDate();
 
             var handler = new RequestHandler(Client);
-            var response = handler.ExecuteSingleItemRequestAsync<IDayStatistics>(new GetDayStatisticsRequest { Date = fromDateTime.Date, From = fromDateTime, To = toDateTime, SystemId = systemId }, cancellationToken);
+            var response = handler.ExecuteSingleItemRequestAsync<IDayStatistics>(new GetDayStatisticsRequest { Date = fromDateTime.Date, From = fromDateTime, To = toDateTime, SystemId = systemId }, loggingScope, cancellationToken);
 
             return response.ContinueWith(antecedent => AddRequestedDate(antecedent, fromDateTime.Date), cancellationToken, TaskContinuationOptions.OnlyOnRanToCompletion, TaskScheduler.Default);
         }
@@ -96,10 +122,15 @@ namespace PVOutput.Net.Modules
         /// <returns>If the operation succeeded.</returns>
         public Task<PVOutputBasicResponse> AddStatusAsync(IStatusPost status, CancellationToken cancellationToken = default)
         {
+            var loggingScope = new Dictionary<string, object>()
+            {
+                [LoggingEvents.RequestId] = LoggingEvents.StatusService_AddStatus
+            };
+
             Guard.Argument(status, nameof(status)).NotNull();
 
             var handler = new RequestHandler(Client);
-            return handler.ExecutePostRequestAsync(new AddStatusRequest() { StatusPost = status }, cancellationToken);
+            return handler.ExecutePostRequestAsync(new AddStatusRequest() { StatusPost = status }, loggingScope, cancellationToken);
         }
 
         /// <summary>
@@ -111,10 +142,15 @@ namespace PVOutput.Net.Modules
         /// <returns>If the operation succeeded.</returns>
         public Task<PVOutputArrayResponse<IBatchStatusPostResult>> AddBatchStatusAsync(IEnumerable<IBatchStatusPost> statuses, CancellationToken cancellationToken = default)
         {
+            var loggingScope = new Dictionary<string, object>()
+            {
+                [LoggingEvents.RequestId] = LoggingEvents.StatusService_AddBatchStatus
+            };
+
             Guard.Argument(statuses, nameof(statuses)).NotNull().NotEmpty();
 
             var handler = new RequestHandler(Client);
-            return handler.ExecuteArrayRequestAsync<IBatchStatusPostResult>(new AddBatchStatusRequest() { StatusPosts = statuses }, cancellationToken); ;
+            return handler.ExecuteArrayRequestAsync<IBatchStatusPostResult>(new AddBatchStatusRequest() { StatusPosts = statuses }, loggingScope, cancellationToken); ;
         }
 
         /// <summary>
@@ -126,10 +162,15 @@ namespace PVOutput.Net.Modules
         /// <returns>If the operation succeeded.</returns>
         public Task<PVOutputBasicResponse> DeleteStatusAsync(DateTime moment, CancellationToken cancellationToken = default)
         {
+            var loggingScope = new Dictionary<string, object>()
+            {
+                [LoggingEvents.RequestId] = LoggingEvents.StatusService_DeleteStatus
+            };
+
             Guard.Argument(moment, nameof(moment)).IsNoFutureDate();
 
             var handler = new RequestHandler(Client);
-            return handler.ExecutePostRequestAsync(new DeleteStatusRequest() { Timestamp = moment }, cancellationToken);
+            return handler.ExecutePostRequestAsync(new DeleteStatusRequest() { Timestamp = moment }, loggingScope, cancellationToken);
         }
     }
 }

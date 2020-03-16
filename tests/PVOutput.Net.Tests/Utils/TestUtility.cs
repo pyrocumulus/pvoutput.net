@@ -38,7 +38,7 @@ namespace PVOutput.Net.Tests.Utils
             var provider = new TestHttpClientProvider();
             provider.When(uri, mockResponseContent);
             provider.MockHttpMessageHandler.Fallback.RespondPlainText("");
-            return new PVOutputClient(TestConstants.PVOUTPUT_API_KEY, TestConstants.PVOUTPUT_SYSTEM_ID, provider, null);
+            return new PVOutputClient(TestConstants.PVOUTPUT_API_KEY, TestConstants.PVOUTPUT_SYSTEM_ID, provider, new TestOutputLogger());
         }
 
         public static PVOutputClient GetMockClient(out MockHttpMessageHandler mockHandler)
@@ -46,7 +46,7 @@ namespace PVOutput.Net.Tests.Utils
             var provider = new TestHttpClientProvider();
             mockHandler = provider.MockHttpMessageHandler;
             mockHandler.Fallback.RespondPlainText("");
-            return new PVOutputClient(TestConstants.PVOUTPUT_API_KEY, TestConstants.PVOUTPUT_SYSTEM_ID, provider, null);
+            return new PVOutputClient(TestConstants.PVOUTPUT_API_KEY, TestConstants.PVOUTPUT_SYSTEM_ID, provider, new TestOutputLogger());
         }
     }
 }

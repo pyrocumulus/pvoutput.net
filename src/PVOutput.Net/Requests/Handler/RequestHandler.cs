@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -18,41 +19,44 @@ namespace PVOutput.Net.Requests.Handler
 {
     internal class RequestHandler
     {
-        private readonly PVOutputClient _client;
+        private PVOutputClient Client { get; }
 
-        private ILogger Logger => _client.Logger;
+        private ILogger Logger => Client.Logger;
 
         public RequestHandler(PVOutputClient client)
         {
-            _client = client;
+            Client = client;
         }
 
-        internal async Task<PVOutputResponse<TResponseContentType>> ExecuteSingleItemRequestAsync<TResponseContentType>(IRequest request, CancellationToken cancellationToken)
+        internal async Task<PVOutputResponse<TResponseContentType>> ExecuteSingleItemRequestAsync<TResponseContentType>(IRequest request, Dictionary<string, object> loggingScope, CancellationToken cancellationToken)
         {
             HttpResponseMessage responseMessage = null;
 
             try
             {
-                using (HttpRequestMessage requestMessage = CreateRequestMessage(request))
+                using (Logger.BeginScope(loggingScope))
                 {
-                    responseMessage = await ExecuteRequestAsync(requestMessage, cancellationToken).ConfigureAwait(false);
-                }
-                Stream responseStream = await GetResponseContentStreamAsync(responseMessage).ConfigureAwait(false);
+                    using (HttpRequestMessage requestMessage = CreateRequestMessage(request))
+                    {
+                        responseMessage = await ExecuteRequestAsync(requestMessage, cancellationToken).ConfigureAwait(false);
+                    }
+                    Stream responseStream = await GetResponseContentStreamAsync(responseMessage).ConfigureAwait(false);
 
-                var result = new PVOutputResponse<TResponseContentType>();
-                result.ApiRateInformation = GetApiRateInformationfromResponse(responseMessage);
+                    var result = new PVOutputResponse<TResponseContentType>();
+                    result.ApiRateInformation = GetApiRateInformationfromResponse(responseMessage);
 
-                if (ResponseIsErrorResponse(responseMessage, responseStream, result))
-                {
+                    if (ResponseIsErrorResponse(responseMessage, responseStream, result))
+                    {
+                        return result;
+                    }
+
+                    IObjectStringReader<TResponseContentType> reader = StringFactoryContainer.CreateObjectReader<TResponseContentType>();
+                    TResponseContentType content = await reader.ReadObjectAsync(responseStream, cancellationToken).ConfigureAwait(false);
+
+                    result.IsSuccess = true;
+                    result.Value = content;
                     return result;
                 }
-
-                IObjectStringReader<TResponseContentType> reader = StringFactoryContainer.CreateObjectReader<TResponseContentType>();
-                TResponseContentType content = await reader.ReadObjectAsync(responseStream, cancellationToken).ConfigureAwait(false);
-
-                result.IsSuccess = true;
-                result.Value = content;
-                return result;
             }
             finally
             {
@@ -60,32 +64,35 @@ namespace PVOutput.Net.Requests.Handler
             }
         }
 
-        internal async Task<PVOutputArrayResponse<TResponseContentType>> ExecuteArrayRequestAsync<TResponseContentType>(IRequest request, CancellationToken cancellationToken)
+        internal async Task<PVOutputArrayResponse<TResponseContentType>> ExecuteArrayRequestAsync<TResponseContentType>(IRequest request, Dictionary<string, object> loggingScope, CancellationToken cancellationToken)
         {
             HttpResponseMessage responseMessage = null;
 
             try
             {
-                using (HttpRequestMessage requestMessage = CreateRequestMessage(request))
+                using (Logger.BeginScope(loggingScope))
                 {
-                    responseMessage = await ExecuteRequestAsync(requestMessage, cancellationToken).ConfigureAwait(false);
-                }
-                Stream responseStream = await GetResponseContentStreamAsync(responseMessage).ConfigureAwait(false);
+                    using (HttpRequestMessage requestMessage = CreateRequestMessage(request))
+                    {
+                        responseMessage = await ExecuteRequestAsync(requestMessage, cancellationToken).ConfigureAwait(false);
+                    }
+                    Stream responseStream = await GetResponseContentStreamAsync(responseMessage).ConfigureAwait(false);
 
-                var result = new PVOutputArrayResponse<TResponseContentType>();
-                result.ApiRateInformation = GetApiRateInformationfromResponse(responseMessage);
+                    var result = new PVOutputArrayResponse<TResponseContentType>();
+                    result.ApiRateInformation = GetApiRateInformationfromResponse(responseMessage);
 
-                if (ResponseIsErrorResponse(responseMessage, responseStream, result))
-                { 
+                    if (ResponseIsErrorResponse(responseMessage, responseStream, result))
+                    {
+                        return result;
+                    }
+
+                    IArrayStringReader<TResponseContentType> reader = StringFactoryContainer.CreateArrayReader<TResponseContentType>();
+                    IEnumerable<TResponseContentType> content = await reader.ReadArrayAsync(responseStream, cancellationToken).ConfigureAwait(false);
+
+                    result.IsSuccess = true;
+                    result.Values = content;
                     return result;
                 }
-
-                IArrayStringReader<TResponseContentType> reader = StringFactoryContainer.CreateArrayReader<TResponseContentType>();
-                IEnumerable<TResponseContentType> content = await reader.ReadArrayAsync(responseStream, cancellationToken).ConfigureAwait(false);
-
-                result.IsSuccess = true;
-                result.Values = content;
-                return result;
             }
             finally
             {
@@ -93,29 +100,32 @@ namespace PVOutput.Net.Requests.Handler
             }
         }
 
-        internal async Task<PVOutputBasicResponse> ExecutePostRequestAsync(IRequest request, CancellationToken cancellationToken)
+        internal async Task<PVOutputBasicResponse> ExecutePostRequestAsync(IRequest request, Dictionary<string, object> loggingScope, CancellationToken cancellationToken)
         {
             HttpResponseMessage responseMessage = null;
 
             try
             {
-                using (HttpRequestMessage requestMessage = CreateRequestMessage(request))
+                using (Logger.BeginScope(loggingScope))
                 {
-                    responseMessage = await ExecuteRequestAsync(requestMessage, cancellationToken).ConfigureAwait(false);
-                }
-                Stream responseStream = await GetResponseContentStreamAsync(responseMessage).ConfigureAwait(false);
+                    using (HttpRequestMessage requestMessage = CreateRequestMessage(request))
+                    {
+                        responseMessage = await ExecuteRequestAsync(requestMessage, cancellationToken).ConfigureAwait(false);
+                    }
+                    Stream responseStream = await GetResponseContentStreamAsync(responseMessage).ConfigureAwait(false);
 
-                var result = new PVOutputBasicResponse();
-                result.ApiRateInformation = GetApiRateInformationfromResponse(responseMessage);
+                    var result = new PVOutputBasicResponse();
+                    result.ApiRateInformation = GetApiRateInformationfromResponse(responseMessage);
 
-                if (ResponseIsErrorResponse(responseMessage, responseStream, result))
-                {
+                    if (ResponseIsErrorResponse(responseMessage, responseStream, result))
+                    {
+                        return result;
+                    }
+
+                    result.IsSuccess = true;
+                    result.SuccesMessage = GetBasicResponseState(responseStream);
                     return result;
                 }
-
-                result.IsSuccess = true;
-                result.SuccesMessage = GetBasicResponseState(responseStream);
-                return result;
             }
             finally
             {
@@ -140,7 +150,7 @@ namespace PVOutput.Net.Requests.Handler
         {
             if (response.IsSuccessStatusCode)
             {
-                Logger.LogInformation(LoggingEvents.RequestStatusSuccesful, "Request successful - Status {StatusCode}", response.StatusCode);
+                Logger.LogInformation(LoggingEvents.Handler_RequestStatusSuccesful, "Request successful - Status {StatusCode}", response.StatusCode);
                 return null;
             }
 
@@ -165,9 +175,9 @@ namespace PVOutput.Net.Requests.Handler
                 }
             }
 
-            Logger.LogError(LoggingEvents.RequestStatusFailed, "Request failed - Status {StatusCode} - Content - {Message} ", error.StatusCode, error.Message);
+            Logger.LogError(LoggingEvents.Handler_RequestStatusFailed, "Request failed - Status {StatusCode} - Content - {Message} ", error.StatusCode, error.Message);
 
-            if (_client.ThrowResponseExceptions)
+            if (Client.ThrowResponseExceptions)
             {
                 throw new PVOutputException(error.StatusCode, error.Message);
             }
@@ -248,7 +258,7 @@ namespace PVOutput.Net.Requests.Handler
 
                 if (completeContent.Length > 0)
                 {
-                    Logger.LogDebug(LoggingEvents.ReceivedResponseContent, "Response content" + Environment.NewLine + "{content}", completeContent);
+                    Logger.LogDebug(LoggingEvents.Handler_ReceivedResponseContent, "Response content" + Environment.NewLine + "{content}", completeContent);
                 }
             }
 
@@ -277,14 +287,14 @@ namespace PVOutput.Net.Requests.Handler
         internal Task<HttpResponseMessage> ExecuteRequestAsync(HttpRequestMessage requestMessage, CancellationToken cancellationToken = default)
         {
             SetRequestHeaders(requestMessage);
-            Logger.LogDebug(LoggingEvents.ExecuteRequest, "Executing request - {RequestUri}", requestMessage.RequestUri);
-            return _client.HttpClientProvider.GetHttpClient().SendAsync(requestMessage, cancellationToken);
+            Logger.LogDebug(LoggingEvents.Handler_ExecuteRequest, "Executing request - {RequestUri}", requestMessage.RequestUri);
+            return Client.HttpClientProvider.GetHttpClient().SendAsync(requestMessage, cancellationToken);
         }
 
         protected void SetRequestHeaders(HttpRequestMessage request)
         {
-            request.Headers.Add("X-Pvoutput-Apikey", _client.ApiKey);
-            request.Headers.Add("X-Pvoutput-SystemId", FormatHelper.GetValueAsString<int>(_client.OwnedSystemId));
+            request.Headers.Add("X-Pvoutput-Apikey", Client.ApiKey);
+            request.Headers.Add("X-Pvoutput-SystemId", FormatHelper.GetValueAsString<int>(Client.OwnedSystemId));
             request.Headers.Add("X-Rate-Limit", "1");
         }
     }
