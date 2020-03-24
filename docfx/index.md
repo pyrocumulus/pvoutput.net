@@ -58,6 +58,26 @@ var response = await client.Status.AddStatusAsync(status);
     }
 ```
 
+### How to log calls made by the library
+
+The client also supports logging through the standard .NET Core ILogger interface.
+In a web app or hosted service you can supply the `ILogger` through dependency injection (DI).
+For non-host console applications, use the `LoggerFactory` to instantiate the logger and then provide it to the relevant constructor overload.
+
+See the official [Logging in .NET Core and ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging/?view=aspnetcore-3.1) for more information.
+
+The various logging levels:
+
+- **Information**: this will only the success state of requests that are made with the used service and parameters; including errors.
+- **Debug**: also log the exact requested uri (including query parameters), and api rate information.
+- **Trace**: also log 'raw' response content, at a minimal overhead (duplicating memory streams).
+
+**NOTE**:
+
+Your API key and owned system ID are always sent through headers, not the request uri. None of the logging levels also log headers and never will, so logging information should never contain those two aspects. However it is always good to inspect logs before sharing them with anyone, including the maintainer of this project.
+
+### API reference
+
 See the [API reference](api/PVOutput.Net.yml) for details on all the classes provided by this library.
 
 ## Contribute

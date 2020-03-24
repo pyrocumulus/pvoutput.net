@@ -150,7 +150,7 @@ namespace PVOutput.Net.Requests.Handler
         {
             if (response.IsSuccessStatusCode)
             {
-                Logger.LogInformation(LoggingEvents.Handler_RequestStatusSuccesful, "Request successful - Status {StatusCode}", response.StatusCode);
+                Logger.LogInformation(LoggingEvents.Handler_RequestStatusSuccesful, "[RequestSuccessful] Status: {StatusCode}", response.StatusCode);
                 return null;
             }
 
@@ -175,7 +175,7 @@ namespace PVOutput.Net.Requests.Handler
                 }
             }
 
-            Logger.LogError(LoggingEvents.Handler_RequestStatusFailed, "Request failed - Status {StatusCode} - Content - {Message} ", error.StatusCode, error.Message);
+            Logger.LogError(LoggingEvents.Handler_RequestStatusFailed, "[RequestFailed] Status: {StatusCode} Content: {Message} ", error.StatusCode, error.Message);
 
             if (Client.ThrowResponseExceptions)
             {
@@ -205,8 +205,9 @@ namespace PVOutput.Net.Requests.Handler
 
             return null;
         }
-         
-        private static PVOutputApiRateInformation GetApiRateInformationfromResponse(HttpResponseMessage response)
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
+        private PVOutputApiRateInformation GetApiRateInformationfromResponse(HttpResponseMessage response)
         {
             var result = new PVOutputApiRateInformation();
 
@@ -225,6 +226,7 @@ namespace PVOutput.Net.Requests.Handler
                 result.LimitResetAt = DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(response.Headers.GetValues("X-Rate-Limit-Reset").First(), CultureInfo.CreateSpecificCulture("en-US"))).DateTime;
             }
 
+            Logger.LogDebug("[API-rate] Remaining: {LimitRemaining} Limit: {CurrentLimit}: ResetAt: {LimitResetAt}", result.LimitRemaining, result.CurrentLimit, result.LimitResetAt);
             return result;
         }
 
@@ -235,7 +237,7 @@ namespace PVOutput.Net.Requests.Handler
                 return default;
             }
 
-            if (Logger.IsEnabled(LogLevel.Debug))
+            if (Logger.IsEnabled(LogLevel.Trace))
             {
                 return await LogResponseContentStreamAsync(response).ConfigureAwait(false);
             }
@@ -258,7 +260,7 @@ namespace PVOutput.Net.Requests.Handler
 
                 if (completeContent.Length > 0)
                 {
-                    Logger.LogDebug(LoggingEvents.Handler_ReceivedResponseContent, "Response content" + Environment.NewLine + "{content}", completeContent);
+                    Logger.LogTrace(LoggingEvents.Handler_ReceivedResponseContent, "Response content" + Environment.NewLine + "{content}", completeContent);
                 }
             }
 
@@ -287,7 +289,7 @@ namespace PVOutput.Net.Requests.Handler
         internal Task<HttpResponseMessage> ExecuteRequestAsync(HttpRequestMessage requestMessage, CancellationToken cancellationToken = default)
         {
             SetRequestHeaders(requestMessage);
-            Logger.LogDebug(LoggingEvents.Handler_ExecuteRequest, "Executing request - {RequestUri}", requestMessage.RequestUri);
+            Logger.LogTrace(LoggingEvents.Handler_ExecuteRequest, "[ExecuteRequest] Uri: {RequestUri}", requestMessage.RequestUri);
             return Client.HttpClientProvider.GetHttpClient().SendAsync(requestMessage, cancellationToken);
         }
 
