@@ -51,11 +51,11 @@ namespace PVOutput.Net.Tests.Modules.Team
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
-            testProvider.ExpectUriFromBase(JOINTEAM_URL)
+            testProvider.ExpectUriFromBase(LEAVETEAM_URL)
                         .WithQueryString("tid=340")
                         .Respond(HttpStatusCode.OK, "text/plain", "You have left team [team_name]");
 
-            var response = await client.Team.JoinTeamAsync(340);
+            var response = await client.Team.LeaveTeamAsync(340);
             testProvider.VerifyNoOutstandingExpectation();
 
             Assert.Multiple(() =>
