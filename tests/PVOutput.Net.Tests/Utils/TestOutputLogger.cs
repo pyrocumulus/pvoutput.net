@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace PVOutput.Net.Tests.Utils
 {
-    internal class TestOutputLogger : ILogger, IDisposable
+    internal class TestOutputLogger : ILogger<PVOutputClient>, IDisposable
     {
         private readonly Stack<string> _scopeStack = new Stack<string>();
 

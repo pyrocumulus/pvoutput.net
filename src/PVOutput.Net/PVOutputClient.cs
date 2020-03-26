@@ -13,7 +13,19 @@ namespace PVOutput.Net
     public sealed class PVOutputClient
     {
         internal const string PVOutputBaseUri = @"https://pvoutput.org/service/r2/";
-        internal IHttpClientProvider HttpClientProvider { get; }
+
+        private IHttpClientProvider _httpClientProvider;
+        internal IHttpClientProvider HttpClientProvider 
+        { 
+            get 
+            {
+                return _httpClientProvider ?? (_httpClientProvider = new HttpClientProvider());
+            }
+            set 
+            {
+                _httpClientProvider = value;
+            } 
+        }
 
         internal ILogger Logger { get; }
 
@@ -107,8 +119,23 @@ namespace PVOutput.Net
         /// <param name="apiKey">ApiKey to use with authenticating.</param>
         /// <param name="ownedSystemId">Id of the currently owned system used for authenticating.</param>
         /// <param name="logger">The ILogger implementation, used for logging purposes.</param>
-        public PVOutputClient(string apiKey, int ownedSystemId, ILogger<PVOutputClient> logger) : this(apiKey, ownedSystemId, new HttpClientProvider(), logger)
+        public PVOutputClient(string apiKey, int ownedSystemId, ILogger<PVOutputClient> logger)
         {
+            ApiKey = apiKey;
+            OwnedSystemId = ownedSystemId;
+            Logger = logger ?? NullLogger<PVOutputClient>.Instance;
+
+            Output = new OutputService(this);
+            System = new SystemService(this);
+            Status = new StatusService(this);
+            Statistics = new StatisticsService(this);
+            Missing = new MissingService(this);
+            Team = new TeamService(this);
+            Extended = new ExtendedService(this);
+            Favourite = new FavouriteService(this);
+            Insolation = new InsolationService(this);
+            Supply = new SupplyService(this);
+            Search = new SearchService(this);
         }
 
         /// <summary>
@@ -124,28 +151,8 @@ namespace PVOutput.Net
         /// </summary>
         /// <param name="options">Options to use for the client, containing the ApiKey and Id of the owned system.</param>
         /// <param name="logger">The ILogger implementation, used for logging purposes.</param>
-        public PVOutputClient(PVOutputClientOptions options, ILogger<PVOutputClient> logger) : this(options?.ApiKey, options.OwnedSystemId, new HttpClientProvider(), logger)
+        public PVOutputClient(PVOutputClientOptions options, ILogger<PVOutputClient> logger) : this(options?.ApiKey, options.OwnedSystemId, logger)
         {
-        }
-
-        internal PVOutputClient(string apiKey, int ownedSystemId, IHttpClientProvider httpClientProvider, ILogger logger)
-        {
-            ApiKey = apiKey;
-            OwnedSystemId = ownedSystemId;
-            HttpClientProvider = httpClientProvider ?? new HttpClientProvider();
-            Logger = logger ?? NullLogger.Instance;
-
-            Output = new OutputService(this);
-            System = new SystemService(this);
-            Status = new StatusService(this);
-            Statistics = new StatisticsService(this);
-            Missing = new MissingService(this);
-            Team = new TeamService(this);
-            Extended = new ExtendedService(this);
-            Favourite = new FavouriteService(this);
-            Insolation = new InsolationService(this);
-            Supply = new SupplyService(this);
-            Search = new SearchService(this); 
         }
     }
 }
