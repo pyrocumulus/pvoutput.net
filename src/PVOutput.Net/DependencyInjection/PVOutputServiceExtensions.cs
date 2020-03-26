@@ -15,11 +15,19 @@ namespace PVOutput.Net.DependencyInjection
         /// </summary>
         /// <param name="services">The servicecollection to add the client to.</param>
         /// <param name="optionsAction">An action to configure the provided options.</param>
-        public static void AddPVOutputClient(this IServiceCollection services, Action<PVOutputServiceOptions> optionsAction)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "Exception messages are non translatable for now")]
+        public static void AddPVOutputClient(this IServiceCollection services, Action<PVOutputClientOptions> optionsAction)
         {
-            var options = new PVOutputServiceOptions();
-            optionsAction?.Invoke(options);
-            services.AddSingleton(sp => new PVOutputClient(options.ApiKey, options.OwnedSystemId));
+            if (optionsAction == null)
+            {
+                throw new ArgumentNullException(nameof(optionsAction), "Please provide options to the PVOutputClient.");
+            }
+
+            var options = new PVOutputClientOptions();
+            optionsAction.Invoke(options);
+
+            services.AddSingleton(options);
+            services.AddSingleton<PVOutputClient>();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using PVOutput.Net.DependencyInjection;
 using PVOutput.Net.Modules;
 using PVOutput.Net.Requests;
 using PVOutput.Net.Requests.Handler;
@@ -7,7 +8,7 @@ using PVOutput.Net.Requests.Handler;
 namespace PVOutput.Net
 {
     /// <summary>
-    /// The client used to talk to PVOutput with.
+    /// The client used to communicate with the PVOutput service.
     /// </summary>
     public sealed class PVOutputClient
     {
@@ -88,7 +89,7 @@ namespace PVOutput.Net
         /// <summary>
         /// The search service
         /// <para>See the official <see href="https://pvoutput.org/help.html#api-search">API information</see>.</para>
-        /// .</summary>
+        /// </summary>
         public SearchService Search { get; }
 
         /// <summary>
@@ -96,9 +97,8 @@ namespace PVOutput.Net
         /// </summary>
         /// <param name="apiKey">ApiKey to use with authenticating.</param>
         /// <param name="ownedSystemId">Id of the currently owned system used for authenticating.</param>
-        public PVOutputClient(string apiKey, int ownedSystemId) : this(apiKey, ownedSystemId,  null)
+        public PVOutputClient(string apiKey, int ownedSystemId) : this(apiKey, ownedSystemId, null)
         {
-
         }
 
         /// <summary>
@@ -107,7 +107,24 @@ namespace PVOutput.Net
         /// <param name="apiKey">ApiKey to use with authenticating.</param>
         /// <param name="ownedSystemId">Id of the currently owned system used for authenticating.</param>
         /// <param name="logger">The ILogger implementation, used for logging purposes.</param>
-        public PVOutputClient(string apiKey, int ownedSystemId, ILogger logger) : this(apiKey, ownedSystemId, new HttpClientProvider(), logger)
+        public PVOutputClient(string apiKey, int ownedSystemId, ILogger<PVOutputClient> logger) : this(apiKey, ownedSystemId, new HttpClientProvider(), logger)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new PVOutputClient, with a ILogger attached.
+        /// </summary>
+        /// <param name="options">Options to use for the client, containing the ApiKey and Id of the owned system.</param>
+        public PVOutputClient(PVOutputClientOptions options) : this(options?.ApiKey, options.OwnedSystemId, null)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new PVOutputClient, with a ILogger attached.
+        /// </summary>
+        /// <param name="options">Options to use for the client, containing the ApiKey and Id of the owned system.</param>
+        /// <param name="logger">The ILogger implementation, used for logging purposes.</param>
+        public PVOutputClient(PVOutputClientOptions options, ILogger<PVOutputClient> logger) : this(options?.ApiKey, options.OwnedSystemId, new HttpClientProvider(), logger)
         {
         }
 
