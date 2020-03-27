@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Dawn;
 using PVOutput.Net.Objects;
+using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Requests.Handler;
 using PVOutput.Net.Requests.Modules;
 using PVOutput.Net.Responses;
@@ -32,10 +33,16 @@ namespace PVOutput.Net.Modules
         /// <returns>A list of search results.</returns>
         public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchAsync(string searchQuery, PVCoordinate? coordinate = null, CancellationToken cancellationToken = default)
         {
+            var loggingScope = new Dictionary<string, object>()
+            {
+                [LoggingEvents.RequestId] = LoggingEvents.SearchService_Search,
+                [LoggingEvents.Parameter_Coordinate] = coordinate
+            };
+            
             Guard.Argument(searchQuery, nameof(searchQuery)).NotEmpty().NotNull();
 
             var handler = new RequestHandler(Client);
-            return handler.ExecuteArrayRequestAsync<ISystemSearchResult>(new SearchRequest { SearchQuery = searchQuery, Coordinate = coordinate }, cancellationToken);
+            return handler.ExecuteArrayRequestAsync<ISystemSearchResult>(new SearchRequest { SearchQuery = searchQuery, Coordinate = coordinate }, loggingScope, cancellationToken);
         }
     }
 }

@@ -1,6 +1,8 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using PVOutput.Net.Objects;
+using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Requests.Handler;
 using PVOutput.Net.Requests.Modules;
 using PVOutput.Net.Responses;
@@ -24,8 +26,14 @@ namespace PVOutput.Net.Modules
         /// <returns>Information of the owned system.</returns>
         public Task<PVOutputResponse<ISystem>> GetOwnSystemAsync(CancellationToken cancellationToken = default)
         {
+            var loggingScope = new Dictionary<string, object>()
+            {
+                [LoggingEvents.RequestId] = LoggingEvents.SystemService_GetOwnSystem
+
+            };
+
             var handler = new RequestHandler(Client);
-            return handler.ExecuteSingleItemRequestAsync<ISystem>(new SystemRequest(), cancellationToken);
+            return handler.ExecuteSingleItemRequestAsync<ISystem>(new SystemRequest(), loggingScope, cancellationToken);
         }
 
         /// <summary>
@@ -37,8 +45,14 @@ namespace PVOutput.Net.Modules
         /// <returns>Information of the requested system.</returns>
         public Task<PVOutputResponse<ISystem>> GetOtherSystemAsync(int systemId, CancellationToken cancellationToken = default)
         {
+            var loggingScope = new Dictionary<string, object>()
+            {
+                [LoggingEvents.RequestId] = LoggingEvents.SystemService_GetOtherSystem,
+                [LoggingEvents.Parameter_SystemId] = systemId
+            };
+
             var handler = new RequestHandler(Client);
-            return handler.ExecuteSingleItemRequestAsync<ISystem>(new SystemRequest { SystemId = systemId, MonthlyEstimates = false }, cancellationToken);
+            return handler.ExecuteSingleItemRequestAsync<ISystem>(new SystemRequest { SystemId = systemId, MonthlyEstimates = false }, loggingScope, cancellationToken);
         }
     }
 }
