@@ -18,7 +18,9 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageReleaseNotes>Feature: Added Microsoft Dependency Injection support.</PackageReleaseNotes>
+    <PackageReleaseNotes>Feature: Added Microsoft Dependency Injection support.
+Feature: Logging through standard ILogger interface.
+Feature: Nearly all public api methods now validate their arguments.</PackageReleaseNotes>
     <PackageId>PVOutput.Net</PackageId>
   </PropertyGroup>
 
