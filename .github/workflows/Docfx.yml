@@ -1,0 +1,30 @@
+name: Docfx
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build_and_test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.100
+    
+    # Build documentation    
+    - uses: nikeee/docfx-action@master
+      name: Build Documentation
+      with:
+        args: docfx/docfx.json
+        
+    # Publish generated site using GitHub Pages
+    - uses: maxheld83/ghpages@master
+      name: Publish Documentation on GitHub Pages
+      env:
+        BUILD_DIR: docfx/_site # docfx's default output directory is _site
+        GH_PAT: ${{ secrets.GH_PAT }} # See https://github.com/maxheld83/ghpages
