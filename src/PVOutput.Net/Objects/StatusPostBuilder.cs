@@ -153,7 +153,7 @@ namespace PVOutput.Net.Objects
         }
 
         /// <summary>
-        /// Resets the builder to it's default state. Ready to build a new output.
+        /// Resets the builder to it's default state. Ready to build a new status.
         /// </summary>
         public void Reset()
         {
@@ -172,10 +172,10 @@ namespace PVOutput.Net.Objects
         }
 
         /// <summary>
-        /// Uses information within the builder to return the built output.
+        /// Uses information within the builder to return the built status.
         /// Resets the builder to it's default state after building.
         /// </summary>
-        /// <returns>The output <typeparamref name="TResultType"/>.</returns>
+        /// <returns>The status <typeparamref name="TResultType"/>.</returns>
         public TResultType BuildAndReset()
         {
             TResultType result = Build();
