@@ -45,7 +45,7 @@ namespace PVOutput.Net.Objects
         /// <param name="energyGeneration">Total energy generated up to and including timestamp.</param>
         /// <param name="powerGeneration">Actual power being generated at the moment of the timestamp.</param>
         /// <returns>The builder.</returns>
-        public StatusPostBuilder<TResultType> SetGeneration(int? energyGeneration, int? powerGeneration)
+        public StatusPostBuilder<TResultType> SetGeneration(int? energyGeneration, int? powerGeneration = null)
         {
             Guard.Argument(energyGeneration, nameof(energyGeneration)).Min(0);
             Guard.Argument(powerGeneration, nameof(powerGeneration)).Min(0);
@@ -61,7 +61,7 @@ namespace PVOutput.Net.Objects
         /// <param name="energyConsumption">Total energy consumed up to and including the timestamp.</param>
         /// <param name="powerConsumption">Actual power being consumed at the moment of the timestamp.</param>
         /// <returns>The builder.</returns>
-        public StatusPostBuilder<TResultType> SetConsumption(int? energyConsumption, int? powerConsumption)
+        public StatusPostBuilder<TResultType> SetConsumption(int? energyConsumption, int? powerConsumption = null)
         {
             Guard.Argument(energyConsumption, nameof(energyConsumption)).Min(0);
             Guard.Argument(powerConsumption, nameof(powerConsumption)).Min(0);
@@ -127,7 +127,7 @@ namespace PVOutput.Net.Objects
         /// <param name="value5">Extended value 5</param>
         /// <param name="value6">Extended value 6</param>
         /// <returns>The builder.</returns>
-        public StatusPostBuilder<TResultType> SetExtendedValues(decimal? value1, decimal? value2, decimal? value3, decimal? value4, decimal? value5, decimal? value6)
+        public StatusPostBuilder<TResultType> SetExtendedValues(decimal? value1, decimal? value2 = null, decimal? value3 = null, decimal? value4 = null, decimal? value5 = null, decimal? value6 = null)
         {
             _statusPost.ExtendedValue1 = value1;
             _statusPost.ExtendedValue2 = value2;
