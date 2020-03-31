@@ -36,6 +36,7 @@ namespace PVOutput.Net.Modules
             var loggingScope = new Dictionary<string, object>()
             {
                 [LoggingEvents.RequestId] = LoggingEvents.SearchService_Search,
+                [LoggingEvents.Parameter_SearchQueryText] = searchQuery,
                 [LoggingEvents.Parameter_Coordinate] = coordinate
             };
             
@@ -43,6 +44,31 @@ namespace PVOutput.Net.Modules
 
             var handler = new RequestHandler(Client);
             return handler.ExecuteArrayRequestAsync<ISystemSearchResult>(new SearchRequest { SearchQuery = searchQuery, Coordinate = coordinate }, loggingScope, cancellationToken);
+        }
+
+        /// <summary>
+        /// Retrieves a list of systems matching the provided query.
+        /// <para>See <see href="https://pvoutput.org/help.html#search">this page</see> for help with the query syntax.</para>
+        /// </summary>
+        /// <param name="searchQuery">A search query to retrieve systems for.</param>
+        /// <param name="coordinate">A GPS coordinate, used for distance queries.</param>
+        /// <param name="cancellationToken">A cancellation token for the request.</param>
+        /// <returns>A list of search results.</returns>
+        public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchQueryAsync(ISearchQuery searchQuery, PVCoordinate? coordinate = null, CancellationToken cancellationToken = default)
+        {
+            var loggingScope = new Dictionary<string, object>()
+            {
+                [LoggingEvents.RequestId] = LoggingEvents.SearchService_SearchQuery,
+                [LoggingEvents.Parameter_SearchQuery] = searchQuery,
+                [LoggingEvents.Parameter_Coordinate] = coordinate
+            };
+
+            Guard.Argument(searchQuery, nameof(searchQuery)).NotNull();
+
+            var searchQueryText = searchQuery.ToString();
+
+            var handler = new RequestHandler(Client);
+            return handler.ExecuteArrayRequestAsync<ISystemSearchResult>(new SearchRequest { SearchQuery = searchQueryText, Coordinate = coordinate }, loggingScope, cancellationToken);
         }
     }
 }

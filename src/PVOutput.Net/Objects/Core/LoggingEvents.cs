@@ -18,6 +18,8 @@ namespace PVOutput.Net.Objects.Core
         public const string Parameter_SystemId = "SystemId";
         public const string Parameter_TeamId = "TeamId";
         public const string Parameter_Coordinate = "Coordinate";
+        public const string Parameter_SearchQueryText = "SearchQueryText";
+        public const string Parameter_SearchQuery = "SearchQuery";
         public const string Parameter_AggregationPeriod = "AggregationPeriod";
         public const string Parameter_ExtendedData = "ExtendedData";
         public const string Parameter_Ascending = "Ascending";
@@ -58,6 +60,7 @@ namespace PVOutput.Net.Objects.Core
         public const int OutputService_AddBatchOutput = 20507;
 
         public const int SearchService_Search = 20601;
+        public const int SearchService_SearchQuery = 20602;
 
         public const int StatisticsService_GetLifetimeStatistics = 20701;
         public const int StatisticsService_GetStatisticsForPeriod = 20702;

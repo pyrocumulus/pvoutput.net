@@ -148,10 +148,8 @@ namespace PVOutput.Net
         {
             Guard.Argument(options).NotNull();
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             ApiKey = options.ApiKey;
             OwnedSystemId = options.OwnedSystemId;
-#pragma warning restore CA1062 // Validate arguments of public methods
 
             CreateServices();
         }

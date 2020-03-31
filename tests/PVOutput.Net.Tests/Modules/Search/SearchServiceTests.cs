@@ -36,7 +36,7 @@ namespace PVOutput.Net.Tests.Modules.Search
 
             Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
-                _ = await client.Search.SearchAsync(null);
+                _ = await client.Search.SearchAsync(searchQuery: null);
             });
         }
 
