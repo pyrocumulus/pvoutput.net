@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using PVOutput.Net.Modules;
 using PVOutput.Net.Objects;
 using PVOutput.Net.Objects.Modules.Readers;
 using PVOutput.Net.Tests.Utils;
@@ -27,7 +28,6 @@ namespace PVOutput.Net.Tests.Modules.Search
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
         }
-
 
         [Test]
         public void SearchService_Search_WithNullOrEmptyQuery_Throws()
@@ -52,6 +52,115 @@ namespace PVOutput.Net.Tests.Modules.Search
             });
         }
 
+        [Test]
+        public async Task SearchService_SearchByNameStartsWith_CallsCorrectUri()
+        {
+            await TestSpecificSearchQuery(s => s.SearchByNameAsync("name", true), "name*");
+        }
+
+        [Test]
+        public async Task SearchService_SearchByNameContains_CallsCorrectUri()
+        {
+            await TestSpecificSearchQuery(s => s.SearchByNameAsync("name", false), "name");
+        }
+
+        [Test]
+        public async Task SearchService_SearchByPostcodeOrSize_CallsCorrectUri()
+        {
+            await TestSpecificSearchQuery(s => s.SearchByPostcodeOrSizeAsync(2500), "2500");
+        }
+
+        [Test]
+        public async Task SearchService_SearchByPostcode_CallsCorrectUri()
+        {
+            await TestSpecificSearchQuery(s => s.SearchByPostcodeAsync("XE"), "XE postcode");
+        }
+
+        [Test]
+        public async Task SearchService_SearchBySize_CallsCorrectUri()
+        {
+            await TestSpecificSearchQuery(s => s.SearchBySizeAsync(4250), "4250 size");
+        }
+
+        [Test]
+        public async Task SearchService_SearchByInverter_CallsCorrectUri()
+        {
+            await TestSpecificSearchQuery(s => s.SearchByInverterAsync("fronius"), "fronius* inverter");
+        }
+
+        [Test]
+        public async Task SearchService_SearchByPanel_CallsCorrectUri()
+        {
+            await TestSpecificSearchQuery(s => s.SearchByPanelAsync("sharp"), "sharp panel");
+        }
+
+        [Test]
+        public async Task SearchService_SearchByTeam_CallsCorrectUri()
+        {
+            await TestSpecificSearchQuery(s => s.SearchByTeamAsync("mcdonalds"), "mcdonalds team");
+        }
+
+        [Test]
+        public async Task SearchService_GetFavourites_CallsCorrectUri()
+        {
+            await TestSpecificSearchQuery(s => s.GetFavouritesAsync(), "favourite");
+        }
+
+        [Test]
+        public async Task SearchService_SearchByOrientationAndNameStartsWith_CallsCorrectUri()
+        {
+            await TestSpecificSearchQuery(s => s.SearchByOrientationAsync(Enums.Orientation.SouthEast, "name", true), "name* +SE");
+        }
+
+        [Test]
+        public async Task SearchService_SearchByOrientationAndNameContains_CallsCorrectUri()
+        {
+            await TestSpecificSearchQuery(s => s.SearchByOrientationAsync(Enums.Orientation.NorthWest, "name", false), "name +NW");
+        }
+
+        [Test]
+        public async Task SearchService_SearchByTilt_CallsCorrectUri()
+        {
+            await TestSpecificSearchQuery(s => s.SearchByTiltAsync(53), "53 tilt");
+        }
+
+        [Test]
+        public async Task SearchService_SearchByDistanceWithPostcode_CallsCorrectUri()
+        {
+            await TestSpecificSearchQuery(s => s.SearchByDistanceAsync(2500, 10), "2500 10km");
+        }
+
+        [Test]
+        public async Task SearchService_SearchByDistanceWithCoordinate_CallsCorrectUri()
+        {
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+            testProvider.ExpectUriFromBase(SEARCH_URL)
+                        .WithQueryString(new Dictionary<string, string>
+                            {
+                                { "q", "11km" },
+                                { "ll", "85.32252,31.40098" }
+                            })
+                        .RespondPlainText("");
+
+            var response = await client.Search.SearchByDistanceAsync(new PVCoordinate(85.32252, 31.40098), 11);
+            testProvider.VerifyNoOutstandingExpectation();
+            AssertStandardResponse(response);
+        }
+
+        private async Task TestSpecificSearchQuery(Func<SearchService, Task<Responses.PVOutputArrayResponse<ISystemSearchResult>>> searchQuery, string queryStringResult)
+        {
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+            testProvider.ExpectUriFromBase(SEARCH_URL)
+                        .WithQueryString(new Dictionary<string, string>
+                            {
+                                { "q", queryStringResult }
+                            })
+                        .RespondPlainText("");
+
+            var response = await searchQuery(client.Search);
+            testProvider.VerifyNoOutstandingExpectation();
+            AssertStandardResponse(response);
+        }
 
         /*
          * Deserialisation tests below

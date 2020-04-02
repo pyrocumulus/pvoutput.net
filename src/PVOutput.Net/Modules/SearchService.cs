@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Dawn;
+using PVOutput.Net.Enums;
 using PVOutput.Net.Objects;
 using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Requests.Handler;
@@ -47,28 +49,190 @@ namespace PVOutput.Net.Modules
         }
 
         /// <summary>
-        /// Retrieves a list of systems matching the provided query.
-        /// <para>See <see href="https://pvoutput.org/help.html#search">this page</see> for help with the query syntax.</para>
+        /// Search for systems by name.
         /// </summary>
-        /// <param name="searchQuery">A search query to retrieve systems for.</param>
-        /// <param name="coordinate">A GPS coordinate, used for distance queries.</param>
+        /// <param name="name">Name to search for.</param>
+        /// <param name="useStartsWith">If <c>true</c> the name should start with the <paramref name="name"/> value. Otherwise the search is performed using a <c>contains</c> method.</param>
         /// <param name="cancellationToken">A cancellation token for the request.</param>
         /// <returns>A list of search results.</returns>
-        public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchQueryAsync(ISearchQuery searchQuery, PVCoordinate? coordinate = null, CancellationToken cancellationToken = default)
+        public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByNameAsync(string name, bool useStartsWith = true, CancellationToken cancellationToken = default)
         {
-            var loggingScope = new Dictionary<string, object>()
+            Guard.Argument(name, nameof(name)).NotEmpty();
+
+            string query = FormatStartsWith(name, useStartsWith);
+            return DoFormattedSearchAsync(query, null, cancellationToken: cancellationToken);
+        }
+
+        /// <summary>
+        /// Search for systems that have either a postcode or total size that begins with a value.
+        /// </summary>
+        /// <param name="value">Value to search for.</param>
+        /// <param name="cancellationToken">A cancellation token for the request.</param>
+        /// <returns>A list of search results.</returns>
+        public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByPostcodeOrSizeAsync(int value, CancellationToken cancellationToken = default)
+        {
+            Guard.Argument(value, nameof(value)).GreaterThan(0);
+            return DoFormattedSearchAsync(value.ToString("#####", CultureInfo.InvariantCulture), "", cancellationToken: cancellationToken);
+        }
+
+        /// <summary>
+        /// Search for systems by postcode.
+        /// </summary>
+        /// <param name="postcode">Postcode to search for.</param>
+        /// <param name="cancellationToken">A cancellation token for the request.</param>
+        /// <returns>A list of search results.</returns>
+        public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByPostcodeAsync(string postcode, CancellationToken cancellationToken = default)
+        {
+            Guard.Argument(postcode, nameof(postcode)).NotEmpty();
+            return DoFormattedSearchAsync(postcode, "postcode", cancellationToken: cancellationToken);
+        }
+
+        /// <summary>
+        /// Search for systems by size.
+        /// </summary>
+        /// <param name="value">Size to search for.</param>
+        /// <param name="cancellationToken">A cancellation token for the request.</param>
+        /// <returns>A list of search results.</returns>
+        public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchBySizeAsync(int value, CancellationToken cancellationToken = default)
+        {
+            Guard.Argument(value, nameof(value)).GreaterThan(0);
+
+            string query = value.ToString("#####", CultureInfo.InvariantCulture);
+            return DoFormattedSearchAsync(query, "size", cancellationToken: cancellationToken);
+        }
+
+        /// <summary>
+        /// Search for systems by panel.
+        /// </summary>
+        /// <param name="panel">Panel to search for.</param>
+        /// <param name="cancellationToken">A cancellation token for the request.</param>
+        /// <returns>A list of search results.</returns>
+        public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByPanelAsync(string panel, CancellationToken cancellationToken = default)
+        {
+            Guard.Argument(panel, nameof(panel)).NotEmpty();
+            return DoFormattedSearchAsync(panel, "panel", cancellationToken: cancellationToken);
+        }
+
+        /// <summary>
+        /// Search for systems by inverter.
+        /// </summary>
+        /// <param name="inverter">Inverter to search for.</param>
+        /// <param name="useStartsWith">If <c>true</c> the name should start with the <paramref name="inverter"/> value. Otherwise the search is performed using a <c>contains</c> method.</param>
+        /// <param name="cancellationToken">A cancellation token for the request.</param>
+        /// <returns>A list of search results.</returns>
+        public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByInverterAsync(string inverter, bool useStartsWith = true, CancellationToken cancellationToken = default)
+        {
+            Guard.Argument(inverter, nameof(inverter)).NotEmpty();
+            var query = FormatStartsWith(inverter, useStartsWith);
+            return DoFormattedSearchAsync(query, "inverter", cancellationToken: cancellationToken);
+        }
+
+        /// <summary>
+        /// Search for systems by distance.
+        /// </summary>
+        /// <param name="postcode">Postcode to search from.</param>
+        /// <param name="kilometers">Distance to search with <c>(25 is the maximum)</c>.</param>
+        /// <param name="cancellationToken">A cancellation token for the request.</param>
+        /// <returns>A list of search results.</returns>
+        public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByDistanceAsync(int postcode, int kilometers, CancellationToken cancellationToken = default)
+        {
+            Guard.Argument(postcode, nameof(postcode)).GreaterThan(0);
+            Guard.Argument(kilometers, nameof(kilometers)).InRange(1, 25);
+
+            string query = $"{postcode:####} {kilometers:##}km";
+            return DoFormattedSearchAsync(query, null, cancellationToken: cancellationToken);
+        }
+
+        /// <summary>
+        /// Search for systems by distance.
+        /// </summary>
+        /// <param name="coordinate">GPS coordinate to search from.</param>
+        /// <param name="kilometers">Distance to search with <c>(25 is the maximum)</c>.</param>
+        /// <param name="cancellationToken">A cancellation token for the request.</param>
+        /// <returns>A list of search results.</returns>
+        public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByDistanceAsync(PVCoordinate coordinate, int kilometers, CancellationToken cancellationToken = default)
+        {
+            Guard.Argument(kilometers, nameof(kilometers)).InRange(1, 25);
+
+            string query = $"{kilometers:##}km";
+            return DoFormattedSearchAsync(query, null, coordinate, cancellationToken);
+        }
+
+        /// <summary>
+        /// Search for systems by team name.
+        /// </summary>
+        /// <param name="teamName">Team name to search for.</param>
+        /// <param name="cancellationToken">A cancellation token for the request.</param>
+        /// <returns>A list of search results.</returns>
+        public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByTeamAsync(string teamName,  CancellationToken cancellationToken = default)
+        {
+            Guard.Argument(teamName, nameof(teamName)).NotEmpty();
+            return DoFormattedSearchAsync(teamName, "team", cancellationToken: cancellationToken);
+        }
+
+        /// <summary>
+        /// Search for systems by orientation.
+        /// </summary>
+        /// <param name="orientation">Orientation to search for.</param>
+        /// <param name="name">Name to search for.</param>
+        /// <param name="useStartsWith">If <c>true</c> the name should start with the <paramref name="name"/> value. Otherwise the search is performed using a <c>contains</c> method.</param>
+        /// <param name="cancellationToken">A cancellation token for the request.</param>
+        /// <returns>A list of search results.</returns>
+        public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByOrientationAsync(Orientation orientation, string name = null, bool useStartsWith = true, CancellationToken cancellationToken = default)
+        {
+            string query = "";
+            if (name != null)
             {
-                [LoggingEvents.RequestId] = LoggingEvents.SearchService_SearchQuery,
-                [LoggingEvents.Parameter_SearchQuery] = searchQuery,
-                [LoggingEvents.Parameter_Coordinate] = coordinate
-            };
+                query = FormatStartsWith(name, useStartsWith);
+            }
 
-            Guard.Argument(searchQuery, nameof(searchQuery)).NotNull();
+            query += $" +{FormatHelper.GetEnumerationDescription(orientation)}";
 
-            var searchQueryText = searchQuery.ToString();
+            return DoFormattedSearchAsync(query, null, cancellationToken: cancellationToken);
+        }
 
-            var handler = new RequestHandler(Client);
-            return handler.ExecuteArrayRequestAsync<ISystemSearchResult>(new SearchRequest { SearchQuery = searchQueryText, Coordinate = coordinate }, loggingScope, cancellationToken);
+        /// <summary>
+        /// Search for systems by tilt.
+        /// </summary>
+        /// <param name="tilt">Tilt to search for (should be within 2.5 degrees of this value).</param>
+        /// <param name="cancellationToken">A cancellation token for the request.</param>
+        /// <returns>A list of search results.</returns>
+        public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByTiltAsync(int tilt, CancellationToken cancellationToken = default)
+        {
+            Guard.Argument(tilt, nameof(tilt)).GreaterThan(0);
+
+            return DoFormattedSearchAsync(tilt.ToString("###", CultureInfo.InvariantCulture), "tilt", cancellationToken: cancellationToken);
+        }
+
+        /// <summary>
+        /// Retrieve your favourite systems.
+        /// </summary>
+        /// <param name="cancellationToken">A cancellation token for the request.</param>
+        /// <returns>A list of search results.</returns>
+        public Task<PVOutputArrayResponse<ISystemSearchResult>> GetFavouritesAsync(CancellationToken cancellationToken = default)
+        {
+            return DoFormattedSearchAsync("favourite", null, cancellationToken: cancellationToken);
+        }
+
+        private static string FormatStartsWith(string query, bool useStartsWith)
+        {
+            if (useStartsWith && !query.EndsWith("*", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return $"{query}*";
+            }
+
+            return query;
+        }
+
+        private Task<PVOutputArrayResponse<ISystemSearchResult>> DoFormattedSearchAsync(string queryText, string keyword, PVCoordinate? coordinate = null, CancellationToken cancellationToken = default)
+        {
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                string query = $"{queryText} {keyword}".Trim();
+                return SearchAsync(query, coordinate, cancellationToken);
+            }
+
+            return SearchAsync(queryText, coordinate, cancellationToken);
         }
     }
 }
