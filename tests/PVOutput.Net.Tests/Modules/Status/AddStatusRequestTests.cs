@@ -16,10 +16,15 @@ namespace PVOutput.Net.Tests.Modules.Status
     [TestFixture]
     public class AddStatusRequestTests
     {
+        private AddStatusRequest CreateRequestWithPost(StatusPost status)
+        {
+            return new AddStatusRequest() { StatusPost = status };
+        }
+
         [Test]
         public void Parameter_Timestamp_CreatesCorrectUriParameters()
         {
-            var request = new AddStatusRequest() { StatusPost = new StatusPost() { Timestamp = new DateTime(2020, 2, 1, 13, 12, 20) } };
+            var request= CreateRequestWithPost(new StatusPost() { Timestamp = new DateTime(2020, 2, 1, 13, 12, 20) });
 
             var parameters = request.GetUriPathParameters();
             Assert.AreEqual("20200201", parameters["d"]);
@@ -29,7 +34,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         [Test]
         public void Parameter_EnergyGeneration_CreatesCorrectUriParameters()
         {
-            var request = new AddStatusRequest() { StatusPost = new StatusPost() { EnergyGeneration = 1111 } };
+            var request= CreateRequestWithPost(new StatusPost() { EnergyGeneration = 1111 });
             var parameters = request.GetUriPathParameters();
             Assert.AreEqual(1111, parameters["v1"]);
         }
@@ -37,7 +42,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         [Test]
         public void Parameter_PowerGeneration_CreatesCorrectUriParameters()
         {
-            var request = new AddStatusRequest() { StatusPost = new StatusPost() { PowerGeneration = 2222 } };
+            var request= CreateRequestWithPost(new StatusPost() { PowerGeneration = 2222 });
             var parameters = request.GetUriPathParameters();
             Assert.AreEqual(2222, parameters["v2"]);
         }
@@ -45,7 +50,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         [Test]
         public void Parameter_EnergyConsumption_CreatesCorrectUriParameters()
         {
-            var request = new AddStatusRequest() { StatusPost = new StatusPost() { EnergyConsumption = 3333 } };
+            var request= CreateRequestWithPost(new StatusPost() { EnergyConsumption = 3333 });
             var parameters = request.GetUriPathParameters();
             Assert.AreEqual(3333, parameters["v3"]);
         }
@@ -53,7 +58,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         [Test]
         public void Parameter_PowerConsumption_CreatesCorrectUriParameters()
         {
-            var request = new AddStatusRequest() { StatusPost = new StatusPost() { PowerConsumption= 4444 } };
+            var request= CreateRequestWithPost(new StatusPost() { PowerConsumption = 4444 });
             var parameters = request.GetUriPathParameters();
             Assert.AreEqual(4444, parameters["v4"]);
         }
@@ -61,7 +66,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         [Test]
         public void Parameter_Temperature_CreatesCorrectUriParameters()
         {
-            var request = new AddStatusRequest() { StatusPost = new StatusPost() { Temperature = 18.9m } };
+            var request= CreateRequestWithPost(new StatusPost() { Temperature = 18.9m });
             var parameters = request.GetUriPathParameters();
             Assert.AreEqual("18.9", parameters["v5"]);
         }
@@ -69,7 +74,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         [Test]
         public void Parameter_Voltage_CreatesCorrectUriParameters()
         {
-            var request = new AddStatusRequest() { StatusPost = new StatusPost() { Voltage = 222.3m } };
+            var request= CreateRequestWithPost(new StatusPost() { Voltage = 222.3m });
             var parameters = request.GetUriPathParameters();
             Assert.AreEqual("222.3", parameters["v6"]);
         }
@@ -77,7 +82,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         [Test]
         public void Parameter_Cumulative_CreatesCorrectUriParameters()
         {
-            var request = new AddStatusRequest() { StatusPost = new StatusPost() { Cumulative = Enums.CumulativeStatusType.LifetimeGeneration } };
+            var request= CreateRequestWithPost(new StatusPost() { Cumulative = Enums.CumulativeStatusType.LifetimeGeneration });
             var parameters = request.GetUriPathParameters();
             Assert.AreEqual(2, parameters["c1"]);
         }
@@ -85,7 +90,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         [Test]
         public void Parameter_Net_CreatesCorrectUriParameters()
         {
-            var request = new AddStatusRequest() { StatusPost = new StatusPost() { Net = true } };
+            var request= CreateRequestWithPost(new StatusPost() { Net = true });
             var parameters = request.GetUriPathParameters();
             Assert.AreEqual(1, parameters["n"]);
         }
@@ -93,7 +98,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         [Test]
         public void Parameter_TextMessage_CreatesCorrectUriParameters()
         {
-            var request = new AddStatusRequest() { StatusPost = new StatusPost() { TextMessage = "Text message" } };
+            var request= CreateRequestWithPost(new StatusPost() { TextMessage = "Text message" });
             var parameters = request.GetUriPathParameters();
             Assert.AreEqual("Text message", parameters["m1"]);
         }
@@ -101,17 +106,17 @@ namespace PVOutput.Net.Tests.Modules.Status
         [Test]
         public void Parameter_ExtendedValues_CreatesCorrectUriParameters()
         {
-            var request = new AddStatusRequest() 
-            { 
-                StatusPost = new StatusPost() 
-                { 
+            var request = new AddStatusRequest()
+            {
+                StatusPost = new StatusPost()
+                {
                     ExtendedValue1 = 1,
                     ExtendedValue2 = 2,
                     ExtendedValue3 = 3,
                     ExtendedValue4 = 4,
                     ExtendedValue5 = 5,
                     ExtendedValue6 = 6
-                } 
+                }
             };
             var parameters = request.GetUriPathParameters();
 
@@ -125,7 +130,5 @@ namespace PVOutput.Net.Tests.Modules.Status
                 Assert.AreEqual("6", parameters["v12"]);
             });
         }
-
-        // TODO: Add unit tests for AddBatchStatusRequest and it's FormatStatusPosts() method.
     }
 }
