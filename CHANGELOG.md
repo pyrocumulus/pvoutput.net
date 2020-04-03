@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## Unreleased
 
 - Added default values to parameters of the StatusPostBuilder
+- Added structured search methods to the SearchService [#27](https://github.com/pyrocumulus/pvoutput.net/issues/27)
 
 ## [0.6.0] - 2020-03-28
 
