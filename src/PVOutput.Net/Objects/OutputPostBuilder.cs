@@ -15,7 +15,7 @@ namespace PVOutput.Net.Objects
         /// <summary>
         /// Creates a new builder.
         /// </summary>
-    public OutputPostBuilder()
+        public OutputPostBuilder()
         {
             Reset();
         }

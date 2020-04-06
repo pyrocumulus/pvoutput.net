@@ -307,5 +307,25 @@ namespace PVOutput.Net.Tests.Modules.Output
 
             Assert.AreNotSame(output, builder.OutputPost);
         }
+
+        [Test]
+        public void BatchOutputPostBuilder_WithEnergyUsed_SetsUsed()
+        {
+            var builder = new BatchOutputPostBuilder().SetDate(DateTime.Today)
+                .SetUsed(31132);
+
+            Assert.AreEqual(31132, builder.OutputPost.EnergyUsed);
+        }
+
+        [Test]
+        public void BatchOutputPostBuilder_AfterReset_HasNoStateLeft()
+        {
+            var builder = new BatchOutputPostBuilder().SetDate(DateTime.Today);
+            IBatchOutputPost output = builder.Build();
+
+            builder.Reset();
+
+            Assert.AreNotSame(output, builder.OutputPost);
+        }
     }
 }
