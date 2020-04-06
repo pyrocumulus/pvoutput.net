@@ -9,6 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PVOutput.Net.Tests", "tests
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Project files", "Project files", "{0BCF7233-827B-4A45-8FB8-CDE08CB4B9AE}"
 	ProjectSection(SolutionItems) = preProject
+		CHANGELOG.md = CHANGELOG.md
+		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
+		codecov.yml = codecov.yml
+		CONTRIBUTING.md = CONTRIBUTING.md
+		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
 EndProject
