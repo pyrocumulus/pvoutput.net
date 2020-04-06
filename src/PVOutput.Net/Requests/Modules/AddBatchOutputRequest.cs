@@ -28,13 +28,13 @@ namespace PVOutput.Net.Requests.Modules
 
             foreach (IBatchOutputPost output in Outputs)
             {
-                sb.Append(FormatOutput(output)).Append(';');
+                sb.Append(FormatOutputPost(output)).Append(';');
             }
 
             return sb.ToString();
         }
 
-        private static string FormatOutput(IBatchOutputPost output)
+        internal static string FormatOutputPost(IBatchOutputPost output)
         {
             var sb = new StringBuilder();
             sb.Append(FormatHelper.GetDateAsString(output.OutputDate));
@@ -76,7 +76,7 @@ namespace PVOutput.Net.Requests.Modules
             }
             sb.Append(',');
 
-            if (output.MinimumTemperature != null)
+            if (output.MaximumTemperature != null)
             {
                 sb.Append(FormatHelper.GetValueAsString(output.MaximumTemperature));
             }

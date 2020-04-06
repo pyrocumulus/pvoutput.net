@@ -40,7 +40,7 @@ namespace PVOutput.Net.Requests.Modules
             return sb.ToString();
         }
 
-        private static string FormatStatusPost(IBatchStatusPost status)
+        internal static string FormatStatusPost(IBatchStatusPost status)
         {
             var sb = new StringBuilder();
             sb.Append(FormatHelper.GetDateAsString(status.Timestamp));
