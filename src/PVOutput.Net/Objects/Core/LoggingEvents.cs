@@ -31,6 +31,7 @@ namespace PVOutput.Net.Objects.Core
         public const string Parameter_Search_UseStartsWith = "UseStartsWith";
         public const string Parameter_Search_Value = "SearchValue";
         public const string Parameter_Search_Postcode = "Postcode";
+        public const string Parameter_Search_CountryCode = "CountryCode";
         public const string Parameter_Search_Panel = "Panel";
         public const string Parameter_Search_Inverter = "Inverter";
         public const string Parameter_Search_Kilometers = "Kilometers";

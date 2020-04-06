@@ -127,7 +127,18 @@ namespace PVOutput.Net.Tests.Modules.Search
         [Test]
         public async Task SearchService_SearchByDistanceWithPostcode_CallsCorrectUri()
         {
-            await TestSpecificSearchQuery(s => s.SearchByDistanceAsync(2500, 10), "2500 10km");
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+            testProvider.ExpectUriFromBase(SEARCH_URL)
+                        .WithQueryString(new Dictionary<string, string>
+                            {
+                                { "q", "2500 10km" },
+                                { "country_code", "nl" }
+                            })
+                        .RespondPlainText("");
+
+            var response = await client.Search.SearchByDistanceAsync(2500, 10, "nl");
+            testProvider.VerifyNoOutstandingExpectation();
+            AssertStandardResponse(response);
         }
 
         [Test]
