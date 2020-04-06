@@ -52,15 +52,21 @@ namespace PVOutput.Net.Requests.Modules
             }
             sb.Append(',');
 
+            if (output.EnergyUsed != null)
+            {
+                sb.Append(output.EnergyUsed);
+            }
+            sb.Append(',');
+
+            if (output.PeakPower != null)
+            {
+                sb.Append(output.PeakPower);
+            }
+            sb.Append(',');
+
             if (output.PeakTime != null)
             {
-                sb.Append(FormatHelper.GetDateAsString(output.PeakTime.Value));
-                sb.Append(',');
                 sb.Append(FormatHelper.GetTimeAsString(output.PeakTime.Value));
-            }
-            else
-            {
-                sb.Append(',');
             }
             sb.Append(',');
 
@@ -103,12 +109,6 @@ namespace PVOutput.Net.Requests.Modules
             if (output.ShoulderEnergyImport != null) 
             { 
                 sb.Append(FormatHelper.GetValueAsString(output.ShoulderEnergyImport)); 
-            }
-            sb.Append(',');
-
-            if (output.HighShoulderEnergyImport != null) 
-            { 
-                sb.Append(FormatHelper.GetValueAsString(output.HighShoulderEnergyImport)); 
             }
 
             return sb.ToString();

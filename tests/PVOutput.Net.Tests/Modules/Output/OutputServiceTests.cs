@@ -252,19 +252,19 @@ namespace PVOutput.Net.Tests.Modules.Output
         {
             get
             {
-                yield return new TestCaseData(new OutputPostBuilder<IOutputPost>()
+                yield return new TestCaseData(new OutputPostBuilder()
                     .SetDate(new DateTime(2020, 1, 1)).SetGenerated(11000).SetExported(9000).Build(), "d=20200101&g=11000&e=9000");
 
-                yield return new TestCaseData(new OutputPostBuilder<IOutputPost>()
+                yield return new TestCaseData(new OutputPostBuilder()
                     .SetDate(new DateTime(2020, 1, 1)).SetPeakPower(6500).SetPeakTime(new DateTime(2020, 1, 1, 10, 10, 0)).Build(), "d=20200101&pp=6500&pt=10:10");
 
-                yield return new TestCaseData(new OutputPostBuilder<IOutputPost>()
+                yield return new TestCaseData(new OutputPostBuilder()
                     .SetDate(new DateTime(2020, 1, 1)).SetTemperatures(11.2m, 17.8m).Build(), "d=20200101&tm=11.2&tx=17.8");
 
-                yield return new TestCaseData(new OutputPostBuilder<IOutputPost>()
+                yield return new TestCaseData(new OutputPostBuilder()
                     .SetDate(new DateTime(2020, 1, 1)).SetCondition(WeatherCondition.PartlyCloudy).SetComments("Test").Build(), "d=20200101&cd=Partly%20Cloudy&cm=Test");
 
-                yield return new TestCaseData(new OutputPostBuilder<IOutputPost>()
+                yield return new TestCaseData(new OutputPostBuilder()
                     .SetDate(new DateTime(2020, 1, 1)).SetPeakEnergyImport(1200).SetOffPeakEnergyImport(1300).SetShoulderEnergyImport(1400).SetHighShoulderEnergyImport(1500)
                     .Build(), 
                     "d=20200101&ip=1200&io=1300&is=1400&ih=1500");
@@ -290,10 +290,10 @@ namespace PVOutput.Net.Tests.Modules.Output
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
             testProvider.ExpectUriFromBase(ADDBATCHOUTPUT_URL)
-                        .WithQueryString("data=20200101,11000,9000,,,,,,,,,,;20200101,,,,,Partly Cloudy,,,Test,,,,;")
+                        .WithQueryString("data=20200101,11000,9000,,,,,,,,,,;20200101,,,,,,Partly Cloudy,,,Test,,,;")
                         .RespondPlainText("");
 
-            var builder = new OutputPostBuilder<IBatchOutputPost>();
+            var builder = new BatchOutputPostBuilder();
             var outputs = new List<IBatchOutputPost>();
 
             outputs.Add(builder.SetDate(new DateTime(2020, 1, 1)).SetGenerated(11000).SetExported(9000).BuildAndReset());

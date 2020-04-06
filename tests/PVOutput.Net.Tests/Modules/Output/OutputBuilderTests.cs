@@ -20,9 +20,9 @@ namespace PVOutput.Net.Tests.Modules.Output
         [Test]
         public void OutputPostBuilder_WithDate_SetsDate()
         {
-            var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today);
+            var builder = new OutputPostBuilder().SetDate(DateTime.Today);
 
-            Assert.AreEqual(DateTime.Today, builder._outputPost.OutputDate);
+            Assert.AreEqual(DateTime.Today, builder.OutputPost.OutputDate);
         }
 
         [Test]
@@ -30,17 +30,17 @@ namespace PVOutput.Net.Tests.Modules.Output
         {
             Assert.Throws<ArgumentException>(() => 
             {
-                _ = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today.AddMinutes(10));
+                _ = new OutputPostBuilder().SetDate(DateTime.Today.AddMinutes(10));
             });
         }
 
         [Test]
         public void OutputPostBuilder_WithGeneration_SetsGeneration()
         { 
-            var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today)
+            var builder = new OutputPostBuilder().SetDate(DateTime.Today)
                 .SetGenerated(12121);
 
-            Assert.AreEqual(12121, builder._outputPost.EnergyGenerated);
+            Assert.AreEqual(12121, builder.OutputPost.EnergyGenerated);
         }
 
         [Test]
@@ -48,17 +48,17 @@ namespace PVOutput.Net.Tests.Modules.Output
         {
             Assert.Throws<ArgumentOutOfRangeException>(() =>
             {
-                _ = new OutputPostBuilder<IOutputPost>().SetGenerated(-1);
+                _ = new OutputPostBuilder().SetGenerated(-1);
             });
         }
 
         [Test]
         public void OutputPostBuilder_WithExported_SetsExported()
         {
-            var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today)
+            var builder = new OutputPostBuilder().SetDate(DateTime.Today)
                 .SetExported(12121);
 
-            Assert.AreEqual(12121, builder._outputPost.EnergyExported);
+            Assert.AreEqual(12121, builder.OutputPost.EnergyExported);
         }
 
 
@@ -67,24 +67,24 @@ namespace PVOutput.Net.Tests.Modules.Output
         {
             Assert.Throws<ArgumentOutOfRangeException>(() =>
             {
-                _ = new OutputPostBuilder<IOutputPost>().SetExported(-1);
+                _ = new OutputPostBuilder().SetExported(-1);
             });
         }
 
         [Test]
         public void OutputPostBuilder_WithPeakTime_SetsPeakTime()
         {
-            var builder = new OutputPostBuilder<IOutputPost>().SetDate(new DateTime(2020, 1, 1))
+            var builder = new OutputPostBuilder().SetDate(new DateTime(2020, 1, 1))
                 .SetPeakTime(new DateTime(2020, 1, 1, 10, 10, 0));
 
-            Assert.AreEqual(new DateTime(2020, 1, 1, 10, 10, 0), builder._outputPost.PeakTime.Value);
+            Assert.AreEqual(new DateTime(2020, 1, 1, 10, 10, 0), builder.OutputPost.PeakTime.Value);
         }
 
 
         [Test]
         public void OutputPostBuilder_WithPeakTimeOnOtherDate_CannotBuild()
         {
-            var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today)
+            var builder = new OutputPostBuilder().SetDate(DateTime.Today)
                 .SetPeakTime(new DateTime(2020, 1, 1, 10, 10, 0));
 
             Assert.Throws<InvalidOperationException>(() =>
@@ -96,10 +96,10 @@ namespace PVOutput.Net.Tests.Modules.Output
         [Test]
         public void OutputPostBuilder_WithPeakPower_SetsPeakPower()
         {
-            var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today)
+            var builder = new OutputPostBuilder().SetDate(DateTime.Today)
                 .SetPeakPower(13131);
 
-            Assert.AreEqual(13131, builder._outputPost.PeakPower);
+            Assert.AreEqual(13131, builder.OutputPost.PeakPower);
         }
 
         [Test]
@@ -107,7 +107,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         {
             Assert.Throws<ArgumentOutOfRangeException>(() =>
             {
-                _ = new OutputPostBuilder<IOutputPost>().SetPeakPower(-1);
+                _ = new OutputPostBuilder().SetPeakPower(-1);
             });
         }
 
@@ -115,10 +115,10 @@ namespace PVOutput.Net.Tests.Modules.Output
         public void OutputPostBuilder_WithCondition_SetsCondition()
         {
             const WeatherCondition testCondition = WeatherCondition.PartlyCloudy;
-            var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today)
+            var builder = new OutputPostBuilder().SetDate(DateTime.Today)
                 .SetCondition(testCondition);
 
-            Assert.AreEqual(testCondition, builder._outputPost.Condition);
+            Assert.AreEqual(testCondition, builder.OutputPost.Condition);
         }
 
         [Test]
@@ -127,17 +127,17 @@ namespace PVOutput.Net.Tests.Modules.Output
         [TestCase(new object[] { 15, null })]
         public void OutputPostBuilder_WithTemperatures_SetsCorrectTemperature(decimal? minimum, decimal? maximum)
         {
-            var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today)
+            var builder = new OutputPostBuilder().SetDate(DateTime.Today)
                 .SetTemperatures(minimum, maximum);
 
-            Assert.AreEqual(minimum, builder._outputPost.MinimumTemperature);
-            Assert.AreEqual(maximum, builder._outputPost.MaximumTemperature);
+            Assert.AreEqual(minimum, builder.OutputPost.MinimumTemperature);
+            Assert.AreEqual(maximum, builder.OutputPost.MaximumTemperature);
         }
 
         [Test]
         public void OutputPostBuilder_WithReversedTemperatures_Throws()
         {
-            var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today);
+            var builder = new OutputPostBuilder().SetDate(DateTime.Today);
 
             Assert.Throws<ArgumentOutOfRangeException>(() =>
             {
@@ -148,7 +148,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         [Test]
         public void OutputPostBuilder_WithBothNullTemperatures_Throws()
         {
-            var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today);
+            var builder = new OutputPostBuilder().SetDate(DateTime.Today);
 
             Assert.Throws<ArgumentNullException>(() =>
             {
@@ -160,16 +160,16 @@ namespace PVOutput.Net.Tests.Modules.Output
         public void OutputPostBuilder_WithComment_SetsComment()
         {
             const string testComment = "This is a comment";
-            var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today)
+            var builder = new OutputPostBuilder().SetDate(DateTime.Today)
                 .SetComments(testComment);
 
-            Assert.AreEqual(testComment, builder._outputPost.Comments);
+            Assert.AreEqual(testComment, builder.OutputPost.Comments);
         }
 
         [Test]
         public void OutputPostBuilder_WithEmptyComment_Throws()
         {
-            var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today);
+            var builder = new OutputPostBuilder().SetDate(DateTime.Today);
 
             Assert.Throws<ArgumentException>(() =>
             {
@@ -180,7 +180,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         [Test]
         public void OutputPostBuilder_WithNullComment_Throws()
         {
-            var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today);
+            var builder = new OutputPostBuilder().SetDate(DateTime.Today);
 
             Assert.Throws<ArgumentNullException>(() =>
             {
@@ -191,10 +191,10 @@ namespace PVOutput.Net.Tests.Modules.Output
         [Test]
         public void OutputPostBuilder_WithPeakEnergyImport_SetsPeakEnergyImport()
         {
-            var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today)
+            var builder = new OutputPostBuilder().SetDate(DateTime.Today)
                 .SetPeakEnergyImport(13131);
 
-            Assert.AreEqual(13131, builder._outputPost.PeakEnergyImport);
+            Assert.AreEqual(13131, builder.OutputPost.PeakEnergyImport);
         }
 
         [Test]
@@ -202,17 +202,17 @@ namespace PVOutput.Net.Tests.Modules.Output
         {
             Assert.Throws<ArgumentOutOfRangeException>(() =>
             {
-                _ = new OutputPostBuilder<IOutputPost>().SetPeakEnergyImport(-1);
+                _ = new OutputPostBuilder().SetPeakEnergyImport(-1);
             });
         }
 
         [Test]
         public void OutputPostBuilder_WithOffPeakImport_SetsOffPeakEnergyImport()
         {
-            var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today)
+            var builder = new OutputPostBuilder().SetDate(DateTime.Today)
                 .SetOffPeakEnergyImport(13131);
 
-            Assert.AreEqual(13131, builder._outputPost.OffPeakEnergyImport);
+            Assert.AreEqual(13131, builder.OutputPost.OffPeakEnergyImport);
         }
 
         [Test]
@@ -220,17 +220,17 @@ namespace PVOutput.Net.Tests.Modules.Output
         {
             Assert.Throws<ArgumentOutOfRangeException>(() =>
             {
-                _ = new OutputPostBuilder<IOutputPost>().SetOffPeakEnergyImport(-1);
+                _ = new OutputPostBuilder().SetOffPeakEnergyImport(-1);
             });
         }
 
         [Test]
         public void OutputPostBuilder_WithShoulderEnergyImport_SetShoulderEnergyImport()
         {
-            var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today)
+            var builder = new OutputPostBuilder().SetDate(DateTime.Today)
                 .SetShoulderEnergyImport(13131);
 
-            Assert.AreEqual(13131, builder._outputPost.ShoulderEnergyImport);
+            Assert.AreEqual(13131, builder.OutputPost.ShoulderEnergyImport);
         }
 
         [Test]
@@ -238,17 +238,17 @@ namespace PVOutput.Net.Tests.Modules.Output
         {
             Assert.Throws<ArgumentOutOfRangeException>(() =>
             {
-                _ = new OutputPostBuilder<IOutputPost>().SetShoulderEnergyImport(-1);
+                _ = new OutputPostBuilder().SetShoulderEnergyImport(-1);
             });
         }
 
         [Test]
         public void OutputPostBuilder_WithHighShoulderEnergyImport_SetHighShoulderEnergyImport()
         {
-            var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today)
+            var builder = new OutputPostBuilder().SetDate(DateTime.Today)
                 .SetHighShoulderEnergyImport(13131);
 
-            Assert.AreEqual(13131, builder._outputPost.HighShoulderEnergyImport);
+            Assert.AreEqual(13131, builder.OutputPost.HighShoulderEnergyImport);
         }
 
         [Test]
@@ -256,17 +256,17 @@ namespace PVOutput.Net.Tests.Modules.Output
         {
             Assert.Throws<ArgumentOutOfRangeException>(() =>
             {
-                _ = new OutputPostBuilder<IOutputPost>().SetHighShoulderEnergyImport(-1);
+                _ = new OutputPostBuilder().SetHighShoulderEnergyImport(-1);
             });
         }
 
         [Test]
         public void OutputPostBuilder_WithConsumption_SetConsumption()
         {
-            var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today)
+            var builder = new OutputPostBuilder().SetDate(DateTime.Today)
                 .SetConsumption(25000);
 
-            Assert.AreEqual(25000, builder._outputPost.Consumption);
+            Assert.AreEqual(25000, builder.OutputPost.Consumption);
         }
 
         [Test]
@@ -274,14 +274,14 @@ namespace PVOutput.Net.Tests.Modules.Output
         {
             Assert.Throws<ArgumentOutOfRangeException>(() =>
             {
-                _ = new OutputPostBuilder<IOutputPost>().SetConsumption(-1);
+                _ = new OutputPostBuilder().SetConsumption(-1);
             });
         }
 
         [Test]
         public void OutputPostBuilder_WithoutDate_CannotBuild()
         {
-            var builder = new OutputPostBuilder<IOutputPost>().SetGenerated(10000);
+            var builder = new OutputPostBuilder().SetGenerated(10000);
             Assert.Throws<InvalidOperationException>(() =>
             {
                 builder.Build();
@@ -291,31 +291,21 @@ namespace PVOutput.Net.Tests.Modules.Output
         [Test]
         public void OutputPostBuilder_AfterReset_HasNoStateLeft()
         {
-            var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today);
+            var builder = new OutputPostBuilder().SetDate(DateTime.Today);
             IOutputPost output = builder.Build();
 
             builder.Reset();
 
-            Assert.AreNotSame(output, builder._outputPost);
+            Assert.AreNotSame(output, builder.OutputPost);
         }
 
         [Test]
         public void OutputPostBuilder_AfterBuildAndReset_HasNoStateLeft()
         {
-            var builder = new OutputPostBuilder<IOutputPost>().SetDate(DateTime.Today);
+            var builder = new OutputPostBuilder().SetDate(DateTime.Today);
             IOutputPost output = builder.BuildAndReset();
 
-            Assert.AreNotSame(output, builder._outputPost);
-        }
-
-        [Test]
-        public void BatchOutputPostBuilder_WithConsumption_ThrowsException()
-        {
-            var builder = new OutputPostBuilder<IBatchOutputPost>().SetDate(DateTime.Today);
-            Assert.Throws<InvalidOperationException>(() =>
-            {
-                builder.SetConsumption(1200);
-            });
+            Assert.AreNotSame(output, builder.OutputPost);
         }
     }
 }
