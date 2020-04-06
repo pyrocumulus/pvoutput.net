@@ -55,7 +55,7 @@ namespace PVOutput.Net.Tests.Modules.Search
         [Test]
         public async Task SearchService_SearchByNameStartsWith_CallsCorrectUri()
         {
-            await TestSpecificSearchQuery(s => s.SearchByNameAsync("name", true), "name*");
+            await TestSpecificSearchQuery(s => s.SearchByNameAsync("name", true), "name%2A");
         }
 
         [Test]
@@ -85,7 +85,7 @@ namespace PVOutput.Net.Tests.Modules.Search
         [Test]
         public async Task SearchService_SearchByInverter_CallsCorrectUri()
         {
-            await TestSpecificSearchQuery(s => s.SearchByInverterAsync("fronius"), "fronius* inverter");
+            await TestSpecificSearchQuery(s => s.SearchByInverterAsync("fronius"), "fronius%2A inverter");
         }
 
         [Test]
@@ -109,13 +109,13 @@ namespace PVOutput.Net.Tests.Modules.Search
         [Test]
         public async Task SearchService_SearchByOrientationAndNameStartsWith_CallsCorrectUri()
         {
-            await TestSpecificSearchQuery(s => s.SearchByOrientationAsync(Enums.Orientation.SouthEast, "name", true), "name* +SE");
+            await TestSpecificSearchQuery(s => s.SearchByOrientationAsync(Enums.Orientation.SouthEast, "name", true), "name%2A %2BSE");
         }
 
         [Test]
         public async Task SearchService_SearchByOrientationAndNameContains_CallsCorrectUri()
         {
-            await TestSpecificSearchQuery(s => s.SearchByOrientationAsync(Enums.Orientation.NorthWest, "name", false), "name +NW");
+            await TestSpecificSearchQuery(s => s.SearchByOrientationAsync(Enums.Orientation.NorthWest, "name", false), "name %2BNW");
         }
 
         [Test]

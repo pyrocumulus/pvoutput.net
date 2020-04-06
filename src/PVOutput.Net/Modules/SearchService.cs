@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using Dawn;
 using PVOutput.Net.Enums;
 using PVOutput.Net.Objects;
@@ -45,7 +46,7 @@ namespace PVOutput.Net.Modules
             Guard.Argument(searchQuery, nameof(searchQuery)).NotEmpty().NotNull();
 
             var handler = new RequestHandler(Client);
-            return handler.ExecuteArrayRequestAsync<ISystemSearchResult>(new SearchRequest { SearchQuery = searchQuery, Coordinate = coordinate }, loggingScope, cancellationToken);
+            return handler.ExecuteArrayRequestAsync<ISystemSearchResult>(new SearchRequest { SearchQuery = HttpUtility.UrlEncode(searchQuery), Coordinate = coordinate }, loggingScope, cancellationToken);
         }
 
         /// <summary>
@@ -57,10 +58,17 @@ namespace PVOutput.Net.Modules
         /// <returns>A list of search results.</returns>
         public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByNameAsync(string name, bool useStartsWith = true, CancellationToken cancellationToken = default)
         {
+            var loggingScope = new Dictionary<string, object>()
+            {
+                [LoggingEvents.RequestId] = LoggingEvents.SearchService_SearchByName,
+                [LoggingEvents.Parameter_Search_Name] = name,
+                [LoggingEvents.Parameter_Search_UseStartsWith] = useStartsWith
+            };
+
             Guard.Argument(name, nameof(name)).NotEmpty();
 
             string query = FormatStartsWith(name, useStartsWith);
-            return DoFormattedSearchAsync(query, null, cancellationToken: cancellationToken);
+            return DoStructuredSearch(query, null, loggingScope, cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -71,8 +79,14 @@ namespace PVOutput.Net.Modules
         /// <returns>A list of search results.</returns>
         public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByPostcodeOrSizeAsync(int value, CancellationToken cancellationToken = default)
         {
+            var loggingScope = new Dictionary<string, object>()
+            {
+                [LoggingEvents.RequestId] = LoggingEvents.SearchService_SearchByPostCodeOrSize,
+                [LoggingEvents.Parameter_Search_Value] = value
+            };
+
             Guard.Argument(value, nameof(value)).GreaterThan(0);
-            return DoFormattedSearchAsync(value.ToString("#####", CultureInfo.InvariantCulture), "", cancellationToken: cancellationToken);
+            return DoStructuredSearch(value.ToString("#####", CultureInfo.InvariantCulture), "", loggingScope, cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -83,8 +97,14 @@ namespace PVOutput.Net.Modules
         /// <returns>A list of search results.</returns>
         public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByPostcodeAsync(string postcode, CancellationToken cancellationToken = default)
         {
+            var loggingScope = new Dictionary<string, object>()
+            {
+                [LoggingEvents.RequestId] = LoggingEvents.SearchService_SearchByPostCode,
+                [LoggingEvents.Parameter_Search_Postcode] = postcode
+            };
+
             Guard.Argument(postcode, nameof(postcode)).NotEmpty();
-            return DoFormattedSearchAsync(postcode, "postcode", cancellationToken: cancellationToken);
+            return DoStructuredSearch(postcode, "postcode",  loggingScope, cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -95,10 +115,16 @@ namespace PVOutput.Net.Modules
         /// <returns>A list of search results.</returns>
         public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchBySizeAsync(int value, CancellationToken cancellationToken = default)
         {
+            var loggingScope = new Dictionary<string, object>()
+            {
+                [LoggingEvents.RequestId] = LoggingEvents.SearchService_SearchBySize,
+                [LoggingEvents.Parameter_Search_Value] = value
+            };
+
             Guard.Argument(value, nameof(value)).GreaterThan(0);
 
             string query = value.ToString("#####", CultureInfo.InvariantCulture);
-            return DoFormattedSearchAsync(query, "size", cancellationToken: cancellationToken);
+            return DoStructuredSearch(query, "size", loggingScope, cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -109,8 +135,14 @@ namespace PVOutput.Net.Modules
         /// <returns>A list of search results.</returns>
         public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByPanelAsync(string panel, CancellationToken cancellationToken = default)
         {
+            var loggingScope = new Dictionary<string, object>()
+            {
+                [LoggingEvents.RequestId] = LoggingEvents.SearchService_SearchByPanel,
+                [LoggingEvents.Parameter_Search_Panel] = panel
+            };
+
             Guard.Argument(panel, nameof(panel)).NotEmpty();
-            return DoFormattedSearchAsync(panel, "panel", cancellationToken: cancellationToken);
+            return DoStructuredSearch(panel, "panel", loggingScope, cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -122,9 +154,15 @@ namespace PVOutput.Net.Modules
         /// <returns>A list of search results.</returns>
         public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByInverterAsync(string inverter, bool useStartsWith = true, CancellationToken cancellationToken = default)
         {
+            var loggingScope = new Dictionary<string, object>()
+            {
+                [LoggingEvents.RequestId] = LoggingEvents.SearchService_SearchByInverter,
+                [LoggingEvents.Parameter_Search_Inverter] = inverter
+            };
+
             Guard.Argument(inverter, nameof(inverter)).NotEmpty();
             var query = FormatStartsWith(inverter, useStartsWith);
-            return DoFormattedSearchAsync(query, "inverter", cancellationToken: cancellationToken);
+            return DoStructuredSearch(query, "inverter", loggingScope, cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -136,11 +174,18 @@ namespace PVOutput.Net.Modules
         /// <returns>A list of search results.</returns>
         public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByDistanceAsync(int postcode, int kilometers, CancellationToken cancellationToken = default)
         {
+            var loggingScope = new Dictionary<string, object>()
+            {
+                [LoggingEvents.RequestId] = LoggingEvents.SearchService_SearchByDistance,
+                [LoggingEvents.Parameter_Search_Postcode] = postcode,
+                [LoggingEvents.Parameter_Search_Kilometers] = kilometers
+            };
+
             Guard.Argument(postcode, nameof(postcode)).GreaterThan(0);
             Guard.Argument(kilometers, nameof(kilometers)).InRange(1, 25);
 
             string query = $"{postcode:####} {kilometers:##}km";
-            return DoFormattedSearchAsync(query, null, cancellationToken: cancellationToken);
+            return DoStructuredSearch(query, null, loggingScope, cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -152,10 +197,17 @@ namespace PVOutput.Net.Modules
         /// <returns>A list of search results.</returns>
         public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByDistanceAsync(PVCoordinate coordinate, int kilometers, CancellationToken cancellationToken = default)
         {
+            var loggingScope = new Dictionary<string, object>()
+            {
+                [LoggingEvents.RequestId] = LoggingEvents.SearchService_SearchByDistance,
+                [LoggingEvents.Parameter_Search_Kilometers] = kilometers,
+                [LoggingEvents.Parameter_Coordinate] = coordinate
+            };
+
             Guard.Argument(kilometers, nameof(kilometers)).InRange(1, 25);
 
             string query = $"{kilometers:##}km";
-            return DoFormattedSearchAsync(query, null, coordinate, cancellationToken);
+            return DoStructuredSearch(query, null, loggingScope, coordinate, cancellationToken);
         }
 
         /// <summary>
@@ -166,8 +218,14 @@ namespace PVOutput.Net.Modules
         /// <returns>A list of search results.</returns>
         public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByTeamAsync(string teamName,  CancellationToken cancellationToken = default)
         {
+            var loggingScope = new Dictionary<string, object>()
+            {
+                [LoggingEvents.RequestId] = LoggingEvents.SearchService_SearchByTeam,
+                [LoggingEvents.Parameter_Search_TeamName] = teamName
+            };
+
             Guard.Argument(teamName, nameof(teamName)).NotEmpty();
-            return DoFormattedSearchAsync(teamName, "team", cancellationToken: cancellationToken);
+            return DoStructuredSearch(teamName, "team", loggingScope, cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -180,15 +238,23 @@ namespace PVOutput.Net.Modules
         /// <returns>A list of search results.</returns>
         public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByOrientationAsync(Orientation orientation, string name = null, bool useStartsWith = true, CancellationToken cancellationToken = default)
         {
+            var loggingScope = new Dictionary<string, object>()
+            {
+                [LoggingEvents.RequestId] = LoggingEvents.SearchService_SearchByOrientation,
+                [LoggingEvents.Parameter_Search_Orientation] = orientation,
+                [LoggingEvents.Parameter_Search_Name] = name,
+                [LoggingEvents.Parameter_Search_UseStartsWith] = useStartsWith
+            };
+
             string query = "";
             if (name != null)
             {
                 query = FormatStartsWith(name, useStartsWith);
             }
 
-            query += $" +{FormatHelper.GetEnumerationDescription(orientation)}";
+            query += $" %2B{FormatHelper.GetEnumerationDescription(orientation)}";
 
-            return DoFormattedSearchAsync(query, null, cancellationToken: cancellationToken);
+            return DoStructuredSearch(query, null, loggingScope, cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -199,9 +265,15 @@ namespace PVOutput.Net.Modules
         /// <returns>A list of search results.</returns>
         public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByTiltAsync(int tilt, CancellationToken cancellationToken = default)
         {
+            var loggingScope = new Dictionary<string, object>()
+            {
+                [LoggingEvents.RequestId] = LoggingEvents.SearchService_SearchByTilt,
+                [LoggingEvents.Parameter_Search_Tilt] = tilt
+            };
+
             Guard.Argument(tilt, nameof(tilt)).GreaterThan(0);
 
-            return DoFormattedSearchAsync(tilt.ToString("###", CultureInfo.InvariantCulture), "tilt", cancellationToken: cancellationToken);
+            return DoStructuredSearch(tilt.ToString("###", CultureInfo.InvariantCulture), "tilt", loggingScope, cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -211,28 +283,36 @@ namespace PVOutput.Net.Modules
         /// <returns>A list of search results.</returns>
         public Task<PVOutputArrayResponse<ISystemSearchResult>> GetFavouritesAsync(CancellationToken cancellationToken = default)
         {
-            return DoFormattedSearchAsync("favourite", null, cancellationToken: cancellationToken);
+            var loggingScope = new Dictionary<string, object>()
+            {
+                [LoggingEvents.RequestId] = LoggingEvents.SearchService_GetFavourites
+            };
+
+            return DoStructuredSearch("favourite", null, loggingScope, cancellationToken: cancellationToken);
         }
 
         private static string FormatStartsWith(string query, bool useStartsWith)
         {
             if (useStartsWith && !query.EndsWith("*", StringComparison.InvariantCultureIgnoreCase))
             {
-                return $"{query}*";
+                return $"{query}%2A";
             }
 
-            return query;
+            return query.Replace("*", "%2A");
         }
 
-        private Task<PVOutputArrayResponse<ISystemSearchResult>> DoFormattedSearchAsync(string queryText, string keyword, PVCoordinate? coordinate = null, CancellationToken cancellationToken = default)
+        private Task<PVOutputArrayResponse<ISystemSearchResult>> DoStructuredSearch(string queryText, string keyword, Dictionary<string, object> loggingScope, 
+            PVCoordinate? coordinate = null, CancellationToken cancellationToken = default)
         {
+            var handler = new RequestHandler(Client);
+
+            string searchQuery = queryText;
             if (!string.IsNullOrEmpty(keyword))
             {
-                string query = $"{queryText} {keyword}".Trim();
-                return SearchAsync(query, coordinate, cancellationToken);
+                searchQuery = $"{queryText} {keyword}".Trim();
             }
 
-            return SearchAsync(queryText, coordinate, cancellationToken);
+            return handler.ExecuteArrayRequestAsync<ISystemSearchResult>(new SearchRequest { SearchQuery = searchQuery, Coordinate = coordinate }, loggingScope, cancellationToken);
         }
     }
 }
