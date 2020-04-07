@@ -26,7 +26,7 @@ namespace PVOutput.Net.Objects
         /// <summary>
         /// Time the peak power was recorded on the day.
         /// </summary>
-        DateTime PeakTime { get; set; }
+        TimeSpan PeakTime { get; set; }
 
         /// <summary>
         /// Total energy consumed for the day.
@@ -46,7 +46,7 @@ namespace PVOutput.Net.Objects
         /// <summary>
         /// Time the standby power was measured.
         /// </summary>
-        DateTime? StandbyPowerTime { get; set; }
+        TimeSpan? StandbyPowerTime { get; set; }
 
         /// <summary>
         /// Minimum temperature recorded on the day.

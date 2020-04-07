@@ -57,9 +57,21 @@ namespace PVOutput.Net.Builders
         /// <summary>
         /// Sets the time at which peak power was recorded.
         /// </summary>
-        /// <param name="peakTime">Peak time.</param>
+        /// <param name="hours">Hour-component of the peak time.</param>
+        /// <param name="minutes">Minute-component of the peak time.</param>
         /// <returns>The builder.</returns>
-        public TBuilderType SetPeakTime(DateTime peakTime)
+        public TBuilderType SetPeakTime(int hours, int minutes)
+        {
+            OutputPost.PeakTime = new TimeSpan(hours, minutes, 0);
+            return this as TBuilderType;
+        }
+
+        /// <summary>
+        /// Sets the time at which peak power was recorded.
+        /// </summary>
+        /// <param name="peakTime">The peak time.</param>
+        /// <returns>The builder.</returns>
+        public TBuilderType SetPeakTime(TimeSpan peakTime)
         {
             OutputPost.PeakTime = peakTime;
             return this as TBuilderType;
@@ -197,11 +209,6 @@ namespace PVOutput.Net.Builders
             if (OutputPost.OutputDate == DateTime.MinValue)
             {
                 throw new InvalidOperationException("Output has no date");
-            }
-
-            if (OutputPost.PeakTime.HasValue && !OutputPost.OutputDate.Date.Equals(OutputPost.PeakTime.Value.Date))
-            {
-                throw new InvalidOperationException($"Peaktime registered on different date ({OutputPost.PeakTime.Value.ToShortDateString()}) than output itself ({OutputPost.OutputDate.ToShortDateString()})");
             }
         }
     }

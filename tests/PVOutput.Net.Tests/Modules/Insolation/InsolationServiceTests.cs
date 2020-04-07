@@ -44,11 +44,11 @@ namespace PVOutput.Net.Tests.Modules.Insolation
             {
                 Assert.AreEqual(0, firstInsolation.Energy);
                 Assert.AreEqual(0, firstInsolation.Power);
-                Assert.AreEqual(DateTime.Today.Add(new TimeSpan(6, 0, 0)), firstInsolation.Time);
+                Assert.AreEqual(new TimeSpan(6, 0, 0), firstInsolation.Time);
 
                 Assert.AreEqual(30, lastInsolation.Energy);
                 Assert.AreEqual(123, lastInsolation.Power);
-                Assert.AreEqual(DateTime.Today.Add(new TimeSpan(6, 35, 0)), lastInsolation.Time);
+                Assert.AreEqual(new TimeSpan(6, 35, 0), lastInsolation.Time);
             });
         }
     }

@@ -56,7 +56,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         [Test]
         public void Parameter_PeakTime_CreatesCorrectUriParameters()
         {
-            var request = new AddOutputRequest() { Output = new OutputPost() { PeakTime = new DateTime (2020, 3, 1, 10, 30, 12) } };
+            var request = new AddOutputRequest() { Output = new OutputPost() { PeakTime = new TimeSpan(10, 30, 12) } };
 
             var parameters = request.GetUriPathParameters();
             Assert.AreEqual("10:30", parameters["pt"]);

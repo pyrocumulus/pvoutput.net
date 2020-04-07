@@ -55,8 +55,11 @@ namespace PVOutput.Net.Tests.Modules.Status
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
 
-            Assert.AreEqual(new DateTime(2020, 1, 31, 14, 40, 0), response.Value.PeakTime);
-            Assert.AreEqual(new DateTime(2020, 1, 31, 15, 5, 0), response.Value.StandbyPowerTime);
+            Assert.Multiple(() =>
+            {
+                Assert.AreEqual(new TimeSpan(14, 40, 0), response.Value.PeakTime);
+                Assert.AreEqual(new TimeSpan(15, 5, 0), response.Value.StandbyPowerTime);
+            });
         }
 
         [Test]
@@ -254,7 +257,7 @@ namespace PVOutput.Net.Tests.Modules.Status
                 Assert.AreEqual(334, result.EnergyGeneration);
                 Assert.AreEqual(1, result.PowerGeneration);
                 Assert.AreEqual(191, result.PeakPower);
-                Assert.AreEqual(DateTime.Today.AddHours(11), result.PeakTime);
+                Assert.AreEqual(new TimeSpan(11, 0, 0), result.PeakTime);
             });
         }
 
@@ -268,12 +271,12 @@ namespace PVOutput.Net.Tests.Modules.Status
                 Assert.AreEqual(334, result.EnergyGeneration);
                 Assert.AreEqual(2, result.PowerGeneration);
                 Assert.AreEqual(82, result.PeakPower);
-                Assert.AreEqual(DateTime.Today.AddHours(14).AddMinutes(40), result.PeakTime);
+                Assert.AreEqual(new TimeSpan(14, 40, 0), result.PeakTime);
 
                 Assert.AreEqual(5811, result.EnergyConsumption);
                 Assert.AreEqual(417, result.PowerConsumption);
                 Assert.AreEqual(255, result.StandbyPower);
-                Assert.AreEqual(DateTime.Today.AddHours(15).AddMinutes(5), result.StandbyPowerTime);
+                Assert.AreEqual(new TimeSpan(15, 5, 0), result.StandbyPowerTime);
             });
         }
 
@@ -287,12 +290,12 @@ namespace PVOutput.Net.Tests.Modules.Status
                 Assert.AreEqual(35302, result.EnergyGeneration);
                 Assert.AreEqual(3, result.PowerGeneration);
                 Assert.AreEqual(5369, result.PeakPower);
-                Assert.AreEqual(DateTime.Today.AddHours(12).AddMinutes(45), result.PeakTime);
+                Assert.AreEqual(new TimeSpan(12, 45, 0), result.PeakTime);
 
                 Assert.AreEqual(31476, result.EnergyConsumption);
                 Assert.AreEqual(606, result.PowerConsumption);
                 Assert.AreEqual(495, result.StandbyPower);
-                Assert.AreEqual(DateTime.Today.AddHours(9).AddMinutes(35), result.StandbyPowerTime);
+                Assert.AreEqual(new TimeSpan(9, 35, 0), result.StandbyPowerTime);
 
                 Assert.AreEqual(18.1d, result.MinimumTemperature);
                 Assert.AreEqual(26.6d, result.MaximumTemperature);

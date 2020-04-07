@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Breaking - renamed multiple operations on the new `OutputPostBuilders` to accurately map to the corresponding property on IOutputPost etc. [#29](https://github.com/pyrocumulus/pvoutput.net/issues/29)
 - Added structured search methods to the SearchService [#27](https://github.com/pyrocumulus/pvoutput.net/issues/27)
 - Fixed a bug with the SearchService not properly encoding the query text [#27](https://github.com/pyrocumulus/pvoutput.net/issues/27)
+- Breaking - all properties respresenting a time are now respresented as `TimeSpan` objects instead of `DateTime`. [PRHERE]
 
 
 ## [0.6.0] - 2020-03-28

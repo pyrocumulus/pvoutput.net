@@ -31,7 +31,7 @@ namespace PVOutput.Net.Objects
         /// <summary>
         /// Time the peak power was recorded on the output date.
         /// </summary>
-        DateTime? PeakTime { get; set; }
+        TimeSpan? PeakTime { get; set; }
 
         /// <summary>
         /// Solar conditions on the output date.

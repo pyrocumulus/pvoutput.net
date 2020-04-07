@@ -95,22 +95,7 @@ namespace PVOutput.Net.Modules
             Guard.Argument(toDateTime, nameof(toDateTime)).GreaterThan(fromDateTime).IsNoFutureDate();
 
             var handler = new RequestHandler(Client);
-            var response = handler.ExecuteSingleItemRequestAsync<IDayStatistics>(new GetDayStatisticsRequest { Date = fromDateTime.Date, From = fromDateTime, To = toDateTime, SystemId = systemId }, loggingScope, cancellationToken);
-
-            return response.ContinueWith(antecedent => AddRequestedDate(antecedent, fromDateTime.Date), cancellationToken, TaskContinuationOptions.OnlyOnRanToCompletion, TaskScheduler.Default);
-        }
-
-        private static PVOutputResponse<IDayStatistics> AddRequestedDate(Task<PVOutputResponse<IDayStatistics>> response, DateTime requestedDate)
-        {
-            IDayStatistics statistics = response.Result.Value;
-            statistics.PeakTime = requestedDate.Add(statistics.PeakTime.TimeOfDay);
-
-            if (statistics.StandbyPowerTime != null)
-            {
-                statistics.StandbyPowerTime = requestedDate.Add(statistics.StandbyPowerTime.Value.TimeOfDay);
-            }
-
-            return response.Result;
+            return handler.ExecuteSingleItemRequestAsync<IDayStatistics>(new GetDayStatisticsRequest { Date = fromDateTime.Date, From = fromDateTime, To = toDateTime, SystemId = systemId }, loggingScope, cancellationToken);
         }
 
         /// <summary>
