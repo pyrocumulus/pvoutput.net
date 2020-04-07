@@ -8,6 +8,8 @@ using PVOutput.Net.Objects.Factories;
 using PVOutput.Net.Objects;
 using PVOutput.Net.Tests.Utils;
 using RichardSzalay.MockHttp;
+using PVOutput.Net.Builders;
+using System.Collections;
 
 namespace PVOutput.Net.Tests.Modules.Status
 {
@@ -142,6 +144,21 @@ namespace PVOutput.Net.Tests.Modules.Status
         }
 
         [Test]
+        public async Task StatusService_AddStatus_CallsCorrectUri()
+        {
+            var status = new StatusPostBuilder<IStatusPost>().SetTimeStamp(new DateTime(2020, 1, 1, 12, 22, 0))
+                    .SetGeneration(11000).SetConsumption(9000).Build();
+
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+            testProvider.ExpectUriFromBase(ADDSTATUS_URL)
+                        .WithQueryString("d=20200101&t=12:22&v1=11000&v3=9000&n=0")
+                        .RespondPlainText("");
+
+            await client.Status.AddStatusAsync(status);
+            testProvider.VerifyNoOutstandingExpectation();
+        }
+
+        [Test]
         public void StatusService_AddBatchStatus_WithNullStatuses_Throws()
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
@@ -163,6 +180,20 @@ namespace PVOutput.Net.Tests.Modules.Status
             });
         }
 
+        [Test]
+        public async Task StatusService_AddBatchStatus_CallsCorrectUri()
+        {
+            var batchStatus = new StatusPostBuilder<IBatchStatusPost>().SetTimeStamp(new DateTime(2020, 1, 1, 12, 22, 0))
+                    .SetGeneration(11000).SetConsumption(9000).Build();
+
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+            testProvider.ExpectUriFromBase(ADDBATCHSTATUS_URL)
+                        .WithQueryString("n=0&data=20200101,12:22,11000,,9000,,,,,,,,,;")
+                        .RespondPlainText("");
+
+            await client.Status.AddBatchStatusAsync(new[] { batchStatus });
+            testProvider.VerifyNoOutstandingExpectation();
+        }
 
         /*
          * Deserialisation tests below
