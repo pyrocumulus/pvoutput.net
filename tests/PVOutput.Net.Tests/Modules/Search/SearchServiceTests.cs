@@ -149,7 +149,7 @@ namespace PVOutput.Net.Tests.Modules.Search
                         .WithQueryString(new Dictionary<string, string>
                             {
                                 { "q", "11km" },
-                                { "ll", "85.32252,31.40098" }
+                                { "ll", "85.322520,31.400980" }
                             })
                         .RespondPlainText("");
 

@@ -21,19 +21,9 @@ namespace PVOutput.Net.Requests.Modules
         public override IDictionary<string, object> GetUriPathParameters() => new Dictionary<string, object>
         {
             ["q"] = SearchQuery,
-            ["ll"] = GetFormatLocation(),
+            ["ll"] = Coordinate?.ToString(),
             ["country_code"] = CountryCode,
             ["country"] = 1
         };
-
-        private string GetFormatLocation()
-        {
-            if (Coordinate == null)
-            {
-                return null;
-            }
-
-            return string.Format(CultureInfo.CreateSpecificCulture("en-US"), "{0:N5},{1:N5}", Coordinate?.Latitude, Coordinate?.Longitude);
-        }
     }
 }

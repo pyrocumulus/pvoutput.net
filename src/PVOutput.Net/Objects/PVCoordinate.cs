@@ -37,7 +37,7 @@ namespace PVOutput.Net.Objects
         /// <returns>Coordinate string.</returns>
         public override string ToString()
         {
-            return string.Format(CultureInfo.CurrentCulture, "{0},{1}", Latitude, Longitude);
+            return string.Format(CultureInfo.CreateSpecificCulture("en-US"), "{0:N6},{1:N6}", Latitude, Longitude);
         }
 
         /// <summary>

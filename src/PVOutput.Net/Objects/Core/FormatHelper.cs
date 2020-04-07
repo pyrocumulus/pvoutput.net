@@ -37,19 +37,6 @@ namespace PVOutput.Net.Objects.Core
             return date.ToString("yyyyMMdd", CultureInfo.InvariantCulture);
         }
 
-        internal static string GetLocationAsString(double? latitude, double? longitude)
-        {
-            if (latitude == null || longitude == null)
-            {
-                return null;
-            }
-
-            var lat = latitude.Value.ToString("##.####", CultureInfo.CreateSpecificCulture("en-US"));
-            var lon = longitude.Value.ToString("##.####", CultureInfo.CreateSpecificCulture("en-US"));
-
-            return $"{lat},{lon}";
-        }
-
         internal static string GetTimeAsString(DateTime date)
         {
             return date.ToString("HH:mm", CultureInfo.InvariantCulture.DateTimeFormat);

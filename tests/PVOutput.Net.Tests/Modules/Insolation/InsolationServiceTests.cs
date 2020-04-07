@@ -48,10 +48,10 @@ namespace PVOutput.Net.Tests.Modules.Insolation
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
             testProvider.ExpectUriFromBase(GETINSOLATION_URL)
-                        .WithQueryString("ll=52.1,40.3")
+                        .WithQueryString("ll=-84.623970,42.728821")
                         .RespondPlainText(INSOLATION_RESPONSE_BASIC);
 
-            var response = await client.Insolation.GetInsolationForLocationAsync(new PVCoordinate(52.1f, 40.3f));
+            var response = await client.Insolation.GetInsolationForLocationAsync(new PVCoordinate(-84.62397f, 42.72882f));
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
         }
