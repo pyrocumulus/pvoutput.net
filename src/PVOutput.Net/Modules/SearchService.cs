@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using Dawn;
 using PVOutput.Net.Enums;
 using PVOutput.Net.Objects;
@@ -46,7 +45,7 @@ namespace PVOutput.Net.Modules
             Guard.Argument(searchQuery, nameof(searchQuery)).NotEmpty().NotNull();
 
             var handler = new RequestHandler(Client);
-            return handler.ExecuteArrayRequestAsync<ISystemSearchResult>(new SearchRequest { SearchQuery = HttpUtility.UrlEncode(searchQuery), Coordinate = coordinate }, loggingScope, cancellationToken);
+            return handler.ExecuteArrayRequestAsync<ISystemSearchResult>(new SearchRequest { SearchQuery = FormatHelper.UrlEncode(searchQuery), Coordinate = coordinate }, loggingScope, cancellationToken);
         }
 
         /// <summary>
@@ -111,7 +110,7 @@ namespace PVOutput.Net.Modules
             Guard.Argument(postcode, nameof(postcode)).NotEmpty();
 
             var handler = new RequestHandler(Client);
-            var searchQuery = CreateQueryWithKeyword(postcode, "postcode");
+            var searchQuery = CreateQueryWithKeyword(FormatHelper.UrlEncode(postcode), "postcode");
             return handler.ExecuteArrayRequestAsync<ISystemSearchResult>(new SearchRequest { SearchQuery = searchQuery }, loggingScope, cancellationToken);
         }
 
@@ -155,7 +154,7 @@ namespace PVOutput.Net.Modules
             Guard.Argument(panel, nameof(panel)).NotEmpty();
 
             var handler = new RequestHandler(Client);
-            var searchQuery = CreateQueryWithKeyword(panel, "panel");
+            var searchQuery = CreateQueryWithKeyword(FormatHelper.UrlEncode(panel), "panel");
             return handler.ExecuteArrayRequestAsync<ISystemSearchResult>(new SearchRequest { SearchQuery = searchQuery }, loggingScope, cancellationToken);
         }
 
@@ -175,7 +174,7 @@ namespace PVOutput.Net.Modules
             };
 
             Guard.Argument(inverter, nameof(inverter)).NotEmpty();
-            var query = FormatStartsWith(inverter, useStartsWith);
+            var query = FormatStartsWith(FormatHelper.UrlEncode(inverter), useStartsWith);
 
             var handler = new RequestHandler(Client);
             var searchQuery = CreateQueryWithKeyword(query, "inverter");
@@ -202,6 +201,7 @@ namespace PVOutput.Net.Modules
 
             Guard.Argument(postcode, nameof(postcode)).GreaterThan(0);
             Guard.Argument(kilometers, nameof(kilometers)).InRange(1, 25);
+            Guard.Argument(countryCode, nameof(countryCode)).NotEmpty().Length(2);
 
             string query = $"{postcode:####} {kilometers:##}km";
             
@@ -239,7 +239,7 @@ namespace PVOutput.Net.Modules
         /// <param name="teamName">Team name to search for.</param>
         /// <param name="cancellationToken">A cancellation token for the request.</param>
         /// <returns>A list of search results.</returns>
-        public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByTeamAsync(string teamName,  CancellationToken cancellationToken = default)
+        public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByTeamAsync(string teamName, CancellationToken cancellationToken = default)
         {
             var loggingScope = new Dictionary<string, object>()
             {
@@ -250,7 +250,7 @@ namespace PVOutput.Net.Modules
             Guard.Argument(teamName, nameof(teamName)).NotEmpty();
 
             var handler = new RequestHandler(Client);
-            var searchQuery = CreateQueryWithKeyword(teamName, "team");
+            var searchQuery = CreateQueryWithKeyword(FormatHelper.UrlEncode(teamName), "team");
             return handler.ExecuteArrayRequestAsync<ISystemSearchResult>(new SearchRequest { SearchQuery = searchQuery }, loggingScope, cancellationToken);
         }
 
@@ -325,7 +325,7 @@ namespace PVOutput.Net.Modules
 
         private static string FormatStartsWith(string query, bool useStartsWith)
         {
-            if (useStartsWith && !query.EndsWith("*", StringComparison.InvariantCultureIgnoreCase))
+            if (useStartsWith && !query.EndsWith("%2A", StringComparison.InvariantCultureIgnoreCase))
             {
                 return $"{query}%2A";
             }
