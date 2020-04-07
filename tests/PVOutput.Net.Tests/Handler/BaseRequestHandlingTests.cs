@@ -28,8 +28,9 @@ namespace PVOutput.Net.Tests.Handler
                         })
                         .RespondPlainText("");
 
-            _ = await client.System.GetOwnSystemAsync();
+            var response = await client.System.GetOwnSystemAsync();
             testProvider.VerifyNoOutstandingExpectation();
+            Assert.IsTrue(response.ToBoolean());
         }
 
         [Test]
@@ -66,6 +67,7 @@ namespace PVOutput.Net.Tests.Handler
 
             var response = await client.System.GetOwnSystemAsync();
 
+            Assert.IsFalse(response);
             Assert.AreEqual(responseContent, response.Error.Message);
             Assert.AreEqual(statusCode, response.Error.StatusCode);
 

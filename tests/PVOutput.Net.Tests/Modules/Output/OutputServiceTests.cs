@@ -257,7 +257,7 @@ namespace PVOutput.Net.Tests.Modules.Output
                     .SetDate(new DateTime(2020, 1, 1)).SetEnergyGenerated(11000).SetEnergyExported(9000).Build(), "d=20200101&g=11000&e=9000");
 
                 yield return new TestCaseData(new OutputPostBuilder()
-                    .SetDate(new DateTime(2020, 1, 1)).SetPeakPower(6500).SetPeakTime(new DateTime(2020, 1, 1, 10, 10, 0)).Build(), "d=20200101&pp=6500&pt=10:10");
+                    .SetDate(new DateTime(2020, 1, 1)).SetPeakPower(6500).SetPeakTime(new TimeSpan(10, 10, 0)).Build(), "d=20200101&pp=6500&pt=10:10");
 
                 yield return new TestCaseData(new OutputPostBuilder()
                     .SetDate(new DateTime(2020, 1, 1)).SetTemperatures(11.2m, 17.8m).Build(), "d=20200101&tm=11.2&tx=17.8");
@@ -347,7 +347,7 @@ namespace PVOutput.Net.Tests.Modules.Output
                 Assert.AreEqual(12719, result.EnergyExported);
                 Assert.AreEqual(8500, result.EnergyUsed);
                 Assert.AreEqual(3422, result.PeakPower);
-                Assert.AreEqual(new DateTime(2018, 9, 1, 12, 0, 0), result.PeakTime);
+                Assert.AreEqual(new TimeSpan(12, 0, 0), result.PeakTime);
                 Assert.AreEqual(WeatherCondition.Fine, result.Condition);
                 Assert.AreEqual(7, result.MinimumTemperature);
                 Assert.AreEqual(23, result.MaximumTemperature);
@@ -390,7 +390,7 @@ namespace PVOutput.Net.Tests.Modules.Output
                 Assert.AreEqual(12719, result.EnergyExported);
                 Assert.AreEqual(8500, result.EnergyUsed);
                 Assert.AreEqual(3422, result.PeakPower);
-                Assert.AreEqual(new DateTime(2018, 9, 1, 12, 0, 0), result.PeakTime);
+                Assert.AreEqual(new TimeSpan(12, 0, 0), result.PeakTime);
                 Assert.AreEqual(WeatherCondition.Fine, result.Condition);
                 Assert.AreEqual(7, result.MinimumTemperature);
                 Assert.AreEqual(23, result.MaximumTemperature);

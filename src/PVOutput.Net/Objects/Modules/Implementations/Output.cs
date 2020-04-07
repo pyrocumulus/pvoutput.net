@@ -11,7 +11,7 @@ namespace PVOutput.Net.Objects.Modules.Implementations
         public int EnergyExported { get; set; }
         public int EnergyUsed { get; set; }
         public int? PeakPower { get; set; }
-        public DateTime? PeakTime { get; set; }
+        public TimeSpan? PeakTime { get; set; }
         public WeatherCondition Condition { get; set; }
         public int? MinimumTemperature { get; set; }
         public int? MaximumTemperature { get; set; }

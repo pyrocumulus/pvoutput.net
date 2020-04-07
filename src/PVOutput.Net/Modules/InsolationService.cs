@@ -40,11 +40,6 @@ namespace PVOutput.Net.Modules
 
             var handler = new RequestHandler(Client);
             var response = handler.ExecuteArrayRequestAsync<IInsolation>(new InsolationRequest { Date = date }, loggingScope, cancellationToken);
-
-            if (date.HasValue)
-            {
-                return response.ContinueWith(antecedent => AddRequestedDate(antecedent, date.Value), cancellationToken, TaskContinuationOptions.OnlyOnRanToCompletion, TaskScheduler.Default);
-            }
             return response;
         }
 
@@ -67,11 +62,6 @@ namespace PVOutput.Net.Modules
 
             var handler = new RequestHandler(Client);
             var response = handler.ExecuteArrayRequestAsync<IInsolation>(new InsolationRequest { SystemId = systemId, Date = date }, loggingScope, cancellationToken);
-
-            if (date.HasValue)
-            {
-                return response.ContinueWith(antecedent => AddRequestedDate(antecedent, date.Value), cancellationToken, TaskContinuationOptions.OnlyOnRanToCompletion, TaskScheduler.Default);
-            }
             return response;
         }
 
@@ -94,21 +84,7 @@ namespace PVOutput.Net.Modules
 
             var handler = new RequestHandler(Client);
             var response = handler.ExecuteArrayRequestAsync<IInsolation>(new InsolationRequest { Coordinate = coordinate, Date = date }, loggingScope, cancellationToken);
-
-            if (date.HasValue)
-            {
-                return response.ContinueWith(antecedent => AddRequestedDate(antecedent, date.Value), cancellationToken, TaskContinuationOptions.OnlyOnRanToCompletion, TaskScheduler.Default);
-            }
             return response;
-        }
-
-        private static PVOutputArrayResponse<IInsolation> AddRequestedDate(Task<PVOutputArrayResponse<IInsolation>> response, DateTime requestedDate)
-        {
-            foreach (var insolation in response.Result.Values)
-            {
-                insolation.Time = requestedDate.Add(insolation.Time.TimeOfDay);
-            }
-            return response.Result;
         }
     }
 }

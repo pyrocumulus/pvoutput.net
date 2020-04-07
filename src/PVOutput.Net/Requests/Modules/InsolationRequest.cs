@@ -20,7 +20,7 @@ namespace PVOutput.Net.Requests.Modules
         public override IDictionary<string, object> GetUriPathParameters() => new Dictionary<string, object>
         {
             ["d"] = Date != null ? FormatHelper.GetDateAsString(Date.Value) : null,
-            ["ll"] = Coordinate != null ? FormatHelper.GetLocationAsString(Coordinate?.Latitude, Coordinate?.Longitude) : null,
+            ["ll"] = Coordinate?.ToString(),
             ["sid1"] = SystemId
         };
     }

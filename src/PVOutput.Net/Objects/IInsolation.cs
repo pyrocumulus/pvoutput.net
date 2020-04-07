@@ -12,7 +12,7 @@ namespace PVOutput.Net.Objects
         /// <summary>
         /// Time of day of the insolation value.
         /// </summary>
-        DateTime Time { get; set; }
+        TimeSpan Time { get; set; }
 
         /// <summary>
         /// Expected power at the time of day.

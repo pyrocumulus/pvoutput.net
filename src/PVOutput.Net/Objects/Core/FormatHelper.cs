@@ -27,9 +27,9 @@ namespace PVOutput.Net.Objects.Core
             return ParseDate(dateString);
         }
 
-        internal static DateTime ParseTime(string timeString)
+        internal static TimeSpan ParseTime(string timeString)
         {
-            return DateTime.ParseExact(timeString, "HH:mm", CultureInfo.InvariantCulture.DateTimeFormat);
+            return TimeSpan.ParseExact(timeString, "h\\:mm", CultureInfo.InvariantCulture, TimeSpanStyles.None);
         }
 
         internal static string GetDateAsString(DateTime date)
@@ -37,30 +37,14 @@ namespace PVOutput.Net.Objects.Core
             return date.ToString("yyyyMMdd", CultureInfo.InvariantCulture);
         }
 
-        internal static string GetCoordinateAsString(PVCoordinate coordinate)
-        {
-            var lat = coordinate.Latitude.ToString("##.####", CultureInfo.CreateSpecificCulture("en-US"));
-            var lon = coordinate.Longitude.ToString("##.####", CultureInfo.CreateSpecificCulture("en-US"));
-
-            return $"{lat},{lon}";
-        }
-
-        internal static string GetLocationAsString(double? latitude, double? longitude)
-        {
-            if (latitude == null || longitude == null)
-            {
-                return null;
-            }
-
-            var lat = latitude.Value.ToString("##.####", CultureInfo.CreateSpecificCulture("en-US"));
-            var lon = longitude.Value.ToString("##.####", CultureInfo.CreateSpecificCulture("en-US"));
-
-            return $"{lat},{lon}";
-        }
-
         internal static string GetTimeAsString(DateTime date)
         {
             return date.ToString("HH:mm", CultureInfo.InvariantCulture.DateTimeFormat);
+        }
+
+        internal static string GetTimeAsString(TimeSpan time)
+        {
+            return time.ToString("h\\:mm", CultureInfo.InvariantCulture.DateTimeFormat);
         }
 
         internal static string GetValueAsString<TInputType>(TInputType? value) where TInputType : struct

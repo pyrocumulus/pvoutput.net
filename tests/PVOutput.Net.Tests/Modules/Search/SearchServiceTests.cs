@@ -149,11 +149,11 @@ namespace PVOutput.Net.Tests.Modules.Search
                         .WithQueryString(new Dictionary<string, string>
                             {
                                 { "q", "11km" },
-                                { "ll", "85.32252,31.40098" }
+                                { "ll", "85.322520,31.400980" }
                             })
                         .RespondPlainText("");
 
-            var response = await client.Search.SearchByDistanceAsync(new PVCoordinate(85.32252, 31.40098), 11);
+            var response = await client.Search.SearchByDistanceAsync(new PVCoordinate(85.32252m, 31.40098m), 11);
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
         }

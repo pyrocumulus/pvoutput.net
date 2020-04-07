@@ -13,19 +13,19 @@ namespace PVOutput.Net.Objects
         /// <summary>
         /// Latitudinal part of the coordinate. 
         /// </summary>
-        public double Latitude { get; }
+        public decimal Latitude { get; }
 
         /// <summary>
         /// Longitudinal part of the coordinate.
         /// </summary>
-        public double Longitude { get; }
+        public decimal Longitude { get; }
 
         /// <summary>
         /// Creates a new coordinate.
         /// </summary>
         /// <param name="latitude">Latitude for the location.</param>
         /// <param name="longitude">Longitude for the location.</param>
-        public PVCoordinate(double latitude, double longitude)
+        public PVCoordinate(decimal latitude, decimal longitude)
         {
             Latitude = latitude;
             Longitude = longitude;
@@ -37,7 +37,7 @@ namespace PVOutput.Net.Objects
         /// <returns>Coordinate string.</returns>
         public override string ToString()
         {
-            return string.Format(CultureInfo.CurrentCulture, "{0},{1}", Latitude, Longitude);
+            return string.Format(CultureInfo.CreateSpecificCulture("en-US"), "{0:N6},{1:N6}", Latitude, Longitude);
         }
 
         /// <summary>
