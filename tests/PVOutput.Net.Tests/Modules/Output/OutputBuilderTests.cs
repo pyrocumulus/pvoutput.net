@@ -76,6 +76,15 @@ namespace PVOutput.Net.Tests.Modules.Output
         public void OutputPostBuilder_WithPeakTime_SetsPeakTime()
         {
             var builder = new OutputPostBuilder().SetDate(new DateTime(2020, 1, 1))
+                .SetPeakTime(12, 22);
+
+            Assert.AreEqual(new TimeSpan(12, 22, 0), builder.OutputPost.PeakTime.Value);
+        }
+
+        [Test]
+        public void OutputPostBuilder_WithPeakTimeSpan_SetsPeakTime()
+        {
+            var builder = new OutputPostBuilder().SetDate(new DateTime(2020, 1, 1))
                 .SetPeakTime(new TimeSpan(10, 10, 0));
 
             Assert.AreEqual(new TimeSpan(10, 10, 0), builder.OutputPost.PeakTime.Value);
