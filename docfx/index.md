@@ -11,6 +11,10 @@ Installation can be done through installation of the [NuGet package](https://www
 PM> Install-Package PVOutput.Net
 ```
 
+## Changelog
+
+See [Changelog](https://github.com/pyrocumulus/pvoutput.net/blob/develop/CHANGELOG.md) for information on changes per version, including coming but yet unreleased changes.
+
 ## Support
 
 This library is targeting .NET Standard 2.0 and above. For full compatibility details, check the [Microsoft Docs](https://docs.microsoft.com/nl-nl/dotnet/standard/net-standard#net-implementation-support).

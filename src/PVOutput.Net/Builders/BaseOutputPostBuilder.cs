@@ -1,42 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Resources;
-using System.Text;
 using Dawn;
 using PVOutput.Net.Enums;
+using PVOutput.Net.Objects;
 using PVOutput.Net.Objects.Core;
-using PVOutput.Net.Objects.Modules;
-using PVOutput.Net.Objects.Modules.Implementations;
 
-namespace PVOutput.Net.Objects
+namespace PVOutput.Net.Builders
 {
     /// <summary>
-    /// Builder that creates outputs of type <typeparamref name="TResultType"/> to post to PVOutput.
+    /// Builder that creates to post to PVOutput.
     /// </summary>
-    /// <typeparam name="TResultType">The output type to post.</typeparam>
-    public sealed class OutputPostBuilder<TResultType> where TResultType : class, IBatchOutputPost
+    public abstract class BaseOutputPostBuilder<TResultType, TBuilderType>
+        where TResultType : class, IBaseOutputPost
+        where TBuilderType : class
     {
-        internal OutputPost _outputPost;
-
-        /// <summary>
-        /// Creates a new builder.
-        /// </summary>
-        public OutputPostBuilder()
-        {
-            _outputPost = new OutputPost();
-        }
+        internal TResultType OutputPost { get; set; }
 
         /// <summary>
         /// Sets the date for the output for the output.
         /// </summary>
         /// <param name="date">The date to set.</param>
         /// <returns>The builder.</returns>
-        public OutputPostBuilder<TResultType> SetDate(DateTime date)
+        public TBuilderType SetDate(DateTime date)
         {
             Guard.Argument(date, nameof(date)).IsNoFutureDate().NoTimeComponent();
 
-            _outputPost.OutputDate = date;
-            return this;
+            OutputPost.OutputDate = date;
+            return this as TBuilderType;
         }
 
         /// <summary>
@@ -44,12 +33,12 @@ namespace PVOutput.Net.Objects
         /// </summary>
         /// <param name="energyGenerated">Total energy generated.</param>
         /// <returns>The builder.</returns>
-        public OutputPostBuilder<TResultType> SetGenerated(int energyGenerated)
+        public TBuilderType SetEnergyGenerated(int energyGenerated)
         {
             Guard.Argument(energyGenerated, nameof(energyGenerated)).Min(0);
 
-            _outputPost.EnergyGenerated = energyGenerated;
-            return this;
+            OutputPost.EnergyGenerated = energyGenerated;
+            return this as TBuilderType;
         }
 
         /// <summary>
@@ -57,12 +46,12 @@ namespace PVOutput.Net.Objects
         /// </summary>
         /// <param name="energyExported">Total energy exported.</param>
         /// <returns>The builder.</returns>
-        public OutputPostBuilder<TResultType> SetExported(int energyExported)
+        public TBuilderType SetEnergyExported(int energyExported)
         {
             Guard.Argument(energyExported, nameof(energyExported)).Min(0);
 
-            _outputPost.EnergyExported = energyExported;
-            return this;
+            OutputPost.EnergyExported = energyExported;
+            return this as TBuilderType;
         }
 
         /// <summary>
@@ -70,10 +59,10 @@ namespace PVOutput.Net.Objects
         /// </summary>
         /// <param name="peakTime">Peak time.</param>
         /// <returns>The builder.</returns>
-        public OutputPostBuilder<TResultType> SetPeakTime(DateTime peakTime)
+        public TBuilderType SetPeakTime(DateTime peakTime)
         {
-            _outputPost.PeakTime = peakTime;
-            return this;
+            OutputPost.PeakTime = peakTime;
+            return this as TBuilderType;
         }
 
         /// <summary>
@@ -81,12 +70,12 @@ namespace PVOutput.Net.Objects
         /// </summary>
         /// <param name="peakPower">Peak power.</param>
         /// <returns>The builder.</returns>
-        public OutputPostBuilder<TResultType> SetPeakPower(int peakPower)
+        public TBuilderType SetPeakPower(int peakPower)
         {
             Guard.Argument(peakPower, nameof(peakPower)).Min(0);
 
-            _outputPost.PeakPower = peakPower;
-            return this;
+            OutputPost.PeakPower = peakPower;
+            return this as TBuilderType;
         }
 
         /// <summary>
@@ -94,10 +83,10 @@ namespace PVOutput.Net.Objects
         /// </summary>
         /// <param name="condition">The weather conditions on the output day.</param>
         /// <returns>The builder.</returns>
-        public OutputPostBuilder<TResultType> SetCondition(WeatherCondition condition)
+        public TBuilderType SetCondition(WeatherCondition condition)
         {
-            _outputPost.Condition = condition;
-            return this;
+            OutputPost.Condition = condition;
+            return this as TBuilderType;
         }
 
         /// <summary>
@@ -106,7 +95,7 @@ namespace PVOutput.Net.Objects
         /// <param name="minimumTemperature">Minimum recorded temperature.</param>
         /// <param name="maximumTemperature">Maximum recorded temperature.</param>
         /// <returns>The builder.</returns>
-        public OutputPostBuilder<TResultType> SetTemperatures(decimal? minimumTemperature, decimal? maximumTemperature)
+        public TBuilderType SetTemperatures(decimal? minimumTemperature, decimal? maximumTemperature)
         {
             Guard.NotAllNull(Guard.Argument(minimumTemperature, nameof(minimumTemperature)), Guard.Argument(maximumTemperature, nameof(maximumTemperature)));
 
@@ -115,9 +104,9 @@ namespace PVOutput.Net.Objects
                 Guard.Argument(maximumTemperature.Value, nameof(maximumTemperature)).GreaterThan(minimumTemperature.Value);
             }
 
-            _outputPost.MinimumTemperature = minimumTemperature;
-            _outputPost.MaximumTemperature = maximumTemperature;
-            return this;
+            OutputPost.MinimumTemperature = minimumTemperature;
+            OutputPost.MaximumTemperature = maximumTemperature;
+            return this as TBuilderType;
         }
 
         /// <summary>
@@ -125,12 +114,12 @@ namespace PVOutput.Net.Objects
         /// </summary>
         /// <param name="comments">Comments.</param>
         /// <returns>The builder.</returns>
-        public OutputPostBuilder<TResultType> SetComments(string comments)
+        public TBuilderType SetComments(string comments)
         {
             Guard.Argument(comments, nameof(comments)).NotEmpty().NotNull();
 
-            _outputPost.Comments = comments;
-            return this;
+            OutputPost.Comments = comments;
+            return this as TBuilderType;
         }
 
         /// <summary>
@@ -138,12 +127,12 @@ namespace PVOutput.Net.Objects
         /// </summary>
         /// <param name="peakImport">Peak energy import.</param>
         /// <returns>The builder.</returns>
-        public OutputPostBuilder<TResultType> SetPeakEnergyImport(int peakImport)
+        public TBuilderType SetPeakEnergyImport(int peakImport)
         {
             Guard.Argument(peakImport, nameof(peakImport)).Min(0);
 
-            _outputPost.PeakEnergyImport = peakImport;
-            return this;
+            OutputPost.PeakEnergyImport = peakImport;
+            return this as TBuilderType;
         }
 
         /// <summary>
@@ -151,12 +140,12 @@ namespace PVOutput.Net.Objects
         /// </summary>
         /// <param name="offpeakImport">Off peak energy import.</param>
         /// <returns>The builder.</returns>
-        public OutputPostBuilder<TResultType> SetOffPeakEnergyImport(int offpeakImport)
+        public TBuilderType SetOffPeakEnergyImport(int offpeakImport)
         {
             Guard.Argument(offpeakImport, nameof(offpeakImport)).Min(0);
 
-            _outputPost.OffPeakEnergyImport = offpeakImport;
-            return this;
+            OutputPost.OffPeakEnergyImport = offpeakImport;
+            return this as TBuilderType;
         }
 
         /// <summary>
@@ -164,53 +153,18 @@ namespace PVOutput.Net.Objects
         /// </summary>
         /// <param name="shoulderImport">Shoulder energy import.</param>
         /// <returns>The builder.</returns>
-        public OutputPostBuilder<TResultType> SetShoulderEnergyImport(int shoulderImport)
+        public TBuilderType SetShoulderEnergyImport(int shoulderImport)
         {
             Guard.Argument(shoulderImport, nameof(shoulderImport)).Min(0);
 
-            _outputPost.ShoulderEnergyImport = shoulderImport;
-            return this;
-        }
-
-        /// <summary>
-        /// Sets high shoulder energy import for the output.
-        /// </summary>
-        /// <param name="highShoulderImport">High shoulder energy import.</param>
-        /// <returns>The builder.</returns>
-        public OutputPostBuilder<TResultType> SetHighShoulderEnergyImport(int highShoulderImport)
-        {
-            Guard.Argument(highShoulderImport, nameof(highShoulderImport)).Min(0);
-
-            _outputPost.HighShoulderEnergyImport = highShoulderImport;
-            return this;
-        }
-
-        /// <summary>
-        /// Sets the total energy consumption for the output.
-        /// </summary>
-        /// <param name="consumption">Energy consumption</param>
-        /// <returns>The builder.</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "Exception messages are non translatable for now")]
-        public OutputPostBuilder<TResultType> SetConsumption(int consumption)
-        {
-            Guard.Argument(consumption, nameof(consumption)).Min(0);
-
-            if (typeof(TResultType) == typeof(IBatchOutputPost))
-            {
-                throw new InvalidOperationException("Cannot set consumption for batch output");
-            }
-
-            _outputPost.Consumption = consumption;
-            return this;
+            OutputPost.ShoulderEnergyImport = shoulderImport;
+            return this as TBuilderType;
         }
 
         /// <summary>
         /// Resets the builder to it's default state. Ready to build a new output.
         /// </summary>
-        public void Reset()
-        {
-            _outputPost = new OutputPost();
-        }
+        public abstract void Reset();
 
         /// <summary>
         /// Uses information within the builder to return the built output.
@@ -219,7 +173,7 @@ namespace PVOutput.Net.Objects
         public TResultType Build()
         {
             ValidateStatus();
-            return _outputPost as TResultType;
+            return OutputPost;
         }
 
         /// <summary>
@@ -234,17 +188,20 @@ namespace PVOutput.Net.Objects
             return result;
         }
 
+        /// <summary>
+        /// Validates the status of the output.
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "Exception messages are non translatable for now")]
-        private void ValidateStatus()
+        protected internal virtual void ValidateStatus()
         {
-            if (_outputPost.OutputDate == DateTime.MinValue)
+            if (OutputPost.OutputDate == DateTime.MinValue)
             {
                 throw new InvalidOperationException("Output has no date");
             }
 
-            if (_outputPost.PeakTime.HasValue && !_outputPost.OutputDate.Date.Equals(_outputPost.PeakTime.Value.Date))
+            if (OutputPost.PeakTime.HasValue && !OutputPost.OutputDate.Date.Equals(OutputPost.PeakTime.Value.Date))
             {
-                throw new InvalidOperationException($"Peaktime registered on different date ({_outputPost.PeakTime.Value.ToShortDateString()}) than output itself ({_outputPost.OutputDate.ToShortDateString()})");
+                throw new InvalidOperationException($"Peaktime registered on different date ({OutputPost.PeakTime.Value.ToShortDateString()}) than output itself ({OutputPost.OutputDate.ToShortDateString()})");
             }
         }
     }
