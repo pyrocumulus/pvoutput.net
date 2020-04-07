@@ -328,5 +328,15 @@ namespace PVOutput.Net.Tests.Modules.Output
 
             Assert.AreNotSame(output, builder.OutputPost);
         }
+
+        [Test]
+        public void BatchOutputPostBuilder_WithoutEnergyGeneratedAndEnergyUsed_CannotBuild()
+        {
+            var builder = new BatchOutputPostBuilder().SetDate(DateTime.Today);
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                builder.Build();
+            });
+        }
     }
 }
