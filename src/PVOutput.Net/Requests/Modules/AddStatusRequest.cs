@@ -4,7 +4,6 @@ using System.Net.Http;
 using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Objects;
 using PVOutput.Net.Requests.Base;
-using System.Net;
 
 namespace PVOutput.Net.Requests.Modules
 {
@@ -34,7 +33,7 @@ namespace PVOutput.Net.Requests.Modules
             ["v10"] = FormatHelper.GetValueAsString(StatusPost.ExtendedValue4),
             ["v11"] = FormatHelper.GetValueAsString(StatusPost.ExtendedValue5),
             ["v12"] = FormatHelper.GetValueAsString(StatusPost.ExtendedValue6),
-            ["m1"] = WebUtility.UrlEncode(StatusPost.TextMessage)
+            ["m1"] = FormatHelper.UrlEncode(StatusPost.TextMessage)
         };
     }
 }

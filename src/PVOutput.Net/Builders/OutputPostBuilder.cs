@@ -2,10 +2,11 @@
 using System.Resources;
 using System.Text;
 using Dawn;
+using PVOutput.Net.Objects;
 using PVOutput.Net.Objects.Modules;
 using PVOutput.Net.Objects.Modules.Implementations;
 
-namespace PVOutput.Net.Objects
+namespace PVOutput.Net.Builders
 {
     /// <summary>
     /// Builder that creates outputs to post to PVOutput.

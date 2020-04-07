@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using PVOutput.Net.Builders;
 using PVOutput.Net.Enums;
 using PVOutput.Net.Objects;
 using PVOutput.Net.Objects.Factories;
@@ -253,7 +254,7 @@ namespace PVOutput.Net.Tests.Modules.Output
             get
             {
                 yield return new TestCaseData(new OutputPostBuilder()
-                    .SetDate(new DateTime(2020, 1, 1)).SetGenerated(11000).SetExported(9000).Build(), "d=20200101&g=11000&e=9000");
+                    .SetDate(new DateTime(2020, 1, 1)).SetEnergyGenerated(11000).SetEnergyExported(9000).Build(), "d=20200101&g=11000&e=9000");
 
                 yield return new TestCaseData(new OutputPostBuilder()
                     .SetDate(new DateTime(2020, 1, 1)).SetPeakPower(6500).SetPeakTime(new DateTime(2020, 1, 1, 10, 10, 0)).Build(), "d=20200101&pp=6500&pt=10:10");
@@ -296,8 +297,8 @@ namespace PVOutput.Net.Tests.Modules.Output
             var builder = new BatchOutputPostBuilder();
             var outputs = new List<IBatchOutputPost>();
 
-            outputs.Add(builder.SetDate(new DateTime(2020, 1, 1)).SetGenerated(11000).SetExported(9000).BuildAndReset());
-            outputs.Add(builder.SetDate(new DateTime(2020, 1, 1)).SetUsed(12000).SetCondition(WeatherCondition.PartlyCloudy).SetComments("Test").BuildAndReset());
+            outputs.Add(builder.SetDate(new DateTime(2020, 1, 1)).SetEnergyGenerated(11000).SetEnergyExported(9000).BuildAndReset());
+            outputs.Add(builder.SetDate(new DateTime(2020, 1, 1)).SetEnergyUsed(12000).SetCondition(WeatherCondition.PartlyCloudy).SetComments("Test").BuildAndReset());
 
             await client.Output.AddBatchOutputAsync(outputs);
             testProvider.VerifyNoOutstandingExpectation();

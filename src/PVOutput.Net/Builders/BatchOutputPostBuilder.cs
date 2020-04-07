@@ -1,8 +1,9 @@
 ﻿using System;
 using Dawn;
+using PVOutput.Net.Objects;
 using PVOutput.Net.Objects.Modules.Implementations;
 
-namespace PVOutput.Net.Objects
+namespace PVOutput.Net.Builders
 {
     /// <summary>
     /// Builder that creates batch outputs to post to PVOutput.
@@ -25,7 +26,7 @@ namespace PVOutput.Net.Objects
         /// </summary>
         /// <param name="energyUsed">Total energy consumed.</param>
         /// <returns>The builder.</returns>
-        public BatchOutputPostBuilder SetUsed(int energyUsed)
+        public BatchOutputPostBuilder SetEnergyUsed(int energyUsed)
         {
             Guard.Argument(energyUsed, nameof(energyUsed)).Min(0);
 

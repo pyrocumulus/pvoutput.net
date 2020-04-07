@@ -100,7 +100,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         {
             var request= CreateRequestWithPost(new StatusPost() { TextMessage = "Text message" });
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual("Text message", parameters["m1"]);
+            Assert.AreEqual("Text%20message", parameters["m1"]);
         }
 
         [Test]

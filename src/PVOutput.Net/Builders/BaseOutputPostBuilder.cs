@@ -1,9 +1,10 @@
 ﻿using System;
 using Dawn;
 using PVOutput.Net.Enums;
+using PVOutput.Net.Objects;
 using PVOutput.Net.Objects.Core;
 
-namespace PVOutput.Net.Objects
+namespace PVOutput.Net.Builders
 {
     /// <summary>
     /// Builder that creates to post to PVOutput.
@@ -32,7 +33,7 @@ namespace PVOutput.Net.Objects
         /// </summary>
         /// <param name="energyGenerated">Total energy generated.</param>
         /// <returns>The builder.</returns>
-        public TBuilderType SetGenerated(int energyGenerated)
+        public TBuilderType SetEnergyGenerated(int energyGenerated)
         {
             Guard.Argument(energyGenerated, nameof(energyGenerated)).Min(0);
 
@@ -45,7 +46,7 @@ namespace PVOutput.Net.Objects
         /// </summary>
         /// <param name="energyExported">Total energy exported.</param>
         /// <returns>The builder.</returns>
-        public TBuilderType SetExported(int energyExported)
+        public TBuilderType SetEnergyExported(int energyExported)
         {
             Guard.Argument(energyExported, nameof(energyExported)).Min(0);
 

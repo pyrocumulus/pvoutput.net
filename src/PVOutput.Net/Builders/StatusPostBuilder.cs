@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Text;
 using Dawn;
 using PVOutput.Net.Enums;
+using PVOutput.Net.Objects;
 using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Objects.Modules;
 using PVOutput.Net.Objects.Modules.Implementations;
 
-namespace PVOutput.Net.Objects
+namespace PVOutput.Net.Builders
 {
     /// <summary>
     /// Builder that creates statuses of type <typeparamref name="TResultType"/> to post to PVOutput.

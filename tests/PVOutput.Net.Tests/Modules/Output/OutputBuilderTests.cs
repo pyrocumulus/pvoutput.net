@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using PVOutput.Net.Builders;
 using PVOutput.Net.Enums;
 using PVOutput.Net.Objects;
 using PVOutput.Net.Objects.Factories;
@@ -38,7 +39,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         public void OutputPostBuilder_WithGeneration_SetsGeneration()
         { 
             var builder = new OutputPostBuilder().SetDate(DateTime.Today)
-                .SetGenerated(12121);
+                .SetEnergyGenerated(12121);
 
             Assert.AreEqual(12121, builder.OutputPost.EnergyGenerated);
         }
@@ -48,7 +49,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         {
             Assert.Throws<ArgumentOutOfRangeException>(() =>
             {
-                _ = new OutputPostBuilder().SetGenerated(-1);
+                _ = new OutputPostBuilder().SetEnergyGenerated(-1);
             });
         }
 
@@ -56,7 +57,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         public void OutputPostBuilder_WithExported_SetsExported()
         {
             var builder = new OutputPostBuilder().SetDate(DateTime.Today)
-                .SetExported(12121);
+                .SetEnergyExported(12121);
 
             Assert.AreEqual(12121, builder.OutputPost.EnergyExported);
         }
@@ -67,7 +68,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         {
             Assert.Throws<ArgumentOutOfRangeException>(() =>
             {
-                _ = new OutputPostBuilder().SetExported(-1);
+                _ = new OutputPostBuilder().SetEnergyExported(-1);
             });
         }
 
@@ -281,7 +282,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         [Test]
         public void OutputPostBuilder_WithoutDate_CannotBuild()
         {
-            var builder = new OutputPostBuilder().SetGenerated(10000);
+            var builder = new OutputPostBuilder().SetEnergyGenerated(10000);
             Assert.Throws<InvalidOperationException>(() =>
             {
                 builder.Build();
@@ -312,7 +313,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         public void BatchOutputPostBuilder_WithEnergyUsed_SetsUsed()
         {
             var builder = new BatchOutputPostBuilder().SetDate(DateTime.Today)
-                .SetUsed(31132);
+                .SetEnergyUsed(31132);
 
             Assert.AreEqual(31132, builder.OutputPost.EnergyUsed);
         }
