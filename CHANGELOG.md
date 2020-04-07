@@ -7,8 +7,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Added default values to parameters of the StatusPostBuilder
 - Fixed a bug with AddBatchOutputRequest only sending Maximum temperature if the Minimum was set [#26](https://github.com/pyrocumulus/pvoutput.net/issues/26)
+- Breaking - incorrect signature for adding batch outputs (missing properties).  [#29](https://github.com/pyrocumulus/pvoutput.net/issues/29)
+- Breaking - moved all builders to new namespace `PVOutput.Net.Builders`.  [#29](https://github.com/pyrocumulus/pvoutput.net/issues/29)
+- Fixed bugs with encoding of text parameters `Comments` and `TextMessage` in `OutputPost` and `StatusPost` requests respectively. [#29](https://github.com/pyrocumulus/pvoutput.net/issues/29)
+- Fixed bug with `BatchOutputPostBuilder` accepting an output without both `EnergyGenerated` as wel as `EnergyUsed`. [#29](https://github.com/pyrocumulus/pvoutput.net/issues/29)
+- Breaking - renamed multiple operations on the new `OutputPostBuilders` to accurately map to the corresponding property on IOutputPost etc. [#29](https://github.com/pyrocumulus/pvoutput.net/issues/29)
 - Added structured search methods to the SearchService [#27](https://github.com/pyrocumulus/pvoutput.net/issues/27)
 - Fixed a bug with the SearchService not properly encoding the query text [#27](https://github.com/pyrocumulus/pvoutput.net/issues/27)
+
 
 ## [0.6.0] - 2020-03-28
 
