@@ -153,7 +153,7 @@ namespace PVOutput.Net.Tests.Modules.Search
                             })
                         .RespondPlainText("");
 
-            var response = await client.Search.SearchByDistanceAsync(new PVCoordinate(85.32252, 31.40098), 11);
+            var response = await client.Search.SearchByDistanceAsync(new PVCoordinate(85.32252m, 31.40098m), 11);
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
         }

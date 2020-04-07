@@ -32,8 +32,8 @@ namespace PVOutput.Net.Objects.Modules.Readers
                 (t, s) => t.Panel = s,
                 (t, s) => t.Inverter = s,
                 (t, s) => t.Distance = FormatHelper.GetValue<int>(s),
-                (t, s) => t.Location = new PVCoordinate(FormatHelper.GetValueOrDefault<double>(s), 0), // Latitude
-                (t, s) => t.Location = new PVCoordinate(t.Location.Latitude, FormatHelper.GetValueOrDefault<double>(s)) // Add longitude
+                (t, s) => t.Location = new PVCoordinate(FormatHelper.GetValueOrDefault<decimal>(s), 0), // Latitude
+                (t, s) => t.Location = new PVCoordinate(t.Location.Latitude, FormatHelper.GetValueOrDefault<decimal>(s)) // Add longitude
             };
 
             _parsers.Add((target, reader) => ParsePropertyArray(target, reader, properties));

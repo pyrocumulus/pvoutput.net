@@ -72,26 +72,27 @@ namespace PVOutput.Net.Modules
             return handler.ExecuteArrayRequestAsync<ISystemSearchResult>(new SearchRequest { SearchQuery = query }, loggingScope, cancellationToken);
         }
 
+        /*
         /// <summary>
         /// Search for systems that have either a postcode or total size that begins with a value.
         /// </summary>
         /// <param name="value">Value to search for.</param>
         /// <param name="cancellationToken">A cancellation token for the request.</param>
         /// <returns>A list of search results.</returns>
-        //public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByPostcodeOrSizeAsync(int value, CancellationToken cancellationToken = default)
-        //{
-        //    var loggingScope = new Dictionary<string, object>()
-        //    {
-        //        [LoggingEvents.RequestId] = LoggingEvents.SearchService_SearchByPostCodeOrSize,
-        //        [LoggingEvents.Parameter_Search_Value] = value
-        //    };
+        public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByPostcodeOrSizeAsync(int value, CancellationToken cancellationToken = default)
+        {
+            var loggingScope = new Dictionary<string, object>()
+            {
+                [LoggingEvents.RequestId] = LoggingEvents.SearchService_SearchByPostCodeOrSize,
+                [LoggingEvents.Parameter_Search_Value] = value
+            };
 
-        //    Guard.Argument(value, nameof(value)).GreaterThan(0);
-        //    string query = value.ToString("#####", CultureInfo.InvariantCulture);
+            Guard.Argument(value, nameof(value)).GreaterThan(0);
+            string query = value.ToString("#####", CultureInfo.InvariantCulture);
 
-        //    var handler = new RequestHandler(Client);
-        //    return handler.ExecuteArrayRequestAsync<ISystemSearchResult>(new SearchRequest { SearchQuery = query }, loggingScope, cancellationToken);
-        //}
+            var handler = new RequestHandler(Client);
+            return handler.ExecuteArrayRequestAsync<ISystemSearchResult>(new SearchRequest { SearchQuery = query }, loggingScope, cancellationToken);
+        }*/
 
         /// <summary>
         /// Search for systems by postcode.
