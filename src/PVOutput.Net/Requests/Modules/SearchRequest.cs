@@ -12,15 +12,17 @@ namespace PVOutput.Net.Requests.Modules
     {
         public string SearchQuery { get; set; }
         public PVCoordinate? Coordinate { get; set; }
+        public string CountryCode { get; internal set; }
 
         public override HttpMethod Method => HttpMethod.Get;
 
-        public override string UriTemplate => "search.jsp{?q,ll,country}";
+        public override string UriTemplate => "search.jsp{?q,ll,country,country_code}";
 
         public override IDictionary<string, object> GetUriPathParameters() => new Dictionary<string, object>
         {
             ["q"] = SearchQuery,
             ["ll"] = GetFormatLocation(),
+            ["country_code"] = CountryCode,
             ["country"] = 1
         };
 

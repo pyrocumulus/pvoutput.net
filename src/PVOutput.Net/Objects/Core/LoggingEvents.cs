@@ -18,6 +18,7 @@ namespace PVOutput.Net.Objects.Core
         public const string Parameter_SystemId = "SystemId";
         public const string Parameter_TeamId = "TeamId";
         public const string Parameter_Coordinate = "Coordinate";
+        public const string Parameter_SearchQueryText = "SearchQueryText";
         public const string Parameter_AggregationPeriod = "AggregationPeriod";
         public const string Parameter_ExtendedData = "ExtendedData";
         public const string Parameter_Ascending = "Ascending";
@@ -25,7 +26,18 @@ namespace PVOutput.Net.Objects.Core
         public const string Parameter_IncludeCreditDebit = "IncludeCreditDebit";
         public const string Parameter_GetInsolation = "GetInsolation";
         public const string Parameter_TimeZone = "TimeZone";
-        public const string Parameter_RegionKey = "RegionKey";
+        public const string Parameter_RegionKey = "RegionKey";        
+        public const string Parameter_Search_Name = "Name";
+        public const string Parameter_Search_UseStartsWith = "UseStartsWith";
+        public const string Parameter_Search_Value = "SearchValue";
+        public const string Parameter_Search_Postcode = "Postcode";
+        public const string Parameter_Search_CountryCode = "CountryCode";
+        public const string Parameter_Search_Panel = "Panel";
+        public const string Parameter_Search_Inverter = "Inverter";
+        public const string Parameter_Search_Kilometers = "Kilometers";
+        public const string Parameter_Search_TeamName = "Teamname";
+        public const string Parameter_Search_Orientation = "Orientation";
+        public const string Parameter_Search_Tilt = "Tilt";
 
         /*
          * RequestHandler base events
@@ -58,6 +70,17 @@ namespace PVOutput.Net.Objects.Core
         public const int OutputService_AddBatchOutput = 20507;
 
         public const int SearchService_Search = 20601;
+        public const int SearchService_SearchByName = 20602;
+        public const int SearchService_SearchByPostCodeOrSize = 20603;
+        public const int SearchService_SearchByPostCode = 20604;
+        public const int SearchService_SearchBySize = 20605;
+        public const int SearchService_SearchByPanel = 20606;
+        public const int SearchService_SearchByInverter = 20607;
+        public const int SearchService_SearchByDistance = 20608;
+        public const int SearchService_SearchByTeam = 20609;
+        public const int SearchService_SearchByOrientation = 20610;
+        public const int SearchService_SearchByTilt = 20611;
+        public const int SearchService_GetFavourites = 20612;
 
         public const int StatisticsService_GetLifetimeStatistics = 20701;
         public const int StatisticsService_GetStatisticsForPeriod = 20702;
