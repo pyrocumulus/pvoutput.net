@@ -6,6 +6,7 @@ using PVOutput.Net.Enums;
 using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Objects;
 using PVOutput.Net.Requests.Base;
+using System.Net;
 
 namespace PVOutput.Net.Requests.Modules
 {
@@ -90,7 +91,7 @@ namespace PVOutput.Net.Requests.Modules
 
             if (output.Comments != null)
             {
-                sb.Append(output.Comments);
+                sb.Append(WebUtility.UrlEncode(output.Comments));
             }
             sb.Append(',');
 

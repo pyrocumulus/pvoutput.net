@@ -1,4 +1,5 @@
-﻿using Dawn;
+﻿using System;
+using Dawn;
 using PVOutput.Net.Objects.Modules.Implementations;
 
 namespace PVOutput.Net.Objects
@@ -30,6 +31,18 @@ namespace PVOutput.Net.Objects
 
             OutputPost.EnergyUsed = energyUsed;
             return this;
+        }
+
+        /// <inheritdoc/>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "Exception messages are non translatable for now")]
+        protected internal override void ValidateStatus()
+        {
+            base.ValidateStatus();
+
+            if (OutputPost.EnergyGenerated == null && OutputPost.EnergyUsed == null)
+            {
+                throw new InvalidOperationException($"Either {nameof(OutputPost.EnergyGenerated)} or {nameof(OutputPost.EnergyUsed)} has to have a value.");
+            }
         }
     }
 }

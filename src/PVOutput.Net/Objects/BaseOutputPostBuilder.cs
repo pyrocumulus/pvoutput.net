@@ -187,8 +187,11 @@ namespace PVOutput.Net.Objects
             return result;
         }
 
+        /// <summary>
+        /// Validates the status of the output.
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "Exception messages are non translatable for now")]
-        private void ValidateStatus()
+        protected internal virtual void ValidateStatus()
         {
             if (OutputPost.OutputDate == DateTime.MinValue)
             {

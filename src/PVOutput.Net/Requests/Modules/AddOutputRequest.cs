@@ -5,6 +5,7 @@ using PVOutput.Net.Enums;
 using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Objects;
 using PVOutput.Net.Requests.Base;
+using System.Net;
 
 namespace PVOutput.Net.Requests.Modules
 {
@@ -26,7 +27,7 @@ namespace PVOutput.Net.Requests.Modules
             ["cd"] = FormatHelper.GetEnumerationDescription(Output.Condition),
             ["tm"] = FormatHelper.GetValueAsString(Output.MinimumTemperature),
             ["tx"] = FormatHelper.GetValueAsString(Output.MaximumTemperature),
-            ["cm"] = Output.Comments,
+            ["cm"] = WebUtility.UrlEncode(Output.Comments),
             ["ip"] = FormatHelper.GetValueAsString(Output.PeakEnergyImport),
             ["io"] = FormatHelper.GetValueAsString(Output.OffPeakEnergyImport),
             ["is"] = FormatHelper.GetValueAsString(Output.ShoulderEnergyImport),

@@ -290,14 +290,14 @@ namespace PVOutput.Net.Tests.Modules.Output
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
             testProvider.ExpectUriFromBase(ADDBATCHOUTPUT_URL)
-                        .WithQueryString("data=20200101,11000,9000,,,,,,,,,,;20200101,,,,,,Partly Cloudy,,,Test,,,;")
+                        .WithQueryString("data=20200101,11000,9000,,,,,,,,,,;20200101,,,12000,,,Partly Cloudy,,,Test,,,;")
                         .RespondPlainText("");
 
             var builder = new BatchOutputPostBuilder();
             var outputs = new List<IBatchOutputPost>();
 
             outputs.Add(builder.SetDate(new DateTime(2020, 1, 1)).SetGenerated(11000).SetExported(9000).BuildAndReset());
-            outputs.Add(builder.SetDate(new DateTime(2020, 1, 1)).SetCondition(WeatherCondition.PartlyCloudy).SetComments("Test").BuildAndReset());
+            outputs.Add(builder.SetDate(new DateTime(2020, 1, 1)).SetUsed(12000).SetCondition(WeatherCondition.PartlyCloudy).SetComments("Test").BuildAndReset());
 
             await client.Output.AddBatchOutputAsync(outputs);
             testProvider.VerifyNoOutstandingExpectation();

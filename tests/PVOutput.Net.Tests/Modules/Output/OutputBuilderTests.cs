@@ -321,7 +321,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         public void BatchOutputPostBuilder_AfterReset_HasNoStateLeft()
         {
             var builder = new BatchOutputPostBuilder().SetDate(DateTime.Today);
-            IBatchOutputPost output = builder.Build();
+            IBatchOutputPost output = builder.OutputPost;
 
             builder.Reset();
 
