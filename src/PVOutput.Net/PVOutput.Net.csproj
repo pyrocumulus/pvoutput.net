@@ -6,7 +6,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Authors>Marcel Boersma</Authors>
-    <Version>0.6.1</Version>
+    <Version>0.7.0</Version>
     <Copyright></Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://pyrocumulus.github.io/pvoutput.net/</PackageProjectUrl>
@@ -18,7 +18,8 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageReleaseNotes>Added null defaults to various methods on the StatusPostBuilder</PackageReleaseNotes>
+    <PackageReleaseNotes>For release notes see:
+https://github.com/pyrocumulus/pvoutput.net/blob/master/CHANGELOG.md</PackageReleaseNotes>
     <PackageId>PVOutput.Net</PackageId>
   </PropertyGroup>
 
