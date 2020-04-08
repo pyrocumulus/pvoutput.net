@@ -4,6 +4,8 @@ on:
   push:
     branches-ignore:
       - gh-pages
+    paths-ignore:
+      - 'docfx/**'
 
 jobs:
   build_and_test:
