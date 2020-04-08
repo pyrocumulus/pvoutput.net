@@ -6,7 +6,7 @@
           "files": [
             "**.csproj"
           ],
-          "src": "..\\src\\PVOutput.Net"
+          "src": "../src/PVOutput.Net"
         }
       ],
       "dest": "api",
