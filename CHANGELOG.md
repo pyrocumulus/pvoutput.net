@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Unreleased
 
-- Added SearchService.SearchByPostCodeOrSize, a method to search for both parameters at the same time (FILL PR NUMBER)
+- Added SearchService.SearchByPostCodeOrSize, a method to search for both parameters at the same time [#31](https://github.com/pyrocumulus/pvoutput.net/pull/31)
 
 ## [0.7.0] - 2020-04-08
 
