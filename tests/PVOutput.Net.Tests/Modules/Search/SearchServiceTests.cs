@@ -64,11 +64,11 @@ namespace PVOutput.Net.Tests.Modules.Search
             await TestSpecificSearchQuery(s => s.SearchByNameAsync("name", false), "name");
         }
 
-        //[Test]
-        //public async Task SearchService_SearchByPostcodeOrSize_CallsCorrectUri()
-        //{
-        //    await TestSpecificSearchQuery(s => s.SearchByPostcodeOrSizeAsync(2500), "2500");
-        //}
+        [Test]
+        public async Task SearchService_SearchByPostcodeOrSize_CallsCorrectUri()
+        {
+            await TestSpecificSearchQuery(s => s.SearchByPostcodeOrSizeAsync(2500), "2500");
+        }
 
         [Test]
         public async Task SearchService_SearchByPostcode_CallsCorrectUri()

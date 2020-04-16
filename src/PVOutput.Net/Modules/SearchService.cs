@@ -72,7 +72,6 @@ namespace PVOutput.Net.Modules
             return handler.ExecuteArrayRequestAsync<ISystemSearchResult>(new SearchRequest { SearchQuery = query }, loggingScope, cancellationToken);
         }
 
-        /*
         /// <summary>
         /// Search for systems that have either a postcode or total size that begins with a value.
         /// </summary>
@@ -92,7 +91,7 @@ namespace PVOutput.Net.Modules
 
             var handler = new RequestHandler(Client);
             return handler.ExecuteArrayRequestAsync<ISystemSearchResult>(new SearchRequest { SearchQuery = query }, loggingScope, cancellationToken);
-        }*/
+        }
 
         /// <summary>
         /// Search for systems by postcode.
