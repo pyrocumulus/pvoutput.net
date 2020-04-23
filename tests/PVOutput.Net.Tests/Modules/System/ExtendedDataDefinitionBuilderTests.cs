@@ -61,5 +61,26 @@ namespace PVOutput.Net.Tests.Modules.System
                 var builder = new ExtendedDataDefinitionBuilder().SetColour("test12");
             });
         }
+
+        [Test]
+        public void Builder_AfterReset_HasNoStateLeft()
+        {
+            var builder = new ExtendedDataDefinitionBuilder().SetLabel("Test").SetUnit("W");
+            IExtendedDataDefinition status = builder.Build();
+
+            builder.Reset();
+
+            Assert.AreNotSame(status, builder._definition);
+        }
+
+
+        [Test]
+        public void Builder_AfterBuildAndReset_HasNoStateLeft()
+        {
+            var builder = new ExtendedDataDefinitionBuilder().SetLabel("Test").SetUnit("W");
+            IExtendedDataDefinition status = builder.BuildAndReset();
+
+            Assert.AreNotSame(status, builder._definition);
+        }
     }
 }
