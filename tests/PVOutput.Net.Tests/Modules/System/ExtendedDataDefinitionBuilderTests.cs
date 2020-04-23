@@ -56,7 +56,7 @@ namespace PVOutput.Net.Tests.Modules.System
         [Test]
         public void Builder_WithColour_SetsColour()
         {
-            var builder = new ExtendedDataDefinitionBuilder().SetColour("123abc");
+            var builder = new ExtendedDataDefinitionBuilder().SetColour("123aBC");
             Assert.AreEqual("123abc", builder._definition.Colour);
         }
 
@@ -65,7 +65,7 @@ namespace PVOutput.Net.Tests.Modules.System
         {
             Assert.Throws<ArgumentException>(() =>
             {
-                var builder = new ExtendedDataDefinitionBuilder().SetColour("test12");
+                var builder = new ExtendedDataDefinitionBuilder().SetColour("abcT12");
             });
         }
 
