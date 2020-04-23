@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net.Http;
 using PVOutput.Net.Objects;
+using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Requests.Base;
 
 namespace PVOutput.Net.Requests.Modules
@@ -10,47 +11,58 @@ namespace PVOutput.Net.Requests.Modules
     {
         public int SystemId { get; set; }
         public string SystemName { get; set; }
-        public IEnumerable<IExtendedDataDefinition> Configurations { get; set; }
+        public IEnumerable<IExtendedDataDefinition> DataDefinitions { get; set; }
 
         public override HttpMethod Method => HttpMethod.Post;
-        public override string UriTemplate => "postsystem.jsp{?sid,name}";
+        public override string UriTemplate => "postsystem.jsp{?sid,name," +
+            "v7l,v7u,v7c,v7a,v7g,v8l,v8u,v8c,v8a,v8g,v9l,v9u,v9c,v9a,v9g," +
+            "v10l,v10u,v10c,v10a,v10g,v11l,v11u,v11c,v11a,v11g,v12l,v12u,v12c,v12a,v12g}";
 
         public override IDictionary<string, object> GetUriPathParameters()
         {
             var parameters = new Dictionary<string, object>
             {
                 ["sid"] = SystemId,
-                ["name"] = SystemName
+                ["name"] = SystemName,
             };
 
-            AddConfigurations(parameters);
-
+            AddDataDefinitions(parameters);
             return parameters;
         }
 
-        private void AddConfigurations(Dictionary<string, object> parameters)
+        private void AddDataDefinitions(Dictionary<string, object> parameters)
         {
-            if (!Configurations.Any())
+            if (DataDefinitions?.Any() != true)
                 return;
 
-            foreach (IExtendedDataDefinition configuration in Configurations)
+            foreach (IExtendedDataDefinition definition in DataDefinitions)
             {
-                var index = configuration.Index.ToString();
+                var index = definition.Index.ToString();
                 
-                if (!string.IsNullOrEmpty(configuration.Label))
+                if (!string.IsNullOrEmpty(definition.Label))
                 {
-                    parameters[$"{index}l"] = configuration.Label;
+                    parameters[$"{index}l"] = definition.Label;
                 }
-                if (!string.IsNullOrEmpty(configuration.Unit))
+
+                if (!string.IsNullOrEmpty(definition.Unit))
                 {
-                    parameters[$"{index}u"] = configuration.Unit;
+                    parameters[$"{index}u"] = definition.Unit;
                 }
-                if (!string.IsNullOrEmpty(configuration.Colour))
+
+                if (!string.IsNullOrEmpty(definition.Colour))
                 {
-                    parameters[$"{index}c"] = configuration.Colour;
+                    parameters[$"{index}c"] = definition.Colour;
                 }
-                parameters[$"{index}a"] = configuration.Axis;
-                parameters[$"{index}g"] = configuration.DisplayType.ToString();
+
+                if (definition.Axis.HasValue)
+                {
+                    parameters[$"{index}a"] = definition.Axis;
+                }
+
+                if (definition.DisplayType.HasValue)
+                {
+                    parameters[$"{index}g"] = definition.DisplayType.ToString();
+                }
             }
         }
     }

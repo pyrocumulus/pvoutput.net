@@ -33,11 +33,11 @@ namespace PVOutput.Net.Objects
         /// <summary>
         /// The axis on which to display the extended data value.
         /// </summary>
-        int Axis { get; set; }
+        int? Axis { get; set; }
 
         /// <summary>
         /// The type of graph to display the extended data value with.
         /// </summary>
-        ExtendedDataDisplayType DisplayType { get; set; }
+        ExtendedDataDisplayType? DisplayType { get; set; }
     }
 }

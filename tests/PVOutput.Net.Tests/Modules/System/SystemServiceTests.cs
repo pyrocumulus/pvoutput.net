@@ -6,6 +6,8 @@ using PVOutput.Net.Objects.Factories;
 using PVOutput.Net.Objects;
 using PVOutput.Net.Tests.Utils;
 using RichardSzalay.MockHttp;
+using PVOutput.Net.Objects.Modules.Implementations;
+using System.Collections.Generic;
 
 namespace PVOutput.Net.Tests.Modules.System
 {
@@ -35,6 +37,20 @@ namespace PVOutput.Net.Tests.Modules.System
                         .RespondPlainText(SYSTEM_RESPONSE_EXTENDED);
 
             var response = await client.System.GetOtherSystemAsync(54321);
+            testProvider.VerifyNoOutstandingExpectation();
+            AssertStandardResponse(response);
+        }
+
+        [Test]
+        public async Task SystemService_PostSystem_CallsCorrectUri()
+        {
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+
+            testProvider.ExpectUriFromBase(POSTSYSTEM_URL)
+                        .WithExactQueryString("sid=54321&name=New%20name&v7l=New%20power&v7u=W")
+                        .RespondPlainText("");
+
+            var response = await client.System.PostSystem(54321, "New name", new List<IExtendedDataDefinition>() { new ExtendedDataDefinition() { Label = "New power", Unit = "W" } });
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
         }
