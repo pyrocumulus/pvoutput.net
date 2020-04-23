@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using PVOutput.Net.Objects;
@@ -53,6 +54,26 @@ namespace PVOutput.Net.Modules
 
             var handler = new RequestHandler(Client);
             return handler.ExecuteSingleItemRequestAsync<ISystem>(new SystemRequest { SystemId = systemId, MonthlyEstimates = false }, loggingScope, cancellationToken);
+        }
+
+        /// <summary>
+        /// Updates a system's name or extended data values.
+        /// </summary>
+        /// <param name="systemId">The system to update.</param>
+        /// <param name="newSystemName">New system name.</param>
+        /// <param name="configurations">List of modified extended data definitions.</param>
+        /// <param name="cancellationToken">A cancellation token for the request.</param>
+        /// <returns>If the operation succeeded.</returns>
+        public Task<PVOutputBasicResponse> PostSystem(int systemId, string newSystemName = null, IEnumerable<IExtendedDataDefinition> configurations = null, CancellationToken cancellationToken = default)
+        {
+            var loggingScope = new Dictionary<string, object>()
+            {
+                [LoggingEvents.RequestId] = LoggingEvents.SystemService_PostSystem,
+                [LoggingEvents.Parameter_SystemId] = systemId
+            };
+
+            var handler = new RequestHandler(Client);
+            return handler.ExecutePostRequestAsync(new PostSystemRequest() { SystemId = systemId, SystemName = newSystemName, Configurations = configurations }, loggingScope, cancellationToken);
         }
     }
 }
