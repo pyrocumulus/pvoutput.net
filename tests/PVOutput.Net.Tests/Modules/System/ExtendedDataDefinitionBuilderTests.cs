@@ -57,7 +57,7 @@ namespace PVOutput.Net.Tests.Modules.System
         public void Builder_WithColour_SetsColour()
         {
             var builder = new ExtendedDataDefinitionBuilder().SetColour("123aBC");
-            Assert.AreEqual("123abc", builder._definition.Colour);
+            Assert.AreEqual("123aBC", builder._definition.Colour);
         }
 
         [Test]
