@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Dawn;
+using PVOutput.Net.Builders;
 using PVOutput.Net.Objects;
 using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Requests.Handler;
@@ -101,6 +102,7 @@ namespace PVOutput.Net.Modules
         /// <summary>
         /// Adds a single status to the owned system.
         /// <para>See the official <see href="https://pvoutput.org/help.html#api-addstatus">API information</see>.</para>
+        /// Use the <see cref="StatusPostBuilder{IStatusPost}"/> to create <see cref="IStatusPost"/> objects.
         /// </summary>
         /// <param name="status">The status to add.</param>
         /// <param name="cancellationToken">A cancellation token for the request.</param>
@@ -121,6 +123,7 @@ namespace PVOutput.Net.Modules
         /// <summary>
         /// Adds multiple statuses to the owned system.
         /// <para>See the official <see href="https://pvoutput.org/help.html#api-addbatchstatus">API information</see>.</para>
+        /// Use the <see cref="StatusPostBuilder{IBatchStatusPost}"/> to create <see cref="IBatchStatusPost"/> objects.
         /// </summary>
         /// <param name="statuses">The statuses to add.</param>
         /// <param name="cancellationToken">A cancellation token for the request.</param>

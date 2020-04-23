@@ -26,7 +26,7 @@ namespace PVOutput.Net.Objects
         string Unit { get; set; }
 
         /// <summary>
-        /// The hexadecimal (ffffff) displayed colour of the extended data value.
+        /// The hexadecimal colour (ffffff) used to display the extended data value.
         /// </summary>
         string Colour { get; set; }
 
