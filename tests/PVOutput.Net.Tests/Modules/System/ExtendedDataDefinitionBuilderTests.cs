@@ -19,6 +19,13 @@ namespace PVOutput.Net.Tests.Modules.System
     public class ExtendedDataDefinitionBuilderTests
     {
         [Test]
+        public void Builder_WithIndex_SetsIndex()
+        {
+            var builder = new ExtendedDataDefinitionBuilder().SetIndex(ExtendedDataIndex.v9);
+            Assert.AreEqual(ExtendedDataIndex.v9, builder._definition.Index);
+        }
+
+        [Test]
         public void Builder_WithLabel_SetsLabel()
         {
             var builder = new ExtendedDataDefinitionBuilder().SetLabel("New label");
