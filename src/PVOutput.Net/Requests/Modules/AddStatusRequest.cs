@@ -33,7 +33,7 @@ namespace PVOutput.Net.Requests.Modules
             ["v10"] = FormatHelper.GetValueAsString(StatusPost.ExtendedValue4),
             ["v11"] = FormatHelper.GetValueAsString(StatusPost.ExtendedValue5),
             ["v12"] = FormatHelper.GetValueAsString(StatusPost.ExtendedValue6),
-            ["m1"] = FormatHelper.UrlEncode(StatusPost.TextMessage)
+            ["m1"] = StatusPost.TextMessage
         };
     }
 }

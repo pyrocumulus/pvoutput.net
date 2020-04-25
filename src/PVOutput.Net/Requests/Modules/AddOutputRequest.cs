@@ -26,7 +26,7 @@ namespace PVOutput.Net.Requests.Modules
             ["cd"] = FormatHelper.GetEnumerationDescription(Output.Condition),
             ["tm"] = FormatHelper.GetValueAsString(Output.MinimumTemperature),
             ["tx"] = FormatHelper.GetValueAsString(Output.MaximumTemperature),
-            ["cm"] = FormatHelper.UrlEncode(Output.Comments),
+            ["cm"] = Output.Comments,
             ["ip"] = FormatHelper.GetValueAsString(Output.PeakEnergyImport),
             ["io"] = FormatHelper.GetValueAsString(Output.OffPeakEnergyImport),
             ["is"] = FormatHelper.GetValueAsString(Output.ShoulderEnergyImport),

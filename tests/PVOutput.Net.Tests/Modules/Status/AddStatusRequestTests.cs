@@ -10,6 +10,9 @@ using PVOutput.Net.Tests.Utils;
 using RichardSzalay.MockHttp;
 using PVOutput.Net.Requests.Modules;
 using PVOutput.Net.Objects.Modules.Implementations;
+using PVOutput.Net.Requests.Handler;
+using Tavis.UriTemplates;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel.Client;
 
 namespace PVOutput.Net.Tests.Modules.Status
 {
@@ -98,9 +101,9 @@ namespace PVOutput.Net.Tests.Modules.Status
         [Test]
         public void Parameter_TextMessage_CreatesCorrectUriParameters()
         {
-            var request= CreateRequestWithPost(new StatusPost() { TextMessage = "Text message" });
+            var request = CreateRequestWithPost(new StatusPost() { TextMessage = "Text message" });
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual("Text%20message", parameters["m1"]);
+            Assert.AreEqual("Text message", parameters["m1"]);
         }
 
         [Test]

@@ -45,7 +45,7 @@ namespace PVOutput.Net.Modules
             Guard.Argument(searchQuery, nameof(searchQuery)).NotEmpty().NotNull();
 
             var handler = new RequestHandler(Client);
-            return handler.ExecuteArrayRequestAsync<ISystemSearchResult>(new SearchRequest { SearchQuery = FormatHelper.UrlEncode(searchQuery), Coordinate = coordinate }, loggingScope, cancellationToken);
+            return handler.ExecuteArrayRequestAsync<ISystemSearchResult>(new SearchRequest { SearchQuery = searchQuery, Coordinate = coordinate }, loggingScope, cancellationToken);
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace PVOutput.Net.Modules
             Guard.Argument(postcode, nameof(postcode)).NotEmpty();
 
             var handler = new RequestHandler(Client);
-            var searchQuery = CreateQueryWithKeyword(FormatHelper.UrlEncode(postcode), "postcode");
+            var searchQuery = CreateQueryWithKeyword(postcode, "postcode");
             return handler.ExecuteArrayRequestAsync<ISystemSearchResult>(new SearchRequest { SearchQuery = searchQuery }, loggingScope, cancellationToken);
         }
 
@@ -154,7 +154,7 @@ namespace PVOutput.Net.Modules
             Guard.Argument(panel, nameof(panel)).NotEmpty();
 
             var handler = new RequestHandler(Client);
-            var searchQuery = CreateQueryWithKeyword(FormatHelper.UrlEncode(panel), "panel");
+            var searchQuery = CreateQueryWithKeyword(panel, "panel");
             return handler.ExecuteArrayRequestAsync<ISystemSearchResult>(new SearchRequest { SearchQuery = searchQuery }, loggingScope, cancellationToken);
         }
 
@@ -174,7 +174,7 @@ namespace PVOutput.Net.Modules
             };
 
             Guard.Argument(inverter, nameof(inverter)).NotEmpty();
-            var query = FormatStartsWith(FormatHelper.UrlEncode(inverter), useStartsWith);
+            var query = FormatStartsWith(inverter, useStartsWith);
 
             var handler = new RequestHandler(Client);
             var searchQuery = CreateQueryWithKeyword(query, "inverter");
@@ -250,7 +250,7 @@ namespace PVOutput.Net.Modules
             Guard.Argument(teamName, nameof(teamName)).NotEmpty();
 
             var handler = new RequestHandler(Client);
-            var searchQuery = CreateQueryWithKeyword(FormatHelper.UrlEncode(teamName), "team");
+            var searchQuery = CreateQueryWithKeyword(teamName, "team");
             return handler.ExecuteArrayRequestAsync<ISystemSearchResult>(new SearchRequest { SearchQuery = searchQuery }, loggingScope, cancellationToken);
         }
 
