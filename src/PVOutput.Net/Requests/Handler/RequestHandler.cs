@@ -272,16 +272,19 @@ namespace PVOutput.Net.Requests.Handler
             return new HttpRequestMessage(request.Method, CreateUrl(request));
         }
 
-        private static string CreateUrl(IRequest request)
+        internal static string CreateUrl(IRequest request)
         {
-            var requestTemplate = new UriTemplate(request.UriTemplate);
+            return CreateUrl(new UriTemplate(request.UriTemplate), request.GetUriPathParameters());
+        }
 
-            foreach (KeyValuePair<string, object> parameter in request.GetUriPathParameters())
+        internal static string CreateUrl(UriTemplate template, IDictionary<string, object> pathParameters)
+        {
+            foreach (KeyValuePair<string, object> parameter in pathParameters)
             {
-                requestTemplate.AddParameter(parameter.Key, parameter.Value);
+                template.AddParameter(parameter.Key, parameter.Value);
             }
 
-            var apiUri = requestTemplate.Resolve();
+            var apiUri = template.Resolve();
             return $"{PVOutputClient.PVOutputBaseUri}{apiUri}";
         }
 

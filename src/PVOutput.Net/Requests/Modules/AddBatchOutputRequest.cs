@@ -90,7 +90,7 @@ namespace PVOutput.Net.Requests.Modules
 
             if (output.Comments != null)
             {
-                sb.Append(FormatHelper.UrlEncode(output.Comments));
+                sb.Append(output.Comments);
             }
             sb.Append(',');
 

@@ -57,17 +57,6 @@ namespace PVOutput.Net.Objects.Core
             return (string)Convert.ChangeType(value, typeof(string), CultureInfo.CreateSpecificCulture("en-US"));
         }
 
-        internal static string UrlEncode(string value)
-        {
-            if (value == null)
-            {
-                return null;
-            }
-
-            // + is only a valid character for encoding space in application/x-www-form-urlencoded content
-            return WebUtility.UrlEncode(value).Replace("+", "%20");
-        }
-
         internal static TResultType? GetValue<TResultType>(string value) where TResultType : struct
         {
             if (string.IsNullOrEmpty(value) || value.Equals("NaN", StringComparison.OrdinalIgnoreCase))
