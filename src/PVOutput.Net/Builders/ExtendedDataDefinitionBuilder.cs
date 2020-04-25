@@ -129,18 +129,31 @@ namespace PVOutput.Net.Builders
             return this;
         }
 
-        private static bool IsHexadecimalString(string colour)
+        internal static bool IsHexadecimalString(string colour)
         {
-            foreach (char c in colour.ToUpperInvariant())
+            foreach (char character in colour.ToUpperInvariant())
             {
-                bool hexCharacter = (c >= '0' && c <= '9') || (c >= 'A' && c <= 'F');
-
-                if (!hexCharacter)
+                if (!IsHexadecimalCharacter(character))
                 {
                     return false;
                 }
             }
             return true;
+        }
+
+        internal static bool IsHexadecimalCharacter(char character)
+        {
+            if (character >= '0' && character <= '9')
+            {
+                return true;
+            }
+
+            if (character >= 'A' && character <= 'F')
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

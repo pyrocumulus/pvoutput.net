@@ -69,6 +69,28 @@ namespace PVOutput.Net.Tests.Modules.System
             });
         }
 
+        public static IEnumerable HexadecimalValidationsTests
+        {
+            get
+            {
+                foreach (char c in "0123456789ABCDEF".ToList())
+                {
+                    yield return new TestCaseData(c).Returns(true);
+                }
+                foreach (char c in "GHIJKLMNOPQRSTUVWXYZ.,;\\[]#".ToList())
+                {
+                    yield return new TestCaseData(c).Returns(false);
+                }
+            }
+        }               
+
+        [Test]
+        [TestCaseSource(typeof(ExtendedDataDefinitionBuilderTests), "HexadecimalValidationsTests")]
+        public bool Builder_HexadecimalValidations_WorksCorrect(char colour)
+        {
+            return ExtendedDataDefinitionBuilder.IsHexadecimalCharacter(colour);
+        }
+
         [Test]
         public void Builder_AfterReset_HasNoStateLeft()
         {
