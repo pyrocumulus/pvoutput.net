@@ -3,11 +3,16 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-### Unreleased
+## [0.7.1] - 2020-04-25
+
+### Added
 
 - Added SearchService.SearchByPostCodeOrSize, a method to search for both parameters at the same time [#31](https://github.com/pyrocumulus/pvoutput.net/pull/31)
 - Added SystemService.PostSystem, enabling the modification of a system's name and/or extended value [#32](https://github.com/pyrocumulus/pvoutput.net/pull/32)
-- Fixed Some services manually UrlEncoded string values resulting in double encoding / value corruption [#33](https://github.com/pyrocumulus/pvoutput.net/issues/33)
+
+### Fixed
+
+- Fixed a bug with some services manually UrlEncoding string values, which resulted in double encoding / possible value corruption [#33](https://github.com/pyrocumulus/pvoutput.net/issues/33)
 
 ## [0.7.0] - 2020-04-08
 
