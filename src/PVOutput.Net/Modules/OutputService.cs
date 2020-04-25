@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Dawn;
+using PVOutput.Net.Builders;
 using PVOutput.Net.Enums;
 using PVOutput.Net.Objects;
 using PVOutput.Net.Objects.Core;
@@ -148,6 +149,7 @@ namespace PVOutput.Net.Modules
         /// <summary>
         /// Adds a single daily output to the owned system.
         /// <para>See the official <see href="https://pvoutput.org/help.html#api-addoutput">API information</see>.</para>
+        /// Use the <see cref="OutputPostBuilder"/> to create <see cref="IOutputPost"/> objects.
         /// </summary>
         /// <param name="output">The output to add.</param>
         /// <param name="cancellationToken">A cancellation token for the request.</param>
@@ -168,6 +170,7 @@ namespace PVOutput.Net.Modules
         /// <summary>
         /// Adds a list of outputs to the owned system.
         /// <para>See the official <see href="https://pvoutput.org/help.html#api-addbatchoutput">API information</see>.</para>
+        /// Use the <see cref="BatchOutputPostBuilder"/> to create <see cref="IBatchOutputPost"/> objects.
         /// </summary>
         /// <param name="outputs">Outputs to add. 30 outputs is the maximum, 100 for donation</param>
         /// <param name="cancellationToken">A cancellation token for the request.</param>

@@ -26,5 +26,14 @@ namespace PVOutput.Net.Tests.Modules
                 Assert.IsNotNull(response.Values);
             });
         }
+
+        protected static void AssertStandardResponse(PVOutputBasicResponse response)
+        {
+            Assert.Multiple(() =>
+            {
+                Assert.IsNull(response.Error);
+                Assert.IsTrue(response.IsSuccess);
+            });
+        }
     }
 }

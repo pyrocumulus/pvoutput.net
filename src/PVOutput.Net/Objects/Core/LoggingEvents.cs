@@ -96,6 +96,7 @@ namespace PVOutput.Net.Objects.Core
 
         public const int SystemService_GetOwnSystem = 21001;
         public const int SystemService_GetOtherSystem = 21002;
+        public const int SystemService_PostSystem = 21003;
 
         public const int TeamService_GetTeam = 21101;
         public const int TeamService_JoinTeam = 21102;
