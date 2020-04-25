@@ -36,12 +36,22 @@ namespace PVOutput.Net.Tests.Utils
                     sb.Append('[');
                     sb.Append(kvp.Key);
                     sb.Append(';');
-                    sb.Append(kvp.Value == null ? "<NULL>" : kvp.Value.ToString());
+                    sb.Append(FormatLogValue(kvp.Value));
                     sb.Append("],");
                 }
                 return sb.ToString().TrimEnd(',');
             }
             return state.ToString();
+        }
+
+        private static string FormatLogValue(object value)
+        {
+            if (value is EventId eventId)
+            {
+                return $"({eventId.Id},{eventId.Name})";
+            }
+
+            return value == null ? "<NULL>" : value.ToString();
         }
 
         public void Dispose()
