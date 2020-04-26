@@ -106,7 +106,7 @@ namespace PVOutput.Net.Tests.Modules.Extended
 
             Assert.Multiple(() =>
             {
-                Assert.That(result.Count(), Is.EqualTo(2));
+                Assert.That(result, Has.Exactly(2).Items);
                 Assert.That(extended1.ExtendedDate, Is.EqualTo(new DateTime(2014, 3, 7)));
 
                 Assert.That(extended1.ExtendedValue1, Is.EqualTo(67.4d));

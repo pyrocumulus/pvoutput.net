@@ -258,7 +258,7 @@ namespace PVOutput.Net.Tests.Modules.Status
             var firstStatus = result.First();
             Assert.Multiple(() =>
             {
-                Assert.That(result.Count(), Is.EqualTo(10));
+                Assert.That(result, Has.Exactly(10).Items);
 
                 Assert.That(firstStatus.EnergyGeneration, Is.EqualTo(2930));
                 Assert.That(firstStatus.EnergyEfficiency, Is.EqualTo(0.710d));

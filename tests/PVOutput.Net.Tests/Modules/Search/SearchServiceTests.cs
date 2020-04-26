@@ -223,7 +223,7 @@ namespace PVOutput.Net.Tests.Modules.Search
             Assert.Multiple(() =>
             {
                 Assert.That(result, Is.Not.Null);
-                Assert.That(result.Count(), Is.EqualTo(4));
+                Assert.That(result, Has.Exactly(4).Items);
 
                 Assert.That(first.SystemName, Is.EqualTo("Solar 4 US"));
                 Assert.That(last.SystemName, Is.EqualTo("solar powered muso"));

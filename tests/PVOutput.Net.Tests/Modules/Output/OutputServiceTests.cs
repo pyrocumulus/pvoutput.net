@@ -367,7 +367,7 @@ namespace PVOutput.Net.Tests.Modules.Output
 
             Assert.Multiple(() =>
             {
-                Assert.That(result.Count(), Is.EqualTo(7));
+                Assert.That(result, Has.Exactly(7).Items);
                 Assert.That(firstOutput.OutputDate, Is.EqualTo(new DateTime(2018, 9, 7)));
                 Assert.That(firstOutput.Condition, Is.EqualTo(WeatherCondition.PartlyCloudy));
                 Assert.That(lastOutput.OutputDate, Is.EqualTo(new DateTime(2018, 9, 1)));
@@ -412,7 +412,7 @@ namespace PVOutput.Net.Tests.Modules.Output
             Assert.Multiple(() =>
             {
                 Assert.That(result, Is.Not.Null);
-                Assert.That(result.Count(), Is.EqualTo(7));
+                Assert.That(result, Has.Exactly(7).Items);
                 Assert.That(firstOutput.OutputDate, Is.EqualTo(new DateTime(2018, 9, 7)));
                 Assert.That(lastOutput.OutputDate, Is.EqualTo(new DateTime(2018, 9, 1)));
                 Assert.That(firstOutput.Insolation, Is.EqualTo(14189));
@@ -451,7 +451,7 @@ namespace PVOutput.Net.Tests.Modules.Output
             Assert.Multiple(() =>
             {
                 Assert.That(result, Is.Not.Null);
-                Assert.That(result.Count(), Is.EqualTo(7));
+                Assert.That(result, Has.Exactly(7).Items);
                 Assert.That(firstOutput.OutputDate, Is.EqualTo(new DateTime(2018, 9, 7)));
                 Assert.That(firstOutput.TotalGeneration, Is.EqualTo(15628240));
                 Assert.That(lastOutput.OutputDate, Is.EqualTo(new DateTime(2018, 9, 1)));
@@ -493,7 +493,7 @@ namespace PVOutput.Net.Tests.Modules.Output
                 Assert.That(result, Is.Not.Null);
                 Assert.That(firstAggregate.AggregatedDate.Month, Is.EqualTo(6));
                 Assert.That(lastAggregate.AggregatedDate.Month, Is.EqualTo(1));
-                Assert.That(result.Count(), Is.EqualTo(6));
+                Assert.That(result, Has.Exactly(6).Items);
             });
         }
 
@@ -510,7 +510,7 @@ namespace PVOutput.Net.Tests.Modules.Output
                 Assert.That(result, Is.Not.Null);
                 Assert.That(firstAggregate.AggregatedDate.Year, Is.EqualTo(2018));
                 Assert.That(lastAggregate.AggregatedDate.Year, Is.EqualTo(2016));
-                Assert.That(result.Count(), Is.EqualTo(3));
+                Assert.That(result, Has.Exactly(3).Items);
             });
         }
     }
