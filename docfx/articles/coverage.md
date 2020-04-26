@@ -13,7 +13,7 @@ Currently all read operations of the API are implemented as are all of the opera
 | Delete     | Status       | Status            | :heavy_check_mark: | [Delete Status](https://pvoutput.org/help.html#api-deletestatus) |
 | Get        | Statistic    | Statistics        | :heavy_check_mark: | [Get Statistic](https://pvoutput.org/help.html#api-getstatistic) |
 | Get        | System       | System            | :heavy_check_mark: | [Get System](https://pvoutput.org/help.html#api-getsystem) |
-| Post       | System       | System            |                    | [Post System](https://pvoutput.org/help.html#api-postsystem) |
+| Post       | System       | System            | :heavy_check_mark: | [Post System](https://pvoutput.org/help.html#api-postsystem) |
 | Get        | Extended     | Extended          | :heavy_check_mark: | [Get Extended](https://pvoutput.org/help.html#api-getextended) |
 | Get        | Favourite    | Favourite         | :heavy_check_mark: | [Get Favourite](https://pvoutput.org/help.html#api-getfavourite) |
 | Get        | Missing      | Missing           | :heavy_check_mark: | [Get Missing](https://pvoutput.org/help.html#api-getmissing) |
