@@ -15,8 +15,8 @@ namespace PVOutput.Net.Tests.Modules.Status
             var post = new StatusPost() { Timestamp = new DateTime(2020, 2, 1, 13, 12, 20) };
 
             string[] postArray = GetSplitStatusPostLine(post);
-            Assert.AreEqual("20200201", postArray[0]);
-            Assert.AreEqual("13:12", postArray[1]);
+            Assert.That(postArray[0], Is.EqualTo("20200201"));
+            Assert.That(postArray[1], Is.EqualTo("13:12"));
         }
 
         [Test]
@@ -24,7 +24,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         {
             var post = new StatusPost() { EnergyGeneration = 1111 };
             string[] postArray = GetSplitStatusPostLine(post);
-            Assert.AreEqual("1111", postArray[2]);
+            Assert.That(postArray[2], Is.EqualTo("1111"));
         }
 
         [Test]
@@ -32,7 +32,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         {
             var post = new StatusPost() { PowerGeneration = 2222 };
             string[] postArray = GetSplitStatusPostLine(post);
-            Assert.AreEqual("2222", postArray[3]);
+            Assert.That(postArray[3], Is.EqualTo("2222"));
         }
 
         [Test]
@@ -40,7 +40,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         {
             var post = new StatusPost() { EnergyConsumption = 3333 };
             string[] postArray = GetSplitStatusPostLine(post);
-            Assert.AreEqual("3333", postArray[4]);
+            Assert.That(postArray[4], Is.EqualTo("3333"));
         }
 
         [Test]
@@ -48,7 +48,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         {
             var post = new StatusPost() { PowerConsumption = 4444 };
             string[] postArray = GetSplitStatusPostLine(post);
-            Assert.AreEqual("4444", postArray[5]);
+            Assert.That(postArray[5], Is.EqualTo("4444"));
         }
 
         [Test]
@@ -56,7 +56,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         {
             var post = new StatusPost() { Temperature = 18.9m };
             string[] postArray = GetSplitStatusPostLine(post);
-            Assert.AreEqual("18.9", postArray[6]);
+            Assert.That(postArray[6], Is.EqualTo("18.9"));
         }
 
         [Test]
@@ -64,7 +64,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         {
             var post = new StatusPost() { Voltage = 222.3m };
             string[] postArray = GetSplitStatusPostLine(post);
-            Assert.AreEqual("222.3", postArray[7]);
+            Assert.That(postArray[7], Is.EqualTo("222.3"));
         }
 
         [Test]
@@ -83,12 +83,12 @@ namespace PVOutput.Net.Tests.Modules.Status
 
             Assert.Multiple(() =>
             {
-                Assert.AreEqual("1", postArray[8]);
-                Assert.AreEqual("2", postArray[9]);
-                Assert.AreEqual("3", postArray[10]);
-                Assert.AreEqual("4", postArray[11]);
-                Assert.AreEqual("5", postArray[12]);
-                Assert.AreEqual("6", postArray[13]);
+                Assert.That(postArray[8], Is.EqualTo("1"));
+                Assert.That(postArray[9], Is.EqualTo("2"));
+                Assert.That(postArray[10], Is.EqualTo("3"));
+                Assert.That(postArray[11], Is.EqualTo("4"));
+                Assert.That(postArray[12], Is.EqualTo("5"));
+                Assert.That(postArray[13], Is.EqualTo("6"));
             });
         }
     }

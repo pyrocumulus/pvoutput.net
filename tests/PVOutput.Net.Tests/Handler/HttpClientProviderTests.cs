@@ -16,7 +16,7 @@ namespace PVOutput.Net.Tests.Handler
             var provider = new HttpClientProvider();
             HttpClient client = provider.GetHttpClient();
 
-            Assert.IsNotNull(client);
+            Assert.That(client, Is.Not.Null);
         }
 
         [Test]
@@ -25,7 +25,7 @@ namespace PVOutput.Net.Tests.Handler
             var provider = new HttpClientProvider();
             HttpClient client = provider.SetupHttpClient();
 
-            Assert.IsNotNull(client);
+            Assert.That(client, Is.Not.Null);
         }
 
         [Test]
@@ -35,7 +35,7 @@ namespace PVOutput.Net.Tests.Handler
             HttpClient client = provider.GetHttpClient();
 
             HttpClient secondClient = provider.GetHttpClient();
-            Assert.AreSame(client, secondClient);
+            Assert.That(secondClient, Is.SameAs(client));
         }
     }
 }

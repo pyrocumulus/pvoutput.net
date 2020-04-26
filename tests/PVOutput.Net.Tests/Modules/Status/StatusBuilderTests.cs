@@ -24,7 +24,7 @@ namespace PVOutput.Net.Tests.Modules.Status
             var timeStamp = DateTime.Now;
             var builder = new StatusPostBuilder<IStatusPost>().SetTimeStamp(timeStamp);
 
-            Assert.AreEqual(timeStamp, builder._statusPost.Timestamp);
+            Assert.That(builder._statusPost.Timestamp, Is.EqualTo(timeStamp));
         }
 
         [Test]
@@ -40,20 +40,20 @@ namespace PVOutput.Net.Tests.Modules.Status
         }
 
         [Test]
-        [TestCase(new object[] { 10, 20 })]
-        [TestCase(new object[] { null, 30 })]
-        [TestCase(new object[] { 15, null })]
+        [TestCase(10, 20)]
+        [TestCase(null, 30)]
+        [TestCase(15, null)]
         public void StatusPostBuilder_WithGeneration_SetsGeneration(int? energyGeneration, int? powerGeneration)
         {
             var builder = new StatusPostBuilder<IStatusPost>().SetGeneration(energyGeneration, powerGeneration);
 
-            Assert.AreEqual(energyGeneration, builder._statusPost.EnergyGeneration);
-            Assert.AreEqual(powerGeneration, builder._statusPost.PowerGeneration);
+            Assert.That(builder._statusPost.EnergyGeneration, Is.EqualTo(energyGeneration));
+            Assert.That(builder._statusPost.PowerGeneration, Is.EqualTo(powerGeneration));
         }
 
         [Test]
-        [TestCase(new object[] { null, -1 })]
-        [TestCase(new object[] { -1, null })]
+        [TestCase(null, -1)]
+        [TestCase(-1, null)]
         public void StatusPostBuilder_WithNegativeGeneration_Throws(int? energyGeneration, int? powerGeneration)
         {
             Assert.Throws<ArgumentOutOfRangeException>(() =>
@@ -63,20 +63,20 @@ namespace PVOutput.Net.Tests.Modules.Status
         }
 
         [Test]
-        [TestCase(new object[] { 10, 20 })]
-        [TestCase(new object[] { null, 30 })]
-        [TestCase(new object[] { 15, null })]
+        [TestCase(10, 20)]
+        [TestCase(null, 30)]
+        [TestCase(15, null)]
         public void StatusPostBuilder_WithConsumption_SetsConsumption(int? energyConsumption, int? powerConsumption)
         {
             var builder = new StatusPostBuilder<IStatusPost>().SetConsumption(energyConsumption, powerConsumption);
 
-            Assert.AreEqual(energyConsumption, builder._statusPost.EnergyConsumption);
-            Assert.AreEqual(powerConsumption, builder._statusPost.PowerConsumption);
+            Assert.That(builder._statusPost.EnergyConsumption, Is.EqualTo(energyConsumption));
+            Assert.That(builder._statusPost.PowerConsumption, Is.EqualTo(powerConsumption));
         }
 
         [Test]
-        [TestCase(new object[] { null, -1 })]
-        [TestCase(new object[] { -1, null })]
+        [TestCase(null, -1)]
+        [TestCase(-1, null)]
         public void StatusPostBuilder_WithNegativeConsumption_Throws(int? energyConsumption, int? powerConsumption)
         {
             Assert.Throws<ArgumentOutOfRangeException>(() =>
@@ -90,7 +90,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         {
             var builder = new StatusPostBuilder<IStatusPost>().SetTemperature(15.1m);
 
-            Assert.AreEqual(15.1m, builder._statusPost.Temperature);
+            Assert.That(builder._statusPost.Temperature, Is.EqualTo(15.1m));
         }
 
         [Test]
@@ -98,7 +98,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         {
             var builder = new StatusPostBuilder<IStatusPost>().SetVoltage(231.2m);
 
-            Assert.AreEqual(231.2m, builder._statusPost.Voltage);
+            Assert.That(builder._statusPost.Voltage, Is.EqualTo(231.2m));
         }
 
         [Test]
@@ -117,7 +117,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         {
             var builder = new StatusPostBuilder<IStatusPost>().SetCumulativeType(CumulativeStatusType.LifetimeConsumption);
 
-            Assert.AreEqual(CumulativeStatusType.LifetimeConsumption, builder._statusPost.Cumulative);
+            Assert.That(builder._statusPost.Cumulative, Is.EqualTo(CumulativeStatusType.LifetimeConsumption));
         }
 
         [Test]
@@ -125,27 +125,27 @@ namespace PVOutput.Net.Tests.Modules.Status
         {
             var builder = new StatusPostBuilder<IStatusPost>().IsNetValue(true);
 
-            Assert.AreEqual(true, builder._statusPost.Net);
+            Assert.That(builder._statusPost.Net, Is.EqualTo(true));
         }
 
         [Test]
-        [TestCase(new object[] { 1, 2, 3, 4, 5, 6 })]
-        [TestCase(new object[] { 1, null, null, null, null, null })]
-        [TestCase(new object[] { null, 2, null, null, null, null })]
-        [TestCase(new object[] { null, null, 3, null, null, null })]
-        [TestCase(new object[] { null, null, null, 4, null, null })]
-        [TestCase(new object[] { null, null, null, null, 5, null })]
-        [TestCase(new object[] { null, null, null, null, null, 6 })]
+        [TestCase(1, 2, 3, 4, 5, 6)]
+        [TestCase(1, null, null, null, null, null)]
+        [TestCase(null, 2, null, null, null, null)]
+        [TestCase(null, null, 3, null, null, null)]
+        [TestCase(null, null, null, 4, null, null)]
+        [TestCase(null, null, null, null, 5, null)]
+        [TestCase(null, null, null, null, null, 6)]
         public void StatusPostBuilder_WithExtendedValues_SetsExtendedValues(decimal? value1, decimal? value2, decimal? value3, decimal? value4, decimal? value5, decimal? value6)
         {
             var builder = new StatusPostBuilder<IStatusPost>().SetExtendedValues(value1, value2, value3, value4, value5, value6);
 
-            Assert.AreEqual(value1, builder._statusPost.ExtendedValue1);
-            Assert.AreEqual(value2, builder._statusPost.ExtendedValue2);
-            Assert.AreEqual(value3, builder._statusPost.ExtendedValue3);
-            Assert.AreEqual(value4, builder._statusPost.ExtendedValue4);
-            Assert.AreEqual(value5, builder._statusPost.ExtendedValue5);
-            Assert.AreEqual(value6, builder._statusPost.ExtendedValue6);
+            Assert.That(builder._statusPost.ExtendedValue1, Is.EqualTo(value1));
+            Assert.That(builder._statusPost.ExtendedValue2, Is.EqualTo(value2));
+            Assert.That(builder._statusPost.ExtendedValue3, Is.EqualTo(value3));
+            Assert.That(builder._statusPost.ExtendedValue4, Is.EqualTo(value4));
+            Assert.That(builder._statusPost.ExtendedValue5, Is.EqualTo(value5));
+            Assert.That(builder._statusPost.ExtendedValue6, Is.EqualTo(value6));
         }
 
 
@@ -154,7 +154,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         {
             var builder = new StatusPostBuilder<IStatusPost>().SetTextMessage("This is a test");
 
-            Assert.AreEqual("This is a test", builder._statusPost.TextMessage);
+            Assert.That(builder._statusPost.TextMessage, Is.EqualTo("This is a test"));
         }
 
         [Test]
@@ -176,7 +176,7 @@ namespace PVOutput.Net.Tests.Modules.Status
 
             builder.Reset();
 
-            Assert.AreNotSame(status, builder._statusPost);
+            Assert.That(builder._statusPost, Is.Not.SameAs(status));
         }
 
 
@@ -186,7 +186,7 @@ namespace PVOutput.Net.Tests.Modules.Status
             var builder = new StatusPostBuilder<IStatusPost>().SetGeneration(1000, null).SetTimeStamp(DateTime.Now);
             IStatusPost status = builder.BuildAndReset();
 
-            Assert.AreNotSame(status, builder._statusPost);
+            Assert.That(builder._statusPost, Is.Not.SameAs(status));
         }
 
         [Test]

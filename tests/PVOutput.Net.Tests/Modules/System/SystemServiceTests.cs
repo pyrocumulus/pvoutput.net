@@ -66,12 +66,12 @@ namespace PVOutput.Net.Tests.Modules.System
         {
             ISystem result = await TestUtility.ExecuteObjectReaderByTypeAsync<ISystem>(SYSTEM_RESPONSE_EXTENDED);
 
-            Assert.AreEqual("Test System", result.SystemName);
-            Assert.AreEqual(1, result.Donations);
-            Assert.AreEqual(10.65, result.ImportDailyCharge);
-            Assert.AreEqual("DC-2 Voltage", result.ExtendedDataConfig[1].Label);
-            Assert.AreEqual(159, result.MonthlyGenerationEstimates[PVMonth.October]);
-            Assert.AreEqual(0, result.MonthlyConsumptionEstimates[PVMonth.January]);
+            Assert.That(result.SystemName, Is.EqualTo("Test System"));
+            Assert.That(result.Donations, Is.EqualTo(1));
+            Assert.That(result.ImportDailyCharge, Is.EqualTo(10.65));
+            Assert.That(result.ExtendedDataConfig[1].Label, Is.EqualTo("DC-2 Voltage"));
+            Assert.That(result.MonthlyGenerationEstimates[PVMonth.October], Is.EqualTo(159));
+            Assert.That(result.MonthlyConsumptionEstimates[PVMonth.January], Is.EqualTo(0));
         }
     }
 }

@@ -41,8 +41,8 @@ namespace PVOutput.Net.Tests.Modules.Team
 
             Assert.Multiple(() =>
             {
-                Assert.IsTrue(response.IsSuccess);
-                Assert.AreEqual("You have joined team [team_name]", response.SuccesMessage);
+                Assert.That(response.IsSuccess, Is.True);
+                Assert.That(response.SuccesMessage, Is.EqualTo("You have joined team [team_name]"));
             });
         }
 
@@ -60,8 +60,8 @@ namespace PVOutput.Net.Tests.Modules.Team
 
             Assert.Multiple(() =>
             {
-                Assert.IsTrue(response.IsSuccess);
-                Assert.AreEqual("You have left team [team_name]", response.SuccesMessage);
+                Assert.That(response.IsSuccess, Is.True);
+                Assert.That(response.SuccesMessage, Is.EqualTo("You have left team [team_name]"));
             });
         }
 
@@ -78,9 +78,9 @@ namespace PVOutput.Net.Tests.Modules.Team
 
             Assert.Multiple(() => 
             {
-                Assert.IsFalse(response.IsSuccess);
-                Assert.AreEqual(HttpStatusCode.BadRequest, response.Error.StatusCode);
-                Assert.AreEqual("You cannot join a team that does not exist", response.Error.Message);
+                Assert.That(response.IsSuccess, Is.False);
+                Assert.That(response.Error.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
+                Assert.That(response.Error.Message, Is.EqualTo("You cannot join a team that does not exist"));
             });
         }
 
@@ -95,16 +95,16 @@ namespace PVOutput.Net.Tests.Modules.Team
 
             Assert.Multiple(() =>
             {
-                Assert.AreEqual("McDonalds Android App", result.Name);
-                Assert.AreEqual("Join the team if you use the app.", result.Description);
-                Assert.AreEqual("Software", result.Type);
-                Assert.AreEqual(8554332, result.TeamSize);
-                Assert.AreEqual(5741, result.AverageSize);
-                Assert.AreEqual(1490, result.NumberOfSystems);
-                Assert.AreEqual(45566122184, result.EnergyGenerated);
-                Assert.AreEqual(2521753, result.Outputs);
-                Assert.AreEqual(17851, result.EnergyAverage);
-                Assert.AreEqual(new DateTime(2012, 2, 19), result.CreationDate);
+                Assert.That(result.Name, Is.EqualTo("McDonalds Android App"));
+                Assert.That(result.Description, Is.EqualTo("Join the team if you use the app."));
+                Assert.That(result.Type, Is.EqualTo("Software"));
+                Assert.That(result.TeamSize, Is.EqualTo(8554332));
+                Assert.That(result.AverageSize, Is.EqualTo(5741));
+                Assert.That(result.NumberOfSystems, Is.EqualTo(1490));
+                Assert.That(result.EnergyGenerated, Is.EqualTo(45566122184));
+                Assert.That(result.Outputs, Is.EqualTo(2521753));
+                Assert.That(result.EnergyAverage, Is.EqualTo(17851));
+                Assert.That(result.CreationDate, Is.EqualTo(new DateTime(2012, 2, 19)));
             });
         }
     }

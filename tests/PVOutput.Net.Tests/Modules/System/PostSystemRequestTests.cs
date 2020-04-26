@@ -21,7 +21,7 @@ namespace PVOutput.Net.Tests.Modules.System
         {
             var request = new PostSystemRequest() { SystemName = "New name" };
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual("New name", parameters["name"]);
+            Assert.That(parameters["name"], Is.EqualTo("New name"));
         }
 
         [Test]
@@ -29,7 +29,7 @@ namespace PVOutput.Net.Tests.Modules.System
         {
             var request = new PostSystemRequest() { SystemId = 54321 };
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual(54321, parameters["sid"]);
+            Assert.That(parameters["sid"], Is.EqualTo(54321));
         }
 
         public static IEnumerable DefinitionLabelTests
@@ -46,12 +46,12 @@ namespace PVOutput.Net.Tests.Modules.System
         }
 
         [Test]
-        [TestCaseSource(typeof(PostSystemRequestTests), "DefinitionLabelTests")]
+        [TestCaseSource(typeof(PostSystemRequestTests), nameof(DefinitionLabelTests))]
         public void Parameter_DefinitionLabel_CreatesCorrectUriParameters(ExtendedDataIndex index, string label, string parameterKey)
         {
             var request = CreateRequestWithDefinition(new ExtendedDataDefinition() { Index = index, Label = label });
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual(label, parameters[parameterKey]);
+            Assert.That(parameters[parameterKey], Is.EqualTo(label));
         }
 
         public static IEnumerable DefinitionUnitTests
@@ -68,12 +68,12 @@ namespace PVOutput.Net.Tests.Modules.System
         }
 
         [Test]
-        [TestCaseSource(typeof(PostSystemRequestTests), "DefinitionUnitTests")]
+        [TestCaseSource(typeof(PostSystemRequestTests), nameof(DefinitionUnitTests))]
         public void Parameter_DefinitionUnit_CreatesCorrectUriParameters(ExtendedDataIndex index, string unit, string parameterKey)
         {
             var request = CreateRequestWithDefinition(new ExtendedDataDefinition() { Index = index, Unit = unit });
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual(unit, parameters[parameterKey]);
+            Assert.That(parameters[parameterKey], Is.EqualTo(unit));
         }
 
         public static IEnumerable DefinitionAxisTests
@@ -90,12 +90,12 @@ namespace PVOutput.Net.Tests.Modules.System
         }
 
         [Test]
-        [TestCaseSource(typeof(PostSystemRequestTests), "DefinitionAxisTests")]
+        [TestCaseSource(typeof(PostSystemRequestTests), nameof(DefinitionAxisTests))]
         public void Parameter_DefinitionAxis_CreatesCorrectUriParameters(ExtendedDataIndex index, int axis, string parameterKey)
         {
             var request = CreateRequestWithDefinition(new ExtendedDataDefinition() { Index = index, Axis = axis});
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual(axis, parameters[parameterKey]);
+            Assert.That(parameters[parameterKey], Is.EqualTo(axis));
         }
 
         public static IEnumerable DefinitionColourTests
@@ -112,12 +112,12 @@ namespace PVOutput.Net.Tests.Modules.System
         }
 
         [Test]
-        [TestCaseSource(typeof(PostSystemRequestTests), "DefinitionColourTests")]
+        [TestCaseSource(typeof(PostSystemRequestTests), nameof(DefinitionColourTests))]
         public void Parameter_DefinitionColour_CreatesCorrectUriParameters(ExtendedDataIndex index, string colour, string parameterKey)
         {
             var request = CreateRequestWithDefinition(new ExtendedDataDefinition() { Index = index, Colour = colour });
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual(colour, parameters[parameterKey]);
+            Assert.That(parameters[parameterKey], Is.EqualTo(colour));
         }
 
         public static IEnumerable DefinitionDisplayTypeTests
@@ -140,12 +140,12 @@ namespace PVOutput.Net.Tests.Modules.System
         }
 
         [Test]
-        [TestCaseSource(typeof(PostSystemRequestTests), "DefinitionDisplayTypeTests")]
+        [TestCaseSource(typeof(PostSystemRequestTests), nameof(DefinitionDisplayTypeTests))]
         public void Parameter_DefinitionDisplayType_CreatesCorrectUriParameters(ExtendedDataIndex index, ExtendedDataDisplayType displayType, string parameterKey)
         {
             var request = CreateRequestWithDefinition(new ExtendedDataDefinition() { Index = index, DisplayType = displayType });
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual(displayType.ToString(), parameters[parameterKey]);
+            Assert.That(parameters[parameterKey], Is.EqualTo(displayType.ToString()));
         }
     }
 }
