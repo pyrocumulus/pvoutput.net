@@ -19,9 +19,9 @@ namespace PVOutput.Net.Tests.Client
 
             Assert.Multiple(() => 
             {
-                Assert.AreEqual("apikey", client.ApiKey);
-                Assert.AreEqual(1234, client.OwnedSystemId);
-                Assert.AreEqual(NullLogger<PVOutputClient>.Instance, client.Logger);
+                Assert.That(client.ApiKey, Is.EqualTo("apikey"));
+                Assert.That(client.OwnedSystemId, Is.EqualTo(1234));
+                Assert.That(client.Logger, Is.EqualTo(NullLogger<PVOutputClient>.Instance));
             });
         }
 
@@ -33,9 +33,9 @@ namespace PVOutput.Net.Tests.Client
 
             Assert.Multiple(() =>
             {
-                Assert.AreEqual("apikey", client.ApiKey);
-                Assert.AreEqual(1234, client.OwnedSystemId);
-                Assert.AreNotEqual(NullLogger<PVOutputClient>.Instance, client.Logger);
+                Assert.That(client.ApiKey, Is.EqualTo("apikey"));
+                Assert.That(client.OwnedSystemId, Is.EqualTo(1234));
+                Assert.That(client.Logger, Is.Not.EqualTo(NullLogger<PVOutputClient>.Instance));
             });
         }
 
@@ -47,8 +47,8 @@ namespace PVOutput.Net.Tests.Client
 
             Assert.Multiple(() =>
             {
-                Assert.AreEqual("apikey", client.ApiKey);
-                Assert.AreEqual(1234, client.OwnedSystemId);
+                Assert.That(client.ApiKey, Is.EqualTo("apikey"));
+                Assert.That(client.OwnedSystemId, Is.EqualTo(1234));
             });
         }
 
@@ -60,9 +60,9 @@ namespace PVOutput.Net.Tests.Client
 
             Assert.Multiple(() =>
             {
-                Assert.AreEqual("apikey", client.ApiKey);
-                Assert.AreEqual(1234, client.OwnedSystemId);
-                Assert.AreNotEqual(NullLogger<PVOutputClient>.Instance, client.Logger);
+                Assert.That(client.ApiKey, Is.EqualTo("apikey"));
+                Assert.That(client.OwnedSystemId, Is.EqualTo(1234));
+                Assert.That(client.Logger, Is.Not.EqualTo(NullLogger<PVOutputClient>.Instance));
             });
         }
     }

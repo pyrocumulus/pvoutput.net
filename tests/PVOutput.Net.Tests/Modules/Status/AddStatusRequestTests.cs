@@ -30,8 +30,8 @@ namespace PVOutput.Net.Tests.Modules.Status
             var request= CreateRequestWithPost(new StatusPost() { Timestamp = new DateTime(2020, 2, 1, 13, 12, 20) });
 
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual("20200201", parameters["d"]);
-            Assert.AreEqual("13:12", parameters["t"]);
+            Assert.That(parameters["d"], Is.EqualTo("20200201"));
+            Assert.That(parameters["t"], Is.EqualTo("13:12"));
         }
 
         [Test]
@@ -39,7 +39,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         {
             var request= CreateRequestWithPost(new StatusPost() { EnergyGeneration = 1111 });
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual(1111, parameters["v1"]);
+            Assert.That(parameters["v1"], Is.EqualTo(1111));
         }
 
         [Test]
@@ -47,7 +47,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         {
             var request= CreateRequestWithPost(new StatusPost() { PowerGeneration = 2222 });
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual(2222, parameters["v2"]);
+            Assert.That(parameters["v2"], Is.EqualTo(2222));
         }
 
         [Test]
@@ -55,7 +55,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         {
             var request= CreateRequestWithPost(new StatusPost() { EnergyConsumption = 3333 });
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual(3333, parameters["v3"]);
+            Assert.That(parameters["v3"], Is.EqualTo(3333));
         }
 
         [Test]
@@ -63,7 +63,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         {
             var request= CreateRequestWithPost(new StatusPost() { PowerConsumption = 4444 });
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual(4444, parameters["v4"]);
+            Assert.That(parameters["v4"], Is.EqualTo(4444));
         }
 
         [Test]
@@ -71,7 +71,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         {
             var request= CreateRequestWithPost(new StatusPost() { Temperature = 18.9m });
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual("18.9", parameters["v5"]);
+            Assert.That(parameters["v5"], Is.EqualTo("18.9"));
         }
 
         [Test]
@@ -79,7 +79,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         {
             var request= CreateRequestWithPost(new StatusPost() { Voltage = 222.3m });
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual("222.3", parameters["v6"]);
+            Assert.That(parameters["v6"], Is.EqualTo("222.3"));
         }
 
         [Test]
@@ -87,7 +87,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         {
             var request= CreateRequestWithPost(new StatusPost() { Cumulative = Enums.CumulativeStatusType.LifetimeGeneration });
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual(2, parameters["c1"]);
+            Assert.That(parameters["c1"], Is.EqualTo(2));
         }
 
         [Test]
@@ -95,7 +95,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         {
             var request= CreateRequestWithPost(new StatusPost() { Net = true });
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual(1, parameters["n"]);
+            Assert.That(parameters["n"], Is.EqualTo(1));
         }
 
         [Test]
@@ -103,7 +103,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         {
             var request = CreateRequestWithPost(new StatusPost() { TextMessage = "Text message" });
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual("Text message", parameters["m1"]);
+            Assert.That(parameters["m1"], Is.EqualTo("Text message"));
         }
 
         [Test]
@@ -125,12 +125,12 @@ namespace PVOutput.Net.Tests.Modules.Status
 
             Assert.Multiple(() =>
             {
-                Assert.AreEqual("1", parameters["v7"]);
-                Assert.AreEqual("2", parameters["v8"]);
-                Assert.AreEqual("3", parameters["v9"]);
-                Assert.AreEqual("4", parameters["v10"]);
-                Assert.AreEqual("5", parameters["v11"]);
-                Assert.AreEqual("6", parameters["v12"]);
+                Assert.That(parameters["v7"], Is.EqualTo("1"));
+                Assert.That(parameters["v8"], Is.EqualTo("2"));
+                Assert.That(parameters["v9"], Is.EqualTo("3"));
+                Assert.That(parameters["v10"], Is.EqualTo("4"));
+                Assert.That(parameters["v11"], Is.EqualTo("5"));
+                Assert.That(parameters["v12"], Is.EqualTo("6"));
             });
         }
     }

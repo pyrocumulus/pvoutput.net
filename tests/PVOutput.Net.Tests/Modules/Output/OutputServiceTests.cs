@@ -272,8 +272,7 @@ namespace PVOutput.Net.Tests.Modules.Output
             }
         }
 
-        [Test]
-        [TestCaseSource(typeof(OutputServiceTests), "AddOutputTestCases")]
+        [TestCaseSource(typeof(OutputServiceTests), nameof(AddOutputTestCases))]
         public async Task OutputService_AddOutput_CallsCorrectUri(IOutputPost outputToPost, string expectedQueryString)
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
@@ -315,21 +314,21 @@ namespace PVOutput.Net.Tests.Modules.Output
 
             Assert.Multiple(() =>
             {
-                Assert.IsNotNull(result);
-                Assert.AreEqual(new DateTime(2016, 10, 1), result.OutputDate);
-                Assert.AreEqual(8190, result.EnergyGenerated);
-                Assert.AreEqual(1.985, result.Efficiency);
-                Assert.AreEqual(0, result.EnergyExported);
-                Assert.AreEqual(0, result.EnergyUsed);
-                Assert.IsNull(result.PeakPower);
-                Assert.IsNull(result.PeakTime);
-                Assert.AreEqual(WeatherCondition.Cloudy, result.Condition);
-                Assert.IsNull(result.MinimumTemperature);
-                Assert.IsNull(result.MaximumTemperature);
-                Assert.IsNull(result.PeakEnergyImport);
-                Assert.IsNull(result.OffPeakEnergyImport);
-                Assert.IsNull(result.ShoulderEnergyImport);
-                Assert.IsNull(result.HighShoulderEnergyImport);
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.OutputDate, Is.EqualTo(new DateTime(2016, 10, 1)));
+                Assert.That(result.EnergyGenerated, Is.EqualTo(8190));
+                Assert.That(result.Efficiency, Is.EqualTo(1.985));
+                Assert.That(result.EnergyExported, Is.EqualTo(0));
+                Assert.That(result.EnergyUsed, Is.EqualTo(0));
+                Assert.That(result.PeakPower, Is.Null);
+                Assert.That(result.PeakTime, Is.Null);
+                Assert.That(result.Condition, Is.EqualTo(WeatherCondition.Cloudy));
+                Assert.That(result.MinimumTemperature, Is.Null);
+                Assert.That(result.MaximumTemperature, Is.Null);
+                Assert.That(result.PeakEnergyImport, Is.Null);
+                Assert.That(result.OffPeakEnergyImport, Is.Null);
+                Assert.That(result.ShoulderEnergyImport, Is.Null);
+                Assert.That(result.HighShoulderEnergyImport, Is.Null);
             });
         }
 
@@ -340,21 +339,21 @@ namespace PVOutput.Net.Tests.Modules.Output
 
             Assert.Multiple(() =>
             {
-                Assert.IsNotNull(result);
-                Assert.AreEqual(new DateTime(2018, 9, 1), result.OutputDate);
-                Assert.AreEqual(16784, result.EnergyGenerated);
-                Assert.AreEqual(4.069, result.Efficiency);
-                Assert.AreEqual(12719, result.EnergyExported);
-                Assert.AreEqual(8500, result.EnergyUsed);
-                Assert.AreEqual(3422, result.PeakPower);
-                Assert.AreEqual(new TimeSpan(12, 0, 0), result.PeakTime);
-                Assert.AreEqual(WeatherCondition.Fine, result.Condition);
-                Assert.AreEqual(7, result.MinimumTemperature);
-                Assert.AreEqual(23, result.MaximumTemperature);
-                Assert.AreEqual(4435, result.PeakEnergyImport);
-                Assert.AreEqual(123, result.OffPeakEnergyImport);
-                Assert.AreEqual(321, result.ShoulderEnergyImport);
-                Assert.AreEqual(456, result.HighShoulderEnergyImport);
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.OutputDate, Is.EqualTo(new DateTime(2018, 9, 1)));
+                Assert.That(result.EnergyGenerated, Is.EqualTo(16784));
+                Assert.That(result.Efficiency, Is.EqualTo(4.069));
+                Assert.That(result.EnergyExported, Is.EqualTo(12719));
+                Assert.That(result.EnergyUsed, Is.EqualTo(8500));
+                Assert.That(result.PeakPower, Is.EqualTo(3422));
+                Assert.That(result.PeakTime, Is.EqualTo(new TimeSpan(12, 0, 0)));
+                Assert.That(result.Condition, Is.EqualTo(WeatherCondition.Fine));
+                Assert.That(result.MinimumTemperature, Is.EqualTo(7));
+                Assert.That(result.MaximumTemperature, Is.EqualTo(23));
+                Assert.That(result.PeakEnergyImport, Is.EqualTo(4435));
+                Assert.That(result.OffPeakEnergyImport, Is.EqualTo(123));
+                Assert.That(result.ShoulderEnergyImport, Is.EqualTo(321));
+                Assert.That(result.HighShoulderEnergyImport, Is.EqualTo(456));
             });
         }
 
@@ -368,11 +367,11 @@ namespace PVOutput.Net.Tests.Modules.Output
 
             Assert.Multiple(() =>
             {
-                Assert.AreEqual(7, result.Count());
-                Assert.AreEqual(new DateTime(2018, 9, 7), firstOutput.OutputDate);
-                Assert.AreEqual(WeatherCondition.PartlyCloudy, firstOutput.Condition);
-                Assert.AreEqual(new DateTime(2018, 9, 1), lastOutput.OutputDate);
-                Assert.AreEqual(WeatherCondition.Fine, lastOutput.Condition);
+                Assert.That(result, Has.Exactly(7).Items);
+                Assert.That(firstOutput.OutputDate, Is.EqualTo(new DateTime(2018, 9, 7)));
+                Assert.That(firstOutput.Condition, Is.EqualTo(WeatherCondition.PartlyCloudy));
+                Assert.That(lastOutput.OutputDate, Is.EqualTo(new DateTime(2018, 9, 1)));
+                Assert.That(lastOutput.Condition, Is.EqualTo(WeatherCondition.Fine));
             });
         }
 
@@ -383,22 +382,22 @@ namespace PVOutput.Net.Tests.Modules.Output
 
             Assert.Multiple(() =>
             {
-                Assert.IsNotNull(result);
-                Assert.AreEqual(new DateTime(2018, 9, 1), result.OutputDate);
-                Assert.AreEqual(16784, result.EnergyGenerated);
-                Assert.AreEqual(4.069, result.Efficiency);
-                Assert.AreEqual(12719, result.EnergyExported);
-                Assert.AreEqual(8500, result.EnergyUsed);
-                Assert.AreEqual(3422, result.PeakPower);
-                Assert.AreEqual(new TimeSpan(12, 0, 0), result.PeakTime);
-                Assert.AreEqual(WeatherCondition.Fine, result.Condition);
-                Assert.AreEqual(7, result.MinimumTemperature);
-                Assert.AreEqual(23, result.MaximumTemperature);
-                Assert.AreEqual(4435, result.PeakEnergyImport);
-                Assert.AreEqual(123, result.OffPeakEnergyImport);
-                Assert.AreEqual(321, result.ShoulderEnergyImport);
-                Assert.AreEqual(456, result.HighShoulderEnergyImport);
-                Assert.AreEqual(15197, result.Insolation);
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.OutputDate, Is.EqualTo(new DateTime(2018, 9, 1)));
+                Assert.That(result.EnergyGenerated, Is.EqualTo(16784));
+                Assert.That(result.Efficiency, Is.EqualTo(4.069));
+                Assert.That(result.EnergyExported, Is.EqualTo(12719));
+                Assert.That(result.EnergyUsed, Is.EqualTo(8500));
+                Assert.That(result.PeakPower, Is.EqualTo(3422));
+                Assert.That(result.PeakTime, Is.EqualTo(new TimeSpan(12, 0, 0)));
+                Assert.That(result.Condition, Is.EqualTo(WeatherCondition.Fine));
+                Assert.That(result.MinimumTemperature, Is.EqualTo(7));
+                Assert.That(result.MaximumTemperature, Is.EqualTo(23));
+                Assert.That(result.PeakEnergyImport, Is.EqualTo(4435));
+                Assert.That(result.OffPeakEnergyImport, Is.EqualTo(123));
+                Assert.That(result.ShoulderEnergyImport, Is.EqualTo(321));
+                Assert.That(result.HighShoulderEnergyImport, Is.EqualTo(456));
+                Assert.That(result.Insolation, Is.EqualTo(15197));
             });
         }
 
@@ -412,12 +411,12 @@ namespace PVOutput.Net.Tests.Modules.Output
 
             Assert.Multiple(() =>
             {
-                Assert.IsNotNull(result);
-                Assert.AreEqual(7, result.Count());
-                Assert.AreEqual(new DateTime(2018, 9, 7), firstOutput.OutputDate);
-                Assert.AreEqual(new DateTime(2018, 9, 1), lastOutput.OutputDate);
-                Assert.AreEqual(14189, firstOutput.Insolation);
-                Assert.AreEqual(15197, lastOutput.Insolation);
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result, Has.Exactly(7).Items);
+                Assert.That(firstOutput.OutputDate, Is.EqualTo(new DateTime(2018, 9, 7)));
+                Assert.That(lastOutput.OutputDate, Is.EqualTo(new DateTime(2018, 9, 1)));
+                Assert.That(firstOutput.Insolation, Is.EqualTo(14189));
+                Assert.That(lastOutput.Insolation, Is.EqualTo(15197));
             });
         }
 
@@ -428,16 +427,16 @@ namespace PVOutput.Net.Tests.Modules.Output
 
             Assert.Multiple(() =>
             {
-                Assert.IsNotNull(result);
-                Assert.AreEqual(new DateTime(2018, 9, 1), result.OutputDate);
-                Assert.AreEqual(980, result.Outputs);
-                Assert.AreEqual(4.736, result.Efficiency);
-                Assert.AreEqual(19264849, result.TotalGeneration);
-                Assert.AreEqual(19658, result.AverageGeneration);
-                Assert.AreEqual(5116604, result.TotalExported);
-                Assert.AreEqual(3815116, result.TotalConsumption);
-                Assert.AreEqual(3893, result.AverageConsumption);
-                Assert.AreEqual(2224276, result.TotalImported);
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.OutputDate, Is.EqualTo(new DateTime(2018, 9, 1)));
+                Assert.That(result.Outputs, Is.EqualTo(980));
+                Assert.That(result.Efficiency, Is.EqualTo(4.736));
+                Assert.That(result.TotalGeneration, Is.EqualTo(19264849));
+                Assert.That(result.AverageGeneration, Is.EqualTo(19658));
+                Assert.That(result.TotalExported, Is.EqualTo(5116604));
+                Assert.That(result.TotalConsumption, Is.EqualTo(3815116));
+                Assert.That(result.AverageConsumption, Is.EqualTo(3893));
+                Assert.That(result.TotalImported, Is.EqualTo(2224276));
             });
         }
 
@@ -451,12 +450,12 @@ namespace PVOutput.Net.Tests.Modules.Output
 
             Assert.Multiple(() =>
             {
-                Assert.IsNotNull(result);
-                Assert.AreEqual(7, result.Count());
-                Assert.AreEqual(new DateTime(2018, 9, 7), firstOutput.OutputDate);
-                Assert.AreEqual(15628240, firstOutput.TotalGeneration);
-                Assert.AreEqual(new DateTime(2018, 9, 1), lastOutput.OutputDate);
-                Assert.AreEqual(19264849, lastOutput.TotalGeneration);
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result, Has.Exactly(7).Items);
+                Assert.That(firstOutput.OutputDate, Is.EqualTo(new DateTime(2018, 9, 7)));
+                Assert.That(firstOutput.TotalGeneration, Is.EqualTo(15628240));
+                Assert.That(lastOutput.OutputDate, Is.EqualTo(new DateTime(2018, 9, 1)));
+                Assert.That(lastOutput.TotalGeneration, Is.EqualTo(19264849));
             });
         }
 
@@ -467,17 +466,17 @@ namespace PVOutput.Net.Tests.Modules.Output
 
             Assert.Multiple(() =>
             {
-                Assert.IsNotNull(result);
-                Assert.AreEqual(new DateTime(2018, 6, 1), result.AggregatedDate);
-                Assert.AreEqual(30, result.Outputs);
-                Assert.AreEqual(420107, result.EnergyGenerated);
-                Assert.AreEqual(3.395m, result.Efficiency);
-                Assert.AreEqual(301293, result.EnergyExported);
-                Assert.AreEqual(274773, result.EnergyUsed);
-                Assert.AreEqual(155959, result.PeakEnergyImport);
-                Assert.AreEqual(123, result.OffPeakEnergyImport);
-                Assert.AreEqual(321, result.ShoulderEnergyImport);
-                Assert.AreEqual(456, result.HighShoulderEnergyImport);
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.AggregatedDate, Is.EqualTo(new DateTime(2018, 6, 1)));
+                Assert.That(result.Outputs, Is.EqualTo(30));
+                Assert.That(result.EnergyGenerated, Is.EqualTo(420107));
+                Assert.That(result.Efficiency, Is.EqualTo(3.395m));
+                Assert.That(result.EnergyExported, Is.EqualTo(301293));
+                Assert.That(result.EnergyUsed, Is.EqualTo(274773));
+                Assert.That(result.PeakEnergyImport, Is.EqualTo(155959));
+                Assert.That(result.OffPeakEnergyImport, Is.EqualTo(123));
+                Assert.That(result.ShoulderEnergyImport, Is.EqualTo(321));
+                Assert.That(result.HighShoulderEnergyImport, Is.EqualTo(456));
             });
         }
 
@@ -491,10 +490,10 @@ namespace PVOutput.Net.Tests.Modules.Output
 
             Assert.Multiple(() =>
             {
-                Assert.IsNotNull(result);
-                Assert.AreEqual(6, firstAggregate.AggregatedDate.Month);
-                Assert.AreEqual(1, lastAggregate.AggregatedDate.Month);
-                Assert.AreEqual(6, result.Count());
+                Assert.That(result, Is.Not.Null);
+                Assert.That(firstAggregate.AggregatedDate.Month, Is.EqualTo(6));
+                Assert.That(lastAggregate.AggregatedDate.Month, Is.EqualTo(1));
+                Assert.That(result, Has.Exactly(6).Items);
             });
         }
 
@@ -508,10 +507,10 @@ namespace PVOutput.Net.Tests.Modules.Output
 
             Assert.Multiple(() =>
             {
-                Assert.IsNotNull(result);
-                Assert.AreEqual(2018, firstAggregate.AggregatedDate.Year);
-                Assert.AreEqual(2016, lastAggregate.AggregatedDate.Year);
-                Assert.AreEqual(3, result.Count());
+                Assert.That(result, Is.Not.Null);
+                Assert.That(firstAggregate.AggregatedDate.Year, Is.EqualTo(2018));
+                Assert.That(lastAggregate.AggregatedDate.Year, Is.EqualTo(2016));
+                Assert.That(result, Has.Exactly(3).Items);
             });
         }
     }

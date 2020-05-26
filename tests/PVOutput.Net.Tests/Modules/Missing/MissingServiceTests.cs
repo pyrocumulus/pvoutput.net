@@ -48,9 +48,9 @@ namespace PVOutput.Net.Tests.Modules.Missing
 
             Assert.Multiple(() =>
             {
-                Assert.AreEqual(21, result.Dates.Count());
-                Assert.AreEqual(new DateTime(2016, 8, 1), result.Dates.First());
-                Assert.AreEqual(new DateTime(2016, 8, 21), result.Dates.Last());
+                Assert.That(result.Dates, Has.Exactly(21).Items);
+                Assert.That(result.Dates.First(), Is.EqualTo(new DateTime(2016, 8, 1)));
+                Assert.That(result.Dates.Last(), Is.EqualTo(new DateTime(2016, 8, 21)));
             });
         }
 
@@ -58,7 +58,7 @@ namespace PVOutput.Net.Tests.Modules.Missing
         public async Task MissingReader_ForEmptyResponse_CreatesCorrectObject()
         {
             IMissing result = await TestUtility.ExecuteObjectReaderByTypeAsync<IMissing>(MISSINGDATES_RESPONSE_NONE);
-            Assert.AreEqual(0, result.Dates.Count());
+            Assert.That(result.Dates, Is.Empty);
         }
     }
 }

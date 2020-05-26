@@ -69,13 +69,13 @@ namespace PVOutput.Net.Tests.Modules.Insolation
 
             Assert.Multiple(() =>
             {
-                Assert.AreEqual(0, firstInsolation.Energy);
-                Assert.AreEqual(0, firstInsolation.Power);
-                Assert.AreEqual(new TimeSpan(6, 0, 0), firstInsolation.Time);
+                Assert.That(firstInsolation.Energy, Is.EqualTo(0));
+                Assert.That(firstInsolation.Power, Is.EqualTo(0));
+                Assert.That(firstInsolation.Time, Is.EqualTo(new TimeSpan(6, 0, 0)));
 
-                Assert.AreEqual(30, lastInsolation.Energy);
-                Assert.AreEqual(123, lastInsolation.Power);
-                Assert.AreEqual(new TimeSpan(6, 35, 0), lastInsolation.Time);
+                Assert.That(lastInsolation.Energy, Is.EqualTo(30));
+                Assert.That(lastInsolation.Power, Is.EqualTo(123));
+                Assert.That(lastInsolation.Time, Is.EqualTo(new TimeSpan(6, 35, 0)));
             });
         }
     }

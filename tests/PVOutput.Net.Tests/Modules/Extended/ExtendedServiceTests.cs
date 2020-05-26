@@ -87,12 +87,12 @@ namespace PVOutput.Net.Tests.Modules.Extended
 
             Assert.Multiple(() =>
             {
-                Assert.AreEqual(67.4d, result.ExtendedValue1);
-                Assert.AreEqual(825.321d, result.ExtendedValue2);
-                Assert.AreEqual(349.0d, result.ExtendedValue3);
-                Assert.AreEqual(1105.0d, result.ExtendedValue4);
-                Assert.AreEqual(1115.0d, result.ExtendedValue5);
-                Assert.AreEqual(-12.3d, result.ExtendedValue6);
+                Assert.That(result.ExtendedValue1, Is.EqualTo(67.4d));
+                Assert.That(result.ExtendedValue2, Is.EqualTo(825.321d));
+                Assert.That(result.ExtendedValue3, Is.EqualTo(349.0d));
+                Assert.That(result.ExtendedValue4, Is.EqualTo(1105.0d));
+                Assert.That(result.ExtendedValue5, Is.EqualTo(1115.0d));
+                Assert.That(result.ExtendedValue6, Is.EqualTo(-12.3d));
             });
         }
 
@@ -106,23 +106,23 @@ namespace PVOutput.Net.Tests.Modules.Extended
 
             Assert.Multiple(() =>
             {
-                Assert.AreEqual(2, result.Count());
-                Assert.AreEqual(new DateTime(2014, 3, 7), extended1.ExtendedDate);
+                Assert.That(result, Has.Exactly(2).Items);
+                Assert.That(extended1.ExtendedDate, Is.EqualTo(new DateTime(2014, 3, 7)));
 
-                Assert.AreEqual(67.4d, extended1.ExtendedValue1);
-                Assert.AreEqual(825.321d, extended1.ExtendedValue2);
-                Assert.AreEqual(349.0d, extended1.ExtendedValue3);
-                Assert.AreEqual(1105.0d, extended1.ExtendedValue4);
-                Assert.AreEqual(1115.0d, extended1.ExtendedValue5);
-                Assert.AreEqual(-12.3d, extended1.ExtendedValue6);
+                Assert.That(extended1.ExtendedValue1, Is.EqualTo(67.4d));
+                Assert.That(extended1.ExtendedValue2, Is.EqualTo(825.321d));
+                Assert.That(extended1.ExtendedValue3, Is.EqualTo(349.0d));
+                Assert.That(extended1.ExtendedValue4, Is.EqualTo(1105.0d));
+                Assert.That(extended1.ExtendedValue5, Is.EqualTo(1115.0d));
+                Assert.That(extended1.ExtendedValue6, Is.EqualTo(-12.3d));
 
-                Assert.AreEqual(new DateTime(2014, 3, 8), extended2.ExtendedDate);
-                Assert.AreEqual(68.2d, extended2.ExtendedValue1);
-                Assert.AreEqual(846.254d, extended2.ExtendedValue2);
-                Assert.AreEqual(323.0d, extended2.ExtendedValue3);
-                Assert.AreEqual(1206.0d, extended2.ExtendedValue4);
-                Assert.AreEqual(1123.0d, extended2.ExtendedValue5);
-                Assert.AreEqual(-15.2d, extended2.ExtendedValue6);
+                Assert.That(extended2.ExtendedDate, Is.EqualTo(new DateTime(2014, 3, 8)));
+                Assert.That(extended2.ExtendedValue1, Is.EqualTo(68.2d));
+                Assert.That(extended2.ExtendedValue2, Is.EqualTo(846.254d));
+                Assert.That(extended2.ExtendedValue3, Is.EqualTo(323.0d));
+                Assert.That(extended2.ExtendedValue4, Is.EqualTo(1206.0d));
+                Assert.That(extended2.ExtendedValue5, Is.EqualTo(1123.0d));
+                Assert.That(extended2.ExtendedValue6, Is.EqualTo(-15.2d));
             });
         }
     }

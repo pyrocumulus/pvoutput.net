@@ -22,42 +22,42 @@ namespace PVOutput.Net.Tests.Modules.System
         public void Builder_WithIndex_SetsIndex()
         {
             var builder = new ExtendedDataDefinitionBuilder().SetIndex(ExtendedDataIndex.v9);
-            Assert.AreEqual(ExtendedDataIndex.v9, builder._definition.Index);
+            Assert.That(builder._definition.Index, Is.EqualTo(ExtendedDataIndex.v9));
         }
 
         [Test]
         public void Builder_WithLabel_SetsLabel()
         {
             var builder = new ExtendedDataDefinitionBuilder().SetLabel("New label");
-            Assert.AreEqual("New label", builder._definition.Label);
+            Assert.That(builder._definition.Label, Is.EqualTo("New label"));
         }
 
         [Test]
         public void Builder_WithUnit_SetsUnit()
         {
             var builder = new ExtendedDataDefinitionBuilder().SetUnit("Wh");
-            Assert.AreEqual("Wh", builder._definition.Unit);
+            Assert.That(builder._definition.Unit, Is.EqualTo("Wh"));
         }
 
         [Test]
         public void Builder_WithAxis_SetsAxis()
         {
             var builder = new ExtendedDataDefinitionBuilder().SetAxis(2);
-            Assert.AreEqual(2, builder._definition.Axis);
+            Assert.That(builder._definition.Axis, Is.EqualTo(2));
         }
 
         [Test]
         public void Builder_WithDisplayType_SetsDisplayType()
         {
             var builder = new ExtendedDataDefinitionBuilder().SetDisplayType(ExtendedDataDisplayType.Area);
-            Assert.AreEqual(ExtendedDataDisplayType.Area, builder._definition.DisplayType);
+            Assert.That(builder._definition.DisplayType, Is.EqualTo(ExtendedDataDisplayType.Area));
         }
 
         [Test]
         public void Builder_WithColour_SetsColour()
         {
             var builder = new ExtendedDataDefinitionBuilder().SetColour("123aBC");
-            Assert.AreEqual("123aBC", builder._definition.Colour);
+            Assert.That(builder._definition.Colour, Is.EqualTo("123aBC"));
         }
 
         [Test]
@@ -84,8 +84,7 @@ namespace PVOutput.Net.Tests.Modules.System
             }
         }               
 
-        [Test]
-        [TestCaseSource(typeof(ExtendedDataDefinitionBuilderTests), "HexadecimalValidationsTests")]
+        [TestCaseSource(typeof(ExtendedDataDefinitionBuilderTests), nameof(HexadecimalValidationsTests))]
         public bool Builder_HexadecimalValidations_WorksCorrect(char colour)
         {
             return ExtendedDataDefinitionBuilder.IsHexadecimalCharacter(colour);
@@ -99,7 +98,7 @@ namespace PVOutput.Net.Tests.Modules.System
 
             builder.Reset();
 
-            Assert.AreNotSame(status, builder._definition);
+            Assert.That(builder._definition, Is.Not.SameAs(status));
         }
 
 
@@ -109,7 +108,7 @@ namespace PVOutput.Net.Tests.Modules.System
             var builder = new ExtendedDataDefinitionBuilder().SetLabel("Test").SetUnit("W");
             IExtendedDataDefinition status = builder.BuildAndReset();
 
-            Assert.AreNotSame(status, builder._definition);
+            Assert.That(builder._definition, Is.Not.SameAs(status));
         }
     }
 }

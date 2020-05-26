@@ -29,7 +29,7 @@ namespace PVOutput.Net.Tests.Client
 
             services.AddPVOutputClient(o => { triggered = true; });
 
-            Assert.IsTrue(triggered);
+            Assert.That(triggered, Is.True);
         }
     }
 }
