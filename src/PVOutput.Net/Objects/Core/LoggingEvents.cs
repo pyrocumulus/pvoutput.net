@@ -39,6 +39,9 @@ namespace PVOutput.Net.Objects.Core
         public const string Parameter_Search_TeamName = "Teamname";
         public const string Parameter_Search_Orientation = "Orientation";
         public const string Parameter_Search_Tilt = "Tilt";
+        public const string Parameter_ApplicationId = "ApplicationId";
+        public const string Parameter_CallBackUrl = "CallBackUrl";
+        public const string Parameter_AlertType = "AlertType";
 
         /*
          * RequestHandler base events
@@ -92,5 +95,7 @@ namespace PVOutput.Net.Objects.Core
         public static readonly EventId TeamService_GetTeam = new EventId(21101, "GetTeam");
         public static readonly EventId TeamService_JoinTeam = new EventId(21102, "JoinTeam");
         public static readonly EventId TeamService_LeaveTeam = new EventId(21103, "LeaveTeam");
+        public static readonly EventId NotificationService_RegisterNotification = new EventId(21201, "RegisterNotification");
+        public static readonly EventId NotificationService_DeregisterNotification = new EventId(21202, "DeregisterNotification");
     }
 }
