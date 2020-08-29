@@ -69,6 +69,20 @@ namespace PVOutput.Net.Tests.Modules.Supply
         }
 
         [Test]
+        public async Task NotificationService_RegisterNotificationViaUri_CallsCorrectUri()
+        {
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+
+            testProvider.ExpectUriFromBase(REGISTERNOTIFICATION_URL)
+                        .WithQueryString("appid=my.application.id&type=17&url=http://www.microsoft.com/callmeback")
+                        .RespondPlainText("");
+
+            var response = await client.Notification.RegisterNotificationAsync("my.application.id", new Uri("http://www.microsoft.com/callmeback"), 17);
+            testProvider.VerifyNoOutstandingExpectation();
+            AssertStandardResponse(response);
+        }
+
+        [Test]
         public async Task NotificationService_DeregisterNotification_CallsCorrectUri()
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
