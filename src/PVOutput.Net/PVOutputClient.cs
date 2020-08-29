@@ -117,6 +117,12 @@ namespace PVOutput.Net
         public SearchService Search { get; private set; }
 
         /// <summary>
+        /// The notification service
+        /// <para>See the official <see href="https://pvoutput.org/help.html#api-registernotification">API information</see>.</para>
+        /// </summary>
+        public NotificationService Notification { get; private set; }
+
+        /// <summary>
         /// Creates a new PVOutputClient.
         /// </summary>
         /// <param name="apiKey">ApiKey to use with authenticating.</param>
@@ -177,6 +183,7 @@ namespace PVOutput.Net
             Insolation = new InsolationService(this);
             Supply = new SupplyService(this);
             Search = new SearchService(this);
+            Notification = new NotificationService(this);
         }
     }
 }
