@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.8.0] - 2020-08-29
+
+### Added
+
+- Added NotificationService, a service to (de)register callbacks for certain PVOutput alerts [#37](https://github.com/pyrocumulus/pvoutput.net/pull/37)
+
+### Fixed
+
+- Updated multiple packages in both projects [0d71267](https://github.com/pyrocumulus/pvoutput.net/pull/37/commits/0d7126716f165829db31f06be14d3bd0143f411c)
+- `CancellationToken` not propagating into the `BaseObjectStringReader`
+
 ## [0.7.1] - 2020-04-25
 
 ### Added

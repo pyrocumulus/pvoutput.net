@@ -23,5 +23,5 @@ Currently all read operations of the API are implemented as are all of the opera
 | Leave      | Team         | Team              | :heavy_check_mark: | [Leave Team](https://pvoutput.org/help.html#api-leaveteam) |
 | Get        | Supply       | Supply            | :heavy_check_mark: | [Get Supply](https://pvoutput.org/help.html#api-getsupply) |
 | Search     | Search       | Search            | :heavy_check_mark: | [Search](https://pvoutput.org/help.html#api-search) |
-| Register   | Notification | Notification      |                    | [Register Notification](https://pvoutput.org/help.html#api-registernotification) |
-| Deregister | Notification | Notification      |                    | [Deregister Notification](https://pvoutput.org/help.html#api-deregisternotification) |
+| Register   | Notification | Notification      | :heavy_check_mark: | [Register Notification](https://pvoutput.org/help.html#api-registernotification) |
+| Deregister | Notification | Notification      | :heavy_check_mark: | [Deregister Notification](https://pvoutput.org/help.html#api-deregisternotification) |
