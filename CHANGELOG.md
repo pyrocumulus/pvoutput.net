@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## Unreleased
+
+## Fixed
+
+- Corrected `SystemService` returning teams, estimates or extended properties with counts greater than 0, but with empty/null content
+- Removed dead code from certain code paths found through coverage testing
+
 ## [0.8.0] - 2020-08-29
 
 ### Added

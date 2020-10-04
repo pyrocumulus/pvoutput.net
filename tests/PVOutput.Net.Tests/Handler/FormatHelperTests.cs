@@ -57,5 +57,12 @@ namespace PVOutput.Net.Tests.Handler
                 _ = FormatHelper.DescriptionToEnumValue<WeatherCondition>("NotFound");
             });
         }
+
+        [Test]
+        public void ParseOptionalDate_ForEmptyString_ReturnsNull()
+        {
+            var result = FormatHelper.ParseOptionalDate("");
+            Assert.That(result, Is.Null);
+        }
     }
 }

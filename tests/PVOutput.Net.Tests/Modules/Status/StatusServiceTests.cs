@@ -191,8 +191,16 @@ namespace PVOutput.Net.Tests.Modules.Status
                         .WithQueryString("n=0&data=20200101,12:22,11000,,9000,,,,,,,,,;")
                         .RespondPlainText("");
 
-            await client.Status.AddBatchStatusAsync(new[] { batchStatus });
+            var postResult = await client.Status.AddBatchStatusAsync(new[] { batchStatus });
             testProvider.VerifyNoOutstandingExpectation();
+
+            //var firstResultValue = postResult.Values.First();
+            //Assert.Multiple(() => 
+            //{
+            //    Assert.That(postResult.IsSuccess, Is.True);
+            //    Assert.That(firstResultValue, Is.True);
+
+            //});
         }
 
         /*
@@ -206,7 +214,6 @@ namespace PVOutput.Net.Tests.Modules.Status
 
             Assert.Multiple(() =>
             {
-
                 Assert.That(result.Timestamp, Is.EqualTo(new DateTime(2019, 1, 31, 14, 0, 0)));
                 Assert.That(result.EnergyGeneration, Is.EqualTo(2930));
                 Assert.That(result.PowerGeneration, Is.EqualTo(459));

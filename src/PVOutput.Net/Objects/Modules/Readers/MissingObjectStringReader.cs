@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using PVOutput.Net.Objects.Core;
@@ -16,13 +16,7 @@ namespace PVOutput.Net.Objects.Modules.Readers
 
         private void ParseMissingDates(IMissing target, TextReader reader)
         {
-            var dates = ReadPropertiesForGroup(reader);
-
-            if (dates.Count == 0)
-            {
-                return;
-            }
-
+            IList<string> dates = ReadPropertiesForGroup(reader);
             var result = new List<DateTime>();
             foreach (string date in dates)
             {

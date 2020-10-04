@@ -100,6 +100,8 @@ namespace PVOutput.Net.Tests.Modules.Statistic
             Assert.That(result.AverageConsumption, Is.EqualTo(10969));
             Assert.That(result.MinimumConsumption, Is.EqualTo(697));
             Assert.That(result.MaximumConsumption, Is.EqualTo(30851));
+            Assert.That(result.CreditAmount, Is.EqualTo(37.29d));
+            Assert.That(result.DebitAmount, Is.EqualTo(40.81d));
         }
     }
 }

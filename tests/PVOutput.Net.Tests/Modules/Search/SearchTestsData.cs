@@ -8,7 +8,7 @@ namespace PVOutput.Net.Tests.Modules.Search
     {
         public const string SEARCH_URL = "search.jsp";
 
-        public const string SEARCH_RESPONSE_SINGLE = "Solar 4 US,9360,4280,NW,81,2 days ago,249,Solarfun,Aurora,NaN,-27.831402,153.028469";
+        public const string SEARCH_RESPONSE_SINGLE = "Solar 4 US,9360,Australia 4280,NW,81,2 days ago,249,Solarfun,Aurora,NaN,-27.831402,153.028469";
 
         public const string SEARCH_RESPONSE_ARRAY = 
 @"Solar 4 US,9360,Australia 4280,NW,81,2 days ago,249,Solarfun,Aurora,NaN,-27.831402,153.028469

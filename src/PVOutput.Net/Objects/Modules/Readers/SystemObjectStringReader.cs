@@ -78,7 +78,10 @@ namespace PVOutput.Net.Objects.Modules.Readers
             var result = new List<int>();
             foreach (var teamId in teamIds)
             {
-                result.Add(FormatHelper.GetValueOrDefault<int>(teamId));
+                if (!string.IsNullOrEmpty(teamId))
+                {
+                    result.Add(FormatHelper.GetValueOrDefault<int>(teamId));
+                }
             }
             target.Teams = result;
         }
@@ -100,7 +103,11 @@ namespace PVOutput.Net.Objects.Modules.Readers
                 var label = enumerator.Current;
                 enumerator.MoveNext();
                 var unit = enumerator.Current;
-                result.Add(new ExtendedDataConfiguration(label, unit));
+
+                if (!string.IsNullOrEmpty(label) && !string.IsNullOrEmpty(unit))
+                {
+                    result.Add(new ExtendedDataConfiguration(label ?? "", unit ?? ""));
+                }
             }
 
             target.ExtendedDataConfig = result;
@@ -122,6 +129,11 @@ namespace PVOutput.Net.Objects.Modules.Readers
 
             for (var i = 0; i < estimates.Count; i++)
             {
+                if (string.IsNullOrEmpty(estimates[i]))
+                {
+                    continue;
+                }
+
                 var month = (PVMonth)(i % 12 + 1);
                 var estimate = FormatHelper.GetValueOrDefault<int>(estimates[i]);
 

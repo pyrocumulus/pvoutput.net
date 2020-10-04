@@ -2,6 +2,11 @@
 using NUnit.Framework;
 using PVOutput.Net.Requests.Modules;
 using PVOutput.Net.Objects.Modules.Implementations;
+using System.Threading.Tasks;
+using PVOutput.Net.Objects;
+using PVOutput.Net.Tests.Utils;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PVOutput.Net.Tests.Modules.Status
 {
@@ -89,6 +94,33 @@ namespace PVOutput.Net.Tests.Modules.Status
                 Assert.That(postArray[11], Is.EqualTo("4"));
                 Assert.That(postArray[12], Is.EqualTo("5"));
                 Assert.That(postArray[13], Is.EqualTo("6"));
+            });
+        }
+
+        [Test]
+        public async Task BatchStatusPostReader_ForBatchResponse_CreatesCorrectObject()
+        {
+            IBatchStatusPostResult result = await TestUtility.ExecuteObjectReaderByTypeAsync<IBatchStatusPostResult>(StatusServiceTests.BATCHPOST_STATUS_RESPONSE_SINGLE);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.AddedOrUpdated, Is.EqualTo(true));
+                Assert.That(result.Timestamp, Is.EqualTo(new DateTime(2014, 1, 30, 10, 0, 0)));
+            });
+        }
+
+        [Test]
+        public async Task BatchStatusPostReader_ForBatchResponses_CreatesCorrectObjects()
+        {
+            IEnumerable<IBatchStatusPostResult> result = await TestUtility.ExecuteArrayReaderByTypeAsync<IBatchStatusPostResult>(StatusServiceTests.BATCHPOST_STATUS_RESPONSE_FULL);
+
+            var secondStatus = result.Skip(1).First();
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Has.Exactly(3).Items);
+
+                Assert.That(secondStatus.AddedOrUpdated, Is.EqualTo(false));
+                Assert.That(secondStatus.Timestamp, Is.EqualTo(new DateTime(2014, 1, 30, 10, 5, 0)));
             });
         }
     }
