@@ -104,7 +104,7 @@ namespace PVOutput.Net.Objects.Modules.Readers
                 enumerator.MoveNext();
                 var unit = enumerator.Current;
 
-                if (!string.IsNullOrEmpty(label) && !string.IsNullOrEmpty(unit))
+                if (!string.IsNullOrEmpty(label) || !string.IsNullOrEmpty(unit))
                 {
                     result.Add(new ExtendedDataConfiguration(label ?? "", unit ?? ""));
                 }
