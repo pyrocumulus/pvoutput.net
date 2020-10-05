@@ -64,6 +64,25 @@ namespace PVOutput.Net.Tests.Modules.Status
             });
         }
 
+
+        [Test]
+        public async Task StatusService_DeleteStatus_CallsCorrectUri()
+        {
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+
+            // Yesterday, 11:15
+            var testDateTime = DateTime.Today.AddDays(-1).Add(new TimeSpan(11, 15, 0));
+            string resultingDateString = testDateTime.ToString("yyyyMMdd");
+
+            testProvider.ExpectUriFromBase(DELETESTATUS_URL)
+                        .WithQueryString($"d={resultingDateString}&t=11:15")
+                        .RespondPlainText("");
+
+            var response = await client.Status.DeleteStatusAsync(testDateTime);
+            testProvider.VerifyNoOutstandingExpectation();
+            AssertStandardResponse(response);
+        }
+
         [Test]
         public void StatusService_GetStatusForDateTime_WithFutureDate_Throws()
         {
@@ -75,17 +94,26 @@ namespace PVOutput.Net.Tests.Modules.Status
             });
         }
 
+        public static IEnumerable DeleteStatusWithDateOutsideBoundsTestCases
+        {
+            get
+            {
+                yield return new TestCaseData(DateTime.Today.AddDays(1));
+                yield return new TestCaseData(DateTime.Today.AddDays(-2));
+            }
+        }
+
         [Test]
-        public void StatusService_DeleteStatus_WithFutureDate_Throws()
+        [TestCaseSource(typeof(StatusServiceTests), nameof(DeleteStatusWithDateOutsideBoundsTestCases))]
+        public void StatusService_DeleteStatus_WithDateOutsideBounds_Throws(DateTime testDate)
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
             Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
             {
-                _ = await client.Status.DeleteStatusAsync(DateTime.Today.AddDays(1));
+                _ = await client.Status.DeleteStatusAsync(testDate);
             });
         }
-
 
         [Test]
         public void StatusService_GetHistoryForPeriod_WithFutureRange_Throws()
@@ -191,16 +219,8 @@ namespace PVOutput.Net.Tests.Modules.Status
                         .WithQueryString("n=0&data=20200101,12:22,11000,,9000,,,,,,,,,;")
                         .RespondPlainText("");
 
-            var postResult = await client.Status.AddBatchStatusAsync(new[] { batchStatus });
+            await client.Status.AddBatchStatusAsync(new[] { batchStatus });
             testProvider.VerifyNoOutstandingExpectation();
-
-            //var firstResultValue = postResult.Values.First();
-            //Assert.Multiple(() => 
-            //{
-            //    Assert.That(postResult.IsSuccess, Is.True);
-            //    Assert.That(firstResultValue, Is.True);
-
-            //});
         }
 
         /*
