@@ -110,6 +110,7 @@ namespace PVOutput.Net.Tests.Handler
             var response1 = new PVOutputBasicResponse() { IsSuccess = true, SuccesMessage = "Yay" };
             var response2 = new PVOutputBasicResponse() { IsSuccess = true, SuccesMessage = "Yay" };
             var response3 = new PVOutputBasicResponse() { IsSuccess = false, SuccesMessage = "Nay" };
+            PVOutputBasicResponse response4 = null;
 
             Assert.Multiple(() =>
             {
@@ -117,6 +118,7 @@ namespace PVOutput.Net.Tests.Handler
                 Assert.That(response1.IsEquivalentTo(response2), Is.True);
                 Assert.That(response1.Equals(response3), Is.False); // Purposefully not test through Is.Not.EqualTo
                 Assert.That(response1.IsEquivalentTo(response3), Is.False);
+                Assert.That(response1.IsEquivalentTo(response4), Is.False);
             });
         }
 
@@ -167,11 +169,13 @@ namespace PVOutput.Net.Tests.Handler
         {
             var response1 = new PVOutputBasicResponse() { IsSuccess = true, SuccesMessage = "Yay" };
             var response2 = new PVOutputBasicResponse() { IsSuccess = false, SuccesMessage = "Nay" };
+            PVOutputBasicResponse response3 = null;
 
             Assert.Multiple(() =>
             {
                 Assert.That((bool)response1, Is.True);
                 Assert.That((bool)response2, Is.False);
+                Assert.That((bool)response3, Is.False);
             });
         }
     }
