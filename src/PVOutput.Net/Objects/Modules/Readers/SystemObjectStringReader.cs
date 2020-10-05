@@ -93,11 +93,11 @@ namespace PVOutput.Net.Objects.Modules.Readers
             {
                 var label = enumerator.Current;
                 enumerator.MoveNext();
-                var unit = enumerator.Current;
+                var unit = enumerator.Current ?? "";
 
                 if (!string.IsNullOrEmpty(label) || !string.IsNullOrEmpty(unit))
                 {
-                    result.Add(new ExtendedDataConfiguration(label ?? "", unit ?? ""));
+                    result.Add(new ExtendedDataConfiguration(label, unit));
                 }
             }
 

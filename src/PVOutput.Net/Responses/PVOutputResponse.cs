@@ -15,5 +15,15 @@
         /// The actual <typeparamref name="TResponseContentType"/> value in the response.
         /// </summary>
         public TResponseContentType Value { get; internal set; }
+
+        /// <summary>
+        /// Compares the response to <paramref name="other"/> for base equivalence.
+        /// Api rate information is disgarded when comparing.
+        /// <strong>Please note that the Value is not compared.</strong>
+        /// </summary>
+        /// <param name="other">Other response to compare.</param>
+        /// <returns>True if both responses are equivalent.</returns>
+        public override bool IsEquivalentTo(PVOutputBaseResponse other)
+            => base.IsEquivalentTo(other) && HasValue == ((PVOutputResponse<TResponseContentType>)other).HasValue;
     }
 }

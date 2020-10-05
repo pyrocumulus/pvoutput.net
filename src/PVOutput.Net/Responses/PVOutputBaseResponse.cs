@@ -23,12 +23,14 @@ namespace PVOutput.Net.Responses
         public PVOutputApiRateInformation ApiRateInformation { get; internal set; }
 
         /// <summary>
-        /// Compares the response to <paramref name="other"/> for equality.
+        /// Compares the response to <paramref name="other"/> for base equivalence.
+        /// Api rate information is disgarded when comparing.
         /// </summary>
         /// <param name="other">Other response to compare.</param>
-        /// <returns>True if both responses are equal.</returns>
-        public bool Equals(PVOutputBaseResponse other)
-            => other != null && IsSuccess == other.IsSuccess && Error == other.Error;
+        /// <returns>True if both responses are equivalent.</returns>
+        public virtual bool IsEquivalentTo(PVOutputBaseResponse other)
+            => other != null && IsSuccess == other.IsSuccess && 
+               ((Error == null && other.Error == null) || Error.IsEquivalentTo(other.Error));
 
         /// <summary>
         /// Converts the response <see cref="IsSuccess"/> value to a boolean.

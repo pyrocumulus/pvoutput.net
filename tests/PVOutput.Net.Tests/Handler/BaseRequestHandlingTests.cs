@@ -5,6 +5,8 @@ using System.Net;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using PVOutput.Net.Enums;
+using PVOutput.Net.Objects;
+using PVOutput.Net.Objects.Modules.Implementations;
 using PVOutput.Net.Responses;
 using PVOutput.Net.Tests.Utils;
 using RichardSzalay.MockHttp;
@@ -99,6 +101,77 @@ namespace PVOutput.Net.Tests.Handler
                 Assert.That(response.ApiRateInformation.LimitRemaining, Is.EqualTo(156));
                 Assert.That(response.ApiRateInformation.CurrentLimit, Is.EqualTo(300));
                 Assert.That(response.ApiRateInformation.LimitResetAt, Is.EqualTo(resetTimeStamp));
+            });
+        }
+
+        [Test]
+        public void BaseResponse_IsEquivalentTo_ReturnsEquivelanceNotEquals()
+        {
+            var response1 = new PVOutputBasicResponse() { IsSuccess = true, SuccesMessage = "Yay" };
+            var response2 = new PVOutputBasicResponse() { IsSuccess = true, SuccesMessage = "Yay" };
+            var response3 = new PVOutputBasicResponse() { IsSuccess = false, SuccesMessage = "Nay" };
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(response1.Equals(response2), Is.False); // Purposefully not test through Is.Not.EqualTo
+                Assert.That(response1.IsEquivalentTo(response2), Is.True);
+                Assert.That(response1.Equals(response3), Is.False); // Purposefully not test through Is.Not.EqualTo
+                Assert.That(response1.IsEquivalentTo(response3), Is.False);
+            });
+        }
+
+        [Test]
+        public void PVOutputResponse_IsEquivalentTo_ReturnsEquivelanceNotEquals()
+        {
+            var response1 = new PVOutputResponse<IStatus>() { IsSuccess = true, Value = new Status() };
+            var response2 = new PVOutputResponse<IStatus>() { IsSuccess = true, Value = new Status() };
+            var response3 = new PVOutputResponse<IStatus>() { IsSuccess = false };
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(response1.IsEquivalentTo(response2), Is.True);
+                Assert.That(response1.IsEquivalentTo(response3), Is.False);
+            });
+        }
+
+        [Test]
+        public void PVOutputArrayResponse_IsEquivalentTo_ReturnsEquivelanceNotEquals()
+        {
+            var response1 = new PVOutputArrayResponse<IStatus>() { IsSuccess = true, Values = new List<Status>() };
+            var response2 = new PVOutputArrayResponse<IStatus>() { IsSuccess = true, Values = new List<Status>() };
+            var response3 = new PVOutputArrayResponse<IStatus>() { IsSuccess = false };
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(response1.IsEquivalentTo(response2), Is.True);
+                Assert.That(response1.IsEquivalentTo(response3), Is.False);
+            });
+        }
+
+        [Test]
+        public void PVOutputApiError_IsEquivalentTo_ReturnsEquivelanceNotEquals()
+        {
+            var error1 = new PVOutputApiError() { StatusCode = HttpStatusCode.Unauthorized, Message = "Donation mode required." };
+            var error2 = new PVOutputApiError() { StatusCode = HttpStatusCode.Unauthorized, Message = "Donation mode required." };
+            var error3 = new PVOutputApiError() { StatusCode = HttpStatusCode.BadRequest, Message = "Unknown." };
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(error1.IsEquivalentTo(error2), Is.True);
+                Assert.That(error1.IsEquivalentTo(error3), Is.False);
+            });
+        }
+
+        [Test]
+        public void BaseResponse_ImplicitBoolConversion_ReturnsSuccessState()
+        {
+            var response1 = new PVOutputBasicResponse() { IsSuccess = true, SuccesMessage = "Yay" };
+            var response2 = new PVOutputBasicResponse() { IsSuccess = false, SuccesMessage = "Nay" };
+
+            Assert.Multiple(() =>
+            {
+                Assert.That((bool)response1, Is.True);
+                Assert.That((bool)response2, Is.False);
             });
         }
     }
