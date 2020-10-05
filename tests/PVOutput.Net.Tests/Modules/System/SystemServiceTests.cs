@@ -62,6 +62,36 @@ namespace PVOutput.Net.Tests.Modules.System
          */
 
         [Test]
+        public async Task SystemReader_WithMinimalResponse_CreatesCorrectObject()
+        {
+            ISystem result = await TestUtility.ExecuteObjectReaderByTypeAsync<ISystem>(SYSTEM_RESPONSE_SIMPLE);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.SystemName, Is.EqualTo("Test System"));
+                Assert.That(result.SystemSize, Is.EqualTo(4125));
+                Assert.That(result.Postcode, Is.EqualTo(1234));
+                Assert.That(result.NumberOfPanels, Is.EqualTo(15));
+                Assert.That(result.PanelPower, Is.EqualTo(275));
+                Assert.That(result.PanelBrand, Is.EqualTo("JA Solar mono"));
+                Assert.That(result.NumberOfInverters, Is.EqualTo(1));
+                Assert.That(result.InverterPower, Is.EqualTo(5500));
+                Assert.That(result.InverterBrand, Is.EqualTo("Fronius Primo 3.6-1"));
+                Assert.That(result.Orientation, Is.EqualTo("E"));
+                Assert.That(result.ArrayTilt, Is.EqualTo(53.1d));
+                Assert.That(result.Shade, Is.EqualTo("None"));
+                Assert.That(result.InstallDate, Is.EqualTo(new DateTime(2016, 10, 01)));
+                Assert.That(result.Location.Latitude, Is.EqualTo(51.0d));
+                Assert.That(result.Location.Longitude, Is.EqualTo(6.1d));
+                Assert.That(result.StatusInterval, Is.EqualTo(5));
+                Assert.That(result.Teams, Has.Count.Zero);
+                Assert.That(result.Donations, Is.EqualTo(0));
+                Assert.That(result.ExtendedDataConfig, Has.Count.Zero);
+                Assert.That(result.MonthlyGenerationEstimates, Has.Count.Zero);
+                Assert.That(result.MonthlyConsumptionEstimates, Has.Count.Zero);
+            });
+        }
+
+        [Test]
         public async Task SystemReader_ForResponse_CreatesCorrectObject()
         {
             ISystem result = await TestUtility.ExecuteObjectReaderByTypeAsync<ISystem>(SYSTEM_RESPONSE_EXTENDED);
