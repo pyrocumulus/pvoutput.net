@@ -7,10 +7,12 @@ using PVOutput.Net.Objects;
 using PVOutput.Net.Tests.Utils;
 using System.Collections.Generic;
 using System.Linq;
+using RichardSzalay.MockHttp;
+using PVOutput.Net.Builders;
 
 namespace PVOutput.Net.Tests.Modules.Status
 {
-    public class AddBatchStatusRequestTests
+    public class AddBatchStatusRequestTests : BaseRequestsTest
     {
         private string[] GetSplitStatusPostLine(StatusPost post) => AddBatchStatusRequest.FormatStatusPost(post).Split(',');
 
