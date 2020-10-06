@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Corrected `SystemService` returning teams, estimates or extended properties with counts greater than 0, but with empty/null content
 - Removed dead code from certain code paths found through coverage testing
+- Increased code coverage to near 100%
 
 ## [0.8.0] - 2020-08-29
 
