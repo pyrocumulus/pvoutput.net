@@ -10,6 +10,7 @@ using PVOutput.Net.Tests.Utils;
 using RichardSzalay.MockHttp;
 using PVOutput.Net.Builders;
 using System.Collections;
+using PVOutput.Net.Requests.Modules;
 
 namespace PVOutput.Net.Tests.Modules.Status
 {
@@ -28,6 +29,74 @@ namespace PVOutput.Net.Tests.Modules.Status
             var response = await client.Status.GetStatusForDateTimeAsync(new DateTime(2019, 1, 31, 14, 0, 0));
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
+        }
+
+        [Test]
+        public void StatusRequest_SystemId_CreatesCorrectUriParameters()
+        {
+            var request = new GetStatusRequest() { SystemId = 4321 };
+            var parameters = request.GetUriPathParameters();
+            Assert.That(parameters["sid1"], Is.EqualTo(4321));
+        }
+
+        [Test]
+        public void StatusRequest_Limit_CreatesCorrectUriParameters()
+        {
+            var request = new GetStatusRequest() { Limit = 30 };
+            var parameters = request.GetUriPathParameters();
+            Assert.That(parameters["limit"], Is.EqualTo(30));
+        }
+
+        [Test]
+        public void StatusRequest_History_CreatesCorrectUriParameters()
+        {
+            var request = new GetStatusRequest() { History = true };
+            var parameters = request.GetUriPathParameters();
+            Assert.That(parameters["h"], Is.EqualTo(1));
+        }
+
+        [Test]
+        public void StatusRequest_Ascending_CreatesCorrectUriParameters()
+        {
+            var request = new GetStatusRequest() { Ascending = true };
+            var parameters = request.GetUriPathParameters();
+            Assert.That(parameters["asc"], Is.EqualTo(1));
+        }
+
+        [Test]
+        public void StatusRequest_Extended_CreatesCorrectUriParameters()
+        {
+            var request = new GetStatusRequest() { Extended = true };
+            var parameters = request.GetUriPathParameters();
+            Assert.That(parameters["ext"], Is.EqualTo(1));
+        }
+
+        [Test]
+        public void StatusRequest_Date_CreatesCorrectUriParameters()
+        {
+            var request = new GetStatusRequest() { Date = new DateTime(2018, 6, 12, 10, 12, 0) };
+            var parameters = request.GetUriPathParameters();
+            Assert.Multiple(() =>
+            {
+                Assert.That(parameters["d"], Is.EqualTo("20180612"));
+                Assert.That(parameters["t"], Is.EqualTo("10:12"));
+            });
+        }
+
+        [Test]
+        public void StatusRequest_From_CreatesCorrectUriParameters()
+        {
+            var request = new GetStatusRequest() { From = new DateTime(2018, 6, 12, 10, 12, 0) };
+            var parameters = request.GetUriPathParameters();
+            Assert.That(parameters["from"], Is.EqualTo("10:12"));
+        }
+
+        [Test]
+        public void StatusRequest_To_CreatesCorrectUriParameters()
+        {
+            var request = new GetStatusRequest() { To = new DateTime(2018, 6, 12, 11, 45, 0) };
+            var parameters = request.GetUriPathParameters();
+            Assert.That(parameters["to"], Is.EqualTo("11:45"));
         }
 
         [Test]

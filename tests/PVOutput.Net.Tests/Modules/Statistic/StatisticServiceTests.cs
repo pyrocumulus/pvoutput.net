@@ -6,6 +6,7 @@ using PVOutput.Net.Objects.Factories;
 using PVOutput.Net.Objects;
 using PVOutput.Net.Tests.Utils;
 using RichardSzalay.MockHttp;
+using PVOutput.Net.Requests.Modules;
 
 namespace PVOutput.Net.Tests.Modules.Statistic
 {
@@ -48,6 +49,70 @@ namespace PVOutput.Net.Tests.Modules.Statistic
             {
                 _ = await client.Statistics.GetStatisticsForPeriodAsync(new DateTime(2016, 8, 30), new DateTime(2016, 8, 29));
             });
+        }
+
+        [Test]
+        public void StatisticsRequest_SystemId_CreatesCorrectUriParameters()
+        {
+            var request = new StatisticRequest() { SystemId = 1234 };
+            var parameters = request.GetUriPathParameters();
+            Assert.That(parameters["sid1"], Is.EqualTo(1234));
+        }
+
+        [Test]
+        public void StatisticsRequest_IncludeConsumptionImport_CreatesCorrectUriParameters()
+        {
+            var request = new StatisticRequest() { IncludeConsumptionImport = true };
+            var parameters = request.GetUriPathParameters();
+            Assert.That(parameters["c"], Is.EqualTo(1));
+        }
+
+        [Test]
+        public void StatisticsRequest_IncludeCreditDebit_CreatesCorrectUriParameters()
+        {
+            var request = new StatisticRequest() { IncludeCreditDebit = true };
+            var parameters = request.GetUriPathParameters();
+            Assert.That(parameters["cdr"], Is.EqualTo(1));
+        }
+
+        [Test]
+        public void StatisticsPeriodRequest_SystemId_CreatesCorrectUriParameters()
+        {
+            var request = new StatisticPeriodRequest() { SystemId = 1234 };
+            var parameters = request.GetUriPathParameters();
+            Assert.That(parameters["sid1"], Is.EqualTo(1234));
+        }
+
+        [Test]
+        public void StatisticsPeriodRequest_IncludeConsumptionImport_CreatesCorrectUriParameters()
+        {
+            var request = new StatisticPeriodRequest() { IncludeConsumptionImport = true };
+            var parameters = request.GetUriPathParameters();
+            Assert.That(parameters["c"], Is.EqualTo(1));
+        }
+
+        [Test]
+        public void StatisticsPeriodRequest_IncludeCreditDebit_CreatesCorrectUriParameters()
+        {
+            var request = new StatisticPeriodRequest() { IncludeCreditDebit = true };
+            var parameters = request.GetUriPathParameters();
+            Assert.That(parameters["cdr"], Is.EqualTo(1));
+        }
+
+        [Test]
+        public void StatisticsPeriodRequest_FromDate_CreatesCorrectUriParameters()
+        {
+            var request = new StatisticPeriodRequest() { FromDate = new DateTime(2018, 6, 12) };
+            var parameters = request.GetUriPathParameters();
+            Assert.That(parameters["df"], Is.EqualTo("20180612"));
+        }
+
+        [Test]
+        public void StatisticsPeriodRequest_ToDate_CreatesCorrectUriParameters()
+        {
+            var request = new StatisticPeriodRequest() { ToDate = new DateTime(2018, 6, 12) };
+            var parameters = request.GetUriPathParameters();
+            Assert.That(parameters["dt"], Is.EqualTo("20180612"));
         }
 
         /*
