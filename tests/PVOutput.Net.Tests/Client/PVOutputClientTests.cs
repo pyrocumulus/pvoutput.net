@@ -22,6 +22,7 @@ namespace PVOutput.Net.Tests.Client
                 Assert.That(client.ApiKey, Is.EqualTo("apikey"));
                 Assert.That(client.OwnedSystemId, Is.EqualTo(1234));
                 Assert.That(client.Logger, Is.EqualTo(NullLogger<PVOutputClient>.Instance));
+                Assert.That(client.HttpClientProvider, Is.Not.Null);
             });
         }
 
@@ -38,7 +39,6 @@ namespace PVOutput.Net.Tests.Client
                 Assert.That(client.Logger, Is.Not.EqualTo(NullLogger<PVOutputClient>.Instance));
             });
         }
-
 
         [Test]
         public void Create_ClientWithValidOptions_CreatesCorrectClient()

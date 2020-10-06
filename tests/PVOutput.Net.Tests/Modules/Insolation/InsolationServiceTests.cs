@@ -9,6 +9,7 @@ using PVOutput.Net.Objects.Factories;
 using PVOutput.Net.Objects;
 using PVOutput.Net.Tests.Utils;
 using RichardSzalay.MockHttp;
+using PVOutput.Net.Requests.Modules;
 
 namespace PVOutput.Net.Tests.Modules.Insolation
 {
@@ -54,6 +55,30 @@ namespace PVOutput.Net.Tests.Modules.Insolation
             var response = await client.Insolation.GetInsolationForLocationAsync(new PVCoordinate(-84.62397m, 42.72882m));
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
+        }
+
+        [Test]
+        public void InsolationRequest_Date_CreatesCorrectUriParameters()
+        {
+            var request = new InsolationRequest() { Date = new DateTime(2018, 6, 12) };
+            var parameters = request.GetUriPathParameters();
+            Assert.That(parameters["d"], Is.EqualTo("20180612"));
+        }
+
+        [Test]
+        public void InsolationRequest_SystemId_CreatesCorrectUriParameters()
+        {
+            var request = new InsolationRequest() { SystemId = 1234 };
+            var parameters = request.GetUriPathParameters();
+            Assert.That(parameters["sid1"], Is.EqualTo(1234));
+        }
+
+        [Test]
+        public void InsolationRequest_Coordinate_CreatesCorrectUriParameters()
+        {
+            var request = new InsolationRequest() { Coordinate = new PVCoordinate(-84.62397m, 42.72882m) };
+            var parameters = request.GetUriPathParameters();
+            Assert.That(parameters["ll"], Is.EqualTo("-84.623970,42.728820"));
         }
 
         /*

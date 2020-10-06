@@ -138,24 +138,25 @@ namespace PVOutput.Net.Modules
             Guard.Argument(statuses, nameof(statuses)).NotNull().NotEmpty();
 
             var handler = new RequestHandler(Client);
-            return handler.ExecuteArrayRequestAsync<IBatchStatusPostResult>(new AddBatchStatusRequest() { StatusPosts = statuses }, loggingScope, cancellationToken); ;
+            return handler.ExecuteArrayRequestAsync<IBatchStatusPostResult>(new AddBatchStatusRequest() { StatusPosts = statuses }, loggingScope, cancellationToken);
         }
 
         /// <summary>
         /// Deletes a status on the specified moment. 
         /// <para>See the official <see href="https://pvoutput.org/help.html#api-deletestatus">API information</see>.</para>
         /// </summary>
-        /// <param name="moment">The moment to delete the status for.</param>
+        /// <param name="moment">The moment to delete the status for. This can only be today or yesterday.</param>
         /// <param name="cancellationToken">A cancellation token for the request.</param>
         /// <returns>If the operation succeeded.</returns>
         public Task<PVOutputBasicResponse> DeleteStatusAsync(DateTime moment, CancellationToken cancellationToken = default)
         {
             var loggingScope = new Dictionary<string, object>()
             {
-                [LoggingEvents.RequestId] = LoggingEvents.StatusService_DeleteStatus
+                [LoggingEvents.RequestId] = LoggingEvents.StatusService_DeleteStatus,
+                [LoggingEvents.Parameter_Date] = moment
             };
 
-            Guard.Argument(moment, nameof(moment)).IsNoFutureDate();
+            Guard.Argument(moment, nameof(moment)).IsNoFutureDate().GreaterThan(DateTime.Today.AddDays(-1));
 
             var handler = new RequestHandler(Client);
             return handler.ExecutePostRequestAsync(new DeleteStatusRequest() { Timestamp = moment }, loggingScope, cancellationToken);

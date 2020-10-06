@@ -7,8 +7,8 @@
 [![NuGet Version](https://img.shields.io/nuget/v/PVOutput.Net.svg?logo=nuget)](https://www.nuget.org/packages/PVOutput.Net/)
 [![NuGet Downloads](https://img.shields.io/nuget/dt/PVOutput.Net.svg?logo=nuget)](https://www.nuget.org/packages/PVOutput.Net/)
 [![fuget](https://www.fuget.org/packages/PVOutput.Net/badge.svg)](https://www.fuget.org/packages/PVOutput.Net)
-![.NET Core](https://img.shields.io/github/workflow/status/pyrocumulus/PVOutput.Net/.NET%20Core/develop)
-![Code coverage](https://img.shields.io/codecov/c/github/pyrocumulus/PVOutput.Net/develop)
+[![.NET Core](https://img.shields.io/github/workflow/status/pyrocumulus/PVOutput.Net/.NET%20Core/develop)](https://github.com/pyrocumulus/pvoutput.net/actions?query=workflow%3A%22.NET+Core%22)
+[![Code coverage](https://img.shields.io/codecov/c/github/pyrocumulus/PVOutput.Net/develop)](https://codecov.io/gh/pyrocumulus/pvoutput.net)
 
 ## Installation
 
@@ -31,7 +31,8 @@ See [master](https://github.com/pyrocumulus/pvoutput.net/tree/master) for the so
 
 ## Basic usage
 
-### Getting data out of PVOutput.org
+<details>
+    <summary>Getting data out of PVOutput.org</summary>
 
 ```csharp
 var client = new PVOutputClient(apiKey: "myPvOutputKey", ownedSystemId: 1);
@@ -43,7 +44,10 @@ Console.WriteLine($"Output for date {output.OutputDate.ToShortDateString()}, {ou
 
 ```
 
-### Adding data to a system in PVOutput.org
+</details>
+
+<details>
+    <summary>Adding data to a system in PVOutput.org</summary>
 
 ```csharp
 var client = new PVOutputClient(apiKey: "myPvOutputKey", ownedSystemId: 1);
@@ -59,7 +63,10 @@ var response = await client.Status.AddStatusAsync(status);
 
 ```
 
-### Using the client in an ASP.Net Core application
+</details>
+
+<details>
+    <summary>Using the client in an ASP.Net Core application</summary>
 
 ```csharp
     public void ConfigureServices(IServiceCollection services)
@@ -71,6 +78,8 @@ var response = await client.Status.AddStatusAsync(status);
         });
     }
 ```
+
+</details>
 
 For more information on usage, please see the [documentation](https://pyrocumulus.github.io/pvoutput.net/).
 

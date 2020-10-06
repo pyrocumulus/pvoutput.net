@@ -19,5 +19,13 @@ namespace PVOutput.Net.Responses
         /// Message the API returned.
         /// </summary>
         public string Message { get; internal set; }
+
+        /// <summary>
+        /// Compares the error to <paramref name="other"/> for base equivalence.
+        /// </summary>
+        /// <param name="other">Other error to compare.</param>
+        /// <returns>True if both errors are equivalent.</returns>
+        public bool IsEquivalentTo(PVOutputApiError other) 
+            => other != null && StatusCode == other.StatusCode && Message.Equals(other.Message, StringComparison.OrdinalIgnoreCase);
     }
 }

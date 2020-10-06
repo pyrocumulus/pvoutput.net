@@ -69,7 +69,7 @@ namespace PVOutput.Net.Objects.Modules.Readers
         {
             IList<string> teamIds = ReadPropertiesForGroup(reader);
 
-            if (teamIds.Count == 0)
+            if (string.IsNullOrEmpty(teamIds[0]))
             {
                 target.Teams = new List<int>();
                 return;
@@ -87,20 +87,18 @@ namespace PVOutput.Net.Objects.Modules.Readers
         {
             IList<string> extendedData = ReadPropertiesForGroup(reader);
 
-            if (extendedData.Count == 0)
-            {
-                target.ExtendedDataConfig = new List<ExtendedDataConfiguration>();
-                return;
-            }
-
             var result = new List<ExtendedDataConfiguration>(5);
             IEnumerator<string> enumerator = extendedData.GetEnumerator();
             while (enumerator.MoveNext())
             {
                 var label = enumerator.Current;
                 enumerator.MoveNext();
-                var unit = enumerator.Current;
-                result.Add(new ExtendedDataConfiguration(label, unit));
+                var unit = enumerator.Current ?? "";
+
+                if (!string.IsNullOrEmpty(label) || !string.IsNullOrEmpty(unit))
+                {
+                    result.Add(new ExtendedDataConfiguration(label, unit));
+                }
             }
 
             target.ExtendedDataConfig = result;
@@ -110,7 +108,7 @@ namespace PVOutput.Net.Objects.Modules.Readers
         {
             IList<string> estimates = ReadPropertiesForGroup(reader);
 
-            if (estimates.Count == 0)
+            if (string.IsNullOrEmpty(estimates[0]))
             {
                 target.MonthlyGenerationEstimates = new Dictionary<PVMonth, int>();
                 target.MonthlyConsumptionEstimates = new Dictionary<PVMonth, int>();

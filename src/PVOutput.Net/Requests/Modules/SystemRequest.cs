@@ -8,13 +8,7 @@ namespace PVOutput.Net.Requests.Modules
     internal class SystemRequest : GetRequest<ISystem>
     {
         public int? SystemId { get; set; }
-
-        public bool SecondaryArray { get; set; } = true;
-        public bool TariffDetails { get; set; } = true;
-        public bool Teams { get; set; } = true;
         public bool MonthlyEstimates { get; set; } = true;
-        public bool DonationCount { get; set; } = true;
-        public bool ExtendedDataConfig { get; set; }
 
         public override HttpMethod Method => HttpMethod.Get;
 
@@ -22,13 +16,26 @@ namespace PVOutput.Net.Requests.Modules
 
         public override IDictionary<string, object> GetUriPathParameters() => new Dictionary<string, object>
         {
-            ["array2"] = SecondaryArray ? 1 : 0,
-            ["tariffs"] = TariffDetails ? 1 : 0,
-            ["teams"] = Teams ? 1 : 0,
             ["est"] = MonthlyEstimates ? 1 : 0,
-            ["donations"] = DonationCount ? 1 : 0,
             ["sid1"] = SystemId,
-            ["ext"] = ExtendedDataConfig ? 1 : 0
+
+            // No need for options; we always request the following aspects
+            // There is no negative side effect to this and it makes deserializing significantly easier
+
+            // Request secondary array information
+            ["array2"] = 1,
+
+            // Request tariff details
+            ["tariffs"] = 1,
+
+            // Request team list
+            ["teams"] = 1,
+
+            // Request donation count
+            ["donations"] = 1,
+
+            // Request extended data configurations
+            ["ext"] = 1
         };
     }
 }

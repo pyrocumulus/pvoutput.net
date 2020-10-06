@@ -135,7 +135,6 @@ namespace PVOutput.Net.Tests.Modules.Status
             Assert.That(parameters["ih"], Is.EqualTo("226"));
         }
 
-
         [Test]
         public void Parameter_Consumption_CreatesCorrectUriParameters()
         {
@@ -144,7 +143,5 @@ namespace PVOutput.Net.Tests.Modules.Status
             var parameters = request.GetUriPathParameters();
             Assert.That(parameters["c"], Is.EqualTo(9876));
         }
-
-        // TODO: Add unit tests for AddBatchOutputRequest and it's FormatOutputs() method.
     }
 }

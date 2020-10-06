@@ -12,7 +12,7 @@ namespace PVOutput.Net.Objects.Modules.Readers
             var properties = new Action<IStatus, string>[]
             {
                 (t, s) => t.Timestamp = FormatHelper.ParseDate(s),
-                (t, s) => t.Timestamp = s.Equals("NaN", StringComparison.OrdinalIgnoreCase) ? t.Timestamp : t.Timestamp.Add(FormatHelper.ParseTime(s)),
+                (t, s) => t.Timestamp = t.Timestamp.Add(FormatHelper.ParseTime(s)),
                 (t, s) => t.EnergyGeneration = FormatHelper.GetValue<int>(s),
                 (t, s) => t.PowerGeneration = FormatHelper.GetValue<int>(s),
                 (t, s) => t.EnergyConsumption = FormatHelper.GetValue<int>(s),

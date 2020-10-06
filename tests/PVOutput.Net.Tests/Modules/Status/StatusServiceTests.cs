@@ -10,6 +10,7 @@ using PVOutput.Net.Tests.Utils;
 using RichardSzalay.MockHttp;
 using PVOutput.Net.Builders;
 using System.Collections;
+using PVOutput.Net.Requests.Modules;
 
 namespace PVOutput.Net.Tests.Modules.Status
 {
@@ -28,6 +29,74 @@ namespace PVOutput.Net.Tests.Modules.Status
             var response = await client.Status.GetStatusForDateTimeAsync(new DateTime(2019, 1, 31, 14, 0, 0));
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
+        }
+
+        [Test]
+        public void StatusRequest_SystemId_CreatesCorrectUriParameters()
+        {
+            var request = new GetStatusRequest() { SystemId = 4321 };
+            var parameters = request.GetUriPathParameters();
+            Assert.That(parameters["sid1"], Is.EqualTo(4321));
+        }
+
+        [Test]
+        public void StatusRequest_Limit_CreatesCorrectUriParameters()
+        {
+            var request = new GetStatusRequest() { Limit = 30 };
+            var parameters = request.GetUriPathParameters();
+            Assert.That(parameters["limit"], Is.EqualTo(30));
+        }
+
+        [Test]
+        public void StatusRequest_History_CreatesCorrectUriParameters()
+        {
+            var request = new GetStatusRequest() { History = true };
+            var parameters = request.GetUriPathParameters();
+            Assert.That(parameters["h"], Is.EqualTo(1));
+        }
+
+        [Test]
+        public void StatusRequest_Ascending_CreatesCorrectUriParameters()
+        {
+            var request = new GetStatusRequest() { Ascending = true };
+            var parameters = request.GetUriPathParameters();
+            Assert.That(parameters["asc"], Is.EqualTo(1));
+        }
+
+        [Test]
+        public void StatusRequest_Extended_CreatesCorrectUriParameters()
+        {
+            var request = new GetStatusRequest() { Extended = true };
+            var parameters = request.GetUriPathParameters();
+            Assert.That(parameters["ext"], Is.EqualTo(1));
+        }
+
+        [Test]
+        public void StatusRequest_Date_CreatesCorrectUriParameters()
+        {
+            var request = new GetStatusRequest() { Date = new DateTime(2018, 6, 12, 10, 12, 0) };
+            var parameters = request.GetUriPathParameters();
+            Assert.Multiple(() =>
+            {
+                Assert.That(parameters["d"], Is.EqualTo("20180612"));
+                Assert.That(parameters["t"], Is.EqualTo("10:12"));
+            });
+        }
+
+        [Test]
+        public void StatusRequest_From_CreatesCorrectUriParameters()
+        {
+            var request = new GetStatusRequest() { From = new DateTime(2018, 6, 12, 10, 12, 0) };
+            var parameters = request.GetUriPathParameters();
+            Assert.That(parameters["from"], Is.EqualTo("10:12"));
+        }
+
+        [Test]
+        public void StatusRequest_To_CreatesCorrectUriParameters()
+        {
+            var request = new GetStatusRequest() { To = new DateTime(2018, 6, 12, 11, 45, 0) };
+            var parameters = request.GetUriPathParameters();
+            Assert.That(parameters["to"], Is.EqualTo("11:45"));
         }
 
         [Test]
@@ -64,6 +133,25 @@ namespace PVOutput.Net.Tests.Modules.Status
             });
         }
 
+
+        [Test]
+        public async Task StatusService_DeleteStatus_CallsCorrectUri()
+        {
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+
+            // Yesterday, 11:15
+            var testDateTime = DateTime.Today.AddDays(-1).Add(new TimeSpan(11, 15, 0));
+            string resultingDateString = testDateTime.ToString("yyyyMMdd");
+
+            testProvider.ExpectUriFromBase(DELETESTATUS_URL)
+                        .WithQueryString($"d={resultingDateString}&t=11:15")
+                        .RespondPlainText("");
+
+            var response = await client.Status.DeleteStatusAsync(testDateTime);
+            testProvider.VerifyNoOutstandingExpectation();
+            AssertStandardResponse(response);
+        }
+
         [Test]
         public void StatusService_GetStatusForDateTime_WithFutureDate_Throws()
         {
@@ -75,17 +163,26 @@ namespace PVOutput.Net.Tests.Modules.Status
             });
         }
 
+        public static IEnumerable DeleteStatusWithDateOutsideBoundsTestCases
+        {
+            get
+            {
+                yield return new TestCaseData(DateTime.Today.AddDays(1));
+                yield return new TestCaseData(DateTime.Today.AddDays(-2));
+            }
+        }
+
         [Test]
-        public void StatusService_DeleteStatus_WithFutureDate_Throws()
+        [TestCaseSource(typeof(StatusServiceTests), nameof(DeleteStatusWithDateOutsideBoundsTestCases))]
+        public void StatusService_DeleteStatus_WithDateOutsideBounds_Throws(DateTime testDate)
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
             Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
             {
-                _ = await client.Status.DeleteStatusAsync(DateTime.Today.AddDays(1));
+                _ = await client.Status.DeleteStatusAsync(testDate);
             });
         }
-
 
         [Test]
         public void StatusService_GetHistoryForPeriod_WithFutureRange_Throws()
@@ -152,10 +249,12 @@ namespace PVOutput.Net.Tests.Modules.Status
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
             testProvider.ExpectUriFromBase(ADDSTATUS_URL)
                         .WithQueryString("d=20200101&t=12:22&v1=11000&v3=9000&n=0")
-                        .RespondPlainText("");
+                        .RespondPlainText("OK 200: Added Status");
 
-            await client.Status.AddStatusAsync(status);
+            var response = await client.Status.AddStatusAsync(status);
             testProvider.VerifyNoOutstandingExpectation();
+
+            Assert.That(response.SuccesMessage, Is.EqualTo("Added Status"));
         }
 
         [Test]
@@ -206,7 +305,6 @@ namespace PVOutput.Net.Tests.Modules.Status
 
             Assert.Multiple(() =>
             {
-
                 Assert.That(result.Timestamp, Is.EqualTo(new DateTime(2019, 1, 31, 14, 0, 0)));
                 Assert.That(result.EnergyGeneration, Is.EqualTo(2930));
                 Assert.That(result.PowerGeneration, Is.EqualTo(459));

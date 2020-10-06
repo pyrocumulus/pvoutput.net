@@ -5,6 +5,7 @@
         public const string GETSTATUS_URL = "getstatus.jsp";
         public const string ADDSTATUS_URL = "addstatus.jsp";
         public const string ADDBATCHSTATUS_URL = "addbatchstatus.jsp";
+        public const string DELETESTATUS_URL = "deletestatus.jsp";
 
         public const string STATUS_RESPONSE_SINGLE = "20190131,14:00,2930,459,5938,386,0.111,1.8,230.1,1.0,2.0,3.0,4.0,5.0,6.0";
 
@@ -17,5 +18,9 @@
         public const string STATUS_RESPONSE_DAYSTATISTICS_MEDIUM = "334,2,82,14:40;5811,417,255,15:05";
         
         public const string STATUS_RESPONSE_DAYSTATISTICS_FULL = "35302,3,5369,12:45;31476,606,495,09:35;18.1,26.6,21.7";
+
+        public const string BATCHPOST_STATUS_RESPONSE_SINGLE = "20140130,10:00,1";
+
+        public const string BATCHPOST_STATUS_RESPONSE_FULL = "20140130,10:00,1;20140130,10:05,0;20140130,10:10,1";
     }
 }

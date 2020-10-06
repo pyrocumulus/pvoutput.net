@@ -200,6 +200,7 @@ namespace PVOutput.Net.Tests.Modules.Search
                 Assert.That(result.SystemName, Is.EqualTo("Solar 4 US"));
                 Assert.That(result.SystemSize, Is.EqualTo(9360));
                 Assert.That(result.Postcode, Is.EqualTo(4280));
+                Assert.That(result.Country, Is.EqualTo("Australia"));
                 Assert.That(result.Orientation, Is.EqualTo("NW"));
                 Assert.That(result.NumberOfOutputs, Is.EqualTo(81));
                 Assert.That(result.LastOutput, Is.EqualTo("2 days ago"));

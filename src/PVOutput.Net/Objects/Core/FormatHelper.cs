@@ -103,7 +103,9 @@ namespace PVOutput.Net.Objects.Core
             var type = typeof(TEnumType);
 
             if (!type.IsEnum)
-                throw new ArgumentException("Type parameter must be of Enum type");
+            { 
+                throw new ArgumentException("Type parameter must be of Enum type"); 
+            }
 
             foreach (TEnumType val in Enum.GetValues(type))
             {

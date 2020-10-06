@@ -25,7 +25,7 @@ namespace PVOutput.Net.Objects.Core
             _parsers = new List<Action<TReturnType, TextReader>>();
         }
 
-        public virtual async Task<TReturnType> ReadObjectAsync(Stream stream, CancellationToken cancellationToken = default)
+        public async Task<TReturnType> ReadObjectAsync(Stream stream, CancellationToken cancellationToken = default)
         {
             if (stream == null)
             {
