@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
 
+### Added
+
+- Added a logo for the NuGet package [#38](https://github.com/pyrocumulus/pvoutput.net/pull/38)
+
 ## Fixed
 
 - Corrected `SystemService` returning teams, estimates or extended properties with counts greater than 0, but with empty/null content
