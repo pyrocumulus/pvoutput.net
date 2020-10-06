@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,7 +7,7 @@ namespace PVOutput.Net.Objects.Core
 {
     internal abstract class BaseArrayStringReader<TReturnType> : IArrayStringReader<TReturnType>
     {
-        public virtual Task<IEnumerable<TReturnType>> ReadArrayAsync(Stream stream, CancellationToken cancellationToken = default)
+        public Task<IEnumerable<TReturnType>> ReadArrayAsync(Stream stream, CancellationToken cancellationToken = default)
         {
             if (stream == null)
             {

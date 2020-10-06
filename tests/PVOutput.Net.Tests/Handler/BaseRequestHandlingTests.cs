@@ -38,7 +38,6 @@ namespace PVOutput.Net.Tests.Handler
         [Test]
         public void DefaultClient_OnErrorResponse_ThrowsException()
         {
-
             const HttpStatusCode statusCode = HttpStatusCode.Unauthorized;
             const string responseContent = "Invalid API Key";
 
@@ -49,6 +48,26 @@ namespace PVOutput.Net.Tests.Handler
             var exception = Assert.ThrowsAsync<PVOutputException>(async () =>
             {
                 _ = await client.System.GetOwnSystemAsync();
+            });
+            Assert.That(exception.Message, Is.EqualTo(responseContent));
+            Assert.That(exception.StatusCode, Is.EqualTo(statusCode));
+
+            testProvider.VerifyNoOutstandingExpectation();
+        }
+
+        [Test]
+        public void DefaultClient_OnErrorArrayResponse_ThrowsException()
+        {
+            const HttpStatusCode statusCode = HttpStatusCode.Unauthorized;
+            const string responseContent = "Invalid API Key";
+
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+            testProvider.ExpectUriFromBase("search.jsp")
+                        .Respond(statusCode, "text/plain", responseContent);
+
+            var exception = Assert.ThrowsAsync<PVOutputException>(async () =>
+            {
+                _ = await client.Search.SearchAsync("test");
             });
             Assert.That(exception.Message, Is.EqualTo(responseContent));
             Assert.That(exception.StatusCode, Is.EqualTo(statusCode));
