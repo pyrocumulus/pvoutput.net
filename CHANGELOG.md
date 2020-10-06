@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+### Unreleased
+
+### Added
+
+- Added a logo for the NuGet package [#38](https://github.com/pyrocumulus/pvoutput.net/pull/38)
+
 ## [0.8.0] - 2020-08-29
 
 ### Added
