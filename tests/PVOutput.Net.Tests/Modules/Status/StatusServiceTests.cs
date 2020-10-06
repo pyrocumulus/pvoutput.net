@@ -180,10 +180,12 @@ namespace PVOutput.Net.Tests.Modules.Status
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
             testProvider.ExpectUriFromBase(ADDSTATUS_URL)
                         .WithQueryString("d=20200101&t=12:22&v1=11000&v3=9000&n=0")
-                        .RespondPlainText("");
+                        .RespondPlainText("OK 200: Added Status");
 
-            await client.Status.AddStatusAsync(status);
+            var response = await client.Status.AddStatusAsync(status);
             testProvider.VerifyNoOutstandingExpectation();
+
+            Assert.That(response.SuccesMessage, Is.EqualTo("Added Status"));
         }
 
         [Test]
