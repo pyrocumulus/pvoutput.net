@@ -17,7 +17,7 @@ namespace PVOutput.Net.Tests.Requests.Handler
 
         public override HttpClient SetupHttpClient()
         {
-            Assert.IsNotNull(MockHttpMessageHandler);
+            Assert.That(MockHttpMessageHandler, Is.Not.Null);
             return MockHttpMessageHandler.ToHttpClient();
         }
 

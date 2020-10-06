@@ -59,8 +59,8 @@ namespace PVOutput.Net.Tests.Modules.Status
 
             Assert.Multiple(() =>
             {
-                Assert.AreEqual(new TimeSpan(14, 40, 0), response.Value.PeakTime);
-                Assert.AreEqual(new TimeSpan(15, 5, 0), response.Value.StandbyPowerTime);
+                Assert.That(response.Value.PeakTime, Is.EqualTo(new TimeSpan(14, 40, 0)));
+                Assert.That(response.Value.StandbyPowerTime, Is.EqualTo(new TimeSpan(15, 5, 0)));
             });
         }
 
@@ -207,20 +207,20 @@ namespace PVOutput.Net.Tests.Modules.Status
             Assert.Multiple(() =>
             {
 
-                Assert.AreEqual(new DateTime(2019, 1, 31, 14, 0, 0), result.Timestamp);
-                Assert.AreEqual(2930, result.EnergyGeneration);
-                Assert.AreEqual(459, result.PowerGeneration);
-                Assert.AreEqual(5938, result.EnergyConsumption);
-                Assert.AreEqual(386, result.PowerConsumption);
-                Assert.AreEqual(0.111d, result.NormalisedOutput);
-                Assert.AreEqual(1.8d, result.Temperature);
-                Assert.AreEqual(230.1d, result.Voltage);
-                Assert.AreEqual(1d, result.ExtendedValue1);
-                Assert.AreEqual(2d, result.ExtendedValue2);
-                Assert.AreEqual(3d, result.ExtendedValue3);
-                Assert.AreEqual(4d, result.ExtendedValue4);
-                Assert.AreEqual(5d, result.ExtendedValue5);
-                Assert.AreEqual(6d, result.ExtendedValue6);
+                Assert.That(result.Timestamp, Is.EqualTo(new DateTime(2019, 1, 31, 14, 0, 0)));
+                Assert.That(result.EnergyGeneration, Is.EqualTo(2930));
+                Assert.That(result.PowerGeneration, Is.EqualTo(459));
+                Assert.That(result.EnergyConsumption, Is.EqualTo(5938));
+                Assert.That(result.PowerConsumption, Is.EqualTo(386));
+                Assert.That(result.NormalisedOutput, Is.EqualTo(0.111d));
+                Assert.That(result.Temperature, Is.EqualTo(1.8d));
+                Assert.That(result.Voltage, Is.EqualTo(230.1d));
+                Assert.That(result.ExtendedValue1, Is.EqualTo(1d));
+                Assert.That(result.ExtendedValue2, Is.EqualTo(2d));
+                Assert.That(result.ExtendedValue3, Is.EqualTo(3d));
+                Assert.That(result.ExtendedValue4, Is.EqualTo(4d));
+                Assert.That(result.ExtendedValue5, Is.EqualTo(5d));
+                Assert.That(result.ExtendedValue6, Is.EqualTo(6d));
             });
         }
 
@@ -232,21 +232,21 @@ namespace PVOutput.Net.Tests.Modules.Status
 
             Assert.Multiple(() =>
             {
-                Assert.AreEqual(2930, result.EnergyGeneration);
-                Assert.AreEqual(0.710d, result.EnergyEfficiency);
-                Assert.AreEqual(459, result.InstantaneousPower);
-                Assert.AreEqual(456, result.AveragePower);
-                Assert.AreEqual(0.111d, result.NormalisedOutput);
-                Assert.AreEqual(5938, result.EnergyConsumption);
-                Assert.AreEqual(386, result.PowerConsumption);
-                Assert.AreEqual(1.8d, result.Temperature);
-                Assert.AreEqual(230.1d, result.Volts);
-                Assert.AreEqual(1d, result.ExtendedValue1);
-                Assert.AreEqual(2d, result.ExtendedValue2);
-                Assert.AreEqual(3d, result.ExtendedValue3);
-                Assert.AreEqual(4d, result.ExtendedValue4);
-                Assert.AreEqual(5d, result.ExtendedValue5);
-                Assert.AreEqual(6d, result.ExtendedValue6);
+                Assert.That(result.EnergyGeneration, Is.EqualTo(2930));
+                Assert.That(result.EnergyEfficiency, Is.EqualTo(0.710d));
+                Assert.That(result.InstantaneousPower, Is.EqualTo(459));
+                Assert.That(result.AveragePower, Is.EqualTo(456));
+                Assert.That(result.NormalisedOutput, Is.EqualTo(0.111d));
+                Assert.That(result.EnergyConsumption, Is.EqualTo(5938));
+                Assert.That(result.PowerConsumption, Is.EqualTo(386));
+                Assert.That(result.Temperature, Is.EqualTo(1.8d));
+                Assert.That(result.Volts, Is.EqualTo(230.1d));
+                Assert.That(result.ExtendedValue1, Is.EqualTo(1d));
+                Assert.That(result.ExtendedValue2, Is.EqualTo(2d));
+                Assert.That(result.ExtendedValue3, Is.EqualTo(3d));
+                Assert.That(result.ExtendedValue4, Is.EqualTo(4d));
+                Assert.That(result.ExtendedValue5, Is.EqualTo(5d));
+                Assert.That(result.ExtendedValue6, Is.EqualTo(6d));
             });
         }
 
@@ -258,23 +258,23 @@ namespace PVOutput.Net.Tests.Modules.Status
             var firstStatus = result.First();
             Assert.Multiple(() =>
             {
-                Assert.AreEqual(10, result.Count());
+                Assert.That(result, Has.Exactly(10).Items);
 
-                Assert.AreEqual(2930, firstStatus.EnergyGeneration);
-                Assert.AreEqual(0.710d, firstStatus.EnergyEfficiency);
-                Assert.AreEqual(459, firstStatus.InstantaneousPower);
-                Assert.AreEqual(456, firstStatus.AveragePower);
-                Assert.AreEqual(0.111d, firstStatus.NormalisedOutput);
-                Assert.AreEqual(5938, firstStatus.EnergyConsumption);
-                Assert.AreEqual(386, firstStatus.PowerConsumption);
-                Assert.AreEqual(1.8d, firstStatus.Temperature);
-                Assert.AreEqual(230.1d, firstStatus.Volts);
-                Assert.AreEqual(1d, firstStatus.ExtendedValue1);
-                Assert.AreEqual(2d, firstStatus.ExtendedValue2);
-                Assert.AreEqual(3d, firstStatus.ExtendedValue3);
-                Assert.AreEqual(4d, firstStatus.ExtendedValue4);
-                Assert.AreEqual(5d, firstStatus.ExtendedValue5);
-                Assert.AreEqual(6d, firstStatus.ExtendedValue6);
+                Assert.That(firstStatus.EnergyGeneration, Is.EqualTo(2930));
+                Assert.That(firstStatus.EnergyEfficiency, Is.EqualTo(0.710d));
+                Assert.That(firstStatus.InstantaneousPower, Is.EqualTo(459));
+                Assert.That(firstStatus.AveragePower, Is.EqualTo(456));
+                Assert.That(firstStatus.NormalisedOutput, Is.EqualTo(0.111d));
+                Assert.That(firstStatus.EnergyConsumption, Is.EqualTo(5938));
+                Assert.That(firstStatus.PowerConsumption, Is.EqualTo(386));
+                Assert.That(firstStatus.Temperature, Is.EqualTo(1.8d));
+                Assert.That(firstStatus.Volts, Is.EqualTo(230.1d));
+                Assert.That(firstStatus.ExtendedValue1, Is.EqualTo(1d));
+                Assert.That(firstStatus.ExtendedValue2, Is.EqualTo(2d));
+                Assert.That(firstStatus.ExtendedValue3, Is.EqualTo(3d));
+                Assert.That(firstStatus.ExtendedValue4, Is.EqualTo(4d));
+                Assert.That(firstStatus.ExtendedValue5, Is.EqualTo(5d));
+                Assert.That(firstStatus.ExtendedValue6, Is.EqualTo(6d));
             });
         }
 
@@ -285,10 +285,10 @@ namespace PVOutput.Net.Tests.Modules.Status
 
             Assert.Multiple(() =>
             {
-                Assert.AreEqual(334, result.EnergyGeneration);
-                Assert.AreEqual(1, result.PowerGeneration);
-                Assert.AreEqual(191, result.PeakPower);
-                Assert.AreEqual(new TimeSpan(11, 0, 0), result.PeakTime);
+                Assert.That(result.EnergyGeneration, Is.EqualTo(334));
+                Assert.That(result.PowerGeneration, Is.EqualTo(1));
+                Assert.That(result.PeakPower, Is.EqualTo(191));
+                Assert.That(result.PeakTime, Is.EqualTo(new TimeSpan(11, 0, 0)));
             });
         }
 
@@ -299,15 +299,15 @@ namespace PVOutput.Net.Tests.Modules.Status
 
             Assert.Multiple(() =>
             {
-                Assert.AreEqual(334, result.EnergyGeneration);
-                Assert.AreEqual(2, result.PowerGeneration);
-                Assert.AreEqual(82, result.PeakPower);
-                Assert.AreEqual(new TimeSpan(14, 40, 0), result.PeakTime);
+                Assert.That(result.EnergyGeneration, Is.EqualTo(334));
+                Assert.That(result.PowerGeneration, Is.EqualTo(2));
+                Assert.That(result.PeakPower, Is.EqualTo(82));
+                Assert.That(result.PeakTime, Is.EqualTo(new TimeSpan(14, 40, 0)));
 
-                Assert.AreEqual(5811, result.EnergyConsumption);
-                Assert.AreEqual(417, result.PowerConsumption);
-                Assert.AreEqual(255, result.StandbyPower);
-                Assert.AreEqual(new TimeSpan(15, 5, 0), result.StandbyPowerTime);
+                Assert.That(result.EnergyConsumption, Is.EqualTo(5811));
+                Assert.That(result.PowerConsumption, Is.EqualTo(417));
+                Assert.That(result.StandbyPower, Is.EqualTo(255));
+                Assert.That(result.StandbyPowerTime, Is.EqualTo(new TimeSpan(15, 5, 0)));
             });
         }
 
@@ -318,19 +318,19 @@ namespace PVOutput.Net.Tests.Modules.Status
 
             Assert.Multiple(() =>
             {
-                Assert.AreEqual(35302, result.EnergyGeneration);
-                Assert.AreEqual(3, result.PowerGeneration);
-                Assert.AreEqual(5369, result.PeakPower);
-                Assert.AreEqual(new TimeSpan(12, 45, 0), result.PeakTime);
+                Assert.That(result.EnergyGeneration, Is.EqualTo(35302));
+                Assert.That(result.PowerGeneration, Is.EqualTo(3));
+                Assert.That(result.PeakPower, Is.EqualTo(5369));
+                Assert.That(result.PeakTime, Is.EqualTo(new TimeSpan(12, 45, 0)));
 
-                Assert.AreEqual(31476, result.EnergyConsumption);
-                Assert.AreEqual(606, result.PowerConsumption);
-                Assert.AreEqual(495, result.StandbyPower);
-                Assert.AreEqual(new TimeSpan(9, 35, 0), result.StandbyPowerTime);
+                Assert.That(result.EnergyConsumption, Is.EqualTo(31476));
+                Assert.That(result.PowerConsumption, Is.EqualTo(606));
+                Assert.That(result.StandbyPower, Is.EqualTo(495));
+                Assert.That(result.StandbyPowerTime, Is.EqualTo(new TimeSpan(9, 35, 0)));
 
-                Assert.AreEqual(18.1d, result.MinimumTemperature);
-                Assert.AreEqual(26.6d, result.MaximumTemperature);
-                Assert.AreEqual(21.7d, result.AverageTemperature);
+                Assert.That(result.MinimumTemperature, Is.EqualTo(18.1d));
+                Assert.That(result.MaximumTemperature, Is.EqualTo(26.6d));
+                Assert.That(result.AverageTemperature, Is.EqualTo(21.7d));
             });
         }
     }

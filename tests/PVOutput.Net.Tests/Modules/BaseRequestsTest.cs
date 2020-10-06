@@ -9,10 +9,10 @@ namespace PVOutput.Net.Tests.Modules
         {
             Assert.Multiple(() =>
             {
-                Assert.IsNull(response.Error);
-                Assert.IsTrue(response.HasValue);
-                Assert.IsTrue(response.IsSuccess);
-                Assert.IsNotNull(response.Value);
+                Assert.That(response.Error, Is.Null);
+                Assert.That(response.HasValue, Is.True);
+                Assert.That(response.IsSuccess, Is.True);
+                Assert.That(response.Value, Is.Not.Null);
             });
         }
 
@@ -20,10 +20,10 @@ namespace PVOutput.Net.Tests.Modules
         {
             Assert.Multiple(() =>
             {
-                Assert.IsNull(response.Error);
-                Assert.IsTrue(response.HasValues);
-                Assert.IsTrue(response.IsSuccess);
-                Assert.IsNotNull(response.Values);
+                Assert.That(response.Error, Is.Null);
+                Assert.That(response.HasValues, Is.True);
+                Assert.That(response.IsSuccess, Is.True);
+                Assert.That(response.Values, Is.Not.Null);
             });
         }
 
@@ -31,8 +31,8 @@ namespace PVOutput.Net.Tests.Modules
         {
             Assert.Multiple(() =>
             {
-                Assert.IsNull(response.Error);
-                Assert.IsTrue(response.IsSuccess);
+                Assert.That(response.Error, Is.Null);
+                Assert.That(response.IsSuccess, Is.True);
             });
         }
     }

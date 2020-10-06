@@ -37,23 +37,23 @@ namespace PVOutput.Net.Tests.Modules.Favourite
 
             var favourite = result.First();
             Assert.Multiple(() => {  
-                Assert.AreEqual(21, favourite.SystemId);
-                Assert.AreEqual("PVOutput Demo", favourite.SystemName);
-                Assert.AreEqual(2450, favourite.SystemSize);
-                Assert.AreEqual(2199, favourite.Postcode);
-                Assert.AreEqual(14, favourite.NumberOfPanels);
-                Assert.AreEqual(175, favourite.PanelPower);
-                Assert.AreEqual("Enertech", favourite.PanelBrand);
-                Assert.AreEqual(1, favourite.NumberOfInverters);
-                Assert.AreEqual(2000, favourite.InverterPower);
-                Assert.AreEqual("CMS", favourite.InverterBrand);
-                Assert.AreEqual("N", favourite.Orientation);
-                Assert.AreEqual(30.5d, favourite.ArrayTilt);
-                Assert.AreEqual("No", favourite.Shade);
-                Assert.AreEqual(new DateTime(2010, 1, 1), favourite.InstallDate);
-                Assert.AreEqual(-33.907725d, favourite.Location.Latitude);
-                Assert.AreEqual(151.026108d, favourite.Location.Longitude);
-                Assert.AreEqual(5, favourite.StatusInterval);
+                Assert.That(favourite.SystemId, Is.EqualTo(21));
+                Assert.That(favourite.SystemName, Is.EqualTo("PVOutput Demo"));
+                Assert.That(favourite.SystemSize, Is.EqualTo(2450));
+                Assert.That(favourite.Postcode, Is.EqualTo(2199));
+                Assert.That(favourite.NumberOfPanels, Is.EqualTo(14));
+                Assert.That(favourite.PanelPower, Is.EqualTo(175));
+                Assert.That(favourite.PanelBrand, Is.EqualTo("Enertech"));
+                Assert.That(favourite.NumberOfInverters, Is.EqualTo(1));
+                Assert.That(favourite.InverterPower, Is.EqualTo(2000));
+                Assert.That(favourite.InverterBrand, Is.EqualTo("CMS"));
+                Assert.That(favourite.Orientation, Is.EqualTo("N"));
+                Assert.That(favourite.ArrayTilt, Is.EqualTo(30.5d));
+                Assert.That(favourite.Shade, Is.EqualTo("No"));
+                Assert.That(favourite.InstallDate, Is.EqualTo(new DateTime(2010, 1, 1)));
+                Assert.That(favourite.Location.Latitude, Is.EqualTo(-33.907725d));
+                Assert.That(favourite.Location.Longitude, Is.EqualTo(151.026108d));
+                Assert.That(favourite.StatusInterval, Is.EqualTo(5));
             });
         }
 

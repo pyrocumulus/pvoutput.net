@@ -43,7 +43,7 @@ namespace PVOutput.Net.Objects.Core
             if (reader != null && reader.Peek() >= 0)
             {
                 TReturnType output = CreateObjectInstance();
-                ParseProperties(output, reader);
+                ParseProperties(output, reader, cancellationToken);
                 return output;
             }
 

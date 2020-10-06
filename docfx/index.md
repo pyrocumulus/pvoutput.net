@@ -21,7 +21,8 @@ This library is targeting .NET Standard 2.0 and above. For full compatibility de
 
 ## Usage
 
-At this time, most of the API calls of the official service are exposed through the library. For a complete list of the supported calls, see the [coverage](articles/coverage.md) page.
+As of 0.8.0, all of the public API calls of the official service are exposed through the library. For a complete list of the supported calls, see the [coverage](articles/coverage.md) page.
+Note that the 'Managed Systems' and 'Data Services' APIs are both unsupported as those are not public.
 
 ### Getting data out of PVOutput.org
 

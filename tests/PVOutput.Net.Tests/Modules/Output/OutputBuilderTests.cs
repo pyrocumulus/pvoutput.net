@@ -23,7 +23,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         {
             var builder = new OutputPostBuilder().SetDate(DateTime.Today);
 
-            Assert.AreEqual(DateTime.Today, builder.OutputPost.OutputDate);
+            Assert.That(builder.OutputPost.OutputDate, Is.EqualTo(DateTime.Today));
         }
 
         [Test]
@@ -41,7 +41,7 @@ namespace PVOutput.Net.Tests.Modules.Output
             var builder = new OutputPostBuilder().SetDate(DateTime.Today)
                 .SetEnergyGenerated(12121);
 
-            Assert.AreEqual(12121, builder.OutputPost.EnergyGenerated);
+            Assert.That(builder.OutputPost.EnergyGenerated, Is.EqualTo(12121));
         }
 
         [Test]
@@ -59,7 +59,7 @@ namespace PVOutput.Net.Tests.Modules.Output
             var builder = new OutputPostBuilder().SetDate(DateTime.Today)
                 .SetEnergyExported(12121);
 
-            Assert.AreEqual(12121, builder.OutputPost.EnergyExported);
+            Assert.That(builder.OutputPost.EnergyExported, Is.EqualTo(12121));
         }
 
 
@@ -78,7 +78,7 @@ namespace PVOutput.Net.Tests.Modules.Output
             var builder = new OutputPostBuilder().SetDate(new DateTime(2020, 1, 1))
                 .SetPeakTime(12, 22);
 
-            Assert.AreEqual(new TimeSpan(12, 22, 0), builder.OutputPost.PeakTime.Value);
+            Assert.That(builder.OutputPost.PeakTime.Value, Is.EqualTo(new TimeSpan(12, 22, 0)));
         }
 
         [Test]
@@ -87,7 +87,7 @@ namespace PVOutput.Net.Tests.Modules.Output
             var builder = new OutputPostBuilder().SetDate(new DateTime(2020, 1, 1))
                 .SetPeakTime(new TimeSpan(10, 10, 0));
 
-            Assert.AreEqual(new TimeSpan(10, 10, 0), builder.OutputPost.PeakTime.Value);
+            Assert.That(builder.OutputPost.PeakTime.Value, Is.EqualTo(new TimeSpan(10, 10, 0)));
         }
 
         [Test]
@@ -96,7 +96,7 @@ namespace PVOutput.Net.Tests.Modules.Output
             var builder = new OutputPostBuilder().SetDate(DateTime.Today)
                 .SetPeakPower(13131);
 
-            Assert.AreEqual(13131, builder.OutputPost.PeakPower);
+            Assert.That(builder.OutputPost.PeakPower, Is.EqualTo(13131));
         }
 
         [Test]
@@ -115,20 +115,20 @@ namespace PVOutput.Net.Tests.Modules.Output
             var builder = new OutputPostBuilder().SetDate(DateTime.Today)
                 .SetCondition(testCondition);
 
-            Assert.AreEqual(testCondition, builder.OutputPost.Condition);
+            Assert.That(builder.OutputPost.Condition, Is.EqualTo(testCondition));
         }
 
         [Test]
-        [TestCase(new object[] { 10, 20 })]
-        [TestCase(new object[] { null, 30 })]
-        [TestCase(new object[] { 15, null })]
+        [TestCase(10, 20)]
+        [TestCase(null, 30)]
+        [TestCase(15, null)]
         public void OutputPostBuilder_WithTemperatures_SetsCorrectTemperature(decimal? minimum, decimal? maximum)
         {
             var builder = new OutputPostBuilder().SetDate(DateTime.Today)
                 .SetTemperatures(minimum, maximum);
 
-            Assert.AreEqual(minimum, builder.OutputPost.MinimumTemperature);
-            Assert.AreEqual(maximum, builder.OutputPost.MaximumTemperature);
+            Assert.That(builder.OutputPost.MinimumTemperature, Is.EqualTo(minimum));
+            Assert.That(builder.OutputPost.MaximumTemperature, Is.EqualTo(maximum));
         }
 
         [Test]
@@ -160,7 +160,7 @@ namespace PVOutput.Net.Tests.Modules.Output
             var builder = new OutputPostBuilder().SetDate(DateTime.Today)
                 .SetComments(testComment);
 
-            Assert.AreEqual(testComment, builder.OutputPost.Comments);
+            Assert.That(builder.OutputPost.Comments, Is.EqualTo(testComment));
         }
 
         [Test]
@@ -191,7 +191,7 @@ namespace PVOutput.Net.Tests.Modules.Output
             var builder = new OutputPostBuilder().SetDate(DateTime.Today)
                 .SetPeakEnergyImport(13131);
 
-            Assert.AreEqual(13131, builder.OutputPost.PeakEnergyImport);
+            Assert.That(builder.OutputPost.PeakEnergyImport, Is.EqualTo(13131));
         }
 
         [Test]
@@ -209,7 +209,7 @@ namespace PVOutput.Net.Tests.Modules.Output
             var builder = new OutputPostBuilder().SetDate(DateTime.Today)
                 .SetOffPeakEnergyImport(13131);
 
-            Assert.AreEqual(13131, builder.OutputPost.OffPeakEnergyImport);
+            Assert.That(builder.OutputPost.OffPeakEnergyImport, Is.EqualTo(13131));
         }
 
         [Test]
@@ -227,7 +227,7 @@ namespace PVOutput.Net.Tests.Modules.Output
             var builder = new OutputPostBuilder().SetDate(DateTime.Today)
                 .SetShoulderEnergyImport(13131);
 
-            Assert.AreEqual(13131, builder.OutputPost.ShoulderEnergyImport);
+            Assert.That(builder.OutputPost.ShoulderEnergyImport, Is.EqualTo(13131));
         }
 
         [Test]
@@ -245,7 +245,7 @@ namespace PVOutput.Net.Tests.Modules.Output
             var builder = new OutputPostBuilder().SetDate(DateTime.Today)
                 .SetHighShoulderEnergyImport(13131);
 
-            Assert.AreEqual(13131, builder.OutputPost.HighShoulderEnergyImport);
+            Assert.That(builder.OutputPost.HighShoulderEnergyImport, Is.EqualTo(13131));
         }
 
         [Test]
@@ -263,7 +263,7 @@ namespace PVOutput.Net.Tests.Modules.Output
             var builder = new OutputPostBuilder().SetDate(DateTime.Today)
                 .SetConsumption(25000);
 
-            Assert.AreEqual(25000, builder.OutputPost.Consumption);
+            Assert.That(builder.OutputPost.Consumption, Is.EqualTo(25000));
         }
 
         [Test]
@@ -293,7 +293,7 @@ namespace PVOutput.Net.Tests.Modules.Output
 
             builder.Reset();
 
-            Assert.AreNotSame(output, builder.OutputPost);
+            Assert.That(builder.OutputPost, Is.Not.SameAs(output));
         }
 
         [Test]
@@ -302,7 +302,7 @@ namespace PVOutput.Net.Tests.Modules.Output
             var builder = new OutputPostBuilder().SetDate(DateTime.Today);
             IOutputPost output = builder.BuildAndReset();
 
-            Assert.AreNotSame(output, builder.OutputPost);
+            Assert.That(builder.OutputPost, Is.Not.SameAs(output));
         }
 
         [Test]
@@ -311,7 +311,7 @@ namespace PVOutput.Net.Tests.Modules.Output
             var builder = new BatchOutputPostBuilder().SetDate(DateTime.Today)
                 .SetEnergyUsed(31132);
 
-            Assert.AreEqual(31132, builder.OutputPost.EnergyUsed);
+            Assert.That(builder.OutputPost.EnergyUsed, Is.EqualTo(31132));
         }
 
         [Test]
@@ -322,7 +322,7 @@ namespace PVOutput.Net.Tests.Modules.Output
 
             builder.Reset();
 
-            Assert.AreNotSame(output, builder.OutputPost);
+            Assert.That(builder.OutputPost, Is.Not.SameAs(output));
         }
 
         [Test]

@@ -22,7 +22,7 @@ namespace PVOutput.Net.Tests.Modules.Status
             var request = new AddOutputRequest() { Output = new OutputPost() { OutputDate = new DateTime(2020, 3, 1) } };
 
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual("20200301", parameters["d"]);
+            Assert.That(parameters["d"], Is.EqualTo("20200301"));
         }
 
         [Test]
@@ -31,7 +31,7 @@ namespace PVOutput.Net.Tests.Modules.Status
             var request = new AddOutputRequest() { Output = new OutputPost() { EnergyGenerated = 5500 } };
 
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual(5500, parameters["g"]);
+            Assert.That(parameters["g"], Is.EqualTo(5500));
         }
 
         [Test]
@@ -40,7 +40,7 @@ namespace PVOutput.Net.Tests.Modules.Status
             var request = new AddOutputRequest() { Output = new OutputPost() { EnergyExported = 2500 } };
 
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual(2500, parameters["e"]);
+            Assert.That(parameters["e"], Is.EqualTo(2500));
         }
 
 
@@ -50,7 +50,7 @@ namespace PVOutput.Net.Tests.Modules.Status
             var request = new AddOutputRequest() { Output = new OutputPost() { PeakPower = 3700 } };
 
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual(3700, parameters["pp"]);
+            Assert.That(parameters["pp"], Is.EqualTo(3700));
         }
 
         [Test]
@@ -59,7 +59,7 @@ namespace PVOutput.Net.Tests.Modules.Status
             var request = new AddOutputRequest() { Output = new OutputPost() { PeakTime = new TimeSpan(10, 30, 12) } };
 
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual("10:30", parameters["pt"]);
+            Assert.That(parameters["pt"], Is.EqualTo("10:30"));
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace PVOutput.Net.Tests.Modules.Status
             var request = new AddOutputRequest() { Output = new OutputPost() { Condition = Enums.WeatherCondition.MostlyCloudy } };
 
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual("Mostly Cloudy", parameters["cd"]);
+            Assert.That(parameters["cd"], Is.EqualTo("Mostly Cloudy"));
         }
 
         [Test]
@@ -77,7 +77,7 @@ namespace PVOutput.Net.Tests.Modules.Status
             var request = new AddOutputRequest() { Output = new OutputPost() { MinimumTemperature = 9.1m } };
 
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual("9.1", parameters["tm"]);
+            Assert.That(parameters["tm"], Is.EqualTo("9.1"));
         }
 
         [Test]
@@ -86,7 +86,7 @@ namespace PVOutput.Net.Tests.Modules.Status
             var request = new AddOutputRequest() { Output = new OutputPost() { MaximumTemperature = 18.2m } };
 
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual("18.2", parameters["tx"]);
+            Assert.That(parameters["tx"], Is.EqualTo("18.2"));
         }
 
         [Test]
@@ -95,7 +95,7 @@ namespace PVOutput.Net.Tests.Modules.Status
             var request = new AddOutputRequest() { Output = new OutputPost() { Comments = "Comment" } };
 
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual("Comment", parameters["cm"]);
+            Assert.That(parameters["cm"], Is.EqualTo("Comment"));
         }
 
 
@@ -105,7 +105,7 @@ namespace PVOutput.Net.Tests.Modules.Status
             var request = new AddOutputRequest() { Output = new OutputPost() { PeakEnergyImport = 223 } };
 
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual("223", parameters["ip"]);
+            Assert.That(parameters["ip"], Is.EqualTo("223"));
         }
 
         [Test]
@@ -114,7 +114,7 @@ namespace PVOutput.Net.Tests.Modules.Status
             var request = new AddOutputRequest() { Output = new OutputPost() { OffPeakEnergyImport = 224 } };
 
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual("224", parameters["io"]);
+            Assert.That(parameters["io"], Is.EqualTo("224"));
         }
 
         [Test]
@@ -123,7 +123,7 @@ namespace PVOutput.Net.Tests.Modules.Status
             var request = new AddOutputRequest() { Output = new OutputPost() { ShoulderEnergyImport = 225 } };
 
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual("225", parameters["is"]);
+            Assert.That(parameters["is"], Is.EqualTo("225"));
         }
 
         [Test]
@@ -132,7 +132,7 @@ namespace PVOutput.Net.Tests.Modules.Status
             var request = new AddOutputRequest() { Output = new OutputPost() { HighShoulderEnergyImport = 226 } };
 
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual("226", parameters["ih"]);
+            Assert.That(parameters["ih"], Is.EqualTo("226"));
         }
 
 
@@ -142,7 +142,7 @@ namespace PVOutput.Net.Tests.Modules.Status
             var request = new AddOutputRequest() { Output = new OutputPost() { Consumption = 9876 } };
 
             var parameters = request.GetUriPathParameters();
-            Assert.AreEqual(9876, parameters["c"]);
+            Assert.That(parameters["c"], Is.EqualTo(9876));
         }
 
         // TODO: Add unit tests for AddBatchOutputRequest and it's FormatOutputs() method.

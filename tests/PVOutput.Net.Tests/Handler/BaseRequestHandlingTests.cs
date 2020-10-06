@@ -30,7 +30,7 @@ namespace PVOutput.Net.Tests.Handler
 
             var response = await client.System.GetOwnSystemAsync();
             testProvider.VerifyNoOutstandingExpectation();
-            Assert.IsTrue(response.ToBoolean());
+            Assert.That(response.ToBoolean(), Is.True);
         }
 
         [Test]
@@ -48,8 +48,8 @@ namespace PVOutput.Net.Tests.Handler
             {
                 _ = await client.System.GetOwnSystemAsync();
             });
-            Assert.AreEqual(responseContent, exception.Message);
-            Assert.AreEqual(statusCode, exception.StatusCode);
+            Assert.That(exception.Message, Is.EqualTo(responseContent));
+            Assert.That(exception.StatusCode, Is.EqualTo(statusCode));
 
             testProvider.VerifyNoOutstandingExpectation();
         }
@@ -67,9 +67,9 @@ namespace PVOutput.Net.Tests.Handler
 
             var response = await client.System.GetOwnSystemAsync();
 
-            Assert.IsFalse(response);
-            Assert.AreEqual(responseContent, response.Error.Message);
-            Assert.AreEqual(statusCode, response.Error.StatusCode);
+            Assert.That(response.IsSuccess, Is.False);
+            Assert.That(response.Error.Message, Is.EqualTo(responseContent));
+            Assert.That(response.Error.StatusCode, Is.EqualTo(statusCode));
 
             testProvider.VerifyNoOutstandingExpectation();
         }
@@ -96,9 +96,9 @@ namespace PVOutput.Net.Tests.Handler
             testProvider.VerifyNoOutstandingExpectation();
 
             Assert.Multiple(() => {
-                Assert.AreEqual(156, response.ApiRateInformation.LimitRemaining);
-                Assert.AreEqual(300, response.ApiRateInformation.CurrentLimit);
-                Assert.AreEqual(resetTimeStamp, response.ApiRateInformation.LimitResetAt);
+                Assert.That(response.ApiRateInformation.LimitRemaining, Is.EqualTo(156));
+                Assert.That(response.ApiRateInformation.CurrentLimit, Is.EqualTo(300));
+                Assert.That(response.ApiRateInformation.LimitResetAt, Is.EqualTo(resetTimeStamp));
             });
         }
     }

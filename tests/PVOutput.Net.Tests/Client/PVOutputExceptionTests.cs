@@ -21,11 +21,10 @@ namespace PVOutput.Net.Tests.Client
             }
         }
 
-        [Test]
-        [TestCaseSource(typeof(PVOutputExceptionTests), "DefaultExceptionTests")]
+        [TestCaseSource(typeof(PVOutputExceptionTests), nameof(DefaultExceptionTests))]
         public void Default_Has_DefaultStatusCode(PVOutputException exception)
         {
-            Assert.AreEqual((HttpStatusCode)0, exception.StatusCode);
+            Assert.That(exception.StatusCode, Is.EqualTo((HttpStatusCode)0));
         }
 
         public static IEnumerable WithStatusCodeExceptionTests
@@ -37,8 +36,7 @@ namespace PVOutput.Net.Tests.Client
             }
         }
 
-        [Test]
-        [TestCaseSource(typeof(PVOutputExceptionTests), "WithStatusCodeExceptionTests")]
+        [TestCaseSource(typeof(PVOutputExceptionTests), nameof(WithStatusCodeExceptionTests))]
         public HttpStatusCode WithStatusCode_Sets_StatusCode(PVOutputException exception)
         {
             return exception.StatusCode;

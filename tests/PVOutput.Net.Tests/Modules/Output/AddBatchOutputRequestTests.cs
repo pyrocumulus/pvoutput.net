@@ -17,7 +17,7 @@ namespace PVOutput.Net.Tests.Modules.Output
             var post = new BatchOutputPost() { OutputDate = new DateTime(2020, 2, 1, 13, 12, 20) };
 
             string[] postArray = GetSplitOutputPostLine(post);
-            Assert.AreEqual("20200201", postArray[0]);
+            Assert.That(postArray[0], Is.EqualTo("20200201"));
         }
 
         [Test]
@@ -25,7 +25,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         {
             var post = new BatchOutputPost() { EnergyGenerated = 1111 };
             string[] postArray = GetSplitOutputPostLine(post);
-            Assert.AreEqual("1111", postArray[1]);
+            Assert.That(postArray[1], Is.EqualTo("1111"));
         }
 
         [Test]
@@ -33,7 +33,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         {
             var post = new BatchOutputPost() { EnergyExported = 2222 };
             string[] postArray = GetSplitOutputPostLine(post);
-            Assert.AreEqual("2222", postArray[2]);
+            Assert.That(postArray[2], Is.EqualTo("2222"));
         }
 
         [Test]
@@ -41,7 +41,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         {
             var post = new BatchOutputPost() { EnergyUsed = 3333 };
             string[] postArray = GetSplitOutputPostLine(post);
-            Assert.AreEqual("3333", postArray[3]);
+            Assert.That(postArray[3], Is.EqualTo("3333"));
         }
 
         [Test]
@@ -49,7 +49,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         {
             var post = new BatchOutputPost() { PeakPower = 4444 };
             string[] postArray = GetSplitOutputPostLine(post);
-            Assert.AreEqual("4444", postArray[4]);
+            Assert.That(postArray[4], Is.EqualTo("4444"));
         }
 
         [Test]
@@ -57,7 +57,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         {
             var post = new BatchOutputPost() { PeakTime = new TimeSpan(13, 12, 20) };
             string[] postArray = GetSplitOutputPostLine(post);
-            Assert.AreEqual("13:12", postArray[5]);
+            Assert.That(postArray[5], Is.EqualTo("13:12"));
         }
 
         [Test]
@@ -65,7 +65,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         {
             var post = new BatchOutputPost() { Condition = Enums.WeatherCondition.PartlyCloudy };
             string[] postArray = GetSplitOutputPostLine(post);
-            Assert.AreEqual("Partly Cloudy", postArray[6]);
+            Assert.That(postArray[6], Is.EqualTo("Partly Cloudy"));
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         {
             var post = new BatchOutputPost() { MinimumTemperature = 9.2m };
             string[] postArray = GetSplitOutputPostLine(post);
-            Assert.AreEqual("9.2", postArray[7]);
+            Assert.That(postArray[7], Is.EqualTo("9.2"));
         }
 
         [Test]
@@ -81,7 +81,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         {
             var post = new BatchOutputPost() { MaximumTemperature = 18.9m };
             string[] postArray = GetSplitOutputPostLine(post);
-            Assert.AreEqual("18.9", postArray[8]);
+            Assert.That(postArray[8], Is.EqualTo("18.9"));
         }
 
         [Test]
@@ -89,7 +89,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         {
             var post = new BatchOutputPost() { Comments = "Comment" };
             string[] postArray = GetSplitOutputPostLine(post);
-            Assert.AreEqual("Comment", postArray[9]);
+            Assert.That(postArray[9], Is.EqualTo("Comment"));
         }
 
         [Test]
@@ -97,7 +97,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         {
             var post = new BatchOutputPost() { PeakEnergyImport = 1111 };
             string[] postArray = GetSplitOutputPostLine(post);
-            Assert.AreEqual("1111", postArray[10]);
+            Assert.That(postArray[10], Is.EqualTo("1111"));
         }
 
         [Test]
@@ -105,7 +105,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         {
             var post = new BatchOutputPost() { OffPeakEnergyImport = 2222 };
             string[] postArray = GetSplitOutputPostLine(post);
-            Assert.AreEqual("2222", postArray[11]);
+            Assert.That(postArray[11], Is.EqualTo("2222"));
         }
 
         [Test]
@@ -113,7 +113,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         {
             var post = new BatchOutputPost() { ShoulderEnergyImport = 3333 };
             string[] postArray = GetSplitOutputPostLine(post);
-            Assert.AreEqual("3333", postArray[12]);
+            Assert.That(postArray[12], Is.EqualTo("3333"));
         }
     }
 }

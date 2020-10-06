@@ -31,7 +31,7 @@ namespace PVOutput.Net.Requests.Modules
             ["insolation"] = Insolation ? 1 : 0
         };
 
-        private string GetAggregationParameter(AggregationPeriod? aggregationPeriod)
+        private static string GetAggregationParameter(AggregationPeriod? aggregationPeriod)
         {
             if (aggregationPeriod == null)
             {

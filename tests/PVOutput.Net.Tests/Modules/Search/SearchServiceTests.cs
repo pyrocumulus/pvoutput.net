@@ -178,15 +178,15 @@ namespace PVOutput.Net.Tests.Modules.Search
          */
 
         [Test]
-        [TestCase(new object[] { "South Africa 1235", 1235, "South Africa" })]
-        [TestCase(new object[] { "Australia 3502", 3502, "Australia" })]
-        [TestCase(new object[] { "Sweden", 0, "Sweden" })]
-        [TestCase(new object[] { "2560", 2560, "" })]
+        [TestCase("South Africa 1235", 1235, "South Africa")]
+        [TestCase("Australia 3502", 3502, "Australia")]
+        [TestCase("Sweden", 0, "Sweden")]
+        [TestCase("2560", 2560, "")]
         public void LocationInformation_Parsing_GetsCorrectInformation(string inputString, int expectedPostcode, string expectedCountry)
         {
             SystemSearchResultObjectStringReader.SplitPostCode(inputString, out int postcode, out string country);
-            Assert.AreEqual(expectedPostcode, postcode);
-            Assert.AreEqual(expectedCountry, country);
+            Assert.That(postcode, Is.EqualTo(expectedPostcode));
+            Assert.That(country, Is.EqualTo(expectedCountry));
         }
 
         [Test]
@@ -197,18 +197,18 @@ namespace PVOutput.Net.Tests.Modules.Search
             Assert.Multiple(() =>
             {
                 // "Solar 4 US,9360,4280,NW,81,2 days ago,249,Solarfun,Aurora,NaN,-27.831402,153.028469"
-                Assert.AreEqual("Solar 4 US", result.SystemName);
-                Assert.AreEqual(9360, result.SystemSize);
-                Assert.AreEqual(4280, result.Postcode);
-                Assert.AreEqual("NW", result.Orientation);
-                Assert.AreEqual(81, result.NumberOfOutputs);
-                Assert.AreEqual("2 days ago", result.LastOutput);
-                Assert.AreEqual(249, result.SystemId);
-                Assert.AreEqual("Solarfun", result.Panel);
-                Assert.AreEqual("Aurora", result.Inverter);
-                Assert.IsNull(result.Distance);
-                Assert.AreEqual(-27.831402, result.Location.Latitude);
-                Assert.AreEqual(153.028469, result.Location.Longitude);
+                Assert.That(result.SystemName, Is.EqualTo("Solar 4 US"));
+                Assert.That(result.SystemSize, Is.EqualTo(9360));
+                Assert.That(result.Postcode, Is.EqualTo(4280));
+                Assert.That(result.Orientation, Is.EqualTo("NW"));
+                Assert.That(result.NumberOfOutputs, Is.EqualTo(81));
+                Assert.That(result.LastOutput, Is.EqualTo("2 days ago"));
+                Assert.That(result.SystemId, Is.EqualTo(249));
+                Assert.That(result.Panel, Is.EqualTo("Solarfun"));
+                Assert.That(result.Inverter, Is.EqualTo("Aurora"));
+                Assert.That(result.Distance, Is.Null);
+                Assert.That(result.Location.Latitude, Is.EqualTo(-27.831402));
+                Assert.That(result.Location.Longitude, Is.EqualTo(153.028469));
             });
         }
 
@@ -222,16 +222,16 @@ namespace PVOutput.Net.Tests.Modules.Search
 
             Assert.Multiple(() =>
             {
-                Assert.IsNotNull(result);
-                Assert.AreEqual(4, result.Count());
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result, Has.Exactly(4).Items);
 
-                Assert.AreEqual("Solar 4 US", first.SystemName);
-                Assert.AreEqual("solar powered muso", last.SystemName);
+                Assert.That(first.SystemName, Is.EqualTo("Solar 4 US"));
+                Assert.That(last.SystemName, Is.EqualTo("solar powered muso"));
 
-                Assert.AreEqual(-27.831402, first.Location.Latitude);
-                Assert.AreEqual(153.028469, first.Location.Longitude);
-                Assert.AreEqual(-34.878302, last.Location.Latitude);
-                Assert.AreEqual(138.663553, last.Location.Longitude);
+                Assert.That(first.Location.Latitude, Is.EqualTo(-27.831402));
+                Assert.That(first.Location.Longitude, Is.EqualTo(153.028469));
+                Assert.That(last.Location.Latitude, Is.EqualTo(-34.878302));
+                Assert.That(last.Location.Longitude, Is.EqualTo(138.663553));
             });
         }
     }

@@ -61,17 +61,17 @@ namespace PVOutput.Net.Tests.Modules.Statistic
 
             Assert.Multiple(() =>
             {
-                Assert.AreEqual(10052033, result.EnergyGenerated);
-                Assert.AreEqual(4366048, result.EnergyExported);
-                Assert.AreEqual(9031, result.AverageGeneration);
-                Assert.AreEqual(10, result.MinimumGeneration);
-                Assert.AreEqual(25473, result.MaximumGeneration);
-                Assert.AreEqual(2.189d, result.AverageEfficiency);
-                Assert.AreEqual(1001, result.Outputs);
-                Assert.AreEqual(new DateTime(2016, 1, 1), result.ActualDateFrom);
-                Assert.AreEqual(new DateTime(2019, 9, 8), result.ActualDateTo);
-                Assert.AreEqual(6.175d, result.RecordEfficiency);
-                Assert.AreEqual(new DateTime(2018, 6, 1), result.RecordDate);
+                Assert.That(result.EnergyGenerated, Is.EqualTo(10052033));
+                Assert.That(result.EnergyExported, Is.EqualTo(4366048));
+                Assert.That(result.AverageGeneration, Is.EqualTo(9031));
+                Assert.That(result.MinimumGeneration, Is.EqualTo(10));
+                Assert.That(result.MaximumGeneration, Is.EqualTo(25473));
+                Assert.That(result.AverageEfficiency, Is.EqualTo(2.189d));
+                Assert.That(result.Outputs, Is.EqualTo(1001));
+                Assert.That(result.ActualDateFrom, Is.EqualTo(new DateTime(2016, 1, 1)));
+                Assert.That(result.ActualDateTo, Is.EqualTo(new DateTime(2019, 9, 8)));
+                Assert.That(result.RecordEfficiency, Is.EqualTo(6.175d));
+                Assert.That(result.RecordDate, Is.EqualTo(new DateTime(2018, 6, 1)));
             });
         }
 
@@ -81,25 +81,25 @@ namespace PVOutput.Net.Tests.Modules.Statistic
         {
             var result = await TestUtility.ExecuteObjectReaderByTypeAsync<IStatistic>(STATISTIC_RESPONSE_ALL);
 
-            Assert.AreEqual(10052033, result.EnergyGenerated);
-            Assert.AreEqual(4366048, result.EnergyExported);
-            Assert.AreEqual(9031, result.AverageGeneration);
-            Assert.AreEqual(10, result.MinimumGeneration);
-            Assert.AreEqual(25473, result.MaximumGeneration);
-            Assert.AreEqual(2.189d, result.AverageEfficiency);
-            Assert.AreEqual(1001, result.Outputs);
-            Assert.AreEqual(new DateTime(2016, 1, 1), result.ActualDateFrom);
-            Assert.AreEqual(new DateTime(2019, 9, 8), result.ActualDateTo);
-            Assert.AreEqual(6.175d, result.RecordEfficiency);
-            Assert.AreEqual(new DateTime(2018, 6, 1), result.RecordDate);
-            Assert.AreEqual(7667632, result.EnergyConsumed);
-            Assert.AreEqual(5675645, result.PeakEnergyImport);
-            Assert.AreEqual(22, result.OffPeakEnergyImport);
-            Assert.AreEqual(23, result.ShoulderEnergyImport);
-            Assert.AreEqual(24, result.HighShoulderEnergyImport);
-            Assert.AreEqual(10969, result.AverageConsumption);
-            Assert.AreEqual(697, result.MinimumConsumption);
-            Assert.AreEqual(30851, result.MaximumConsumption);
+            Assert.That(result.EnergyGenerated, Is.EqualTo(10052033));
+            Assert.That(result.EnergyExported, Is.EqualTo(4366048));
+            Assert.That(result.AverageGeneration, Is.EqualTo(9031));
+            Assert.That(result.MinimumGeneration, Is.EqualTo(10));
+            Assert.That(result.MaximumGeneration, Is.EqualTo(25473));
+            Assert.That(result.AverageEfficiency, Is.EqualTo(2.189d));
+            Assert.That(result.Outputs, Is.EqualTo(1001));
+            Assert.That(result.ActualDateFrom, Is.EqualTo(new DateTime(2016, 1, 1)));
+            Assert.That(result.ActualDateTo, Is.EqualTo(new DateTime(2019, 9, 8)));
+            Assert.That(result.RecordEfficiency, Is.EqualTo(6.175d));
+            Assert.That(result.RecordDate, Is.EqualTo(new DateTime(2018, 6, 1)));
+            Assert.That(result.EnergyConsumed, Is.EqualTo(7667632));
+            Assert.That(result.PeakEnergyImport, Is.EqualTo(5675645));
+            Assert.That(result.OffPeakEnergyImport, Is.EqualTo(22));
+            Assert.That(result.ShoulderEnergyImport, Is.EqualTo(23));
+            Assert.That(result.HighShoulderEnergyImport, Is.EqualTo(24));
+            Assert.That(result.AverageConsumption, Is.EqualTo(10969));
+            Assert.That(result.MinimumConsumption, Is.EqualTo(697));
+            Assert.That(result.MaximumConsumption, Is.EqualTo(30851));
         }
     }
 }
