@@ -156,10 +156,31 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.Parameter_Date] = moment
             };
 
-            Guard.Argument(moment, nameof(moment)).IsNoFutureDate().GreaterThan(DateTime.Today.AddDays(-1));
+            Guard.Argument(moment, nameof(moment)).IsNoFutureDate().Min(DateTime.Today.AddDays(-1));
 
             var handler = new RequestHandler(Client);
             return handler.ExecutePostRequestAsync(new DeleteStatusRequest() { Timestamp = moment }, loggingScope, cancellationToken);
+        }
+
+        /// <summary>
+        /// Deletes all statuses on the specified date. 
+        /// <para>See the official <see href="https://pvoutput.org/help.html#api-deletestatus">API information</see>.</para>
+        /// </summary>
+        /// <param name="date">The date to delete all statuses for. This can only be today or yesterday.</param>
+        /// <param name="cancellationToken">A cancellation token for the request.</param>
+        /// <returns>If the operation succeeded.</returns>
+        public Task<PVOutputBasicResponse> DeleteAllStatusesOnDateAsync(DateTime date, CancellationToken cancellationToken = default)
+        {
+            var loggingScope = new Dictionary<string, object>()
+            {
+                [LoggingEvents.RequestId] = LoggingEvents.StatusService_DeleteStatus,
+                [LoggingEvents.Parameter_Date] = date
+            };
+
+            Guard.Argument(date, nameof(date)).IsNoFutureDate().Min(DateTime.Today.AddDays(-1)).NoTimeComponent();
+
+            var handler = new RequestHandler(Client);
+            return handler.ExecutePostRequestAsync(new DeleteStatusRequest() { Timestamp = date, CompleteDate = true }, loggingScope, cancellationToken);
         }
     }
 }

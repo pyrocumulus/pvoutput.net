@@ -100,6 +100,30 @@ namespace PVOutput.Net.Tests.Modules.Status
         }
 
         [Test]
+        public void DeleteStatusRequest_Timestamp_CreatesCorrectUriParameters()
+        {
+            var request = new DeleteStatusRequest() { Timestamp = new DateTime(2018, 6, 12, 10, 12, 0) };
+            var parameters = request.GetUriPathParameters();
+            Assert.Multiple(() =>
+            {
+                Assert.That(parameters["d"], Is.EqualTo("20180612"));
+                Assert.That(parameters["t"], Is.EqualTo("10:12"));
+            });
+        }
+
+        [Test]
+        public void DeleteStatusRequest_CompleteDate_CreatesCorrectUriParameters()
+        {
+            var request = new DeleteStatusRequest() { Timestamp = new DateTime(2018, 6, 12, 10, 12, 0), CompleteDate = true };
+            var parameters = request.GetUriPathParameters();
+            Assert.Multiple(() =>
+            {
+                Assert.That(parameters["d"], Is.EqualTo("20180612"));
+                Assert.That(parameters["t"], Is.Null);
+            });
+        }
+
+        [Test]
         public async Task StatusService_GetHistoryForPeriod_CallsCorrectUri()
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
@@ -134,20 +158,58 @@ namespace PVOutput.Net.Tests.Modules.Status
         }
 
 
+        public static IEnumerable DeleteStatusTestCases
+        {
+            get
+            {
+                // Yesterday, 11:15
+                var testDate1 = DateTime.Today.AddDays(-1).Add(new TimeSpan(11, 15, 0));
+                yield return new TestCaseData(testDate1, $"d={testDate1:yyyyMMdd}&t={testDate1:HH:mm}");
+
+                // Today, 0:00
+                var testDate2 = DateTime.Today;
+                yield return new TestCaseData(testDate2, $"d={testDate2:yyyyMMdd}&t=00:00");
+            }
+        }
+
         [Test]
-        public async Task StatusService_DeleteStatus_CallsCorrectUri()
+        [TestCaseSource(typeof(StatusServiceTests), nameof(DeleteStatusTestCases))]
+        public async Task StatusService_DeleteStatus_CallsCorrectUri(DateTime testDateTime, string queryString)
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
-
-            // Yesterday, 11:15
-            var testDateTime = DateTime.Today.AddDays(-1).Add(new TimeSpan(11, 15, 0));
-            string resultingDateString = testDateTime.ToString("yyyyMMdd");
-
             testProvider.ExpectUriFromBase(DELETESTATUS_URL)
-                        .WithQueryString($"d={resultingDateString}&t=11:15")
+                        .WithExactQueryString(queryString)
                         .RespondPlainText("");
 
             var response = await client.Status.DeleteStatusAsync(testDateTime);
+            testProvider.VerifyNoOutstandingExpectation();
+            AssertStandardResponse(response);
+        }
+
+        public static IEnumerable DeleteAllStatusesTestCases
+        {
+            get
+            {
+                // Yesterday, 0:00
+                var testDate1 = DateTime.Today.AddDays(-1);
+                yield return new TestCaseData(testDate1, $"d={testDate1:yyyyMMdd}");
+
+                // Today, 0:00
+                var testDate2 = DateTime.Today.AddDays(0);
+                yield return new TestCaseData(testDate2, $"d={testDate2:yyyyMMdd}");
+            }
+        }
+
+        [Test]
+        [TestCaseSource(typeof(StatusServiceTests), nameof(DeleteAllStatusesTestCases))]
+        public async Task StatusService_DeleteAllStatuses_CallsCorrectUri(DateTime testDateTime, string queryString)
+        {
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+            testProvider.ExpectUriFromBase(DELETESTATUS_URL)
+                        .WithExactQueryString(queryString)
+                        .RespondPlainText("");
+
+            var response = await client.Status.DeleteAllStatusesOnDateAsync(testDateTime);
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
         }
