@@ -11,6 +11,8 @@ namespace PVOutput.Net.Requests.Modules
     {
         public DateTime Timestamp { get; set; }
 
+        public bool CompleteDate { get; set; }
+
         public override HttpMethod Method => HttpMethod.Post;
 
         public override string UriTemplate => "deletestatus.jsp{?d,t}";
@@ -18,7 +20,7 @@ namespace PVOutput.Net.Requests.Modules
         public override IDictionary<string, object> GetUriPathParameters() => new Dictionary<string, object>
         {
             ["d"] = FormatHelper.GetDateAsString(Timestamp),
-            ["t"] = FormatHelper.GetTimeAsString(Timestamp)
+            ["t"] = CompleteDate ? null : FormatHelper.GetTimeAsString(Timestamp)
         };
     }
 }

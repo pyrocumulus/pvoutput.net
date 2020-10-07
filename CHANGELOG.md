@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Added a logo for the NuGet package [#38](https://github.com/pyrocumulus/pvoutput.net/pull/38)
+- Added method to `StatusService` to delete all statuses on a date [#45](https://github.com/pyrocumulus/pvoutput.net/pull/45)
 
 ## Fixed
 
