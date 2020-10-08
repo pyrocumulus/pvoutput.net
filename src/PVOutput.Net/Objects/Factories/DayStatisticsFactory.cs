@@ -1,12 +1,11 @@
-﻿using PVOutput.Net.Objects.Core;
+﻿using System;
+using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Objects.Modules.Readers;
 
 namespace PVOutput.Net.Objects.Factories
 {
-    internal class DayStatisticsFactory : IStringFactory<IDayStatistics>
+    internal class DayStatisticsFactory : IObjectStringFactory<IDayStatistics>
     {
-        public IArrayStringReader<IDayStatistics> CreateArrayReader() => new CharacterDelimitedArrayStringReader<IDayStatistics>();
-
         public IObjectStringReader<IDayStatistics> CreateObjectReader() => new DayStatisticsObjectStringReader();
     }
 }

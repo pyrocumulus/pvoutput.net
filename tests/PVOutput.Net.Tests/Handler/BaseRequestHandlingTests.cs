@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using PVOutput.Net.Enums;
 using PVOutput.Net.Objects;
+using PVOutput.Net.Objects.Core;
+using PVOutput.Net.Objects.Factories;
 using PVOutput.Net.Objects.Modules.Implementations;
 using PVOutput.Net.Responses;
 using PVOutput.Net.Tests.Utils;
@@ -224,6 +226,42 @@ namespace PVOutput.Net.Tests.Handler
                 Assert.That((bool)response2, Is.False);
                 Assert.That((bool)response3, Is.False);
             });
+        }
+
+        [Test]
+        public async Task BaseObjectReader_WithNullStream_ReturnsDefaultForType()
+        {
+            IObjectStringReader<IStatus> reader = StringFactoryContainer.CreateObjectReader<IStatus>();
+            IStatus content = await reader.ReadObjectAsync(stream: null, cancellationToken: default).ConfigureAwait(false);
+
+            Assert.That(content, Is.Null);
+        }
+
+        [Test]
+        public async Task BaseArrayReader_WithNullStream_ReturnsDefaultForType()
+        {
+            IArrayStringReader<ISystemSearchResult> reader = StringFactoryContainer.CreateArrayReader<ISystemSearchResult>();
+            IEnumerable<ISystemSearchResult> content = await reader.ReadArrayAsync(stream: null, cancellationToken: default).ConfigureAwait(false);
+
+            Assert.That(content, Is.Null);
+        }
+
+        [Test]
+        public async Task CharacterDelimitedArrayReader_WithNullStream_ReturnsDefaultForType()
+        {
+            IArrayStringReader<ISystemSearchResult> reader = new CharacterDelimitedArrayStringReader<ISystemSearchResult>();
+            IEnumerable<ISystemSearchResult> content = await reader.ReadArrayAsync(stream: null, cancellationToken: default).ConfigureAwait(false);
+
+            Assert.That(content, Is.Null);
+        }
+
+        [Test]
+        public async Task LineDelimitedArrayReader_WithNullStream_ReturnsDefaultForType()
+        {
+            IArrayStringReader<ISystemSearchResult> reader = new LineDelimitedArrayStringReader<ISystemSearchResult>();
+            IEnumerable<ISystemSearchResult> content = await reader.ReadArrayAsync(stream: null, cancellationToken: default).ConfigureAwait(false);
+
+            Assert.That(content, Is.Null);
         }
     }
 }

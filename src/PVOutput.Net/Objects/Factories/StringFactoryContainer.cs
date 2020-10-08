@@ -29,28 +29,32 @@ namespace PVOutput.Net.Objects.Factories
             _readerFactories.Add(typeof(ISystemSearchResult), new SystemSearchResultFactory());
         }
 
-        public static IStringFactory<TReturnType> GetStringFactory<TReturnType>()
+        private static object GetObjectStringFactory<TReturnType>()
         {
-            var type = typeof(TReturnType);
-
+            Type type = typeof(TReturnType);
             if (!_readerFactories.ContainsKey(type))
             {
-                throw new NotSupportedException($"Factory for {type} is not known");
+                throw new InvalidOperationException($"Factory for {type} is not known");
             }
 
-            return (IStringFactory<TReturnType>)_readerFactories[type];
+            return _readerFactories[type];
         }
 
         public static IObjectStringReader<TReturnType> CreateObjectReader<TReturnType>()
         {
-            var factory = GetStringFactory<TReturnType>();
+            // Currently every factory is an ObjectStringFactory at minimum
+            var factory = GetObjectStringFactory<TReturnType>() as IObjectStringFactory<TReturnType>;
             return factory.CreateObjectReader();
         }
 
         public static IArrayStringReader<TReturnType> CreateArrayReader<TReturnType>()
         {
-            var factory = GetStringFactory<TReturnType>();
-            return factory.CreateArrayReader();
+            var factory = GetObjectStringFactory<TReturnType>();
+            if (factory is IArrayStringFactory<TReturnType> arrayFactory)
+            {
+                return arrayFactory.CreateArrayReader();
+            }
+            throw new InvalidOperationException($"Factory for {typeof(TReturnType)} is not an array factory");
         }
     }
 }

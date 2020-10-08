@@ -5,10 +5,8 @@ using PVOutput.Net.Objects.Modules.Readers;
 
 namespace PVOutput.Net.Objects.Factories
 {
-    internal class TeamFactory : IStringFactory<ITeam>
+    internal class TeamFactory : IObjectStringFactory<ITeam>
     {
-        public IArrayStringReader<ITeam> CreateArrayReader() => throw new NotImplementedException();
-
         public IObjectStringReader<ITeam> CreateObjectReader() => new TeamObjectStringReader();
     }
 }

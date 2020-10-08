@@ -1,13 +1,11 @@
-using PVOutput.Net.Objects.Core;
+﻿using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Objects.Modules;
 using PVOutput.Net.Objects.Modules.Readers;
 
 namespace PVOutput.Net.Objects.Factories
 {
-    internal class StatisticFactory : IStringFactory<IStatistic>
+    internal class StatisticFactory : IObjectStringFactory<IStatistic>
     {
-        public IArrayStringReader<IStatistic> CreateArrayReader() => new CharacterDelimitedArrayStringReader<IStatistic>();
-
         public IObjectStringReader<IStatistic> CreateObjectReader() => new StatisticObjectStringReader();
     }
 }
