@@ -26,7 +26,14 @@ namespace PVOutput.Net.Tests.Handler
 
         [Test]
         [TestCaseSource(typeof(OtherObjectTests), nameof(PVCoordinateRegularEqualityTestCases))]
-        public bool PVCoordinate_Equals_ReturnsValueEquality(PVCoordinate coordinate1, PVCoordinate coordinate2)
+        public bool PVCoordinate_EqualsByType_ReturnsValueEquality(PVCoordinate coordinate1, PVCoordinate coordinate2)
+        {
+            return coordinate1.Equals(coordinate2);
+        }
+
+        [Test]
+        [TestCaseSource(typeof(OtherObjectTests), nameof(PVCoordinateRegularEqualityTestCases))]
+        public bool PVCoordinate_EqualsByObject_ReturnsValueEquality(PVCoordinate coordinate1, object coordinate2)
         {
             return coordinate1.Equals(coordinate2);
         }
@@ -74,7 +81,14 @@ namespace PVOutput.Net.Tests.Handler
 
         [Test]
         [TestCaseSource(typeof(OtherObjectTests), nameof(ExtendedDataConfigurationRegularEqualityTestCases))]
-        public bool ExtendedDataConfiguration_Equals_ReturnsValueEquality(ExtendedDataConfiguration configuration1, ExtendedDataConfiguration configuration2)
+        public bool ExtendedDataConfiguration_EqualsByType_ReturnsValueEquality(ExtendedDataConfiguration configuration1, ExtendedDataConfiguration configuration2)
+        {
+            return configuration1.Equals(configuration2);
+        }        
+        
+        [Test]
+        [TestCaseSource(typeof(OtherObjectTests), nameof(ExtendedDataConfigurationRegularEqualityTestCases))]
+        public bool ExtendedDataConfiguration_EqualsByObject_ReturnsValueEquality(ExtendedDataConfiguration configuration1, object configuration2)
         {
             return configuration1.Equals(configuration2);
         }
