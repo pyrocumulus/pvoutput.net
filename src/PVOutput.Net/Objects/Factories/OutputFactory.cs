@@ -1,10 +1,10 @@
-using PVOutput.Net.Objects.Core;
+﻿using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Objects.Modules;
 using PVOutput.Net.Objects.Modules.Readers;
 
 namespace PVOutput.Net.Objects.Factories
 {
-    internal class OutputFactory : IStringFactory<IOutput>
+    internal class OutputFactory : IArrayStringFactory<IOutput>
     {
         public IArrayStringReader<IOutput> CreateArrayReader() => new CharacterDelimitedArrayStringReader<IOutput>();
 

@@ -4,7 +4,7 @@ using PVOutput.Net.Objects.Modules.Readers;
 
 namespace PVOutput.Net.Objects.Factories
 {
-    internal class BatchStatusPostResultFactory : IStringFactory<IBatchStatusPostResult>
+    internal class BatchStatusPostResultFactory : IArrayStringFactory<IBatchStatusPostResult>
     {
         public IArrayStringReader<IBatchStatusPostResult> CreateArrayReader() => new CharacterDelimitedArrayStringReader<IBatchStatusPostResult>();
 
