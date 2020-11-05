@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Dawn;
 using PVOutput.Net.Builders;
+using PVOutput.Net.Enums;
 using PVOutput.Net.Objects;
 using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Requests.Handler;
@@ -139,6 +140,50 @@ namespace PVOutput.Net.Modules
 
             var handler = new RequestHandler(Client);
             return handler.ExecuteArrayRequestAsync<IBatchStatusPostResult>(new AddBatchStatusRequest() { StatusPosts = statuses }, loggingScope, cancellationToken);
+        }
+
+        /// <summary>
+        /// Adds multiple statuses to the owned system.
+        /// <para>See the official <see href="https://pvoutput.org/help.html#api-addbatchstatus">API information</see>.</para>
+        /// Use the <see cref="StatusPostBuilder{IBatchStatusPost}"/> to create <see cref="IBatchStatusPost"/> objects.
+        /// </summary>
+        /// <param name="statuses">The statuses to add.</param>
+        /// <param name="isCumulative">Sets wherther or not the provided data is cumulative.</param>
+        /// <param name="cancellationToken">A cancellation token for the request.</param>
+        /// <returns>If the operation succeeded.</returns>
+        public Task<PVOutputArrayResponse<IBatchStatusPostResult>> AddBatchStatusAsync(IEnumerable<IBatchStatusPost> statuses, bool isCumulative, CancellationToken cancellationToken = default)
+        {
+            var loggingScope = new Dictionary<string, object>()
+            {
+                [LoggingEvents.RequestId] = LoggingEvents.StatusService_AddBatchStatus,
+                [LoggingEvents.Parameter_CumulativeType] = isCumulative
+            };
+
+            Guard.Argument(statuses, nameof(statuses)).NotNull().NotEmpty();
+
+            var handler = new RequestHandler(Client);
+            return handler.ExecuteArrayRequestAsync<IBatchStatusPostResult>(new AddBatchStatusRequest() { StatusPosts = statuses, Cumulative = isCumulative }, loggingScope, cancellationToken);
+        }
+
+        /// <summary>
+        /// Adds multiple statuses to the owned system.
+        /// <para>See the official <see href="https://pvoutput.org/help.html#api-addbatchstatus">API information</see>.</para>
+        /// Use the <see cref="StatusPostBuilder{IBatchStatusPost}"/> to create <see cref="IBatchStatusPost"/> objects.
+        /// </summary>
+        /// <param name="statuses">The statuses to add.</param>
+        /// <param name="cancellationToken">A cancellation token for the request.</param>
+        /// <returns>If the operation succeeded.</returns>
+        public Task<PVOutputArrayResponse<IBatchStatusPostResult>> AddNetBatchStatusAsync(IEnumerable<IBatchNetStatusPost> statuses, CancellationToken cancellationToken = default)
+        {
+            var loggingScope = new Dictionary<string, object>()
+            {
+                [LoggingEvents.RequestId] = LoggingEvents.StatusService_AddNetBatchStatus
+            };
+
+            Guard.Argument(statuses, nameof(statuses)).NotNull().NotEmpty();
+
+            var handler = new RequestHandler(Client);
+            return handler.ExecuteArrayRequestAsync<IBatchStatusPostResult>(new AddBatchNetStatusRequest() { StatusPosts = statuses }, loggingScope, cancellationToken);
         }
 
         /// <summary>
