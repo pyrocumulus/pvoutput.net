@@ -148,7 +148,7 @@ namespace PVOutput.Net.Modules
         /// Use the <see cref="StatusPostBuilder{IBatchStatusPost}"/> to create <see cref="IBatchStatusPost"/> objects.
         /// </summary>
         /// <param name="statuses">The statuses to add.</param>
-        /// <param name="isCumulative">Sets wherther or not the provided data is cumulative.</param>
+        /// <param name="isCumulative">Sets whether or not the provided data is cumulative.</param>
         /// <param name="cancellationToken">A cancellation token for the request.</param>
         /// <returns>If the operation succeeded.</returns>
         public Task<PVOutputArrayResponse<IBatchStatusPostResult>> AddBatchStatusAsync(IEnumerable<IBatchStatusPost> statuses, bool isCumulative, CancellationToken cancellationToken = default)
@@ -173,7 +173,7 @@ namespace PVOutput.Net.Modules
         /// <param name="statuses">The statuses to add.</param>
         /// <param name="cancellationToken">A cancellation token for the request.</param>
         /// <returns>If the operation succeeded.</returns>
-        public Task<PVOutputArrayResponse<IBatchStatusPostResult>> AddNetBatchStatusAsync(IEnumerable<IBatchNetStatusPost> statuses, CancellationToken cancellationToken = default)
+        public Task<PVOutputArrayResponse<IBatchStatusPostResult>> AddBatchNetStatusAsync(IEnumerable<IBatchNetStatusPost> statuses, CancellationToken cancellationToken = default)
         {
             var loggingScope = new Dictionary<string, object>()
             {

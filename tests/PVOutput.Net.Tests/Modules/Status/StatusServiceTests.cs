@@ -356,6 +356,58 @@ namespace PVOutput.Net.Tests.Modules.Status
             testProvider.VerifyNoOutstandingExpectation();
         }
 
+        [Test]
+        public async Task StatusService_AddBatchCumulativeStatus_CallsCorrectUri()
+        {
+            var batchStatus = new StatusPostBuilder<IBatchStatusPost>().SetTimeStamp(new DateTime(2020, 1, 1, 12, 22, 0))
+                    .SetGeneration(11000).SetConsumption(9000).Build();
+
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+            testProvider.ExpectUriFromBase(ADDBATCHSTATUS_URL)
+                        .WithQueryString("n=0&c1=1&data=20200101,12:22,11000,,9000,,,,,,,,,;")
+                        .RespondPlainText("");
+
+            await client.Status.AddBatchStatusAsync(new[] { batchStatus }, true);
+            testProvider.VerifyNoOutstandingExpectation();
+        }
+
+        [Test]
+        public void StatusService_AddBatchNetStatus_WithNullStatuses_Throws()
+        {
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () =>
+            {
+                _ = await client.Status.AddBatchNetStatusAsync(null);
+            });
+        }
+
+        [Test]
+        public void StatusService_AddBatchNetStatus_WithEmptyStatuses_Throws()
+        {
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+
+            Assert.ThrowsAsync<ArgumentException>(async () =>
+            {
+                _ = await client.Status.AddBatchNetStatusAsync(new List<IBatchNetStatusPost>());
+            });
+        }
+
+        [Test]
+        public async Task StatusService_AddBatchNetStatus_CallsCorrectUri()
+        {
+            var batchStatus = new BatchNetStatusPostBuilder().SetTimeStamp(new DateTime(2020, 1, 1, 12, 22, 0))
+                    .SetPowerExported(11000).SetPowerImported(9000).Build();
+
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+            testProvider.ExpectUriFromBase(ADDBATCHSTATUS_URL)
+                        .WithQueryString("n=1&data=20200101,12:22,-1,11000,-1,9000;")
+                        .RespondPlainText("");
+
+            await client.Status.AddBatchNetStatusAsync(new[] { batchStatus });
+            testProvider.VerifyNoOutstandingExpectation();
+        }
+
         /*
          * Deserialisation tests below
          */
