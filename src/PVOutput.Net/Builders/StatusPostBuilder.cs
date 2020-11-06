@@ -36,8 +36,7 @@ namespace PVOutput.Net.Builders
             Guard.Argument(timestamp, nameof(timestamp)).IsNoFutureDate();
             
             _statusPost.Timestamp = timestamp;
-            return this;
-        
+            return this;        
         }
 
         /// <summary>

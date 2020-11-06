@@ -42,6 +42,7 @@ namespace PVOutput.Net.Objects.Core
         public const string Parameter_ApplicationId = "ApplicationId";
         public const string Parameter_CallBackUrl = "CallBackUrl";
         public const string Parameter_AlertType = "AlertType";
+        public const string Parameter_CumulativeType = "CumulativeType";
 
         /*
          * RequestHandler base events
@@ -88,6 +89,7 @@ namespace PVOutput.Net.Objects.Core
         public static readonly EventId StatusService_AddStatus = new EventId(20804, "AddStatus");
         public static readonly EventId StatusService_AddBatchStatus = new EventId(20805, "AddBatchStatus");
         public static readonly EventId StatusService_DeleteStatus = new EventId(20806, "DeleteStatus");
+        public static readonly EventId StatusService_AddNetBatchStatus = new EventId(20807, "AddNetBatchStatus");
         public static readonly EventId SupplyService_GetSupply = new EventId(20901, "GetSupply");
         public static readonly EventId SystemService_GetOwnSystem = new EventId(21001, "GetOwnSystem");
         public static readonly EventId SystemService_GetOtherSystem = new EventId(21002, "GetOtherSystem");

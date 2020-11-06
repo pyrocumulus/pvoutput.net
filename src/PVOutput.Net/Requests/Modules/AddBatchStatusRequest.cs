@@ -13,9 +13,7 @@ namespace PVOutput.Net.Requests.Modules
     {
         public IEnumerable<IBatchStatusPost> StatusPosts { get; set; }
 
-        public bool Net { get; set; }
-
-        public CumulativeStatusType Cumulative { get; set; }
+        public bool Cumulative { get; set; }
 
         public override HttpMethod Method => HttpMethod.Post;
 
@@ -23,8 +21,8 @@ namespace PVOutput.Net.Requests.Modules
 
         public override IDictionary<string, object> GetUriPathParameters() => new Dictionary<string, object>
         {
-            ["c1"] = Cumulative != CumulativeStatusType.None ? (int?)Cumulative : null,
-            ["n"] = Net ? 1 : 0,
+            ["c1"] = Cumulative ? 1 : 0,
+            ["n"] = 0,
             ["data"] = FormatStatusPosts()
         };
 
