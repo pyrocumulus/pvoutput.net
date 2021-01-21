@@ -5,9 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
-### Breaking change
+### Fixed
 
-- Some methods will now return an `Orientation` enumeration value instead of a string representation [#49](https://github.com/pyrocumulus/pvoutput.net/pull/49)
+- **BREAKING**: Some methods will now return an `Orientation` enumeration value instead of a string representation [#49](https://github.com/pyrocumulus/pvoutput.net/pull/49)
+- **BREAKING**: Some methods will now return a `Shade` enumeration value instead of a string representation [#50](https://github.com/pyrocumulus/pvoutput.net/pull/50)
+- **BREAKING**: Marked `InstallDate` and `ArrayTilt` aspects as nullable, as they are optional in PVOutput [#50](https://github.com/pyrocumulus/pvoutput.net/pull/50)
 
 ## [0.8.1] - 2020-11-07
 
