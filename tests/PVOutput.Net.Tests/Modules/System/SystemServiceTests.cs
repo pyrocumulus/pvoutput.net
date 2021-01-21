@@ -80,6 +80,10 @@ namespace PVOutput.Net.Tests.Modules.System
                 Assert.That(result.ArrayTilt, Is.EqualTo(53.1d));
                 Assert.That(result.Shade, Is.EqualTo("None"));
                 Assert.That(result.InstallDate, Is.EqualTo(new DateTime(2016, 10, 01)));
+                Assert.That(result.SecondaryOrientation, Is.Null);
+                Assert.That(result.SecondaryArrayTilt, Is.Null);
+                Assert.That(result.SecondaryNumberOfPanels, Is.Null);
+                Assert.That(result.SecondaryPanelPower, Is.Null);
                 Assert.That(result.Location.Latitude, Is.EqualTo(51.0d));
                 Assert.That(result.Location.Longitude, Is.EqualTo(6.1d));
                 Assert.That(result.StatusInterval, Is.EqualTo(5));
