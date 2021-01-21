@@ -63,17 +63,17 @@ namespace PVOutput.Net.Objects
         /// <summary>
         /// Tilt the solar array has.
         /// </summary>
-        decimal ArrayTilt { get; set; }
+        decimal? ArrayTilt { get; set; }
 
         /// <summary>
         /// The shade situation for the system.
         /// </summary>
-        string Shade { get; set; }
+        Shade Shade { get; set; }
 
         /// <summary>
         /// The date the system has been installed.
         /// </summary>
-        DateTime InstallDate { get; set; }
+        DateTime? InstallDate { get; set; }
 
         /// <summary>
         /// Location of the system.

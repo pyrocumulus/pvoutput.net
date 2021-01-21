@@ -49,7 +49,7 @@ namespace PVOutput.Net.Tests.Modules.Favourite
                 Assert.That(favourite.InverterBrand, Is.EqualTo("CMS"));
                 Assert.That(favourite.Orientation, Is.EqualTo("N"));
                 Assert.That(favourite.ArrayTilt, Is.EqualTo(30.5d));
-                Assert.That(favourite.Shade, Is.EqualTo("No"));
+                Assert.That(favourite.Shade, Is.EqualTo(Shade.None));
                 Assert.That(favourite.InstallDate, Is.EqualTo(new DateTime(2010, 1, 1)));
                 Assert.That(favourite.Location.Latitude, Is.EqualTo(-33.907725d));
                 Assert.That(favourite.Location.Longitude, Is.EqualTo(151.026108d));

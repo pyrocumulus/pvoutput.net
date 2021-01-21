@@ -17,9 +17,9 @@ namespace PVOutput.Net.Objects.Modules.Implementations
         public int InverterPower { get; set; }
         public string InverterBrand { get; set; }
         public string Orientation { get; set; }
-        public decimal ArrayTilt { get; set; }
-        public string Shade { get; set; }
-        public DateTime InstallDate { get; set; }
+        public decimal? ArrayTilt { get; set; }
+        public Shade Shade { get; set; }
+        public DateTime? InstallDate { get; set; }
         public PVCoordinate Location { get; set; }
         public int StatusInterval { get; set; }
 

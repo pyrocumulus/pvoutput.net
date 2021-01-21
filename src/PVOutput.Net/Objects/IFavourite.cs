@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using PVOutput.Net.Enums;
 
 namespace PVOutput.Net.Objects
 {
@@ -72,7 +73,7 @@ namespace PVOutput.Net.Objects
         /// <summary>
         /// The shade situation for the system.
         /// </summary>
-        string Shade { get; set; }
+        Shade Shade { get; set; }
 
         /// <summary>
         /// The date the system has been installed.
