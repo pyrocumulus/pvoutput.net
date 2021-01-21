@@ -77,9 +77,9 @@ namespace PVOutput.Net.Tests.Modules.System
                 Assert.That(result.InverterPower, Is.EqualTo(5500));
                 Assert.That(result.InverterBrand, Is.EqualTo("Fronius Primo 3.6-1"));
                 Assert.That(result.Orientation, Is.EqualTo(Orientation.East));
-                Assert.That(result.ArrayTilt, Is.EqualTo(53.1d));
-                Assert.That(result.Shade, Is.EqualTo("None"));
-                Assert.That(result.InstallDate, Is.EqualTo(new DateTime(2016, 10, 01)));
+                Assert.That(result.ArrayTilt, Is.Null);
+                Assert.That(result.Shade, Is.EqualTo(Shade.None));
+                Assert.That(result.InstallDate, Is.Null);
                 Assert.That(result.SecondaryOrientation, Is.Null);
                 Assert.That(result.SecondaryArrayTilt, Is.Null);
                 Assert.That(result.SecondaryNumberOfPanels, Is.Null);
@@ -112,7 +112,7 @@ namespace PVOutput.Net.Tests.Modules.System
                 Assert.That(result.InverterBrand, Is.EqualTo("Fronius Primo 3.6-1"));
                 Assert.That(result.Orientation, Is.EqualTo(Orientation.East));
                 Assert.That(result.ArrayTilt, Is.EqualTo(53.1d));
-                Assert.That(result.Shade, Is.EqualTo("None"));
+                Assert.That(result.Shade, Is.EqualTo(Shade.None));
                 Assert.That(result.InstallDate, Is.EqualTo(new DateTime(2016, 8, 22)));
                 Assert.That(result.Location.Latitude, Is.EqualTo(51.0d));
                 Assert.That(result.Location.Longitude, Is.EqualTo(6.1d));

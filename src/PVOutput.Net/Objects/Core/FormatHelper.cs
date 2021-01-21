@@ -111,7 +111,7 @@ namespace PVOutput.Net.Objects.Core
                     return val;
             }
 
-            throw new ArgumentException("Invalid description for enum " + type.Name, nameof(enumerationDescription));
+            throw new ArgumentException($"Invalid description '{enumerationDescription}' for enum " + type.Name, nameof(enumerationDescription));
         }
     }
 }

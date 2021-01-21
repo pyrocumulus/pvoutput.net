@@ -27,7 +27,7 @@ namespace PVOutput.Net.Objects.Modules.Readers
                 (t, s) => t.InverterBrand = s,
                 (t, s) => t.Orientation = FormatHelper.DescriptionToEnumValue<Orientation>(s),
                 (t, s) => t.ArrayTilt = FormatHelper.GetValue<decimal>(s),
-                (t, s) => t.Shade = s,
+                (t, s) => t.Shade = FormatHelper.DescriptionToEnumValue<Shade>(s),
                 (t, s) => t.InstallDate = FormatHelper.ParseOptionalDate(s),
                 (t, s) => t.Location = new PVCoordinate(FormatHelper.GetValueOrDefault<decimal>(s), 0), // Latitude
                 (t, s) => t.Location = new PVCoordinate(t.Location.Latitude, FormatHelper.GetValueOrDefault<decimal>(s)), // Add longitude
