@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using PVOutput.Net.Enums;
 
 namespace PVOutput.Net.Objects.Modules.Implementations
 {
@@ -10,7 +11,7 @@ namespace PVOutput.Net.Objects.Modules.Implementations
         public int SystemSize { get; set; }
         public int Postcode { get; set; }
         public string Country { get; set; }
-        public string Orientation { get; set; }
+        public Orientation Orientation { get; set; }
         public int NumberOfOutputs { get; set; }
         public string LastOutput { get; set; }
         public int SystemId { get; set; }

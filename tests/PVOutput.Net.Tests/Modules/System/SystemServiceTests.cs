@@ -76,10 +76,14 @@ namespace PVOutput.Net.Tests.Modules.System
                 Assert.That(result.NumberOfInverters, Is.EqualTo(1));
                 Assert.That(result.InverterPower, Is.EqualTo(5500));
                 Assert.That(result.InverterBrand, Is.EqualTo("Fronius Primo 3.6-1"));
-                Assert.That(result.Orientation, Is.EqualTo("E"));
+                Assert.That(result.Orientation, Is.EqualTo(Orientation.East));
                 Assert.That(result.ArrayTilt, Is.EqualTo(53.1d));
                 Assert.That(result.Shade, Is.EqualTo("None"));
                 Assert.That(result.InstallDate, Is.EqualTo(new DateTime(2016, 10, 01)));
+                Assert.That(result.SecondaryOrientation, Is.Null);
+                Assert.That(result.SecondaryArrayTilt, Is.Null);
+                Assert.That(result.SecondaryNumberOfPanels, Is.Null);
+                Assert.That(result.SecondaryPanelPower, Is.Null);
                 Assert.That(result.Location.Latitude, Is.EqualTo(51.0d));
                 Assert.That(result.Location.Longitude, Is.EqualTo(6.1d));
                 Assert.That(result.StatusInterval, Is.EqualTo(5));
@@ -106,7 +110,7 @@ namespace PVOutput.Net.Tests.Modules.System
                 Assert.That(result.NumberOfInverters, Is.EqualTo(1));
                 Assert.That(result.InverterPower, Is.EqualTo(5500));
                 Assert.That(result.InverterBrand, Is.EqualTo("Fronius Primo 3.6-1"));
-                Assert.That(result.Orientation, Is.EqualTo("E"));
+                Assert.That(result.Orientation, Is.EqualTo(Orientation.East));
                 Assert.That(result.ArrayTilt, Is.EqualTo(53.1d));
                 Assert.That(result.Shade, Is.EqualTo("None"));
                 Assert.That(result.InstallDate, Is.EqualTo(new DateTime(2016, 8, 22)));
@@ -115,7 +119,7 @@ namespace PVOutput.Net.Tests.Modules.System
                 Assert.That(result.StatusInterval, Is.EqualTo(5));
                 Assert.That(result.SecondaryNumberOfPanels, Is.EqualTo(10));
                 Assert.That(result.SecondaryPanelPower, Is.EqualTo(190));
-                Assert.That(result.SecondaryOrientation, Is.EqualTo("W"));
+                Assert.That(result.SecondaryOrientation, Is.EqualTo(Orientation.West));
                 Assert.That(result.SecondaryArrayTilt, Is.EqualTo(33.5d));
                 Assert.That(result.ExportTariff, Is.EqualTo(17.37d));
                 Assert.That(result.ImportPeakTariff, Is.EqualTo(20.46d));

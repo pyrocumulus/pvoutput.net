@@ -85,7 +85,7 @@ For more information on usage, please see the [documentation](https://pyrocumulu
 
 ## API Coverage
 
-As of 0.8.0 this library the complete public API that official PVOutput exposes. See [documentation](https://pyrocumulus.github.io/pvoutput.net/) for details.
+As of 0.8.0 this library contains the complete public API that official PVOutput exposes. See [documentation](https://pyrocumulus.github.io/pvoutput.net/) for details.
 
 ## Building the project
 

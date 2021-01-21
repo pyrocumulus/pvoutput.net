@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using PVOutput.Net.Enums;
 
 namespace PVOutput.Net.Objects
 {
@@ -62,7 +63,7 @@ namespace PVOutput.Net.Objects
         /// <summary>
         /// Primary orientation of most panels.
         /// </summary>
-        string Orientation { get; set; }
+        Orientation Orientation { get; set; }
 
         /// <summary>
         /// Tilt the solar array has.
