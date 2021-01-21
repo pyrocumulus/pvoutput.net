@@ -25,7 +25,7 @@ namespace PVOutput.Net.Objects.Modules.Readers
                 (t, s) => t.NumberOfInverters = FormatHelper.GetValueOrDefault<int>(s),
                 (t, s) => t.InverterPower = FormatHelper.GetValueOrDefault<int>(s),
                 (t, s) => t.InverterBrand = s,
-                (t, s) => t.Orientation = s,
+                (t, s) => t.Orientation = FormatHelper.DescriptionToEnumValue<Orientation>(s),
                 (t, s) => t.ArrayTilt = FormatHelper.GetValue<decimal>(s),
                 (t, s) => t.Shade = !string.IsNullOrWhiteSpace(s) ? FormatHelper.DescriptionToEnumValue<Shade>(s) : Shade.None,
                 (t, s) => t.InstallDate = FormatHelper.ParseOptionalDate(s),

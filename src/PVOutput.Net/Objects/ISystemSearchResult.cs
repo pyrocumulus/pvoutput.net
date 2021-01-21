@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using PVOutput.Net.Enums;
 
 namespace PVOutput.Net.Objects
 {
@@ -32,7 +33,7 @@ namespace PVOutput.Net.Objects
         /// <summary>
         /// Orientation of the solar panels of the found system.
         /// </summary>
-        string Orientation { get; set; }
+        Orientation Orientation { get; set; }
 
         /// <summary>
         /// Total number of outputs the found system has recorded.

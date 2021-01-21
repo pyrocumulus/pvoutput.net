@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased]
+
+### Breaking change
+
+- Some methods will now return an `Orientation` enumeration value instead of a string representation [#49](https://github.com/pyrocumulus/pvoutput.net/pull/49)
+
 ## [0.8.1] - 2020-11-07
 
 ### Added

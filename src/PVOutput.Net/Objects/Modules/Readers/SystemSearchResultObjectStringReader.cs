@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using PVOutput.Net.Enums;
 using PVOutput.Net.Objects.Core;
 
 namespace PVOutput.Net.Objects.Modules.Readers
@@ -25,7 +26,7 @@ namespace PVOutput.Net.Objects.Modules.Readers
                     t.Postcode = postcode;
                     t.Country = country;
                 },
-                (t, s) => t.Orientation = s,
+                (t, s) => t.Orientation = FormatHelper.DescriptionToEnumValue<Orientation>(s),
                 (t, s) => t.NumberOfOutputs = FormatHelper.GetValueOrDefault<int>(s),
                 (t, s) => t.LastOutput = s,
                 (t, s) => t.SystemId = FormatHelper.GetValueOrDefault<int>(s),
