@@ -115,7 +115,7 @@ namespace PVOutput.Net.Tests.Modules.System
                 Assert.That(result.StatusInterval, Is.EqualTo(5));
                 Assert.That(result.SecondaryNumberOfPanels, Is.EqualTo(10));
                 Assert.That(result.SecondaryPanelPower, Is.EqualTo(190));
-                Assert.That(result.SecondaryOrientation, Is.EqualTo("W"));
+                Assert.That(result.SecondaryOrientation, Is.EqualTo(Orientation.West));
                 Assert.That(result.SecondaryArrayTilt, Is.EqualTo(33.5d));
                 Assert.That(result.ExportTariff, Is.EqualTo(17.37d));
                 Assert.That(result.ImportPeakTariff, Is.EqualTo(20.46d));

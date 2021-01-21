@@ -98,7 +98,7 @@ namespace PVOutput.Net.Objects
         /// <summary>
         /// Orientation of secondary array, if present.
         /// </summary>
-        string SecondaryOrientation { get; set; }
+        Orientation? SecondaryOrientation { get; set; }
 
         /// <summary>
         /// Tilt of the secondary array, if present.

@@ -26,7 +26,7 @@ namespace PVOutput.Net.Objects.Modules.Implementations
         // Secondary
         public int? SecondaryNumberOfPanels { get; set; }
         public int? SecondaryPanelPower { get; set; }
-        public string SecondaryOrientation { get; set; }
+        public Orientation? SecondaryOrientation { get; set; }
         public decimal? SecondaryArrayTilt { get; set; }
 
         // Tariffs
