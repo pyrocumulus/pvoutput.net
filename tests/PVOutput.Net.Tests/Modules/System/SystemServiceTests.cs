@@ -76,7 +76,7 @@ namespace PVOutput.Net.Tests.Modules.System
                 Assert.That(result.NumberOfInverters, Is.EqualTo(1));
                 Assert.That(result.InverterPower, Is.EqualTo(5500));
                 Assert.That(result.InverterBrand, Is.EqualTo("Fronius Primo 3.6-1"));
-                Assert.That(result.Orientation, Is.EqualTo("E"));
+                Assert.That(result.Orientation, Is.EqualTo(Orientation.East));
                 Assert.That(result.ArrayTilt, Is.EqualTo(53.1d));
                 Assert.That(result.Shade, Is.EqualTo("None"));
                 Assert.That(result.InstallDate, Is.EqualTo(new DateTime(2016, 10, 01)));
@@ -106,7 +106,7 @@ namespace PVOutput.Net.Tests.Modules.System
                 Assert.That(result.NumberOfInverters, Is.EqualTo(1));
                 Assert.That(result.InverterPower, Is.EqualTo(5500));
                 Assert.That(result.InverterBrand, Is.EqualTo("Fronius Primo 3.6-1"));
-                Assert.That(result.Orientation, Is.EqualTo("E"));
+                Assert.That(result.Orientation, Is.EqualTo(Orientation.East));
                 Assert.That(result.ArrayTilt, Is.EqualTo(53.1d));
                 Assert.That(result.Shade, Is.EqualTo("None"));
                 Assert.That(result.InstallDate, Is.EqualTo(new DateTime(2016, 8, 22)));

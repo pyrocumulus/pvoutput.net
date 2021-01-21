@@ -73,7 +73,6 @@ namespace PVOutput.Net.Objects.Core
             return result ?? (default);
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "Exception messages are non translatable for now")]
         internal static string GetEnumerationDescription<TEnumType>(this TEnumType enumerationValue) where TEnumType : struct
         {
             Type type = enumerationValue.GetType();
@@ -97,7 +96,6 @@ namespace PVOutput.Net.Objects.Core
             return null;
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "Exception messages are non translatable for now")]
         public static TEnumType DescriptionToEnumValue<TEnumType>(this string enumerationDescription) where TEnumType : struct
         {
             var type = typeof(TEnumType);

@@ -58,7 +58,7 @@ namespace PVOutput.Net.Objects
         /// <summary>
         /// Orientation of the solar panels if the system.
         /// </summary>
-        string Orientation { get; set; }
+        Orientation Orientation { get; set; }
 
         /// <summary>
         /// Tilt the solar array has.

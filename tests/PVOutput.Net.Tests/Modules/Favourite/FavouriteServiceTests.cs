@@ -47,7 +47,7 @@ namespace PVOutput.Net.Tests.Modules.Favourite
                 Assert.That(favourite.NumberOfInverters, Is.EqualTo(1));
                 Assert.That(favourite.InverterPower, Is.EqualTo(2000));
                 Assert.That(favourite.InverterBrand, Is.EqualTo("CMS"));
-                Assert.That(favourite.Orientation, Is.EqualTo("N"));
+                Assert.That(favourite.Orientation, Is.EqualTo(Orientation.North));
                 Assert.That(favourite.ArrayTilt, Is.EqualTo(30.5d));
                 Assert.That(favourite.Shade, Is.EqualTo("No"));
                 Assert.That(favourite.InstallDate, Is.EqualTo(new DateTime(2010, 1, 1)));
