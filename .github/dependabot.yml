@@ -10,12 +10,12 @@ updates:
     schedule:
       interval: "daily"
 
-  - package-ecosystem: "nuget lib"
+  - package-ecosystem: "nuget"
     directory: "/src/PVOutput.Net/"
     schedule:
       interval: "daily"
 
-  - package-ecosystem: "nuget tests"
+  - package-ecosystem: "nuget"
     directory: "/tests/PVOutput.Net.Tests/"
     schedule:
       interval: "daily"
