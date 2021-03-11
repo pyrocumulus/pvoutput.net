@@ -43,9 +43,9 @@ namespace PVOutput.Net.Objects
         /// <summary>
         /// Indicates if the current object is equal to another object of the same type
         /// </summary>
-        /// <param name="other">Other object to compare to</param>
+        /// <param name="obj">Other object to compare to</param>
         /// <returns>True if both objects are equal, false otherwise</returns>
-        public override bool Equals(object other) => other is PVCoordinate coordinate && Equals(coordinate);
+        public override bool Equals(object obj) => obj is PVCoordinate coordinate && Equals(coordinate);
 
         /// <summary>
         /// Indicates if the current object is equal to another object of the same type

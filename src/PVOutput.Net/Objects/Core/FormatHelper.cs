@@ -81,7 +81,7 @@ namespace PVOutput.Net.Objects.Core
                 throw new ArgumentException("EnumerationValue must be of Enum type", nameof(enumerationValue));
             }
 
-            string name = Enum.GetName(type, enumerationValue);
+            var name = Enum.GetName(type, enumerationValue);
             if (name != null)
             {
                 FieldInfo field = type.GetField(name);
@@ -98,7 +98,7 @@ namespace PVOutput.Net.Objects.Core
 
         public static TEnumType DescriptionToEnumValue<TEnumType>(this string enumerationDescription) where TEnumType : struct
         {
-            var type = typeof(TEnumType);
+            Type type = typeof(TEnumType);
 
             if (!type.IsEnum)
             { 

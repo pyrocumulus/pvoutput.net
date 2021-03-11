@@ -65,5 +65,11 @@ namespace PVOutput.Net.Tests.Client
                 Assert.That(client.Logger, Is.Not.EqualTo(NullLogger<PVOutputClient>.Instance));
             });
         }
+
+        [Test]
+        public void Create_AssemblyInfo_CreatesAssemblyInfo()
+        {
+            _ = new AssemblyInfo(); // For code coverage
+        }
     }
 }
