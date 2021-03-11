@@ -3,5 +3,11 @@
 [assembly: CLSCompliant(true)]
 namespace PVOutput.Net
 {
-    internal class AssemblyInfo { }
+    internal class AssemblyInfo 
+    {
+        public AssemblyInfo()
+        {
+
+        }
+    }
 }
