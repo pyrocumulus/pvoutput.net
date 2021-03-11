@@ -10,6 +10,7 @@ using PVOutput.Net.Objects.Modules.Implementations;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using PVOutput.Net.Responses;
 
 namespace PVOutput.Net.Tests.Modules.System
 {
@@ -24,7 +25,7 @@ namespace PVOutput.Net.Tests.Modules.System
             testProvider.ExpectUriFromBase(GETSYSTEM_URL)
                         .RespondPlainText(SYSTEM_RESPONSE_EXTENDED);
 
-            var response = await client.System.GetOwnSystemAsync();
+            PVOutputResponse<ISystem> response = await client.System.GetOwnSystemAsync();
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
         }
@@ -38,7 +39,7 @@ namespace PVOutput.Net.Tests.Modules.System
                         .WithQueryString("sid1=54321")
                         .RespondPlainText(SYSTEM_RESPONSE_EXTENDED);
 
-            var response = await client.System.GetOtherSystemAsync(54321);
+            PVOutputResponse<ISystem> response = await client.System.GetOtherSystemAsync(54321);
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
         }
@@ -52,7 +53,7 @@ namespace PVOutput.Net.Tests.Modules.System
                         .WithExactQueryString("sid=54321&name=New%20name&v7l=New%20power&v7u=W")
                         .RespondPlainText("");
 
-            var response = await client.System.PostSystem(54321, "New name", new List<IExtendedDataDefinition>() { new ExtendedDataDefinition() { Label = "New power", Unit = "W" } });
+            PVOutputBasicResponse response = await client.System.PostSystem(54321, "New name", new List<IExtendedDataDefinition>() { new ExtendedDataDefinition() { Label = "New power", Unit = "W" } });
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
         }
@@ -195,8 +196,8 @@ namespace PVOutput.Net.Tests.Modules.System
         public async Task SystemReader_ForResponseWithIncompleteExtendedProperties_CreatesCorrectObject()
         {
             ISystem result = await TestUtility.ExecuteObjectReaderByTypeAsync<ISystem>(SYSTEM_RESPONSE_WITH_MINIMALEXTENDEDDATA);
-            var secondDataConfig = result.ExtendedDataConfig[1];
-            var thirdDataConfig = result.ExtendedDataConfig[2];
+            ExtendedDataConfiguration secondDataConfig = result.ExtendedDataConfig[1];
+            ExtendedDataConfiguration thirdDataConfig = result.ExtendedDataConfig[2];
 
             Assert.Multiple(() =>
             {

@@ -7,37 +7,37 @@ namespace PVOutput.Net.Objects.Factories
 {
     internal static class StringFactoryContainer
     {
-        private static readonly Dictionary<Type, object> _readerFactories = new Dictionary<Type, object>();
+        private static Dictionary<Type, object> ReaderFactories { get; } = new Dictionary<Type, object>();
 
         static StringFactoryContainer()
         {
-            _readerFactories.Add(typeof(IOutput), new OutputFactory());
-            _readerFactories.Add(typeof(ITeamOutput), new TeamOutputFactory());
-            _readerFactories.Add(typeof(IAggregatedOutput), new AggregatedOutputFactory());
-            _readerFactories.Add(typeof(ISystem), new SystemFactory());
-            _readerFactories.Add(typeof(IStatus), new StatusFactory());
-            _readerFactories.Add(typeof(IStatusHistory), new StatusHistoryFactory());
-            _readerFactories.Add(typeof(IDayStatistics), new DayStatisticsFactory());
-            _readerFactories.Add(typeof(IBatchStatusPostResult), new BatchStatusPostResultFactory());
-            _readerFactories.Add(typeof(IStatistic), new StatisticFactory());
-            _readerFactories.Add(typeof(IMissing), new MissingFactory());
-            _readerFactories.Add(typeof(ITeam), new TeamFactory());
-            _readerFactories.Add(typeof(IExtended), new ExtendedFactory());
-            _readerFactories.Add(typeof(IFavourite), new FavouriteFactory());
-            _readerFactories.Add(typeof(IInsolation), new InsolationFactory());
-            _readerFactories.Add(typeof(ISupply), new SupplyFactory());
-            _readerFactories.Add(typeof(ISystemSearchResult), new SystemSearchResultFactory());
+            ReaderFactories.Add(typeof(IOutput), new OutputFactory());
+            ReaderFactories.Add(typeof(ITeamOutput), new TeamOutputFactory());
+            ReaderFactories.Add(typeof(IAggregatedOutput), new AggregatedOutputFactory());
+            ReaderFactories.Add(typeof(ISystem), new SystemFactory());
+            ReaderFactories.Add(typeof(IStatus), new StatusFactory());
+            ReaderFactories.Add(typeof(IStatusHistory), new StatusHistoryFactory());
+            ReaderFactories.Add(typeof(IDayStatistics), new DayStatisticsFactory());
+            ReaderFactories.Add(typeof(IBatchStatusPostResult), new BatchStatusPostResultFactory());
+            ReaderFactories.Add(typeof(IStatistic), new StatisticFactory());
+            ReaderFactories.Add(typeof(IMissing), new MissingFactory());
+            ReaderFactories.Add(typeof(ITeam), new TeamFactory());
+            ReaderFactories.Add(typeof(IExtended), new ExtendedFactory());
+            ReaderFactories.Add(typeof(IFavourite), new FavouriteFactory());
+            ReaderFactories.Add(typeof(IInsolation), new InsolationFactory());
+            ReaderFactories.Add(typeof(ISupply), new SupplyFactory());
+            ReaderFactories.Add(typeof(ISystemSearchResult), new SystemSearchResultFactory());
         }
 
         private static object GetObjectStringFactory<TReturnType>()
         {
             Type type = typeof(TReturnType);
-            if (!_readerFactories.ContainsKey(type))
+            if (!ReaderFactories.ContainsKey(type))
             {
                 throw new InvalidOperationException($"Factory for {type} is not known");
             }
 
-            return _readerFactories[type];
+            return ReaderFactories[type];
         }
 
         public static IObjectStringReader<TReturnType> CreateObjectReader<TReturnType>()

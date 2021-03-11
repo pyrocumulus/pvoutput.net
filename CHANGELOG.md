@@ -5,11 +5,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Updated
+
+- Updated `Microsoft.Extensions.DependencyInjection.Abstractions` from `v3.1.7` to `v5.0.0` [#52](https://github.com/pyrocumulus/pvoutput.net/pull/52)
+- Updated `Microsoft.Extensions.Logging.Abstractions` from `v3.1.7` to `v5.0.0` [#52](https://github.com/pyrocumulus/pvoutput.net/pull/52)
+- Migrated analyzers `Microsoft.CodeAnalysis.FxCopAnalyzers` to `Microsoft.CodeAnalysis.NetAnalyzers` `v5.0.3` [#52](https://github.com/pyrocumulus/pvoutput.net/pull/52)
+
 ### Fixed
 
 - **BREAKING**: Some methods will now return an `Orientation` enumeration value instead of a string representation [#49](https://github.com/pyrocumulus/pvoutput.net/pull/49)
 - **BREAKING**: Some methods will now return a `Shade` enumeration value instead of a string representation [#50](https://github.com/pyrocumulus/pvoutput.net/pull/50)
 - **BREAKING**: Marked `InstallDate` and `ArrayTilt` aspects as nullable, as they are optional in PVOutput [#50](https://github.com/pyrocumulus/pvoutput.net/pull/50)
+- Marked assembly as `[CLSCompliant]` [#52](https://github.com/pyrocumulus/pvoutput.net/pull/52)
 
 ## [0.8.1] - 2020-11-07
 

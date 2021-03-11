@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using PVOutput.Net.Enums;
 using PVOutput.Net.Objects;
+using PVOutput.Net.Responses;
 using PVOutput.Net.Tests.Utils;
 using RichardSzalay.MockHttp;
 
@@ -21,7 +22,7 @@ namespace PVOutput.Net.Tests.Modules.Favourite
             testProvider.ExpectUriFromBase(GETFAVOURITE_URL)
                         .RespondPlainText(FAVOURITE_RESPONSE_SINGLE);
 
-            var response = await client.Favourite.GetFavouritesAsync();
+            PVOutputArrayResponse<IFavourite> response = await client.Favourite.GetFavouritesAsync();
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
         }
@@ -35,7 +36,7 @@ namespace PVOutput.Net.Tests.Modules.Favourite
         {
             IEnumerable<IFavourite> result = await TestUtility.ExecuteArrayReaderByTypeAsync<IFavourite>(FAVOURITE_RESPONSE_SINGLE);
 
-            var favourite = result.First();
+            IFavourite favourite = result.First();
             Assert.Multiple(() => {  
                 Assert.That(favourite.SystemId, Is.EqualTo(21));
                 Assert.That(favourite.SystemName, Is.EqualTo("PVOutput Demo"));
