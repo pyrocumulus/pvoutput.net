@@ -21,5 +21,5 @@ jobs:
     - name: Test with dotnet
       run: dotnet test --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
     - name: Code coverage
-      uses: codecov/codecov-action@v1
+      uses: codecov/codecov-action@v1.5.0
 
