@@ -159,7 +159,7 @@ namespace PVOutput.Net.Tests.Modules.Search
             AssertStandardResponse(response);
         }
 
-        private async Task TestSpecificSearchQuery(Func<SearchService, Task<Responses.PVOutputArrayResponse<ISystemSearchResult>>> searchQuery, string queryStringResult)
+        private async Task TestSpecificSearchQuery(Func<ISearchService, Task<Responses.PVOutputArrayResponse<ISystemSearchResult>>> searchQuery, string queryStringResult)
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
             testProvider.ExpectUriFromBase(SEARCH_URL)

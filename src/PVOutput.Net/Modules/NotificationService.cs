@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Dawn;
-using PVOutput.Net.Builders;
-using PVOutput.Net.Objects;
 using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Requests.Handler;
 using PVOutput.Net.Requests.Modules;
@@ -13,11 +10,8 @@ using PVOutput.Net.Responses;
 
 namespace PVOutput.Net.Modules
 {
-    /// <summary>
-    /// The Notification service enables (de-)registering alert notifications.
-    /// <para>See the official <see href="https://pvoutput.org/help.html#api-registernotification">API information</see>.</para>
-    /// </summary>
-    public sealed class NotificationService : BaseService
+    /// <inheritdoc cref="INotificationService" />
+    public sealed class NotificationService : BaseService, INotificationService
     {
         /// <summary>
         /// Alert for a new private message.
@@ -103,14 +97,7 @@ namespace PVOutput.Net.Modules
         {
         }
 
-        /// <summary>
-        /// Registers an application for a notification.
-        /// </summary>
-        /// <param name="applicationId">ApplicationId to register the notification under.</param>
-        /// <param name="callbackUrl">The url that should get called for each notification.</param>
-        /// <param name="alertType">A specific type of alert to send, leave empty for all alert types.</param>
-        /// <param name="cancellationToken">A cancellation token for the request.</param>
-        /// <returns>If the operation succeeded.</returns>
+        /// <inheritdoc />
         public Task<PVOutputBasicResponse> RegisterNotificationAsync(string applicationId, string callbackUrl, int? alertType = null, CancellationToken cancellationToken = default)
         {
             var loggingScope = new Dictionary<string, object>()
@@ -130,14 +117,7 @@ namespace PVOutput.Net.Modules
         }
 
 
-        /// <summary>
-        /// Registers an application for a notification.
-        /// </summary>
-        /// <param name="applicationId">ApplicationId to register the notification under.</param>
-        /// <param name="callbackUri">The uri that should get called for each notification.</param>
-        /// <param name="alertType">A specific type of alert to send, leave empty for all alert types.</param>
-        /// <param name="cancellationToken">A cancellation token for the request.</param>
-        /// <returns>If the operation succeeded.</returns>
+        /// <inheritdoc />
         public Task<PVOutputBasicResponse> RegisterNotificationAsync(string applicationId, Uri callbackUri, int? alertType = null, CancellationToken cancellationToken = default)
         {
             var loggingScope = new Dictionary<string, object>()
@@ -157,13 +137,7 @@ namespace PVOutput.Net.Modules
             return handler.ExecutePostRequestAsync(new RegisterNotificationRequest() { ApplicationId = applicationId, CallbackUri = callbackUri, AlertType = alertType }, loggingScope, cancellationToken);
         }
 
-        /// <summary>
-        /// Deregisters an application for a notification.
-        /// </summary>
-        /// <param name="applicationId">ApplicationId to register the notification under.</param>
-        /// <param name="alertType">A specific type of alert to send, leave empty for all alert types.</param>
-        /// <param name="cancellationToken">A cancellation token for the request.</param>
-        /// <returns>If the operation succeeded.</returns>
+        /// <inheritdoc />
         public Task<PVOutputBasicResponse> DeregisterNotificationAsync(string applicationId, int? alertType = null, CancellationToken cancellationToken = default)
         {
             var loggingScope = new Dictionary<string, object>()
