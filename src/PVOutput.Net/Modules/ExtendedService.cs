@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Dawn;
@@ -12,23 +11,14 @@ using PVOutput.Net.Responses;
 
 namespace PVOutput.Net.Modules
 {
-    /// <summary>
-    /// The Get Extended service retrieves system daily extended data.
-    /// <para>See the official <see href="https://pvoutput.org/help.html#api-getextended">API information</see>.</para>
-    /// <para><strong>Note: this is a donation only service.</strong></para>
-    /// </summary>
-    public sealed class ExtendedService : BaseService
+    /// <inheritdoc cref="IExtendedService"/>
+    public sealed class ExtendedService : BaseService, IExtendedService
     {
         internal ExtendedService(PVOutputClient client) : base(client)
         {
         }
 
-        /// <summary>
-        /// Retrieve most recently created extended data.
-        /// <para><strong>Note: this is a donation only request.</strong></para>
-        /// </summary>
-        /// <param name="cancellationToken">A cancellation token for the request.</param>
-        /// <returns>Most recent extended data.</returns>
+        /// <inheritdoc />
         public Task<PVOutputResponse<IExtended>> GetRecentExtendedDataAsync(CancellationToken cancellationToken = default)
         {
             var loggingScope = new Dictionary<string, object>()
@@ -40,15 +30,7 @@ namespace PVOutput.Net.Modules
             return handler.ExecuteSingleItemRequestAsync<IExtended>(new ExtendedRequest(), loggingScope, cancellationToken);
         }
 
-        /// <summary>
-        /// Retrieve extended data for a certain period.
-        /// <para><strong>Note: this is a donation only request.</strong></para>
-        /// </summary>
-        /// <param name="fromDate">Minimum DateTime for the requested range.</param>
-        /// <param name="toDate">Maximum DateTime for the requested range.</param>
-        /// <param name="limit">Optional limit of number of items. <c>50 is the maximum.</c></param>
-        /// <param name="cancellationToken">A cancellation token for the request.</param>
-        /// <returns>List of extended data objects.</returns>
+        /// <inheritdoc />
         public Task<PVOutputArrayResponse<IExtended>> GetExtendedDataForPeriodAsync(DateTime fromDate, DateTime toDate, int? limit = null, CancellationToken cancellationToken = default)
         {
             var loggingScope = new Dictionary<string, object>()
