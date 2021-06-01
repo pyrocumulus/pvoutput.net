@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>PVOutput.Net | PVOutput.Net </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="PVOutput.Net | PVOutput.Net ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles/docfx.vendor.css">
+    <link rel="stylesheet" href="styles/docfx.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <meta property="docfx:navrel" content="toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="index.html">
+                <img id="logo" class="svg" src="logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="pvoutputnet">PVOutput.Net</h1>
+
+<blockquote>
+<p>A .NET wrapper library for API of the popular <a href="https://pvoutput.org">PVOutput</a> service.
+PVOutput is a free service for sharing and comparing PV output data.</p>
+</blockquote>
+<h2 id="installation">Installation</h2>
+<p>Installation can be done through installation of the <a href="https://www.nuget.org/packages/PVOutput.Net/">NuGet package</a>:</p>
+<pre><code class="lang-posh">PM&gt; Install-Package PVOutput.Net
+</code></pre>
+<h2 id="changelog">Changelog</h2>
+<p>See <a href="https://github.com/pyrocumulus/pvoutput.net/blob/master/CHANGELOG.md">Changelog</a> for information on changes per version.To see coming but unreleased changes, see the <code>develop</code> branch.</p>
+<h2 id="support">Support</h2>
+<p>This library is targeting .NET Standard 2.0 and above. For full compatibility details, check the <a href="https://docs.microsoft.com/nl-nl/dotnet/standard/net-standard#net-implementation-support">Microsoft Docs</a>.</p>
+<h2 id="usage">Usage</h2>
+<p>As of 0.8.0, all of the public API calls of the official service are exposed through the library. For a complete list of the supported calls, see the <a href="articles/coverage.html">coverage</a> page.
+Note that the 'Managed Systems' and 'Data Services' APIs are both unsupported as those are not public.</p>
+<h3 id="getting-data-out-of-pvoutputorg">Getting data out of PVOutput.org</h3>
+<pre><code class="lang-csharp">var client = new PVOutputClient(apiKey: &quot;myPvOutputKey&quot;, ownedSystemId: 1);
+
+// Request output for today
+var outputResponse = await client.Output.GetOutputForDateAsync(DateTime.Today);
+var output = outputResponse.Value;
+Console.WriteLine($&quot;Output for date {output.OutputDate.ToShortDateString()}, {output.EnergyGenerated} Wh generated&quot;);
+</code></pre>
+<h3 id="adding-data-to-a-system-in-pvoutputorg">Adding data to a system in PVOutput.org</h3>
+<pre><code class="lang-csharp">var client = new PVOutputClient(apiKey: &quot;myPvOutputKey&quot;, ownedSystemId: 1);
+var builder = new StatusPostBuilder&lt;IStatusPost&gt;();
+
+// Build the status
+var status = builder.SetTimeStamp(DateTime.Now)
+                .SetGeneration(200, null)
+                .Build();
+
+// Push the status back to PVOutput
+var response = await client.Status.AddStatusAsync(status);
+</code></pre>
+<h3 id="using-the-client-in-an-aspnet-core-application">Using the client in an ASP.Net Core application</h3>
+<pre><code class="lang-csharp">    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddPVOutputClient(options =&gt;
+        {
+            options.ApiKey = &quot;myPvOutputKey&quot;;
+            options.OwnedSystemId = 1;
+        });
+    }
+</code></pre>
+<h3 id="how-to-log-calls-made-by-the-library">How to log calls made by the library</h3>
+<p>The client also supports logging through the standard .NET Core ILogger interface.
+In a web app or hosted service you can supply the <code>ILogger</code> through dependency injection (DI).
+For non-host console applications, use the <code>LoggerFactory</code> to instantiate the logger and then provide it to the relevant constructor overload.</p>
+<p>See the official <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging/?view=aspnetcore-3.1">Logging in .NET Core and ASP.NET Core</a> for more information.</p>
+<p>The various logging levels:</p>
+<ul>
+<li><strong>Information</strong>: this will only the success state of requests that are made with the used service and parameters; including errors.</li>
+<li><strong>Debug</strong>: also log the exact requested uri (including query parameters), and api rate information.</li>
+<li><strong>Trace</strong>: also log 'raw' response content, at a minimal overhead (duplicating memory streams).</li>
+</ul>
+<p><strong>NOTE</strong>:</p>
+<p>Your API key and owned system ID are always sent through headers, not the request uri. None of the logging levels also log headers and never will, so logging information should never contain those two aspects. However it is always good to inspect logs before sharing them with anyone, including the maintainer of this project.</p>
+<h3 id="api-reference">API reference</h3>
+<p>See the <a href="api/PVOutput.Net.html">API reference</a> for details on all the classes provided by this library.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/develop/docfx/index.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="styles/docfx.js"></script>
+    <script type="text/javascript" src="styles/main.js"></script>
+  </body>
+</html>

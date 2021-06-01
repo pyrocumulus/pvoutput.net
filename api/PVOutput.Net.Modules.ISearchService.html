@@ -1,0 +1,901 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface ISearchService
+   | PVOutput.Net </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface ISearchService
+   | PVOutput.Net ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="PVOutput.Net.Modules.ISearchService">
+  
+  
+  <h1 id="PVOutput_Net_Modules_ISearchService" data-uid="PVOutput.Net.Modules.ISearchService" class="text-break">Interface ISearchService
+  </h1>
+  <div class="markdown level0 summary"><p>The Search service retrieves a list of systems matching the given search query.</p>
+<p>See the official <a href="https://pvoutput.org/help.html#api-search">API information</a>.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="PVOutput.Net.Modules.html">PVOutput.Net.Modules</a></h6>
+  <h6><strong>Assembly</strong>: PVOutput.Net.dll</h6>
+  <h5 id="PVOutput_Net_Modules_ISearchService_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface ISearchService</code></pre>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_ISearchService_GetFavouritesAsync_CancellationToken_.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.ISearchService.GetFavouritesAsync(CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/master/src/PVOutput.Net/Modules/Interfaces/ISearchService.cs/#L125">View Source</a>
+  </span>
+  <a id="PVOutput_Net_Modules_ISearchService_GetFavouritesAsync_" data-uid="PVOutput.Net.Modules.ISearchService.GetFavouritesAsync*"></a>
+  <h4 id="PVOutput_Net_Modules_ISearchService_GetFavouritesAsync_CancellationToken_" data-uid="PVOutput.Net.Modules.ISearchService.GetFavouritesAsync(CancellationToken)">GetFavouritesAsync(CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Retrieve your favourite systems.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;PVOutputArrayResponse&lt;ISystemSearchResult&gt;&gt; GetFavouritesAsync(CancellationToken cancellationToken = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A cancellation token for the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="PVOutput.Net.Responses.PVOutputArrayResponse-1.html">PVOutputArrayResponse</a>&lt;<a class="xref" href="PVOutput.Net.Objects.ISystemSearchResult.html">ISystemSearchResult</a>&gt;&gt;</td>
+        <td><p>A list of search results.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_ISearchService_SearchAsync_System_String_System_Nullable_PVOutput_Net_Objects_PVCoordinate__CancellationToken_.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.ISearchService.SearchAsync(System.String%2CSystem.Nullable%7BPVOutput.Net.Objects.PVCoordinate%7D%2CCancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/master/src/PVOutput.Net/Modules/Interfaces/ISearchService.cs/#L23">View Source</a>
+  </span>
+  <a id="PVOutput_Net_Modules_ISearchService_SearchAsync_" data-uid="PVOutput.Net.Modules.ISearchService.SearchAsync*"></a>
+  <h4 id="PVOutput_Net_Modules_ISearchService_SearchAsync_System_String_System_Nullable_PVOutput_Net_Objects_PVCoordinate__CancellationToken_" data-uid="PVOutput.Net.Modules.ISearchService.SearchAsync(System.String,System.Nullable{PVOutput.Net.Objects.PVCoordinate},CancellationToken)">SearchAsync(String, Nullable&lt;PVCoordinate&gt;, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Retrieves a list of systems matching the provided query.</p>
+<p>See <a href="https://pvoutput.org/help.html#search">this page</a> for help with the query syntax.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;PVOutputArrayResponse&lt;ISystemSearchResult&gt;&gt; SearchAsync(string searchQuery, PVCoordinate? coordinate = null, CancellationToken cancellationToken = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">searchQuery</span></td>
+        <td><p>A search query to retrieve systems for.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<a class="xref" href="PVOutput.Net.Objects.PVCoordinate.html">PVCoordinate</a>&gt;</td>
+        <td><span class="parametername">coordinate</span></td>
+        <td><p>A GPS coordinate, used for distance queries.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A cancellation token for the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="PVOutput.Net.Responses.PVOutputArrayResponse-1.html">PVOutputArrayResponse</a>&lt;<a class="xref" href="PVOutput.Net.Objects.ISystemSearchResult.html">ISystemSearchResult</a>&gt;&gt;</td>
+        <td><p>A list of search results.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_ISearchService_SearchByDistanceAsync_PVOutput_Net_Objects_PVCoordinate_System_Int32_CancellationToken_.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.ISearchService.SearchByDistanceAsync(PVOutput.Net.Objects.PVCoordinate%2CSystem.Int32%2CCancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/master/src/PVOutput.Net/Modules/Interfaces/ISearchService.cs/#L92">View Source</a>
+  </span>
+  <a id="PVOutput_Net_Modules_ISearchService_SearchByDistanceAsync_" data-uid="PVOutput.Net.Modules.ISearchService.SearchByDistanceAsync*"></a>
+  <h4 id="PVOutput_Net_Modules_ISearchService_SearchByDistanceAsync_PVOutput_Net_Objects_PVCoordinate_System_Int32_CancellationToken_" data-uid="PVOutput.Net.Modules.ISearchService.SearchByDistanceAsync(PVOutput.Net.Objects.PVCoordinate,System.Int32,CancellationToken)">SearchByDistanceAsync(PVCoordinate, Int32, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Search for systems by distance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;PVOutputArrayResponse&lt;ISystemSearchResult&gt;&gt; SearchByDistanceAsync(PVCoordinate coordinate, int kilometers, CancellationToken cancellationToken = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="PVOutput.Net.Objects.PVCoordinate.html">PVCoordinate</a></td>
+        <td><span class="parametername">coordinate</span></td>
+        <td><p>GPS coordinate to search from.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">kilometers</span></td>
+        <td><p>Distance to search with <code>(25 is the maximum)</code>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A cancellation token for the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="PVOutput.Net.Responses.PVOutputArrayResponse-1.html">PVOutputArrayResponse</a>&lt;<a class="xref" href="PVOutput.Net.Objects.ISystemSearchResult.html">ISystemSearchResult</a>&gt;&gt;</td>
+        <td><p>A list of search results.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_ISearchService_SearchByDistanceAsync_System_Int32_System_Int32_System_String_CancellationToken_.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.ISearchService.SearchByDistanceAsync(System.Int32%2CSystem.Int32%2CSystem.String%2CCancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/master/src/PVOutput.Net/Modules/Interfaces/ISearchService.cs/#L83">View Source</a>
+  </span>
+  <a id="PVOutput_Net_Modules_ISearchService_SearchByDistanceAsync_" data-uid="PVOutput.Net.Modules.ISearchService.SearchByDistanceAsync*"></a>
+  <h4 id="PVOutput_Net_Modules_ISearchService_SearchByDistanceAsync_System_Int32_System_Int32_System_String_CancellationToken_" data-uid="PVOutput.Net.Modules.ISearchService.SearchByDistanceAsync(System.Int32,System.Int32,System.String,CancellationToken)">SearchByDistanceAsync(Int32, Int32, String, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Search for systems by distance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;PVOutputArrayResponse&lt;ISystemSearchResult&gt;&gt; SearchByDistanceAsync(int postcode, int kilometers, string countryCode, CancellationToken cancellationToken = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">postcode</span></td>
+        <td><p>Postcode to search from.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">kilometers</span></td>
+        <td><p>Distance to search with <code>(25 is the maximum)</code>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">countryCode</span></td>
+        <td><p>Country code of the postcode to search in <code>(eg. &quot;nl&quot;)</code>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A cancellation token for the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="PVOutput.Net.Responses.PVOutputArrayResponse-1.html">PVOutputArrayResponse</a>&lt;<a class="xref" href="PVOutput.Net.Objects.ISystemSearchResult.html">ISystemSearchResult</a>&gt;&gt;</td>
+        <td><p>A list of search results.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_ISearchService_SearchByInverterAsync_System_String_System_Boolean_CancellationToken_.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.ISearchService.SearchByInverterAsync(System.String%2CSystem.Boolean%2CCancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/master/src/PVOutput.Net/Modules/Interfaces/ISearchService.cs/#L73">View Source</a>
+  </span>
+  <a id="PVOutput_Net_Modules_ISearchService_SearchByInverterAsync_" data-uid="PVOutput.Net.Modules.ISearchService.SearchByInverterAsync*"></a>
+  <h4 id="PVOutput_Net_Modules_ISearchService_SearchByInverterAsync_System_String_System_Boolean_CancellationToken_" data-uid="PVOutput.Net.Modules.ISearchService.SearchByInverterAsync(System.String,System.Boolean,CancellationToken)">SearchByInverterAsync(String, Boolean, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Search for systems by inverter.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;PVOutputArrayResponse&lt;ISystemSearchResult&gt;&gt; SearchByInverterAsync(string inverter, bool useStartsWith = true, CancellationToken cancellationToken = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">inverter</span></td>
+        <td><p>Inverter to search for.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">useStartsWith</span></td>
+        <td><p>If <code>true</code> the name should start with the <code data-dev-comment-type="paramref" class="paramref">inverter</code> value. Otherwise the search is performed using a <code>contains</code> method.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A cancellation token for the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="PVOutput.Net.Responses.PVOutputArrayResponse-1.html">PVOutputArrayResponse</a>&lt;<a class="xref" href="PVOutput.Net.Objects.ISystemSearchResult.html">ISystemSearchResult</a>&gt;&gt;</td>
+        <td><p>A list of search results.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_ISearchService_SearchByNameAsync_System_String_System_Boolean_CancellationToken_.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.ISearchService.SearchByNameAsync(System.String%2CSystem.Boolean%2CCancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/master/src/PVOutput.Net/Modules/Interfaces/ISearchService.cs/#L32">View Source</a>
+  </span>
+  <a id="PVOutput_Net_Modules_ISearchService_SearchByNameAsync_" data-uid="PVOutput.Net.Modules.ISearchService.SearchByNameAsync*"></a>
+  <h4 id="PVOutput_Net_Modules_ISearchService_SearchByNameAsync_System_String_System_Boolean_CancellationToken_" data-uid="PVOutput.Net.Modules.ISearchService.SearchByNameAsync(System.String,System.Boolean,CancellationToken)">SearchByNameAsync(String, Boolean, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Search for systems by name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;PVOutputArrayResponse&lt;ISystemSearchResult&gt;&gt; SearchByNameAsync(string name, bool useStartsWith = true, CancellationToken cancellationToken = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>Name to search for.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">useStartsWith</span></td>
+        <td><p>If <code>true</code> the name should start with the <code data-dev-comment-type="paramref" class="paramref">name</code> value. Otherwise the search is performed using a <code>contains</code> method.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A cancellation token for the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="PVOutput.Net.Responses.PVOutputArrayResponse-1.html">PVOutputArrayResponse</a>&lt;<a class="xref" href="PVOutput.Net.Objects.ISystemSearchResult.html">ISystemSearchResult</a>&gt;&gt;</td>
+        <td><p>A list of search results.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_ISearchService_SearchByOrientationAsync_PVOutput_Net_Enums_Orientation_System_String_System_Boolean_CancellationToken_.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.ISearchService.SearchByOrientationAsync(PVOutput.Net.Enums.Orientation%2CSystem.String%2CSystem.Boolean%2CCancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/master/src/PVOutput.Net/Modules/Interfaces/ISearchService.cs/#L110">View Source</a>
+  </span>
+  <a id="PVOutput_Net_Modules_ISearchService_SearchByOrientationAsync_" data-uid="PVOutput.Net.Modules.ISearchService.SearchByOrientationAsync*"></a>
+  <h4 id="PVOutput_Net_Modules_ISearchService_SearchByOrientationAsync_PVOutput_Net_Enums_Orientation_System_String_System_Boolean_CancellationToken_" data-uid="PVOutput.Net.Modules.ISearchService.SearchByOrientationAsync(PVOutput.Net.Enums.Orientation,System.String,System.Boolean,CancellationToken)">SearchByOrientationAsync(Orientation, String, Boolean, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Search for systems by orientation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;PVOutputArrayResponse&lt;ISystemSearchResult&gt;&gt; SearchByOrientationAsync(Orientation orientation, string name = null, bool useStartsWith = true, CancellationToken cancellationToken = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="PVOutput.Net.Enums.Orientation.html">Orientation</a></td>
+        <td><span class="parametername">orientation</span></td>
+        <td><p>Orientation to search for.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>Name to search for.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">useStartsWith</span></td>
+        <td><p>If <code>true</code> the name should start with the <code data-dev-comment-type="paramref" class="paramref">name</code> value. Otherwise the search is performed using a <code>contains</code> method.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A cancellation token for the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="PVOutput.Net.Responses.PVOutputArrayResponse-1.html">PVOutputArrayResponse</a>&lt;<a class="xref" href="PVOutput.Net.Objects.ISystemSearchResult.html">ISystemSearchResult</a>&gt;&gt;</td>
+        <td><p>A list of search results.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_ISearchService_SearchByPanelAsync_System_String_CancellationToken_.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.ISearchService.SearchByPanelAsync(System.String%2CCancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/master/src/PVOutput.Net/Modules/Interfaces/ISearchService.cs/#L64">View Source</a>
+  </span>
+  <a id="PVOutput_Net_Modules_ISearchService_SearchByPanelAsync_" data-uid="PVOutput.Net.Modules.ISearchService.SearchByPanelAsync*"></a>
+  <h4 id="PVOutput_Net_Modules_ISearchService_SearchByPanelAsync_System_String_CancellationToken_" data-uid="PVOutput.Net.Modules.ISearchService.SearchByPanelAsync(System.String,CancellationToken)">SearchByPanelAsync(String, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Search for systems by panel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;PVOutputArrayResponse&lt;ISystemSearchResult&gt;&gt; SearchByPanelAsync(string panel, CancellationToken cancellationToken = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">panel</span></td>
+        <td><p>Panel to search for.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A cancellation token for the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="PVOutput.Net.Responses.PVOutputArrayResponse-1.html">PVOutputArrayResponse</a>&lt;<a class="xref" href="PVOutput.Net.Objects.ISystemSearchResult.html">ISystemSearchResult</a>&gt;&gt;</td>
+        <td><p>A list of search results.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_ISearchService_SearchByPostcodeAsync_System_String_CancellationToken_.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.ISearchService.SearchByPostcodeAsync(System.String%2CCancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/master/src/PVOutput.Net/Modules/Interfaces/ISearchService.cs/#L48">View Source</a>
+  </span>
+  <a id="PVOutput_Net_Modules_ISearchService_SearchByPostcodeAsync_" data-uid="PVOutput.Net.Modules.ISearchService.SearchByPostcodeAsync*"></a>
+  <h4 id="PVOutput_Net_Modules_ISearchService_SearchByPostcodeAsync_System_String_CancellationToken_" data-uid="PVOutput.Net.Modules.ISearchService.SearchByPostcodeAsync(System.String,CancellationToken)">SearchByPostcodeAsync(String, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Search for systems by postcode.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;PVOutputArrayResponse&lt;ISystemSearchResult&gt;&gt; SearchByPostcodeAsync(string postcode, CancellationToken cancellationToken = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">postcode</span></td>
+        <td><p>Postcode to search for.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A cancellation token for the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="PVOutput.Net.Responses.PVOutputArrayResponse-1.html">PVOutputArrayResponse</a>&lt;<a class="xref" href="PVOutput.Net.Objects.ISystemSearchResult.html">ISystemSearchResult</a>&gt;&gt;</td>
+        <td><p>A list of search results.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_ISearchService_SearchByPostcodeOrSizeAsync_System_Int32_CancellationToken_.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.ISearchService.SearchByPostcodeOrSizeAsync(System.Int32%2CCancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/master/src/PVOutput.Net/Modules/Interfaces/ISearchService.cs/#L40">View Source</a>
+  </span>
+  <a id="PVOutput_Net_Modules_ISearchService_SearchByPostcodeOrSizeAsync_" data-uid="PVOutput.Net.Modules.ISearchService.SearchByPostcodeOrSizeAsync*"></a>
+  <h4 id="PVOutput_Net_Modules_ISearchService_SearchByPostcodeOrSizeAsync_System_Int32_CancellationToken_" data-uid="PVOutput.Net.Modules.ISearchService.SearchByPostcodeOrSizeAsync(System.Int32,CancellationToken)">SearchByPostcodeOrSizeAsync(Int32, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Search for systems that have either a postcode or total size that begins with a value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;PVOutputArrayResponse&lt;ISystemSearchResult&gt;&gt; SearchByPostcodeOrSizeAsync(int value, CancellationToken cancellationToken = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>Value to search for.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A cancellation token for the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="PVOutput.Net.Responses.PVOutputArrayResponse-1.html">PVOutputArrayResponse</a>&lt;<a class="xref" href="PVOutput.Net.Objects.ISystemSearchResult.html">ISystemSearchResult</a>&gt;&gt;</td>
+        <td><p>A list of search results.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_ISearchService_SearchBySizeAsync_System_Int32_CancellationToken_.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.ISearchService.SearchBySizeAsync(System.Int32%2CCancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/master/src/PVOutput.Net/Modules/Interfaces/ISearchService.cs/#L56">View Source</a>
+  </span>
+  <a id="PVOutput_Net_Modules_ISearchService_SearchBySizeAsync_" data-uid="PVOutput.Net.Modules.ISearchService.SearchBySizeAsync*"></a>
+  <h4 id="PVOutput_Net_Modules_ISearchService_SearchBySizeAsync_System_Int32_CancellationToken_" data-uid="PVOutput.Net.Modules.ISearchService.SearchBySizeAsync(System.Int32,CancellationToken)">SearchBySizeAsync(Int32, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Search for systems by size.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;PVOutputArrayResponse&lt;ISystemSearchResult&gt;&gt; SearchBySizeAsync(int value, CancellationToken cancellationToken = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>Size to search for.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A cancellation token for the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="PVOutput.Net.Responses.PVOutputArrayResponse-1.html">PVOutputArrayResponse</a>&lt;<a class="xref" href="PVOutput.Net.Objects.ISystemSearchResult.html">ISystemSearchResult</a>&gt;&gt;</td>
+        <td><p>A list of search results.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_ISearchService_SearchByTeamAsync_System_String_CancellationToken_.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.ISearchService.SearchByTeamAsync(System.String%2CCancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/master/src/PVOutput.Net/Modules/Interfaces/ISearchService.cs/#L100">View Source</a>
+  </span>
+  <a id="PVOutput_Net_Modules_ISearchService_SearchByTeamAsync_" data-uid="PVOutput.Net.Modules.ISearchService.SearchByTeamAsync*"></a>
+  <h4 id="PVOutput_Net_Modules_ISearchService_SearchByTeamAsync_System_String_CancellationToken_" data-uid="PVOutput.Net.Modules.ISearchService.SearchByTeamAsync(System.String,CancellationToken)">SearchByTeamAsync(String, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Search for systems by team name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;PVOutputArrayResponse&lt;ISystemSearchResult&gt;&gt; SearchByTeamAsync(string teamName, CancellationToken cancellationToken = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">teamName</span></td>
+        <td><p>Team name to search for.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A cancellation token for the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="PVOutput.Net.Responses.PVOutputArrayResponse-1.html">PVOutputArrayResponse</a>&lt;<a class="xref" href="PVOutput.Net.Objects.ISystemSearchResult.html">ISystemSearchResult</a>&gt;&gt;</td>
+        <td><p>A list of search results.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_ISearchService_SearchByTiltAsync_System_Int32_CancellationToken_.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.ISearchService.SearchByTiltAsync(System.Int32%2CCancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/master/src/PVOutput.Net/Modules/Interfaces/ISearchService.cs/#L118">View Source</a>
+  </span>
+  <a id="PVOutput_Net_Modules_ISearchService_SearchByTiltAsync_" data-uid="PVOutput.Net.Modules.ISearchService.SearchByTiltAsync*"></a>
+  <h4 id="PVOutput_Net_Modules_ISearchService_SearchByTiltAsync_System_Int32_CancellationToken_" data-uid="PVOutput.Net.Modules.ISearchService.SearchByTiltAsync(System.Int32,CancellationToken)">SearchByTiltAsync(Int32, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Search for systems by tilt.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;PVOutputArrayResponse&lt;ISystemSearchResult&gt;&gt; SearchByTiltAsync(int tilt, CancellationToken cancellationToken = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">tilt</span></td>
+        <td><p>Tilt to search for (should be within 2.5 degrees of this value).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A cancellation token for the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="PVOutput.Net.Responses.PVOutputArrayResponse-1.html">PVOutputArrayResponse</a>&lt;<a class="xref" href="PVOutput.Net.Objects.ISystemSearchResult.html">ISystemSearchResult</a>&gt;&gt;</td>
+        <td><p>A list of search results.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_ISearchService.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.ISearchService%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/master/src/PVOutput.Net/Modules/Interfaces/ISearchService.cs/#L13" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
