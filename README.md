@@ -87,6 +87,14 @@ For more information on usage, please see the [documentation](https://pyrocumulu
 
 As of 0.8.0 this library contains the complete public API that official PVOutput exposes. See [documentation](https://pyrocumulus.github.io/pvoutput.net/) for details.
 
+## Contribute
+
+See [Contributing](CONTRIBUTING.md) for information on how to contribute to this project.
+
+## Contributors
+
+- [CodeCasterNL](https://github.com/CodeCasterNL)
+
 ## Building the project
 
 As the whole solution has all that dotnet magic, you can just run:
@@ -102,10 +110,6 @@ Running the Nunit tests can also be done from the cli, just run:
 ```posh
 dotnet test
 ```
-
-## Contribute
-
-See [Contributing](CONTRIBUTING.md) for information on how to contribute to this project.
 
 ## License
 

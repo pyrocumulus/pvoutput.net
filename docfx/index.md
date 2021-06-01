@@ -84,7 +84,3 @@ Your API key and owned system ID are always sent through headers, not the reques
 ### API reference
 
 See the [API reference](api/PVOutput.Net.yml) for details on all the classes provided by this library.
-
-## Contribute
-
-See [Contributing](https://github.com/pyrocumulus/pvoutput.net/blob/develop/CONTRIBUTING.md) on how you can contribute to this project.
