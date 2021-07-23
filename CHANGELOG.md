@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## Unreleased
+
+### Changed
+
+- **BREAKING**: Removed add batch output from API.
+
 ## [0.9.1] - 2021-06-01
 
 ### Added
@@ -32,7 +38,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Added method to `StatusService` to delete all statuses on a date [#45](https://github.com/pyrocumulus/pvoutput.net/pull/45)
 - Added methods to `StatusService` to add net batch statusses and cumulative batch statusses [#47](https://github.com/pyrocumulus/pvoutput.net/pull/47)
 
-## Fixed
+### Fixed
 
 - Corrected `SystemService` returning teams, estimates or extended properties with counts greater than 0, but with empty/null content
 - Removed dead code from certain code paths found through coverage testing
