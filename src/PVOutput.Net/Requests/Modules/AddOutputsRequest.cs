@@ -9,13 +9,13 @@ using PVOutput.Net.Requests.Base;
 
 namespace PVOutput.Net.Requests.Modules
 {
-    internal class AddBatchOutputRequest : PostRequest
+    internal class AddOutputsRequest : PostRequest
     {
-        public IEnumerable<IBatchOutputPost> Outputs { get; set; }
+        public IEnumerable<IOutputPost> Outputs { get; set; }
 
         public override HttpMethod Method => HttpMethod.Post;
 
-        public override string UriTemplate => "addbatchoutput.jsp{?data}";
+        public override string UriTemplate => "addoutput.jsp{?data}";
 
         public override IDictionary<string, object> GetUriPathParameters() => new Dictionary<string, object>
         {
@@ -26,7 +26,7 @@ namespace PVOutput.Net.Requests.Modules
         {
             var sb = new StringBuilder();
 
-            foreach (IBatchOutputPost output in Outputs)
+            foreach (IOutputPost output in Outputs)
             {
                 sb.Append(FormatOutputPost(output)).Append(';');
             }
@@ -34,7 +34,7 @@ namespace PVOutput.Net.Requests.Modules
             return sb.ToString();
         }
 
-        internal static string FormatOutputPost(IBatchOutputPost output)
+        internal static string FormatOutputPost(IOutputPost output)
         {
             var sb = new StringBuilder();
             sb.Append(FormatHelper.GetDateAsString(output.OutputDate));
@@ -49,12 +49,6 @@ namespace PVOutput.Net.Requests.Modules
             if (output.EnergyExported != null)
             {
                 sb.Append(output.EnergyExported);
-            }
-            sb.Append(',');
-
-            if (output.EnergyUsed != null)
-            {
-                sb.Append(output.EnergyUsed);
             }
             sb.Append(',');
 
@@ -110,6 +104,16 @@ namespace PVOutput.Net.Requests.Modules
             { 
                 sb.Append(FormatHelper.GetValueAsString(output.ShoulderEnergyImport)); 
             }
+
+            // consumption
+
+            // exportpeak
+            
+            // export off-peak
+
+            // export shoulder
+
+            // export high shoulder
 
             return sb.ToString();
         }

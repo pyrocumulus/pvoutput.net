@@ -76,13 +76,13 @@ namespace PVOutput.Net.Modules
         Task<PVOutputBasicResponse> AddOutputAsync(IOutputPost output, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Adds a list of outputs to the owned system.
-        /// <para>See the official <see href="https://pvoutput.org/help.html#api-addbatchoutput">API information</see>.</para>
-        /// Use the <see cref="BatchOutputPostBuilder"/> to create <see cref="IBatchOutputPost"/> objects.
+        /// Adds a list of outputs to the owned system. <strong>Note: this is a donation only function.</strong>
+        /// <para>See the official <see href="https://pvoutput.org/help/api_specification.html#add-output-service">API information</see>.</para>
+        /// Use the <see cref="OutputPostBuilder"/> to create <see cref="IOutputPost"/> objects.
         /// </summary>
-        /// <param name="outputs">Outputs to add. 30 outputs is the maximum, 100 for donation</param>
+        /// <param name="outputs">Outputs to add</param>
         /// <param name="cancellationToken">A cancellation token for the request.</param>
         /// <returns>If the operation succeeded.</returns>
-        Task<PVOutputBasicResponse> AddBatchOutputAsync(IEnumerable<IBatchOutputPost> outputs, CancellationToken cancellationToken = default);
+        Task<PVOutputBasicResponse> AddOutputsAsync(IEnumerable<IOutputPost> outputs, CancellationToken cancellationToken = default);
     }
 }

@@ -122,17 +122,17 @@ namespace PVOutput.Net.Modules
         }
 
         /// <inheritdoc />
-        public Task<PVOutputBasicResponse> AddBatchOutputAsync(IEnumerable<IBatchOutputPost> outputs, CancellationToken cancellationToken = default)
+        public Task<PVOutputBasicResponse> AddOutputsAsync(IEnumerable<IOutputPost> outputs, CancellationToken cancellationToken = default)
         {
             var loggingScope = new Dictionary<string, object>()
             {
-                [LoggingEvents.RequestId] = LoggingEvents.OutputService_AddBatchOutput
+                [LoggingEvents.RequestId] = LoggingEvents.OutputService_AddOutputs
             };
 
             Guard.Argument(outputs, nameof(outputs)).NotNull().NotEmpty();
 
             var handler = new RequestHandler(Client);
-            return handler.ExecutePostRequestAsync(new AddBatchOutputRequest() { Outputs = outputs }, loggingScope, cancellationToken);
+            return handler.ExecutePostRequestAsync(new AddOutputsRequest() { Outputs = outputs }, loggingScope, cancellationToken);
         }
     }
 }

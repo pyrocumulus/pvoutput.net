@@ -14,7 +14,7 @@ namespace PVOutput.Net.Requests.Modules
 
         public override HttpMethod Method => HttpMethod.Post;
 
-        public override string UriTemplate => "addoutput.jsp{?d,g,e,pp,pt,cd,tm,tx,cm,ip,io,is,ih,c}";
+        public override string UriTemplate => "addoutput.jsp{?d,g,e,pp,pt,cd,tm,tx,cm,ip,io,is,ih,c,ep,eo,es,eh}";
 
         public override IDictionary<string, object> GetUriPathParameters() => new Dictionary<string, object>
         {
@@ -31,7 +31,11 @@ namespace PVOutput.Net.Requests.Modules
             ["io"] = FormatHelper.GetValueAsString(Output.OffPeakEnergyImport),
             ["is"] = FormatHelper.GetValueAsString(Output.ShoulderEnergyImport),
             ["ih"] = FormatHelper.GetValueAsString(Output.HighShoulderEnergyImport),
-            ["c"] = Output.Consumption
+            ["c"] = Output.Consumption,
+            ["ep"] = FormatHelper.GetValueAsString(Output.PeakEnergyExport),
+            ["eo"] = FormatHelper.GetValueAsString(Output.OffPeakEnergyExport),
+            ["es"] = FormatHelper.GetValueAsString(Output.ShoulderEnergyExport),
+            ["eh"] = FormatHelper.GetValueAsString(Output.HighShoulderEnergyExport)
         };
     }
 }

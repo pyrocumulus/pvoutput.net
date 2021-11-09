@@ -227,7 +227,7 @@ namespace PVOutput.Net.Tests.Modules.Output
             });
         }
 
-        [Test]
+        /*[Test]
         public void OutputService_AddBatchOutput_WithNullOutputs_Throws()
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
@@ -247,7 +247,7 @@ namespace PVOutput.Net.Tests.Modules.Output
             {
                 _ = await client.Output.AddBatchOutputAsync(new List<IBatchOutputPost>());
             });
-        }
+        }*/
 
         public static IEnumerable AddOutputTestCases
         {
@@ -285,7 +285,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         }
 
 
-        [Test]
+        /*[Test]
         public async Task OutputService_AddBatchOutput_SendsCorrectContent()
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
@@ -301,7 +301,7 @@ namespace PVOutput.Net.Tests.Modules.Output
 
             await client.Output.AddBatchOutputAsync(outputs);
             testProvider.VerifyNoOutstandingExpectation();
-        }
+        }*/
 
         /*
          * Deserialisation tests below

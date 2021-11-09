@@ -7,9 +7,9 @@ using PVOutput.Net.Requests.Modules;
 
 namespace PVOutput.Net.Tests.Modules.Output
 {
-    public class AddBatchStatusRequestTests
+    /*public class AddBatchStatusRequestTests
     {
-        private string[] GetSplitOutputPostLine(BatchOutputPost post) => AddBatchOutputRequest.FormatOutputPost(post).Split(',');
+        private string[] GetSplitOutputPostLine(BatchOutputPost post) => AddOutputsRequest.FormatOutputPost(post).Split(',');
 
         [Test]
         public void Parameter_Timestamp_CreatesCorrectUriParameters()
@@ -115,5 +115,5 @@ namespace PVOutput.Net.Tests.Modules.Output
             string[] postArray = GetSplitOutputPostLine(post);
             Assert.That(postArray[12], Is.EqualTo("3333"));
         }
-    }
+    }*/
 }

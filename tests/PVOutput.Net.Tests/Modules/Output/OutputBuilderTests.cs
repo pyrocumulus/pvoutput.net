@@ -305,7 +305,7 @@ namespace PVOutput.Net.Tests.Modules.Output
             Assert.That(builder.OutputPost, Is.Not.SameAs(output));
         }
 
-        [Test]
+        /*[Test]
         public void BatchOutputPostBuilder_WithEnergyUsed_SetsUsed()
         {
             var builder = new BatchOutputPostBuilder().SetDate(DateTime.Today)
@@ -333,6 +333,6 @@ namespace PVOutput.Net.Tests.Modules.Output
             {
                 builder.Build();
             });
-        }
+        }*/
     }
 }
