@@ -51,6 +51,7 @@ namespace PVOutput.Net.Objects.Core
         public static readonly EventId Handler_ReceivedResponseContent = new EventId(10002, "ReceivedResponseContent");
         public static readonly EventId Handler_RequestStatusSuccesful = new EventId(10003, "RequestStatusSuccesful");
         public static readonly EventId Handler_RequestStatusFailed = new EventId(10004, "RequestStatusFailed");
+        public static readonly EventId Handler_ApiInformation = new EventId(10005, "ApiInformation");
 
         /*
          * Module specific event IDs per request
