@@ -256,7 +256,7 @@ namespace PVOutput.Net.Requests.Handler
 
             using (TextReader textReader = new StreamReader(cloneStream))
             {
-                string completeContent = textReader.ReadToEnd();
+                string completeContent = await textReader.ReadToEndAsync().ConfigureAwait(false);
 
                 if (completeContent.Length > 0)
                 {
