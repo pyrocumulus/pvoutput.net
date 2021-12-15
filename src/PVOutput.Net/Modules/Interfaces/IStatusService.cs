@@ -100,9 +100,9 @@ namespace PVOutput.Net.Modules
         /// Deletes all statuses on the specified date. 
         /// <para>See the official <see href="https://pvoutput.org/help.html#api-deletestatus">API information</see>.</para>
         /// </summary>
-        /// <param name="date">The date to delete all statuses for. This can only be today or yesterday.</param>
+        /// <param name="statusDate">The date to delete all statuses for. This can only be today or yesterday.</param>
         /// <param name="cancellationToken">A cancellation token for the request.</param>
         /// <returns>If the operation succeeded.</returns>
-        Task<PVOutputBasicResponse> DeleteAllStatusesOnDateAsync(DateTime date, CancellationToken cancellationToken = default);
+        Task<PVOutputBasicResponse> DeleteAllStatusesOnDateAsync(DateTime statusDate, CancellationToken cancellationToken = default);
     }
 }

@@ -23,8 +23,27 @@ namespace PVOutput.Net.Requests.Handler
 
         private ILogger Logger => Client.Logger;
 
+        private static Action<ILogger, string, Exception> LogRequestStatusSuccesful { get; set; }
+        private static Action<ILogger, string, string, Exception> LogRequestStatusFailed { get; set; }
+        private static Action<ILogger, int, int, DateTime, Exception> LogApiRateInformation { get; set; }
+        private static Action<ILogger, string, Exception> LogReceivedResponseContent { get; set; }
+        private static Action<ILogger, string, Exception> LogExecuteRequest { get; set; }
+        private static Func<ILogger, Dictionary<string, object>, IDisposable> LogExecuteSingleItemRequestScope { get; set; }
+        private static Func<ILogger, Dictionary<string, object>, IDisposable> LogExecuteArrayRequestScope1 { get; set; }
+        private static Func<ILogger, Dictionary<string, object>, IDisposable> LogExecutePostRequestScope1 { get; set; }
+
         public RequestHandler(PVOutputClient client)
         {
+            LogRequestStatusSuccesful = LoggerMessage.Define<string>(LogLevel.Information, LoggingEvents.Handler_RequestStatusSuccesful, "[RequestSuccessful] Status: {StatusCode}");
+            LogRequestStatusFailed = LoggerMessage.Define<string, string>(LogLevel.Information, LoggingEvents.Handler_RequestStatusFailed, "[RequestFailed] Status: {StatusCode} Content: {Message}");
+            LogApiRateInformation = LoggerMessage.Define<int, int, DateTime>(LogLevel.Debug, LoggingEvents.Handler_ApiInformation, "[API-rate] Remaining: {LimitRemaining} Limit: {CurrentLimit}: ResetAt: {LimitResetAt}");
+            LogReceivedResponseContent = LoggerMessage.Define<string>(LogLevel.Trace, LoggingEvents.Handler_ReceivedResponseContent, "Response content:" + Environment.NewLine + "{content}");
+            LogExecuteRequest = LoggerMessage.Define<string>(LogLevel.Trace, LoggingEvents.Handler_ExecuteRequest, "[ExecuteRequest] Uri: {RequestUri}");
+
+            LogExecuteSingleItemRequestScope = LoggerMessage.DefineScope<Dictionary<string, object>>("[SingleRequest]: {SingleValues}");
+            LogExecuteArrayRequestScope1 = LoggerMessage.DefineScope<Dictionary<string, object>>("[ArrayRequest]: {ArrayValues}");
+            LogExecutePostRequestScope1 = LoggerMessage.DefineScope<Dictionary<string, object>>("[PostRequest]: {PostValues}");
+
             Client = client;
         }
 
@@ -34,7 +53,7 @@ namespace PVOutput.Net.Requests.Handler
 
             try
             {
-                using (Logger.BeginScope(loggingScope))
+                using (LogExecuteSingleItemRequestScope(Logger, loggingScope))
                 {
                     using (HttpRequestMessage requestMessage = CreateRequestMessage(request))
                     {
@@ -70,10 +89,10 @@ namespace PVOutput.Net.Requests.Handler
 
             try
             {
-                using (Logger.BeginScope(loggingScope))
+                using (LogExecuteArrayRequestScope1(Logger, loggingScope))
                 {
                     using (HttpRequestMessage requestMessage = CreateRequestMessage(request))
-                    {
+                    { 
                         responseMessage = await ExecuteRequestAsync(requestMessage, cancellationToken).ConfigureAwait(false);
                     }
                     Stream responseStream = await GetResponseContentStreamAsync(responseMessage).ConfigureAwait(false);
@@ -106,7 +125,7 @@ namespace PVOutput.Net.Requests.Handler
 
             try
             {
-                using (Logger.BeginScope(loggingScope))
+                using (LogExecutePostRequestScope1(Logger, loggingScope))
                 {
                     using (HttpRequestMessage requestMessage = CreateRequestMessage(request))
                     {
@@ -145,12 +164,11 @@ namespace PVOutput.Net.Requests.Handler
             return false;
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "Logging is non translatable for now")]
         private PVOutputApiError ProcessHttpErrorResults(HttpResponseMessage response, Stream responseStream)
         {
             if (response.IsSuccessStatusCode)
             {
-                Logger.LogInformation(LoggingEvents.Handler_RequestStatusSuccesful, "[RequestSuccessful] Status: {StatusCode}", response.StatusCode);
+                LogRequestStatusSuccesful(Logger, response.StatusCode.ToString(), null);
                 return null;
             }
 
@@ -175,7 +193,7 @@ namespace PVOutput.Net.Requests.Handler
                 }
             }
 
-            Logger.LogError(LoggingEvents.Handler_RequestStatusFailed, "[RequestFailed] Status: {StatusCode} Content: {Message} ", error.StatusCode, error.Message);
+            LogRequestStatusFailed(Logger, error.StatusCode.ToString(), error.Message, null);
 
             if (Client.ThrowResponseExceptions)
             {
@@ -206,7 +224,6 @@ namespace PVOutput.Net.Requests.Handler
             return null;
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "Logging is non translatable for now")]
         private PVOutputApiRateInformation GetApiRateInformationfromResponse(HttpResponseMessage response)
         {
             var result = new PVOutputApiRateInformation();
@@ -226,7 +243,7 @@ namespace PVOutput.Net.Requests.Handler
                 result.LimitResetAt = DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(response.Headers.GetValues("X-Rate-Limit-Reset").First(), CultureInfo.CreateSpecificCulture("en-US"))).DateTime;
             }
 
-            Logger.LogDebug("[API-rate] Remaining: {LimitRemaining} Limit: {CurrentLimit}: ResetAt: {LimitResetAt}", result.LimitRemaining, result.CurrentLimit, result.LimitResetAt);
+            LogApiRateInformation(Logger, result.LimitRemaining, result.CurrentLimit, result.LimitResetAt, null);
             return result;
         }
 
@@ -256,11 +273,11 @@ namespace PVOutput.Net.Requests.Handler
 
             using (TextReader textReader = new StreamReader(cloneStream))
             {
-                string completeContent = textReader.ReadToEnd();
+                string completeContent = await textReader.ReadToEndAsync().ConfigureAwait(false);
 
                 if (completeContent.Length > 0)
                 {
-                    Logger.LogTrace(LoggingEvents.Handler_ReceivedResponseContent, "Response content" + Environment.NewLine + "{content}", completeContent);
+                    LogReceivedResponseContent(Logger, completeContent, null);
                 }
             }
 
@@ -288,11 +305,10 @@ namespace PVOutput.Net.Requests.Handler
             return $"{PVOutputClient.PVOutputBaseUri}{apiUri}";
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "Logging is non translatable for now")]
         internal Task<HttpResponseMessage> ExecuteRequestAsync(HttpRequestMessage requestMessage, CancellationToken cancellationToken = default)
         {
             SetRequestHeaders(requestMessage);
-            Logger.LogTrace(LoggingEvents.Handler_ExecuteRequest, "[ExecuteRequest] Uri: {RequestUri}", requestMessage.RequestUri);
+            LogExecuteRequest(Logger, requestMessage.RequestUri.ToString(), null);
             return Client.HttpClientProvider.GetHttpClient().SendAsync(requestMessage, cancellationToken);
         }
 

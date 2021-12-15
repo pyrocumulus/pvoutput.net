@@ -9,6 +9,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - **BREAKING**: Removed add batch output from API.
 
+### Fixed
+
+- **BREAKING**: Many methods with a parameter of `DateTime` used the parameter name `date`; those have been renamed [#100](https://github.com/pyrocumulus/pvoutput.net/pull/100)
+- Logging is now more performant and async flow has been slightly improved [#100](https://github.com/pyrocumulus/pvoutput.net/pull/100)
+
+## [0.9.2] - 2021-11-22
+
+### Updated
+
+- Updated `Microsoft.CodeAnalysis.NetAnalyzers` from `v5.0.3` to `v6.0.0` [#95](https://github.com/pyrocumulus/pvoutput.net/pull/95)
+- Updated `Microsoft.Extensions.DependencyInjection.Abstractions` from `v5.0.0` to `v6.0.0` [ec56607](https://github.com/pyrocumulus/pvoutput.net/commit/ec566073ae7d5f1b81afe61536e0b480f5b128e4)
+- Updated `Microsoft.Extensions.Logging.Abstractions` from `v5.0.0` to `v6.0.0` [9fb8db1](https://github.com/pyrocumulus/pvoutput.net/commit/9fb8db126ddad4ab86d28340af021b5eafa27e21)
+
 ## [0.9.1] - 2021-06-01
 
 ### Added

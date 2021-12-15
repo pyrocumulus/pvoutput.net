@@ -18,12 +18,12 @@ namespace PVOutput.Net.Modules
         /// <summary>
         /// Retrieve daily output for a date.
         /// </summary>
-        /// <param name="date">Date to retrieve the output for.</param>
+        /// <param name="outputDate">Date to retrieve the output for.</param>
         /// <param name="getInsolation">Also retrieve insolation information. <strong>Note: this is a donation only parameter.</strong></param>
         /// <param name="systemId">Retrieve output for a specific system. <strong>Note: this is a donation only parameter.</strong></param>
         /// <param name="cancellationToken">A cancellation token for the request.</param>
         /// <returns>Output for the requested date.</returns>
-        Task<PVOutputResponse<IOutput>> GetOutputForDateAsync(DateTime date, bool getInsolation = false, int? systemId = null, CancellationToken cancellationToken = default);
+        Task<PVOutputResponse<IOutput>> GetOutputForDateAsync(DateTime outputDate, bool getInsolation = false, int? systemId = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Retrieve daily outputs for a period.
@@ -39,11 +39,11 @@ namespace PVOutput.Net.Modules
         /// <summary>
         /// Retrieve daily output for a team.
         /// </summary>
-        /// <param name="date">Date to retrieve the output for.</param>
+        /// <param name="outputDate">Date to retrieve the output for.</param>
         /// <param name="teamId">Team to retrieve the output for.</param>
         /// <param name="cancellationToken">A cancellation token for the request.</param>
         /// <returns>Team output for the requested date.</returns>
-        Task<PVOutputResponse<ITeamOutput>> GetTeamOutputForDateAsync(DateTime date, int teamId, CancellationToken cancellationToken = default);
+        Task<PVOutputResponse<ITeamOutput>> GetTeamOutputForDateAsync(DateTime outputDate, int teamId, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Retrieve daily team outputs for a period.

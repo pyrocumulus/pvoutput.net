@@ -145,18 +145,18 @@ namespace PVOutput.Net.Modules
         }
 
         /// <inheritdoc />
-        public Task<PVOutputBasicResponse> DeleteAllStatusesOnDateAsync(DateTime date, CancellationToken cancellationToken = default)
+        public Task<PVOutputBasicResponse> DeleteAllStatusesOnDateAsync(DateTime statusDate, CancellationToken cancellationToken = default)
         {
             var loggingScope = new Dictionary<string, object>()
             {
                 [LoggingEvents.RequestId] = LoggingEvents.StatusService_DeleteStatus,
-                [LoggingEvents.Parameter_Date] = date
+                [LoggingEvents.Parameter_Date] = statusDate
             };
 
-            Guard.Argument(date, nameof(date)).IsNoFutureDate().Min(DateTime.Today.AddDays(-1)).NoTimeComponent();
+            Guard.Argument(statusDate, nameof(statusDate)).IsNoFutureDate().Min(DateTime.Today.AddDays(-1)).NoTimeComponent();
 
             var handler = new RequestHandler(Client);
-            return handler.ExecutePostRequestAsync(new DeleteStatusRequest() { Timestamp = date, CompleteDate = true }, loggingScope, cancellationToken);
+            return handler.ExecutePostRequestAsync(new DeleteStatusRequest() { Timestamp = statusDate, CompleteDate = true }, loggingScope, cancellationToken);
         }
     }
 }
