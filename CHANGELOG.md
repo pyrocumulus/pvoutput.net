@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## Unreleased
+
+### Fixed
+
+- **BREAKING**: Many methods with a parameter of `DateTime` used the parameter name `date`; those have been renamed [#100](https://github.com/pyrocumulus/pvoutput.net/pull/100)
+- Logging is now more performant and async flow has been slightly improved [#100](https://github.com/pyrocumulus/pvoutput.net/pull/100)
+
 ## [0.9.2] - 2021-11-22
 
 ### Updated

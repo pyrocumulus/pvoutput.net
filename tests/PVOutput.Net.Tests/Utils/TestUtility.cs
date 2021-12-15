@@ -33,16 +33,6 @@ namespace PVOutput.Net.Tests.Utils
             return await reader.ReadArrayAsync(new StringReader(response));
         }
 
-        public static PVOutputClient GetMockClient(string uri, string mockResponseContent)
-        {
-            var provider = new TestHttpClientProvider();
-            provider.When(uri, mockResponseContent);
-            provider.MockHttpMessageHandler.Fallback.RespondPlainText("");
-            var client = new PVOutputClient(TestConstants.PVOUTPUT_API_KEY, TestConstants.PVOUTPUT_SYSTEM_ID, new TestOutputLogger());
-            client.HttpClientProvider = provider;
-            return client;
-        }
-
         public static PVOutputClient GetMockClient(out MockHttpMessageHandler mockHandler)
         {
             var provider = new TestHttpClientProvider();

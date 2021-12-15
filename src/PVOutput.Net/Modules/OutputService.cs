@@ -20,20 +20,20 @@ namespace PVOutput.Net.Modules
         }
 
         /// <inheritdoc />
-        public Task<PVOutputResponse<IOutput>> GetOutputForDateAsync(DateTime date, bool getInsolation = false, int? systemId = null, CancellationToken cancellationToken = default)
+        public Task<PVOutputResponse<IOutput>> GetOutputForDateAsync(DateTime outputDate, bool getInsolation = false, int? systemId = null, CancellationToken cancellationToken = default)
         {
             var loggingScope = new Dictionary<string, object>()
             {
                 [LoggingEvents.RequestId] = LoggingEvents.OutputService_GetOutputForDate,
-                [LoggingEvents.Parameter_Date] = date,
+                [LoggingEvents.Parameter_Date] = outputDate,
                 [LoggingEvents.Parameter_GetInsolation] = getInsolation,
                 [LoggingEvents.Parameter_SystemId] = systemId
             };
 
-            Guard.Argument(date, nameof(date)).Max(DateTime.Today);
+            Guard.Argument(outputDate, nameof(outputDate)).Max(DateTime.Today);
 
             var handler = new RequestHandler(Client);
-            return handler.ExecuteSingleItemRequestAsync<IOutput>(new OutputRequest { FromDate = date, ToDate = date, SystemId = systemId, Insolation = getInsolation }, loggingScope, cancellationToken);
+            return handler.ExecuteSingleItemRequestAsync<IOutput>(new OutputRequest { FromDate = outputDate, ToDate = outputDate, SystemId = systemId, Insolation = getInsolation }, loggingScope, cancellationToken);
         }
 
         /// <inheritdoc />
@@ -56,19 +56,19 @@ namespace PVOutput.Net.Modules
         }
 
         /// <inheritdoc />
-        public Task<PVOutputResponse<ITeamOutput>> GetTeamOutputForDateAsync(DateTime date, int teamId, CancellationToken cancellationToken = default)
+        public Task<PVOutputResponse<ITeamOutput>> GetTeamOutputForDateAsync(DateTime outputDate, int teamId, CancellationToken cancellationToken = default)
         {
             var loggingScope = new Dictionary<string, object>()
             {
                 [LoggingEvents.RequestId] = LoggingEvents.OutputService_GetTeamOutputForDate,
-                [LoggingEvents.Parameter_Date] = date,
+                [LoggingEvents.Parameter_Date] = outputDate,
                 [LoggingEvents.Parameter_TeamId] = teamId
             };
 
-            Guard.Argument(date, nameof(date)).Max(DateTime.Today);
+            Guard.Argument(outputDate, nameof(outputDate)).Max(DateTime.Today);
 
             var handler = new RequestHandler(Client);
-            return handler.ExecuteSingleItemRequestAsync<ITeamOutput>(new OutputRequest { FromDate = date, ToDate = date, TeamId = teamId }, loggingScope, cancellationToken);
+            return handler.ExecuteSingleItemRequestAsync<ITeamOutput>(new OutputRequest { FromDate = outputDate, ToDate = outputDate, TeamId = teamId }, loggingScope, cancellationToken);
         }
 
         /// <inheritdoc />

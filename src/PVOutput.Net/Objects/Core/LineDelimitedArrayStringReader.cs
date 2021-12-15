@@ -25,7 +25,7 @@ namespace PVOutput.Net.Objects.Core
 
             while (reader.Peek() >= 0)
             {
-                var line = reader.ReadLine();
+                var line = await reader.ReadLineAsync().ConfigureAwait(false);
                 await ReadAndAddObjectAsync(objectReader, results, line, cancellationToken).ConfigureAwait(false);
             }
 
