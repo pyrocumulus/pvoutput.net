@@ -169,7 +169,6 @@ namespace PVOutput.Net.Requests.Handler
             if (response.IsSuccessStatusCode)
             {
                 LogRequestStatusSuccesful(Logger, response.StatusCode.ToString(), null);
-                //Logger.LogInformation(LoggingEvents.Handler_RequestStatusSuccesful, "[RequestSuccessful] Status: {StatusCode}", response.StatusCode);
                 return null;
             }
 
@@ -195,7 +194,6 @@ namespace PVOutput.Net.Requests.Handler
             }
 
             LogRequestStatusFailed(Logger, error.StatusCode.ToString(), error.Message, null);
-            //Logger.LogError(LoggingEvents.Handler_RequestStatusFailed, "[RequestFailed] Status: {StatusCode} Content: {Message} ", error.StatusCode, error.Message);
 
             if (Client.ThrowResponseExceptions)
             {
