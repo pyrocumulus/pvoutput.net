@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 
-- **BREAKING**: Removed add batch output from API.
+- **BREAKING**: Removed add batch output from API. Please use the `AddOutputsAsync` method from now on. This is donation only. [#78](https://github.com/pyrocumulus/pvoutput.net/pull/78)
 
 ### Fixed
 

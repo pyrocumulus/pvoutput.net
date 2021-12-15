@@ -104,17 +104,42 @@ namespace PVOutput.Net.Requests.Modules
             { 
                 sb.Append(FormatHelper.GetValueAsString(output.ShoulderEnergyImport)); 
             }
+            sb.Append(',');
 
-            // consumption
+            if (output.HighShoulderEnergyImport != null)
+            {
+                sb.Append(FormatHelper.GetValueAsString(output.HighShoulderEnergyImport));
+            }
+            sb.Append(',');
 
-            // exportpeak
-            
-            // export off-peak
+            if (output.Consumption != null)
+            {
+                sb.Append(FormatHelper.GetValueAsString(output.Consumption));
+            }
+            sb.Append(',');
 
-            // export shoulder
+            if (output.PeakEnergyExport != null)
+            {
+                sb.Append(FormatHelper.GetValueAsString(output.PeakEnergyExport));
+            }
+            sb.Append(',');
 
-            // export high shoulder
+            if (output.OffPeakEnergyExport != null)
+            {
+                sb.Append(FormatHelper.GetValueAsString(output.OffPeakEnergyExport));
+            }
+            sb.Append(',');
 
+            if (output.ShoulderEnergyExport != null)
+            {
+                sb.Append(FormatHelper.GetValueAsString(output.ShoulderEnergyExport));
+            }
+            sb.Append(',');
+
+            if (output.HighShoulderEnergyExport!= null)
+            {
+                sb.Append(FormatHelper.GetValueAsString(output.HighShoulderEnergyExport));
+            }
             return sb.ToString();
         }
     }

@@ -143,5 +143,43 @@ namespace PVOutput.Net.Tests.Modules.Status
             var parameters = request.GetUriPathParameters();
             Assert.That(parameters["c"], Is.EqualTo(9876));
         }
+
+        [Test]
+        public void Parameter_PeakEnergyExport_CreatesCorrectUriParameters()
+        {
+            var request = new AddOutputRequest() { Output = new OutputPost() { PeakEnergyExport = 4545 } };
+
+            var parameters = request.GetUriPathParameters();
+            Assert.That(parameters["ep"], Is.EqualTo("4545"));
+        }
+
+
+        [Test]
+        public void Parameter_OffPeakEnergyExport_CreatesCorrectUriParameters()
+        {
+            var request = new AddOutputRequest() { Output = new OutputPost() { OffPeakEnergyExport = 9484 } };
+
+            var parameters = request.GetUriPathParameters();
+            Assert.That(parameters["eo"], Is.EqualTo("9484"));
+        }
+
+        [Test]
+        public void Parameter_ShoulderEnergyExport_CreatesCorrectUriParameters()
+        {
+            var request = new AddOutputRequest() { Output = new OutputPost() { ShoulderEnergyExport = 2451 } };
+
+            var parameters = request.GetUriPathParameters();
+            Assert.That(parameters["es"], Is.EqualTo("2451"));
+        }
+
+
+        [Test]
+        public void Parameter_HighShoulderEnergyExport_CreatesCorrectUriParameters()
+        {
+            var request = new AddOutputRequest() { Output = new OutputPost() { HighShoulderEnergyExport = 9467 } };
+
+            var parameters = request.GetUriPathParameters();
+            Assert.That(parameters["eh"], Is.EqualTo("9467"));
+        }
     }
 }

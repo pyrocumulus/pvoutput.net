@@ -267,6 +267,44 @@ namespace PVOutput.Net.Tests.Modules.Output
         }
 
         [Test]
+        public void OutputPostBuilder_WithPeakEnergyExport_SetPeakEnergyExport()
+        {
+            var builder = new OutputPostBuilder().SetDate(DateTime.Today)
+                .SetPeakEnergyExport(2000);
+
+            Assert.That(builder.OutputPost.PeakEnergyExport, Is.EqualTo(2000));
+        }
+
+
+        [Test]
+        public void OutputPostBuilder_WithOffPeakEnergyExport_SetOffPeakEnergyExport()
+        {
+            var builder = new OutputPostBuilder().SetDate(DateTime.Today)
+                .SetOffPeakEnergyExport(3000);
+
+            Assert.That(builder.OutputPost.OffPeakEnergyExport, Is.EqualTo(3000));
+        }
+
+
+        [Test]
+        public void OutputPostBuilder_WithShoulderEnergyExport_SetShoulderEnergyExport()
+        {
+            var builder = new OutputPostBuilder().SetDate(DateTime.Today)
+                .SetShoulderEnergyExport(4000);
+
+            Assert.That(builder.OutputPost.ShoulderEnergyExport, Is.EqualTo(4000));
+        }
+
+        [Test]
+        public void OutputPostBuilder_WithHighShoulderEnergyExport_SetHighShoulderEnergyExport()
+        {
+            var builder = new OutputPostBuilder().SetDate(DateTime.Today)
+                .SetHighShoulderEnergyExport(5000);
+
+            Assert.That(builder.OutputPost.HighShoulderEnergyExport, Is.EqualTo(5000));
+        }
+
+        [Test]
         public void OutputPostBuilder_WithNegativeConsumption_Throws()
         {
             Assert.Throws<ArgumentOutOfRangeException>(() =>

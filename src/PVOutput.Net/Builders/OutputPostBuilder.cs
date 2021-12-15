@@ -202,7 +202,59 @@ namespace PVOutput.Net.Builders
         {
             Guard.Argument(consumption, nameof(consumption)).Min(0);
 
-            (OutputPost as OutputPost).Consumption = consumption;
+            OutputPost.Consumption = consumption;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets peak energy export for the output.
+        /// </summary>
+        /// <param name="peakEnergyExport">Peak energy export.</param>
+        /// <returns>The builder.</returns>
+        public OutputPostBuilder SetPeakEnergyExport(int peakEnergyExport)
+        {
+            Guard.Argument(peakEnergyExport, nameof(peakEnergyExport)).Min(0);
+
+            OutputPost.PeakEnergyExport = peakEnergyExport;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets off peak energy export for the output.
+        /// </summary>
+        /// <param name="offPeakEnergyExport">Off peak energy export.</param>
+        /// <returns>The builder.</returns>
+        public OutputPostBuilder SetOffPeakEnergyExport(int offPeakEnergyExport)
+        {
+            Guard.Argument(offPeakEnergyExport, nameof(offPeakEnergyExport)).Min(0);
+
+            OutputPost.OffPeakEnergyExport = offPeakEnergyExport;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets shoulder energy export for the output.
+        /// </summary>
+        /// <param name="shoulderEnergyExport">Shoulder energy export.</param>
+        /// <returns>The builder.</returns>
+        public OutputPostBuilder SetShoulderEnergyExport(int shoulderEnergyExport)
+        {
+            Guard.Argument(shoulderEnergyExport, nameof(shoulderEnergyExport)).Min(0);
+
+            OutputPost.ShoulderEnergyExport = shoulderEnergyExport;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets high shoulder energy export for the output.
+        /// </summary>
+        /// <param name="highShoulderEnergyExport">High shoulder energy export.</param>
+        /// <returns>The builder.</returns>
+        public OutputPostBuilder SetHighShoulderEnergyExport(int highShoulderEnergyExport)
+        {
+            Guard.Argument(highShoulderEnergyExport, nameof(highShoulderEnergyExport)).Min(0);
+
+            OutputPost.HighShoulderEnergyExport = highShoulderEnergyExport;
             return this;
         }
 

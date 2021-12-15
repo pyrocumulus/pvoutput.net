@@ -227,14 +227,14 @@ namespace PVOutput.Net.Tests.Modules.Output
             });
         }
 
-        /*[Test]
+        [Test]
         public void OutputService_AddBatchOutput_WithNullOutputs_Throws()
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
             Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
-                _ = await client.Output.AddBatchOutputAsync(null);
+                _ = await client.Output.AddOutputsAsync(null);
             });
         }
 
@@ -245,9 +245,9 @@ namespace PVOutput.Net.Tests.Modules.Output
 
             Assert.ThrowsAsync<ArgumentException>(async () =>
             {
-                _ = await client.Output.AddBatchOutputAsync(new List<IBatchOutputPost>());
+                _ = await client.Output.AddOutputsAsync(new List<IOutputPost>());
             });
-        }*/
+        }
 
         public static IEnumerable AddOutputTestCases
         {
@@ -285,23 +285,23 @@ namespace PVOutput.Net.Tests.Modules.Output
         }
 
 
-        /*[Test]
+        [Test]
         public async Task OutputService_AddBatchOutput_SendsCorrectContent()
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
-            testProvider.ExpectUriFromBase(ADDBATCHOUTPUT_URL)
-                        .WithQueryString("data=20200101,11000,9000,,,,,,,,,,;20200101,,,12000,,,Partly Cloudy,,,Test,,,;")
+            testProvider.ExpectUriFromBase(ADDOUTPUT_URL)
+                        .WithQueryString("data=20200101,11000,9000,,,,,,,,,,,,2233,,,;20200101,,,,,Partly Cloudy,,,Test,,,,,12000,,,,2121;")
                         .RespondPlainText("");
 
-            var builder = new BatchOutputPostBuilder();
-            var outputs = new List<IBatchOutputPost>();
+            var builder = new OutputPostBuilder();
+            var outputs = new List<IOutputPost>();
 
-            outputs.Add(builder.SetDate(new DateTime(2020, 1, 1)).SetEnergyGenerated(11000).SetEnergyExported(9000).BuildAndReset());
-            outputs.Add(builder.SetDate(new DateTime(2020, 1, 1)).SetEnergyUsed(12000).SetCondition(WeatherCondition.PartlyCloudy).SetComments("Test").BuildAndReset());
+            outputs.Add(builder.SetDate(new DateTime(2020, 1, 1)).SetEnergyGenerated(11000).SetEnergyExported(9000).SetPeakEnergyExport(2233).BuildAndReset());
+            outputs.Add(builder.SetDate(new DateTime(2020, 1, 1)).SetConsumption(12000).SetCondition(WeatherCondition.PartlyCloudy).SetComments("Test").SetHighShoulderEnergyExport(2121).BuildAndReset());
 
-            await client.Output.AddBatchOutputAsync(outputs);
+            await client.Output.AddOutputsAsync(outputs);
             testProvider.VerifyNoOutstandingExpectation();
-        }*/
+        }
 
         /*
          * Deserialisation tests below
