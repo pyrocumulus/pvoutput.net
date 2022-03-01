@@ -113,5 +113,30 @@ namespace PVOutput.Net.Objects.Core
 
             throw new ArgumentException($"Invalid description '{enumerationDescription}' for enum " + type.Name, nameof(enumerationDescription));
         }
+
+        /// <summary>
+        /// Returns enum value corresponding to given textual string value. If no value could be found, it returns null.
+        /// </summary>
+        /// <typeparam name="TEnumType">Enum to cast the string to.</typeparam>
+        /// <param name="enumerationDescription">String containing the enum description.</param>
+        /// <returns>An enum value if the description is found, null if no corresponding enum could be found.</returns>
+        /// <exception cref="ArgumentException">Throws if supplied type is not an Enum-type.</exception>
+        public static TEnumType? DescriptionToNullableEnumValue<TEnumType>(this string enumerationDescription) where TEnumType : struct
+        {
+            Type type = typeof(TEnumType);
+
+            if (!type.IsEnum)
+            {
+                throw new ArgumentException("Type parameter must be of Enum type");
+            }
+
+            foreach (TEnumType val in Enum.GetValues(type))
+            {
+                if (val.GetEnumerationDescription() == enumerationDescription)
+                    return val;
+            }
+
+            return null;
+        }
     }
 }
