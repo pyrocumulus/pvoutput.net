@@ -58,6 +58,30 @@ namespace PVOutput.Net.Tests.Handler
             });
         }
 
+
+        [Test]
+        public void DescriptionToNullableEnumValue_ForDescription_GetsEnumValue()
+        {
+            var enumValue = FormatHelper.DescriptionToNullableEnumValue<WeatherCondition>("Fine");
+            Assert.That(enumValue, Is.EqualTo(WeatherCondition.Fine));
+        }
+
+        [Test]
+        public void DescriptionToNullableEnumValue_ForInvalidType_ReturnsNull()
+        {
+            Assert.Throws<ArgumentException>(() =>
+            {
+                var enumValue = FormatHelper.DescriptionToNullableEnumValue<int>("0");
+            });
+        }
+
+        [Test]
+        public void DescriptionToNullableEnumValue_ForInvalidDescription_ReturnsNull()
+        {
+            var enumValue = FormatHelper.DescriptionToNullableEnumValue<WeatherCondition>("NotFound");
+            Assert.That(enumValue, Is.Null);
+        }
+
         [Test]
         public void ParseOptionalDate_ForEmptyString_ReturnsNull()
         {
