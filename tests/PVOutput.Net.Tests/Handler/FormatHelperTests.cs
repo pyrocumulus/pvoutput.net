@@ -76,9 +76,17 @@ namespace PVOutput.Net.Tests.Handler
         }
 
         [Test]
-        public void DescriptionToNullableEnumValue_ForInvalidDescription_ReturnsNull()
+        public void DescriptionToNullableEnumValue_ForInvalidDescription_Throws()
         {
-            var enumValue = FormatHelper.DescriptionToNullableEnumValue<WeatherCondition>("NotFound");
+            Assert.Throws<ArgumentException>(() => {
+                _ = FormatHelper.DescriptionToNullableEnumValue<WeatherCondition>("NotFound");
+            });
+        }
+
+        [Test]
+        public void DescriptionToNullableEnumValue_ForNullLiteralDescription_ReturnsNull()
+        {
+            var enumValue = FormatHelper.DescriptionToNullableEnumValue<WeatherCondition>("null");
             Assert.That(enumValue, Is.Null);
         }
 
