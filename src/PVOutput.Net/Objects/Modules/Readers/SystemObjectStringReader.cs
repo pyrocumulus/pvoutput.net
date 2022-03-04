@@ -43,7 +43,7 @@ namespace PVOutput.Net.Objects.Modules.Readers
                 (t, s) => t.StatusInterval = FormatHelper.GetValueOrDefault<int>(s),
                 (t, s) => t.SecondaryNumberOfPanels = FormatHelper.GetValue<int>(s),
                 (t, s) => t.SecondaryPanelPower = FormatHelper.GetValue<int>(s),
-                (t, s) => t.SecondaryOrientation = !string.IsNullOrWhiteSpace(s) ? FormatHelper.DescriptionToNullableEnumValue<Orientation>(s) : (Orientation?)null,
+                (t, s) => t.SecondaryOrientation = FormatHelper.DescriptionToNullableEnumValue<Orientation>(s),
                 (t, s) => t.SecondaryArrayTilt = FormatHelper.GetValue<decimal>(s)
             };
 

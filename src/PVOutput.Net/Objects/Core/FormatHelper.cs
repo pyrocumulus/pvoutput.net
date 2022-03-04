@@ -124,10 +124,14 @@ namespace PVOutput.Net.Objects.Core
         public static TEnumType? DescriptionToNullableEnumValue<TEnumType>(this string enumerationDescription) where TEnumType : struct
         {
             Type type = typeof(TEnumType);
-
             if (!type.IsEnum)
             {
                 throw new ArgumentException("Type parameter must be of Enum type");
+            }
+
+            if (string.IsNullOrWhiteSpace(enumerationDescription))
+            {
+                return null;
             }
 
             if (enumerationDescription.Equals("null", StringComparison.OrdinalIgnoreCase))
