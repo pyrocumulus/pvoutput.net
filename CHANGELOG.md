@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - **BREAKING**: Many methods with a parameter of `DateTime` used the parameter name `date`; those have been renamed [#100](https://github.com/pyrocumulus/pvoutput.net/pull/100)
 - Logging is now more performant and async flow has been slightly improved [#100](https://github.com/pyrocumulus/pvoutput.net/pull/100)
+- `GetOwnSystem()` throws an exception when the system does not have a secondary panel [#112](https://github.com/pyrocumulus/pvoutput.net/pull/112) - Contribution [CodeCasterNL](https://github.com/CodeCasterNL)
 
 ## [0.9.2] - 2021-11-22
 
