@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## Unreleased
+
+### Updated
+
+- Updated `Microsoft.Extensions.DependencyInjection.Abstractions` from `v6.0.0` to `v6.0.1` [#114](https://github.com/pyrocumulus/pvoutput.net/pull/114)
+
 ## [0.10.0] - 2022-03-16
 
 ### Fixed
