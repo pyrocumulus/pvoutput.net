@@ -9,10 +9,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - **BREAKING**: Removed add batch output from API. Please use the `AddOutputsAsync` method from now on. This is donation only. [#78](https://github.com/pyrocumulus/pvoutput.net/pull/78)
 
+### Updated
+
+- Updated `Microsoft.Extensions.DependencyInjection.Abstractions` from `v6.0.0` to `v6.0.1` [#114](https://github.com/pyrocumulus/pvoutput.net/pull/114)
+
+## [0.10.0] - 2022-03-16
+
 ### Fixed
 
 - **BREAKING**: Many methods with a parameter of `DateTime` used the parameter name `date`; those have been renamed [#100](https://github.com/pyrocumulus/pvoutput.net/pull/100)
 - Logging is now more performant and async flow has been slightly improved [#100](https://github.com/pyrocumulus/pvoutput.net/pull/100)
+- `GetOwnSystem()` throws an exception when the system does not have a secondary panel [#112](https://github.com/pyrocumulus/pvoutput.net/pull/112) - Contribution [CodeCasterNL](https://github.com/CodeCasterNL)
 
 ## [0.9.2] - 2021-11-22
 
