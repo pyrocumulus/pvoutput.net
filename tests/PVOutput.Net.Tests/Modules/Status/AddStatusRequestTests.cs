@@ -27,82 +27,86 @@ namespace PVOutput.Net.Tests.Modules.Status
         [Test]
         public void Parameter_Timestamp_CreatesCorrectUriParameters()
         {
-            var request= CreateRequestWithPost(new StatusPost() { Timestamp = new DateTime(2020, 2, 1, 13, 12, 20) });
+            AddStatusRequest request = CreateRequestWithPost(new StatusPost() { Timestamp = new DateTime(2020, 2, 1, 13, 12, 20) });
 
-            var parameters = request.GetUriPathParameters();
-            Assert.That(parameters["d"], Is.EqualTo("20200201"));
-            Assert.That(parameters["t"], Is.EqualTo("13:12"));
+            IDictionary<string, object> parameters = request.GetUriPathParameters();
+            
+            Assert.Multiple(() =>
+            {
+                Assert.That(parameters["d"], Is.EqualTo("20200201"));
+                Assert.That(parameters["t"], Is.EqualTo("13:12"));
+            });
         }
 
         [Test]
         public void Parameter_EnergyGeneration_CreatesCorrectUriParameters()
         {
-            var request= CreateRequestWithPost(new StatusPost() { EnergyGeneration = 1111 });
-            var parameters = request.GetUriPathParameters();
+            AddStatusRequest request = CreateRequestWithPost(new StatusPost() { EnergyGeneration = 1111 });
+            IDictionary<string, object> parameters = request.GetUriPathParameters();
             Assert.That(parameters["v1"], Is.EqualTo(1111));
         }
 
         [Test]
         public void Parameter_PowerGeneration_CreatesCorrectUriParameters()
         {
-            var request= CreateRequestWithPost(new StatusPost() { PowerGeneration = 2222 });
-            var parameters = request.GetUriPathParameters();
+            AddStatusRequest request = CreateRequestWithPost(new StatusPost() { PowerGeneration = 2222 });
+            IDictionary<string, object> parameters = request.GetUriPathParameters();
             Assert.That(parameters["v2"], Is.EqualTo(2222));
         }
 
         [Test]
         public void Parameter_EnergyConsumption_CreatesCorrectUriParameters()
         {
-            var request= CreateRequestWithPost(new StatusPost() { EnergyConsumption = 3333 });
-            var parameters = request.GetUriPathParameters();
+            AddStatusRequest request = CreateRequestWithPost(new StatusPost() { EnergyConsumption = 3333 });
+            IDictionary<string, object> parameters = request.GetUriPathParameters();
             Assert.That(parameters["v3"], Is.EqualTo(3333));
         }
 
         [Test]
         public void Parameter_PowerConsumption_CreatesCorrectUriParameters()
         {
-            var request= CreateRequestWithPost(new StatusPost() { PowerConsumption = 4444 });
-            var parameters = request.GetUriPathParameters();
+            AddStatusRequest request = CreateRequestWithPost(new StatusPost() { PowerConsumption = 4444 });
+            IDictionary<string, object> parameters = request.GetUriPathParameters();
             Assert.That(parameters["v4"], Is.EqualTo(4444));
         }
 
         [Test]
         public void Parameter_Temperature_CreatesCorrectUriParameters()
         {
-            var request= CreateRequestWithPost(new StatusPost() { Temperature = 18.9m });
-            var parameters = request.GetUriPathParameters();
+            AddStatusRequest request = CreateRequestWithPost(new StatusPost() { Temperature = 18.9m });
+            IDictionary<string, object> parameters = request.GetUriPathParameters();
             Assert.That(parameters["v5"], Is.EqualTo("18.9"));
         }
 
         [Test]
         public void Parameter_Voltage_CreatesCorrectUriParameters()
         {
-            var request= CreateRequestWithPost(new StatusPost() { Voltage = 222.3m });
-            var parameters = request.GetUriPathParameters();
+            AddStatusRequest request = CreateRequestWithPost(new StatusPost() { Voltage = 222.3m });
+            IDictionary<string, object> parameters = request.GetUriPathParameters();
             Assert.That(parameters["v6"], Is.EqualTo("222.3"));
         }
 
         [Test]
         public void Parameter_Cumulative_CreatesCorrectUriParameters()
         {
-            var request= CreateRequestWithPost(new StatusPost() { Cumulative = Enums.CumulativeStatusType.LifetimeGeneration });
-            var parameters = request.GetUriPathParameters();
+            AddStatusRequest request = CreateRequestWithPost(new StatusPost() { Cumulative = Enums.CumulativeStatusType.LifetimeGeneration });
+            IDictionary<string, object> parameters = request.GetUriPathParameters();
             Assert.That(parameters["c1"], Is.EqualTo(2));
         }
 
         [Test]
         public void Parameter_Net_CreatesCorrectUriParameters()
         {
-            var request= CreateRequestWithPost(new StatusPost() { Net = true });
-            var parameters = request.GetUriPathParameters();
+            AddStatusRequest request = CreateRequestWithPost(new StatusPost() { Net = true });
+            IDictionary<string, object> parameters = request.GetUriPathParameters();
             Assert.That(parameters["n"], Is.EqualTo(1));
         }
 
         [Test]
         public void Parameter_TextMessage_CreatesCorrectUriParameters()
         {
-            var request = CreateRequestWithPost(new StatusPost() { TextMessage = "Text message" });
-            var parameters = request.GetUriPathParameters();
+            AddStatusRequest request = CreateRequestWithPost(new StatusPost() { TextMessage = "Text message" });
+            IDictionary<string, object> parameters = request.GetUriPathParameters();
             Assert.That(parameters["m1"], Is.EqualTo("Text message"));
         }
 
@@ -121,7 +125,7 @@ namespace PVOutput.Net.Tests.Modules.Status
                     ExtendedValue6 = 6
                 }
             };
-            var parameters = request.GetUriPathParameters();
+            IDictionary<string, object> parameters = request.GetUriPathParameters();
 
             Assert.Multiple(() =>
             {

@@ -22,8 +22,12 @@ namespace PVOutput.Net.Tests.Modules.Status
             var post = new StatusPost() { Timestamp = new DateTime(2020, 2, 1, 13, 12, 20) };
 
             string[] postArray = GetSplitStatusPostLine(post);
-            Assert.That(postArray[0], Is.EqualTo("20200201"));
-            Assert.That(postArray[1], Is.EqualTo("13:12"));
+            
+            Assert.Multiple(() =>
+            {
+                Assert.That(postArray[0], Is.EqualTo("20200201"));
+                Assert.That(postArray[1], Is.EqualTo("13:12"));
+            });
         }
 
         [Test]
@@ -116,7 +120,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         {
             IEnumerable<IBatchStatusPostResult> result = await TestUtility.ExecuteArrayReaderByTypeAsync<IBatchStatusPostResult>(StatusServiceTests.BATCHPOST_STATUS_RESPONSE_FULL);
 
-            var secondStatus = result.Skip(1).First();
+            IBatchStatusPostResult secondStatus = result.Skip(1).First();
             Assert.Multiple(() =>
             {
                 Assert.That(result, Has.Exactly(3).Items);

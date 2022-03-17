@@ -15,7 +15,9 @@ namespace PVOutput.Net.Builders
     /// </summary>
     public sealed class BatchNetStatusPostBuilder
     {
-        internal BatchNetStatusPost _statusPost { get; set; }
+        private BatchNetStatusPost _statusPost;
+
+        internal BatchNetStatusPost StatusPost => _statusPost;
 
         /// <summary>
         /// Creates a new builder.
@@ -91,7 +93,7 @@ namespace PVOutput.Net.Builders
             return result;
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "Exception messages are non translatable for now")]
+
         private void ValidateStatus()
         {
             if (_statusPost.PowerExported == null

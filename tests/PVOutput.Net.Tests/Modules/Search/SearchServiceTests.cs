@@ -25,7 +25,7 @@ namespace PVOutput.Net.Tests.Modules.Search
             testProvider.ExpectUriFromBase(SEARCH_URL)
                         .RespondPlainText("");
 
-            var response = await client.Search.SearchAsync("test query");
+            Responses.PVOutputArrayResponse<ISystemSearchResult> response = await client.Search.SearchAsync("test query");
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
         }
@@ -137,7 +137,8 @@ namespace PVOutput.Net.Tests.Modules.Search
                             })
                         .RespondPlainText("");
 
-            var response = await client.Search.SearchByDistanceAsync(2500, 10, "nl");
+            Responses.PVOutputArrayResponse<ISystemSearchResult> response 
+                = await client.Search.SearchByDistanceAsync(2500, 10, "nl");
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
         }
@@ -154,7 +155,8 @@ namespace PVOutput.Net.Tests.Modules.Search
                             })
                         .RespondPlainText("");
 
-            var response = await client.Search.SearchByDistanceAsync(new PVCoordinate(85.32252m, 31.40098m), 11);
+            Responses.PVOutputArrayResponse<ISystemSearchResult> response 
+                = await client.Search.SearchByDistanceAsync(new PVCoordinate(85.32252m, 31.40098m), 11);
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
         }
@@ -169,7 +171,7 @@ namespace PVOutput.Net.Tests.Modules.Search
                             })
                         .RespondPlainText("");
 
-            var response = await searchQuery(client.Search);
+            Responses.PVOutputArrayResponse<ISystemSearchResult> response = await searchQuery(client.Search);
             testProvider.VerifyNoOutstandingExpectation();
             AssertStandardResponse(response);
         }
@@ -186,8 +188,12 @@ namespace PVOutput.Net.Tests.Modules.Search
         public void LocationInformation_Parsing_GetsCorrectInformation(string inputString, int expectedPostcode, string expectedCountry)
         {
             SystemSearchResultObjectStringReader.SplitPostCode(inputString, out int postcode, out string country);
-            Assert.That(postcode, Is.EqualTo(expectedPostcode));
-            Assert.That(country, Is.EqualTo(expectedCountry));
+            
+            Assert.Multiple(() =>
+            {
+                Assert.That(postcode, Is.EqualTo(expectedPostcode));
+                Assert.That(country, Is.EqualTo(expectedCountry));
+            });
         }
 
         [Test]
