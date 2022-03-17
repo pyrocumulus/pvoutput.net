@@ -32,7 +32,7 @@ namespace PVOutput.Net.Tests.Handler
                         })
                         .RespondPlainText("");
 
-            var response = await client.System.GetOwnSystemAsync();
+            PVOutputResponse<ISystem> response = await client.System.GetOwnSystemAsync();
             testProvider.VerifyNoOutstandingExpectation();
             Assert.That(response.ToBoolean(), Is.True);
         }
@@ -40,8 +40,8 @@ namespace PVOutput.Net.Tests.Handler
         [Test]
         public void DefaultClient_OnErrorResponse_ThrowsException()
         {
-            const HttpStatusCode statusCode = HttpStatusCode.Unauthorized;
-            const string responseContent = "Invalid API Key";
+            HttpStatusCode statusCode = HttpStatusCode.Unauthorized;
+            var responseContent = "Invalid API Key";
 
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
             testProvider.ExpectUriFromBase("getsystem.jsp")
@@ -63,15 +63,15 @@ namespace PVOutput.Net.Tests.Handler
         [Test]
         public async Task DefaultClient_OnErrorArrayResponse_ThrowsException()
         {
-            const HttpStatusCode statusCode = HttpStatusCode.Unauthorized;
-            const string responseContent = "Invalid API Key";
+            HttpStatusCode statusCode = HttpStatusCode.Unauthorized;
+            var responseContent = "Invalid API Key";
 
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
             client.ThrowResponseExceptions = false;
             testProvider.ExpectUriFromBase("search.jsp")
                         .Respond(statusCode, "text/plain", responseContent);
 
-            var response = await client.Search.SearchAsync("test");
+            PVOutputArrayResponse<ISystemSearchResult> response = await client.Search.SearchAsync("test");
             testProvider.VerifyNoOutstandingExpectation();
 
             Assert.Multiple(() =>
@@ -85,15 +85,15 @@ namespace PVOutput.Net.Tests.Handler
         [Test]
         public async Task ClientWithNoThrowOption_OnErrorResponse_ReturnsErrorResponse()
         {
-            const HttpStatusCode statusCode = HttpStatusCode.Unauthorized;
-            const string responseContent = "Invalid API Key";
+            HttpStatusCode statusCode = HttpStatusCode.Unauthorized;
+            var responseContent = "Invalid API Key";
 
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
             client.ThrowResponseExceptions = false;
             testProvider.ExpectUriFromBase("getsystem.jsp")
                         .Respond(statusCode, "text/plain", responseContent);
 
-            var response = await client.System.GetOwnSystemAsync();
+            PVOutputResponse<ISystem> response = await client.System.GetOwnSystemAsync();
             testProvider.VerifyNoOutstandingExpectation();
 
             Assert.Multiple(() =>
@@ -107,14 +107,14 @@ namespace PVOutput.Net.Tests.Handler
         [Test]
         public async Task ClientWithNoThrowOption_OnFormattedErrorResponse_ReturnsErrorResponse()
         {
-            const HttpStatusCode statusCode = HttpStatusCode.Unauthorized;
+            HttpStatusCode statusCode = HttpStatusCode.Unauthorized;
 
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
             client.ThrowResponseExceptions = false;
             testProvider.ExpectUriFromBase("getsystem.jsp")
                         .Respond(statusCode, "text/plain", "Too many request : Rate exceeded");
 
-            var response = await client.System.GetOwnSystemAsync();
+            PVOutputResponse<ISystem> response = await client.System.GetOwnSystemAsync();
             testProvider.VerifyNoOutstandingExpectation();
 
             Assert.Multiple(() =>
@@ -143,7 +143,7 @@ namespace PVOutput.Net.Tests.Handler
             testProvider.ExpectUriFromBase("getsystem.jsp")
                         .Respond(responseHeaders, "text/plain", "");
 
-            var response = await client.System.GetOwnSystemAsync();
+            PVOutputResponse<ISystem> response = await client.System.GetOwnSystemAsync();
             testProvider.VerifyNoOutstandingExpectation();
 
             Assert.Multiple(() => {
@@ -163,9 +163,11 @@ namespace PVOutput.Net.Tests.Handler
 
             Assert.Multiple(() =>
             {
+#pragma warning disable NUnit2010 // Use EqualConstraint for better assertion messages in case of failure
                 Assert.That(response1.Equals(response2), Is.False); // Purposefully not test through Is.Not.EqualTo
-                Assert.That(response1.IsEquivalentTo(response2), Is.True);
                 Assert.That(response1.Equals(response3), Is.False); // Purposefully not test through Is.Not.EqualTo
+#pragma warning restore NUnit2010 // Use EqualConstraint for better assertion messages in case of failure
+                Assert.That(response1.IsEquivalentTo(response2), Is.True);
                 Assert.That(response1.IsEquivalentTo(response3), Is.False);
                 Assert.That(response1.IsEquivalentTo(response4), Is.False);
             });

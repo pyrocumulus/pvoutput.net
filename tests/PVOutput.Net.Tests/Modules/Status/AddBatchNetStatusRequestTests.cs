@@ -23,8 +23,12 @@ namespace PVOutput.Net.Tests.Modules.Status
             var post = new BatchNetStatusPost() { Timestamp = new DateTime(2020, 2, 1, 13, 12, 20) };
 
             string[] postArray = GetSplitStatusPostLine(post);
-            Assert.That(postArray[0], Is.EqualTo("20200201"));
-            Assert.That(postArray[1], Is.EqualTo("13:12"));
+            
+            Assert.Multiple(() =>
+            {
+                Assert.That(postArray[0], Is.EqualTo("20200201"));
+                Assert.That(postArray[1], Is.EqualTo("13:12"));
+            });
         }
 
         [Test]

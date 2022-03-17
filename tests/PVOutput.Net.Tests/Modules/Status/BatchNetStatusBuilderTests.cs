@@ -24,7 +24,7 @@ namespace PVOutput.Net.Tests.Modules.Status
             var timeStamp = DateTime.Now;
             var builder = new StatusPostBuilder<IStatusPost>().SetTimeStamp(timeStamp);
 
-            Assert.That(builder._statusPost.Timestamp, Is.EqualTo(timeStamp));
+            Assert.That(builder.StatusPost.Timestamp, Is.EqualTo(timeStamp));
         }
 
         [Test]
@@ -46,7 +46,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         {
             var builder = new BatchNetStatusPostBuilder().SetPowerExported(powerExported);
 
-            Assert.That(builder._statusPost.PowerExported, Is.EqualTo(powerExported));
+            Assert.That(builder.StatusPost.PowerExported, Is.EqualTo(powerExported));
         }
 
         [Test]
@@ -56,7 +56,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         {
             var builder = new BatchNetStatusPostBuilder().SetPowerImported(powerImported);
 
-            Assert.That(builder._statusPost.PowerImported, Is.EqualTo(powerImported));
+            Assert.That(builder.StatusPost.PowerImported, Is.EqualTo(powerImported));
         }
 
         [Test]
@@ -67,7 +67,7 @@ namespace PVOutput.Net.Tests.Modules.Status
 
             builder.Reset();
 
-            Assert.That(builder._statusPost, Is.Not.SameAs(status));
+            Assert.That(builder.StatusPost, Is.Not.SameAs(status));
         }
 
 
@@ -77,7 +77,7 @@ namespace PVOutput.Net.Tests.Modules.Status
             var builder = new BatchNetStatusPostBuilder().SetPowerImported(1000).SetTimeStamp(DateTime.Now);
             IBatchNetStatusPost status = builder.BuildAndReset();
 
-            Assert.That(builder._statusPost, Is.Not.SameAs(status));
+            Assert.That(builder.StatusPost, Is.Not.SameAs(status));
         }
 
         [Test]

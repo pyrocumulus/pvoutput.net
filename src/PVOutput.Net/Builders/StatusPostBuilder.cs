@@ -16,7 +16,9 @@ namespace PVOutput.Net.Builders
     /// <typeparam name="TResultType">The status type to post.</typeparam>
     public sealed class StatusPostBuilder<TResultType> where TResultType : class, IBatchStatusPost
     {
-        internal StatusPost _statusPost;
+        private StatusPost _statusPost;
+
+        internal StatusPost StatusPost => _statusPost;
 
         /// <summary>
         /// Creates a new builder.
@@ -143,7 +145,6 @@ namespace PVOutput.Net.Builders
         /// </summary>
         /// <param name="textMessage">Text message.</param>
         /// <returns>The builder.</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "Exception messages are non translatable for now")]
         public StatusPostBuilder<TResultType> SetTextMessage(string textMessage)
         {
             Guard.Argument(textMessage, nameof(textMessage)).NotEmpty().LengthInRange(1, 30);
@@ -183,7 +184,6 @@ namespace PVOutput.Net.Builders
             return result;
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "Exception messages are non translatable for now")]
         private void ValidateStatus()
         {
             if (_statusPost.EnergyGeneration == null 

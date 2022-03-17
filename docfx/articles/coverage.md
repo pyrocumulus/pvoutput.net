@@ -5,7 +5,6 @@ Currently all read operations of the API are implemented as are all of the opera
 | Operation  | Object       | Module            | Status             | Documentation link      |
 |------------|--------------|-------------------|--------------------|-------------------------|
 | Add        | Output       | Output            | :heavy_check_mark: | [Add Output](https://pvoutput.org/help.html#api-addoutput) |
-| Add        | Batch Output | Output            | :heavy_check_mark: | [Add Batch Output](https://pvoutput.org/help.html#api-addbatchoutput) |
 | Get        | Output       | Output            | :heavy_check_mark: | [Get Output](https://pvoutput.org/help.html#api-getoutput) |
 | Add        | Status       | Status            | :heavy_check_mark: | [Add Status](https://pvoutput.org/help.html#api-addstatus) |
 | Add        | Batch Status | Status            | :heavy_check_mark: | [Add Batch Status](https://pvoutput.org/help.html#api-addbatchstatus) |

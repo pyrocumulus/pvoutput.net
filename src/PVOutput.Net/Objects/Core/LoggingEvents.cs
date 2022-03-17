@@ -69,7 +69,7 @@ namespace PVOutput.Net.Objects.Core
         public static readonly EventId OutputService_GetTeamOutputsForPeriod = new EventId(20504, "GetTeamOutputsForPeriod");
         public static readonly EventId OutputService_GetAggregatedOutputs = new EventId(20505, "GetAggregatedOutputs");
         public static readonly EventId OutputService_AddOutput = new EventId(20506, "AddOutput");
-        public static readonly EventId OutputService_AddBatchOutput = new EventId(20507, "AddBatchOutput");
+        public static readonly EventId OutputService_AddOutputs = new EventId(20508, "AddOutputs");
         public static readonly EventId SearchService_Search = new EventId(20601, "Search");
         public static readonly EventId SearchService_SearchByName = new EventId(20602, "SearchByName");
         public static readonly EventId SearchService_SearchByPostCodeOrSize = new EventId(20603, "SearchByPostCodeOrSize");

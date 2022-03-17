@@ -111,7 +111,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         [Test]
         public void OutputPostBuilder_WithCondition_SetsCondition()
         {
-            const WeatherCondition testCondition = WeatherCondition.PartlyCloudy;
+            WeatherCondition testCondition = WeatherCondition.PartlyCloudy;
             var builder = new OutputPostBuilder().SetDate(DateTime.Today)
                 .SetCondition(testCondition);
 
@@ -126,9 +126,12 @@ namespace PVOutput.Net.Tests.Modules.Output
         {
             var builder = new OutputPostBuilder().SetDate(DateTime.Today)
                 .SetTemperatures(minimum, maximum);
-
-            Assert.That(builder.OutputPost.MinimumTemperature, Is.EqualTo(minimum));
-            Assert.That(builder.OutputPost.MaximumTemperature, Is.EqualTo(maximum));
+            
+            Assert.Multiple(() =>
+            {
+                Assert.That(builder.OutputPost.MinimumTemperature, Is.EqualTo(minimum));
+                Assert.That(builder.OutputPost.MaximumTemperature, Is.EqualTo(maximum));
+            });
         }
 
         [Test]
@@ -156,7 +159,7 @@ namespace PVOutput.Net.Tests.Modules.Output
         [Test]
         public void OutputPostBuilder_WithComment_SetsComment()
         {
-            const string testComment = "This is a comment";
+            var testComment = "This is a comment";
             var builder = new OutputPostBuilder().SetDate(DateTime.Today)
                 .SetComments(testComment);
 
@@ -267,6 +270,44 @@ namespace PVOutput.Net.Tests.Modules.Output
         }
 
         [Test]
+        public void OutputPostBuilder_WithPeakEnergyExport_SetPeakEnergyExport()
+        {
+            var builder = new OutputPostBuilder().SetDate(DateTime.Today)
+                .SetPeakEnergyExport(2000);
+
+            Assert.That(builder.OutputPost.PeakEnergyExport, Is.EqualTo(2000));
+        }
+
+
+        [Test]
+        public void OutputPostBuilder_WithOffPeakEnergyExport_SetOffPeakEnergyExport()
+        {
+            var builder = new OutputPostBuilder().SetDate(DateTime.Today)
+                .SetOffPeakEnergyExport(3000);
+
+            Assert.That(builder.OutputPost.OffPeakEnergyExport, Is.EqualTo(3000));
+        }
+
+
+        [Test]
+        public void OutputPostBuilder_WithShoulderEnergyExport_SetShoulderEnergyExport()
+        {
+            var builder = new OutputPostBuilder().SetDate(DateTime.Today)
+                .SetShoulderEnergyExport(4000);
+
+            Assert.That(builder.OutputPost.ShoulderEnergyExport, Is.EqualTo(4000));
+        }
+
+        [Test]
+        public void OutputPostBuilder_WithHighShoulderEnergyExport_SetHighShoulderEnergyExport()
+        {
+            var builder = new OutputPostBuilder().SetDate(DateTime.Today)
+                .SetHighShoulderEnergyExport(5000);
+
+            Assert.That(builder.OutputPost.HighShoulderEnergyExport, Is.EqualTo(5000));
+        }
+
+        [Test]
         public void OutputPostBuilder_WithNegativeConsumption_Throws()
         {
             Assert.Throws<ArgumentOutOfRangeException>(() =>
@@ -303,36 +344,6 @@ namespace PVOutput.Net.Tests.Modules.Output
             IOutputPost output = builder.BuildAndReset();
 
             Assert.That(builder.OutputPost, Is.Not.SameAs(output));
-        }
-
-        [Test]
-        public void BatchOutputPostBuilder_WithEnergyUsed_SetsUsed()
-        {
-            var builder = new BatchOutputPostBuilder().SetDate(DateTime.Today)
-                .SetEnergyUsed(31132);
-
-            Assert.That(builder.OutputPost.EnergyUsed, Is.EqualTo(31132));
-        }
-
-        [Test]
-        public void BatchOutputPostBuilder_AfterReset_HasNoStateLeft()
-        {
-            var builder = new BatchOutputPostBuilder().SetDate(DateTime.Today);
-            IBatchOutputPost output = builder.OutputPost;
-
-            builder.Reset();
-
-            Assert.That(builder.OutputPost, Is.Not.SameAs(output));
-        }
-
-        [Test]
-        public void BatchOutputPostBuilder_WithoutEnergyGeneratedAndEnergyUsed_CannotBuild()
-        {
-            var builder = new BatchOutputPostBuilder().SetDate(DateTime.Today);
-            Assert.Throws<InvalidOperationException>(() =>
-            {
-                builder.Build();
-            });
         }
     }
 }

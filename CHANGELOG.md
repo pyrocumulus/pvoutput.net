@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
 
+### Changed
+
+- **BREAKING**: Removed add batch output from API. Please use the `AddOutputsAsync` method from now on. This is donation only. [#78](https://github.com/pyrocumulus/pvoutput.net/pull/78)
+
 ### Updated
 
 - Updated `Microsoft.Extensions.DependencyInjection.Abstractions` from `v6.0.0` to `v6.0.1` [#114](https://github.com/pyrocumulus/pvoutput.net/pull/114)
@@ -54,7 +58,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Added method to `StatusService` to delete all statuses on a date [#45](https://github.com/pyrocumulus/pvoutput.net/pull/45)
 - Added methods to `StatusService` to add net batch statusses and cumulative batch statusses [#47](https://github.com/pyrocumulus/pvoutput.net/pull/47)
 
-## Fixed
+### Fixed
 
 - Corrected `SystemService` returning teams, estimates or extended properties with counts greater than 0, but with empty/null content
 - Removed dead code from certain code paths found through coverage testing
