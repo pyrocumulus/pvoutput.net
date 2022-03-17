@@ -4,7 +4,7 @@ using PVOutput.Net.Objects.Modules.Readers;
 
 namespace PVOutput.Net.Objects.Factories
 {
-    internal class StatusFactory : IObjectStringFactory<IStatus>
+    internal sealed class StatusFactory : IObjectStringFactory<IStatus>
     {
         public IObjectStringReader<IStatus> CreateObjectReader() => new StatusObjectStringReader();
     }

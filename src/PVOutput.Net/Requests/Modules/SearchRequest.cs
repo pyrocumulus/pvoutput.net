@@ -8,7 +8,7 @@ using PVOutput.Net.Requests.Base;
 
 namespace PVOutput.Net.Requests.Modules
 {
-    internal class SearchRequest : GetRequest<ISystemSearchResult>
+    internal sealed class SearchRequest : GetRequest<ISystemSearchResult>
     {
         public string SearchQuery { get; set; }
         public PVCoordinate? Coordinate { get; set; }

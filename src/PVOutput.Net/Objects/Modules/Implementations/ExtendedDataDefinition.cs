@@ -5,7 +5,7 @@ using PVOutput.Net.Enums;
 
 namespace PVOutput.Net.Objects.Modules.Implementations
 {
-    internal class ExtendedDataDefinition : IExtendedDataDefinition
+    internal sealed class ExtendedDataDefinition : IExtendedDataDefinition
     {
         public ExtendedDataIndex Index { get; set; }
         public string Label { get; set; }

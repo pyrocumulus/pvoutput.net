@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PVOutput.Net.Objects.Modules.Implementations
 {
-    internal class Extended : IExtended
+    internal sealed class Extended : IExtended
     {
         public DateTime ExtendedDate { get; set; }
         public decimal? ExtendedValue1 { get; set; }

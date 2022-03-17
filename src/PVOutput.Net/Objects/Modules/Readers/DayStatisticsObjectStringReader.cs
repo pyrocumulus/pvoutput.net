@@ -5,7 +5,7 @@ using PVOutput.Net.Objects.Core;
 
 namespace PVOutput.Net.Objects.Modules.Readers
 {
-    internal class DayStatisticsObjectStringReader : BaseObjectStringReader<IDayStatistics>
+    internal sealed class DayStatisticsObjectStringReader : BaseObjectStringReader<IDayStatistics>
     {
         public override IDayStatistics CreateObjectInstance() => new Implementations.DayStatistics();
 

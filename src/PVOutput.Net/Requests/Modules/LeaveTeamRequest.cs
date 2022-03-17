@@ -4,7 +4,7 @@ using PVOutput.Net.Requests.Base;
 
 namespace PVOutput.Net.Requests.Modules
 {
-    internal class LeaveTeamRequest : PostRequest
+    internal sealed class LeaveTeamRequest : PostRequest
     {
         public int TeamId { get; set; }
 

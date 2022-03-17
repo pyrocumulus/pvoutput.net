@@ -7,7 +7,7 @@ using PVOutput.Net.Objects.Factories;
 
 namespace PVOutput.Net.Objects.Core
 {
-    internal class LineDelimitedArrayStringReader<TObjectType> : BaseArrayStringReader<TObjectType>
+    internal sealed class LineDelimitedArrayStringReader<TObjectType> : BaseArrayStringReader<TObjectType>
     {
         public LineDelimitedArrayStringReader()
         {

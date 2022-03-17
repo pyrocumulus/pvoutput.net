@@ -5,7 +5,7 @@ using PVOutput.Net.Enums;
 
 namespace PVOutput.Net.Objects.Modules.Implementations
 {
-    internal class Favourite : IFavourite
+    internal sealed class Favourite : IFavourite
     {
         public int SystemId { get; set; }
         public string SystemName { get; set; }

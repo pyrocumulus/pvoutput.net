@@ -7,7 +7,7 @@ using PVOutput.Net.Requests.Base;
 
 namespace PVOutput.Net.Requests.Modules
 {
-    internal class PostSystemRequest : PostRequest
+    internal sealed class PostSystemRequest : PostRequest
     {
         public int SystemId { get; set; }
         public string SystemName { get; set; }

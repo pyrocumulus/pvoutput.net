@@ -10,7 +10,7 @@ using PVOutput.Net.Responses;
 namespace PVOutput.Net.Modules
 {
     /// <inheritdoc cref="ISupplyService"/>
-    public sealed class SupplyService : BaseService, ISupplyService
+    internal sealed class SupplyService : BaseService, ISupplyService
     {
         internal SupplyService(PVOutputClient client) : base(client)
         {

@@ -1,8 +1,8 @@
-using System;
+﻿using System;
 
 namespace PVOutput.Net.Objects.Modules.Implementations
 {
-    internal class TeamOutput : ITeamOutput
+    internal sealed class TeamOutput : ITeamOutput
     {
         public DateTime OutputDate { get; set; }
         public int Outputs { get; set; }

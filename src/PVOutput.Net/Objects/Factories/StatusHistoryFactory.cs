@@ -4,7 +4,7 @@ using PVOutput.Net.Objects.Modules.Readers;
 
 namespace PVOutput.Net.Objects.Factories
 {
-    internal class StatusHistoryFactory : IArrayStringFactory<IStatusHistory>
+    internal sealed class StatusHistoryFactory : IArrayStringFactory<IStatusHistory>
     {
         public IArrayStringReader<IStatusHistory> CreateArrayReader() => new CharacterDelimitedArrayStringReader<IStatusHistory>();
 

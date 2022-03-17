@@ -7,7 +7,7 @@ using PVOutput.Net.Requests.Base;
 
 namespace PVOutput.Net.Requests.Modules
 {
-    internal class GetDayStatisticsRequest : GetRequest<IDayStatistics>
+    internal sealed class GetDayStatisticsRequest : GetRequest<IDayStatistics>
     {
         public DateTime Date { get; set; }
         public int? SystemId { get; set; }

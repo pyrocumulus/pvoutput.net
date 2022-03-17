@@ -7,7 +7,7 @@ using PVOutput.Net.Requests.Base;
 
 namespace PVOutput.Net.Requests.Modules
 {
-    internal class DeleteStatusRequest : PostRequest
+    internal sealed class DeleteStatusRequest : PostRequest
     {
         public DateTime Timestamp { get; set; }
 

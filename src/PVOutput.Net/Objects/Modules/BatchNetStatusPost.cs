@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PVOutput.Net.Objects.Modules
 {
-    internal class BatchNetStatusPost : IBatchNetStatusPost
+    internal sealed class BatchNetStatusPost : IBatchNetStatusPost
     {
         public DateTime Timestamp { get; set; }
         public int? PowerExported { get; set; }

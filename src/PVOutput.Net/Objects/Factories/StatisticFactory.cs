@@ -4,7 +4,7 @@ using PVOutput.Net.Objects.Modules.Readers;
 
 namespace PVOutput.Net.Objects.Factories
 {
-    internal class StatisticFactory : IObjectStringFactory<IStatistic>
+    internal sealed class StatisticFactory : IObjectStringFactory<IStatistic>
     {
         public IObjectStringReader<IStatistic> CreateObjectReader() => new StatisticObjectStringReader();
     }

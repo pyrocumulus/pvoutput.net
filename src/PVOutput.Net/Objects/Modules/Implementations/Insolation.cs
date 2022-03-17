@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PVOutput.Net.Objects.Modules.Implementations
 {
-    internal class Insolation : IInsolation
+    internal sealed class Insolation : IInsolation
     {
         public TimeSpan Time { get; set; }
         public int Power { get; set; }

@@ -12,7 +12,7 @@ using PVOutput.Net.Responses;
 namespace PVOutput.Net.Modules
 {
     /// <inheritdoc cref="IMissingService"/>
-    public sealed class MissingService : BaseService, IMissingService
+    internal sealed class MissingService : BaseService, IMissingService
     {
         internal MissingService(PVOutputClient client) : base(client)
         {

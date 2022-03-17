@@ -4,7 +4,7 @@ using PVOutput.Net.Enums;
 
 namespace PVOutput.Net.Objects.Modules.Implementations
 {
-    internal class System : ISystem
+    internal sealed class System : ISystem
     {
         // Primary
         public string SystemName { get; set; }

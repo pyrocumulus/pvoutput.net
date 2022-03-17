@@ -10,7 +10,7 @@ using PVOutput.Net.Responses;
 namespace PVOutput.Net.Modules
 {
     /// <inheritdoc cref="IFavouriteService"/>
-    public sealed class FavouriteService : BaseService, IFavouriteService
+    internal sealed class FavouriteService : BaseService, IFavouriteService
     {
         internal FavouriteService(PVOutputClient client) : base(client)
         {

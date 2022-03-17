@@ -3,7 +3,7 @@ using PVOutput.Net.Objects.Core;
 
 namespace PVOutput.Net.Objects.Modules.Readers
 {
-    internal class BatchStatusPostResultStringReader : BaseObjectStringReader<IBatchStatusPostResult>
+    internal sealed class BatchStatusPostResultStringReader : BaseObjectStringReader<IBatchStatusPostResult>
     {
         public override IBatchStatusPostResult CreateObjectInstance() => new Implementations.BatchStatusPostResult();
 

@@ -7,7 +7,7 @@ using PVOutput.Net.Requests.Base;
 
 namespace PVOutput.Net.Requests.Modules
 {
-    internal class ExtendedRequest : GetRequest<IExtended>
+    internal sealed class ExtendedRequest : GetRequest<IExtended>
     {
         public DateTime? FromDate { get; set; }
         public DateTime? ToDate { get; set; }

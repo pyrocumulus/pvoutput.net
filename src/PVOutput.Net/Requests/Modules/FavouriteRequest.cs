@@ -7,7 +7,7 @@ using PVOutput.Net.Requests.Base;
 
 namespace PVOutput.Net.Requests.Modules
 {
-    internal class FavouriteRequest : GetRequest<IFavourite>
+    internal sealed class FavouriteRequest : GetRequest<IFavourite>
     {
         public int? SystemId { get; set; }
 

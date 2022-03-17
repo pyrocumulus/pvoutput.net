@@ -5,7 +5,7 @@ using PVOutput.Net.Enums;
 
 namespace PVOutput.Net.Objects.Modules.Implementations
 {
-    internal class SystemSearchResult : ISystemSearchResult
+    internal sealed class SystemSearchResult : ISystemSearchResult
     {
         public string SystemName { get; set; }
         public int SystemSize { get; set; }

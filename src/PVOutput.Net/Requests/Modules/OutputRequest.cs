@@ -8,7 +8,7 @@ using PVOutput.Net.Requests.Base;
 
 namespace PVOutput.Net.Requests.Modules
 {
-    internal class OutputRequest : GetRequest<IOutput>
+    internal sealed class OutputRequest : GetRequest<IOutput>
     {
         public int? SystemId { get; set; }
         public int? TeamId { get; set; }

@@ -5,7 +5,7 @@ using PVOutput.Net.Objects.Modules.Implementations;
 
 namespace PVOutput.Net.Objects.Modules.Readers
 {
-    internal class OutputObjectStringReader : BaseObjectStringReader<IOutput>
+    internal sealed class OutputObjectStringReader : BaseObjectStringReader<IOutput>
     {
         public OutputObjectStringReader()
         {

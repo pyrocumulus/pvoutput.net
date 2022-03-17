@@ -3,7 +3,7 @@ using PVOutput.Net.Enums;
 
 namespace PVOutput.Net.Objects.Modules.Implementations
 {
-    internal class Output : IOutput
+    internal sealed class Output : IOutput
     {
         public DateTime OutputDate { get; set; }
         public int EnergyGenerated { get; set; }

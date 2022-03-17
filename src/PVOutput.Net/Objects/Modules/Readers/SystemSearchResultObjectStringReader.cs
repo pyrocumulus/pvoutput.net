@@ -8,7 +8,7 @@ using PVOutput.Net.Objects.Core;
 
 namespace PVOutput.Net.Objects.Modules.Readers
 {
-    internal class SystemSearchResultObjectStringReader : BaseObjectStringReader<ISystemSearchResult>
+    internal sealed class SystemSearchResultObjectStringReader : BaseObjectStringReader<ISystemSearchResult>
     {
         internal static Regex PostcodeParsingRegex = new Regex(@"(?'country'\D*?)(?'postcode'\d*)$", RegexOptions.Compiled | RegexOptions.Singleline);
 

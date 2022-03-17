@@ -2,7 +2,7 @@
 
 namespace PVOutput.Net.Objects.Modules.Implementations
 {
-    internal class DayStatistics : IDayStatistics
+    internal sealed class DayStatistics : IDayStatistics
     {
         public int EnergyGeneration { get; set; }
         public int PowerGeneration { get; set; }

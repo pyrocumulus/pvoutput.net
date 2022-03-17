@@ -1,8 +1,8 @@
-using System;
+﻿using System;
 
 namespace PVOutput.Net.Objects.Modules.Implementations
 {
-    internal class Statistic : IStatistic
+    internal sealed class Statistic : IStatistic
     {
         public int EnergyGenerated { get; set; }
         public int EnergyExported { get; set; }

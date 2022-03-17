@@ -5,7 +5,7 @@ using PVOutput.Net.Objects.Modules.Implementations;
 
 namespace PVOutput.Net.Objects.Modules.Readers
 {
-    internal class TeamOutputObjectStringReader : BaseObjectStringReader<ITeamOutput>
+    internal sealed class TeamOutputObjectStringReader : BaseObjectStringReader<ITeamOutput>
     {
         public override ITeamOutput CreateObjectInstance() => new TeamOutput();
 

@@ -12,7 +12,7 @@ using PVOutput.Net.Responses;
 namespace PVOutput.Net.Modules
 {
     /// <inheritdoc cref="IStatusService"/>
-    public sealed class StatusService : BaseService, IStatusService
+    internal sealed class StatusService : BaseService, IStatusService
     {
         internal StatusService(PVOutputClient client) : base(client)
         {

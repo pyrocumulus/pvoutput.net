@@ -11,7 +11,7 @@ using PVOutput.Net.Responses;
 namespace PVOutput.Net.Modules
 {
     /// <inheritdoc cref="IInsolationService"/>
-    public sealed class InsolationService : BaseService, IInsolationService
+    internal sealed class InsolationService : BaseService, IInsolationService
     {
         internal InsolationService(PVOutputClient client) : base(client)
         {

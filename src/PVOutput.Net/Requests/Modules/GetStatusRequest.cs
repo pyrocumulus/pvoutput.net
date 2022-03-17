@@ -7,7 +7,7 @@ using PVOutput.Net.Requests.Base;
 
 namespace PVOutput.Net.Requests.Modules
 {
-    internal class GetStatusRequest : GetRequest<IStatus>
+    internal sealed class GetStatusRequest : GetRequest<IStatus>
     {
         public int? SystemId { get; set; }
         public DateTime Date { get; set; }
