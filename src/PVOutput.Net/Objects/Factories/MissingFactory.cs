@@ -5,7 +5,7 @@ using PVOutput.Net.Objects.Modules.Readers;
 
 namespace PVOutput.Net.Objects.Factories
 {
-    internal class MissingFactory : IObjectStringFactory<IMissing>
+    internal sealed class MissingFactory : IObjectStringFactory<IMissing>
     {
         public IObjectStringReader<IMissing> CreateObjectReader() => new MissingObjectStringReader();
     }

@@ -5,7 +5,7 @@ using PVOutput.Net.Objects.Modules.Readers;
 
 namespace PVOutput.Net.Objects.Factories
 {
-    internal class ExtendedFactory : IArrayStringFactory<IExtended>
+    internal sealed class ExtendedFactory : IArrayStringFactory<IExtended>
     {
         public IArrayStringReader<IExtended> CreateArrayReader() => new CharacterDelimitedArrayStringReader<IExtended>();
 

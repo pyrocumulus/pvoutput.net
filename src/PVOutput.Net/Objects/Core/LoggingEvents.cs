@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace PVOutput.Net.Objects.Core
 {
-    internal class LoggingEvents
+    internal static class LoggingEvents
     {
         /*
          * Logging scope (parameter) keywords

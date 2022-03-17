@@ -7,7 +7,7 @@ using PVOutput.Net.Requests.Base;
 
 namespace PVOutput.Net.Requests.Modules
 {
-    internal class MissingRequest : GetRequest<IMissing>
+    internal sealed class MissingRequest : GetRequest<IMissing>
     {
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }

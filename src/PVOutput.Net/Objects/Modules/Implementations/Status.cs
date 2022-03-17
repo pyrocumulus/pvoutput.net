@@ -2,7 +2,7 @@
 
 namespace PVOutput.Net.Objects.Modules.Implementations
 {
-    internal class Status : IStatus
+    internal sealed class Status : IStatus
     {
         public DateTime Timestamp { get; set; }
         public int? EnergyGeneration { get; set; }

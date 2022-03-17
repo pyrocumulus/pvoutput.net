@@ -7,7 +7,7 @@ using PVOutput.Net.Requests.Base;
 
 namespace PVOutput.Net.Requests.Modules
 {
-    internal class SupplyRequest : GetRequest<ISupply>
+    internal sealed class SupplyRequest : GetRequest<ISupply>
     {
         public string TimeZone { get; set; }
         public string RegionKey { get; set; }

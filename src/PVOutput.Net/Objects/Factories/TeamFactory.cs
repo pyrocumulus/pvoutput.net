@@ -5,7 +5,7 @@ using PVOutput.Net.Objects.Modules.Readers;
 
 namespace PVOutput.Net.Objects.Factories
 {
-    internal class TeamFactory : IObjectStringFactory<ITeam>
+    internal sealed class TeamFactory : IObjectStringFactory<ITeam>
     {
         public IObjectStringReader<ITeam> CreateObjectReader() => new TeamObjectStringReader();
     }

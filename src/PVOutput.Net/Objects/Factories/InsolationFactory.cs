@@ -5,7 +5,7 @@ using PVOutput.Net.Objects.Modules.Readers;
 
 namespace PVOutput.Net.Objects.Factories
 {
-    internal class InsolationFactory : IArrayStringFactory<IInsolation>
+    internal sealed class InsolationFactory : IArrayStringFactory<IInsolation>
     {
         public IArrayStringReader<IInsolation> CreateArrayReader() => new CharacterDelimitedArrayStringReader<IInsolation>();
 

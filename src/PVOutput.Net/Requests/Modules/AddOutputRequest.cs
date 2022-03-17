@@ -8,7 +8,7 @@ using PVOutput.Net.Requests.Base;
 
 namespace PVOutput.Net.Requests.Modules
 {
-    internal class AddOutputRequest : PostRequest
+    internal sealed class AddOutputRequest : PostRequest
     {
         public IOutputPost Output { get; set; }
 

@@ -7,7 +7,7 @@ using PVOutput.Net.Requests.Base;
 
 namespace PVOutput.Net.Requests.Modules
 {
-    internal class AddStatusRequest : PostRequest
+    internal sealed class AddStatusRequest : PostRequest
     {
         public IStatusPost StatusPost { get; set; }
 

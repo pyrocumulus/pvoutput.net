@@ -5,7 +5,7 @@ using PVOutput.Net.Objects.Modules.Implementations;
 
 namespace PVOutput.Net.Objects.Modules.Readers
 {
-    internal class InsolationObjectStringReader : BaseObjectStringReader<IInsolation>
+    internal sealed class InsolationObjectStringReader : BaseObjectStringReader<IInsolation>
     {
         public override IInsolation CreateObjectInstance() => new Insolation();
 

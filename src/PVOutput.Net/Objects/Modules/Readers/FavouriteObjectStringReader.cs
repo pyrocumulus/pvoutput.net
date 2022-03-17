@@ -7,7 +7,7 @@ using PVOutput.Net.Objects.Modules.Implementations;
 
 namespace PVOutput.Net.Objects.Modules.Readers
 {
-    internal class FavouriteObjectStringReader : BaseObjectStringReader<IFavourite>
+    internal sealed class FavouriteObjectStringReader : BaseObjectStringReader<IFavourite>
     {
         public override IFavourite CreateObjectInstance() => new Favourite();
 

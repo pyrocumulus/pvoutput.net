@@ -6,7 +6,7 @@ using RichardSzalay.MockHttp;
 
 namespace PVOutput.Net.Tests.Requests.Handler
 {
-    internal class TestHttpClientProvider : HttpClientProvider
+    internal sealed class TestHttpClientProvider : HttpClientProvider
     {
         internal MockHttpMessageHandler MockHttpMessageHandler { get; }
 

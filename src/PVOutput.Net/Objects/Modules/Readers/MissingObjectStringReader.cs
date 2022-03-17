@@ -5,7 +5,7 @@ using PVOutput.Net.Objects.Core;
 
 namespace PVOutput.Net.Objects.Modules.Readers
 {
-    internal class MissingObjectStringReader : BaseObjectStringReader<IMissing>
+    internal sealed class MissingObjectStringReader : BaseObjectStringReader<IMissing>
     {
         public override IMissing CreateObjectInstance() => new Implementations.Missing();
 

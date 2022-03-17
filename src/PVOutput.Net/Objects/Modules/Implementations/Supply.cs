@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PVOutput.Net.Objects.Modules.Implementations
 {
-    internal class Supply : ISupply
+    internal sealed class Supply : ISupply
     {
         public DateTimeOffset Timestamp { get; set; }
         public string RegionName { get; set; }

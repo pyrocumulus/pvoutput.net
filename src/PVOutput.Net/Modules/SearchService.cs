@@ -14,7 +14,7 @@ using PVOutput.Net.Responses;
 namespace PVOutput.Net.Modules
 {
     /// <inheritdoc cref="ISearchService"/>
-    public sealed class SearchService : BaseService, ISearchService
+    internal sealed class SearchService : BaseService, ISearchService
     {
         internal SearchService(PVOutputClient client) : base(client)
         {

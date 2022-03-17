@@ -11,7 +11,7 @@ using PVOutput.Net.Responses;
 namespace PVOutput.Net.Modules
 {
     /// <inheritdoc cref="INotificationService" />
-    public sealed class NotificationService : BaseService, INotificationService
+    internal sealed class NotificationService : BaseService, INotificationService
     {
         /// <summary>
         /// Alert for a new private message.

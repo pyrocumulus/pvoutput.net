@@ -4,7 +4,7 @@ using PVOutput.Net.Objects.Core;
 
 namespace PVOutput.Net.Requests.Modules
 {
-    internal class StatisticPeriodRequest : StatisticRequest
+    internal sealed class StatisticPeriodRequest : StatisticRequest
     {
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }

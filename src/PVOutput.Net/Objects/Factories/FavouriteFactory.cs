@@ -5,7 +5,7 @@ using PVOutput.Net.Objects.Modules.Readers;
 
 namespace PVOutput.Net.Objects.Factories
 {
-    internal class FavouriteFactory : IArrayStringFactory<IFavourite>
+    internal sealed class FavouriteFactory : IArrayStringFactory<IFavourite>
     {
         public IArrayStringReader<IFavourite> CreateArrayReader() => new CharacterDelimitedArrayStringReader<IFavourite>('\n');
 

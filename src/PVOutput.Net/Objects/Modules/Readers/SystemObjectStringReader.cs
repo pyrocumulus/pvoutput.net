@@ -7,7 +7,7 @@ using PVOutput.Net.Objects.Modules.Implementations;
 
 namespace PVOutput.Net.Objects.Modules.Readers
 {
-    internal class SystemObjectStringReader : BaseObjectStringReader<ISystem>
+    internal sealed class SystemObjectStringReader : BaseObjectStringReader<ISystem>
     {
         public override ISystem CreateObjectInstance() => new Implementations.System();
 

@@ -12,7 +12,7 @@ using PVOutput.Net.Responses;
 namespace PVOutput.Net.Modules
 {
     /// <inheritdoc cref="IExtendedService"/>
-    public sealed class ExtendedService : BaseService, IExtendedService
+    internal sealed class ExtendedService : BaseService, IExtendedService
     {
         internal ExtendedService(PVOutputClient client) : base(client)
         {

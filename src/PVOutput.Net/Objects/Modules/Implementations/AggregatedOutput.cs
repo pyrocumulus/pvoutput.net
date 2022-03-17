@@ -1,8 +1,8 @@
-using System;
+﻿using System;
 
 namespace PVOutput.Net.Objects.Modules.Implementations
 {
-    internal class AggregatedOutput : IAggregatedOutput
+    internal sealed class AggregatedOutput : IAggregatedOutput
     {
         public DateTime AggregatedDate { get; set; }
         public int Outputs { get; set; }

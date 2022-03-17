@@ -11,7 +11,7 @@ using PVOutput.Net.Responses;
 namespace PVOutput.Net.Modules
 {
     /// <inheritdoc cref="ISystemService"/>>
-    public sealed class SystemService : BaseService, ISystemService
+    internal sealed class SystemService : BaseService, ISystemService
     {
         internal SystemService(PVOutputClient client) : base(client)
         {

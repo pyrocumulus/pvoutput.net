@@ -13,7 +13,7 @@ using PVOutput.Net.Responses;
 namespace PVOutput.Net.Modules
 {
     /// <inheritdoc cref="IOutputService"/>
-    public sealed class OutputService : BaseService, IOutputService
+    internal sealed class OutputService : BaseService, IOutputService
     {
         internal OutputService(PVOutputClient client) : base(client)
         {

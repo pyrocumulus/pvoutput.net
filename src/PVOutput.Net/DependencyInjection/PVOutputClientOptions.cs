@@ -3,7 +3,7 @@
     /// <summary>
     /// Options used to create a PVOutputClient through Microsoft's Dependency Injection.
     /// </summary>
-    public class PVOutputClientOptions
+    public sealed class PVOutputClientOptions
     {
         /// <summary>ApiKey to use with authenticating.</summary>
         public string ApiKey { get; set; }

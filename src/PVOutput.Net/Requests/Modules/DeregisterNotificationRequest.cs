@@ -4,7 +4,7 @@ using PVOutput.Net.Requests.Base;
 
 namespace PVOutput.Net.Requests.Modules
 {
-    internal class DeregisterNotificationRequest : PostRequest
+    internal sealed class DeregisterNotificationRequest : PostRequest
     {
         public string ApplicationId { get; set; }
         public int? AlertType { get; set; }

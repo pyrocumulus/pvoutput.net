@@ -5,7 +5,7 @@ using PVOutput.Net.Objects.Modules.Implementations;
 
 namespace PVOutput.Net.Objects.Modules.Readers
 {
-    internal class ExtendedObjectStringReader : BaseObjectStringReader<IExtended>
+    internal sealed class ExtendedObjectStringReader : BaseObjectStringReader<IExtended>
     {
         public override IExtended CreateObjectInstance() => new Extended();
 

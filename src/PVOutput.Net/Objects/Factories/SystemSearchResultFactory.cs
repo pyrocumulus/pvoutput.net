@@ -5,7 +5,7 @@ using PVOutput.Net.Objects.Modules.Readers;
 
 namespace PVOutput.Net.Objects.Factories
 {
-    internal class SystemSearchResultFactory : IArrayStringFactory<ISystemSearchResult>
+    internal sealed class SystemSearchResultFactory : IArrayStringFactory<ISystemSearchResult>
     {
         public IArrayStringReader<ISystemSearchResult> CreateArrayReader() => new LineDelimitedArrayStringReader<ISystemSearchResult>();
 

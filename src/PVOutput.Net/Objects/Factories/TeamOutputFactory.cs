@@ -4,7 +4,7 @@ using PVOutput.Net.Objects.Modules.Readers;
 
 namespace PVOutput.Net.Objects.Factories
 {
-    internal class TeamOutputFactory : IArrayStringFactory<ITeamOutput>
+    internal sealed class TeamOutputFactory : IArrayStringFactory<ITeamOutput>
     {
         public IArrayStringReader<ITeamOutput> CreateArrayReader() => new CharacterDelimitedArrayStringReader<ITeamOutput>();
 

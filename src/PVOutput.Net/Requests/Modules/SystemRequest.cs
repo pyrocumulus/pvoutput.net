@@ -5,7 +5,7 @@ using PVOutput.Net.Requests.Base;
 
 namespace PVOutput.Net.Requests.Modules
 {
-    internal class SystemRequest : GetRequest<ISystem>
+    internal sealed class SystemRequest : GetRequest<ISystem>
     {
         public int? SystemId { get; set; }
         public bool MonthlyEstimates { get; set; } = true;

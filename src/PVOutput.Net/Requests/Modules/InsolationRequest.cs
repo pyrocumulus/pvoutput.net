@@ -7,7 +7,7 @@ using PVOutput.Net.Requests.Base;
 
 namespace PVOutput.Net.Requests.Modules
 {
-    internal class InsolationRequest : GetRequest<IInsolation>
+    internal sealed class InsolationRequest : GetRequest<IInsolation>
     {
         public DateTime? Date { get; set; }
         public int? SystemId { get; set; }

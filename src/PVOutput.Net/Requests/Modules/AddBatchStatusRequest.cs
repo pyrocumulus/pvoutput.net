@@ -9,7 +9,7 @@ using PVOutput.Net.Requests.Base;
 
 namespace PVOutput.Net.Requests.Modules
 {
-    internal class AddBatchStatusRequest : PostRequest
+    internal sealed class AddBatchStatusRequest : PostRequest
     {
         public IEnumerable<IBatchStatusPost> StatusPosts { get; set; }
 

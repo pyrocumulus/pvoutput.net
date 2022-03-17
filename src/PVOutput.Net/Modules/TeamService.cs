@@ -10,7 +10,7 @@ using PVOutput.Net.Responses;
 namespace PVOutput.Net.Modules
 {
     /// <inheritdoc cref="ITeamService"/>
-    public sealed class TeamService : BaseService, ITeamService
+    internal sealed class TeamService : BaseService, ITeamService
     {
         internal TeamService(PVOutputClient client) : base(client)
         {

@@ -5,7 +5,7 @@ using PVOutput.Net.Objects.Core;
 
 namespace PVOutput.Net.Objects.Modules.Readers
 {
-    internal class SupplyObjectStringReader : BaseObjectStringReader<ISupply>
+    internal sealed class SupplyObjectStringReader : BaseObjectStringReader<ISupply>
     {
         public override ISupply CreateObjectInstance() => new Implementations.Supply();
 

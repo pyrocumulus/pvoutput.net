@@ -3,7 +3,7 @@ using PVOutput.Net.Enums;
 
 namespace PVOutput.Net.Objects.Modules.Implementations
 {
-    internal class StatusPost : IStatusPost
+    internal sealed class StatusPost : IStatusPost
     {
         public DateTime Timestamp { get; set; }
         public int? EnergyGeneration { get; set; }

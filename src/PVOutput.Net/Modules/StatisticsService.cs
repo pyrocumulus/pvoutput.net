@@ -12,7 +12,7 @@ using PVOutput.Net.Responses;
 namespace PVOutput.Net.Modules
 {
     /// <inheritdoc cref="IStatisticsService"/>
-    public sealed class StatisticsService : BaseService, IStatisticsService
+    internal sealed class StatisticsService : BaseService, IStatisticsService
     {
         internal StatisticsService(PVOutputClient client) : base(client)
         {

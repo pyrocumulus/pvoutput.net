@@ -4,7 +4,7 @@ using PVOutput.Net.Objects.Modules.Implementations;
 
 namespace PVOutput.Net.Objects.Modules.Readers
 {
-    internal class StatisticObjectStringReader : BaseObjectStringReader<IStatistic>
+    internal sealed class StatisticObjectStringReader : BaseObjectStringReader<IStatistic>
     {
         public override IStatistic CreateObjectInstance() => new Statistic();
 

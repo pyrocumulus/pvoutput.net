@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PVOutput.Net.Objects.Modules.Implementations
 {
-    internal class Team : ITeam
+    internal sealed class Team : ITeam
     {
         public string Name { get; set; }
         public int TeamSize { get; set; }

@@ -17,7 +17,7 @@ using Tavis.UriTemplates;
 
 namespace PVOutput.Net.Requests.Handler
 {
-    internal class RequestHandler
+    internal sealed class RequestHandler
     {
         private PVOutputClient Client { get; }
 
@@ -312,7 +312,7 @@ namespace PVOutput.Net.Requests.Handler
             return Client.HttpClientProvider.GetHttpClient().SendAsync(requestMessage, cancellationToken);
         }
 
-        protected void SetRequestHeaders(HttpRequestMessage request)
+        private void SetRequestHeaders(HttpRequestMessage request)
         {
             request.Headers.Add("X-Pvoutput-Apikey", Client.ApiKey);
             request.Headers.Add("X-Pvoutput-SystemId", FormatHelper.GetValueAsString<int>(Client.OwnedSystemId));

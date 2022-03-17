@@ -1,11 +1,11 @@
-using System;
+﻿using System;
 using System.Globalization;
 using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Objects.Modules.Implementations;
 
 namespace PVOutput.Net.Objects.Modules.Readers
 {
-    internal class AggregatedOutputObjectStringReader : BaseObjectStringReader<IAggregatedOutput>
+    internal sealed class AggregatedOutputObjectStringReader : BaseObjectStringReader<IAggregatedOutput>
     {
         public override IAggregatedOutput CreateObjectInstance() => new AggregatedOutput();
 

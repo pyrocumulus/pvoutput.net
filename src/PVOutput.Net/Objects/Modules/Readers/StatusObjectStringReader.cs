@@ -3,7 +3,7 @@ using PVOutput.Net.Objects.Core;
 
 namespace PVOutput.Net.Objects.Modules.Readers
 {
-    internal class StatusObjectStringReader : BaseObjectStringReader<IStatus>
+    internal sealed class StatusObjectStringReader : BaseObjectStringReader<IStatus>
     {
         public override IStatus CreateObjectInstance() => new Implementations.Status();
 
