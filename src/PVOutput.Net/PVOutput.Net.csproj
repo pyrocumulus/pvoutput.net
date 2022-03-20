@@ -22,6 +22,7 @@
 https://github.com/pyrocumulus/pvoutput.net/blob/master/CHANGELOG.md</PackageReleaseNotes>
     <PackageId>PVOutput.Net</PackageId>
     <PackageIcon>logo.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -67,6 +68,7 @@ https://github.com/pyrocumulus/pvoutput.net/blob/master/CHANGELOG.md</PackageRel
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>
