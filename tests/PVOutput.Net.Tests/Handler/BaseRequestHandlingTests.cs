@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using PVOutput.Net.Enums;
@@ -83,6 +85,118 @@ namespace PVOutput.Net.Tests.Handler
         }
 
         [Test]
+        public void ExecuteSingleItemRequest_OnCancellation_DoesNotThrowNullReferenceException()
+        {
+            var cancellationTokenSource = new CancellationTokenSource();
+
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+            client.ThrowResponseExceptions = false;
+            testProvider.ExpectUriFromBase("getsystem.jsp")
+                .Respond(async _ =>
+                {
+                    // This should let the client hang on ExecuteSingleItemRequest until it's canceled.
+                    await Task.Delay(1000);
+
+                    throw new InvalidOperationException("Should have been canceled");
+                });
+
+            Task task = null;
+
+            Assert.ThrowsAsync<OperationCanceledException>(async () =>
+            {
+                task = Task.Run(() => client.System.GetOwnSystemAsync(cancellationTokenSource.Token));
+
+                // Now that the client started running above, cancel it.
+                cancellationTokenSource.Cancel();
+
+                await task;
+            });
+
+            testProvider.VerifyNoOutstandingExpectation();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(task.IsCanceled, Is.True);
+                Assert.That(cancellationTokenSource.IsCancellationRequested, Is.True);
+            });
+        }
+
+        [Test]
+        public void ExecuteArrayRequest_OnCancellation_DoesNotThrowNullReferenceException()
+        {
+            var cancellationTokenSource = new CancellationTokenSource();
+
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+            client.ThrowResponseExceptions = false;
+            testProvider.ExpectUriFromBase("search.jsp")
+                .Respond(async _ =>
+                {
+                    // This should let the client hang on ExecuteSingleItemRequest until it's canceled.
+                    await Task.Delay(1000);
+
+                    throw new InvalidOperationException("Should have been canceled");
+                });
+
+            Task task = null;
+
+            Assert.ThrowsAsync<OperationCanceledException>(async () =>
+            {
+                task = Task.Run(() => client.Search.SearchAsync("test", cancellationToken: cancellationTokenSource.Token));
+
+                // Now that the client started running above, cancel it.
+                cancellationTokenSource.Cancel();
+
+                await task;
+            });
+
+            testProvider.VerifyNoOutstandingExpectation();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(task.IsCanceled, Is.True);
+                Assert.That(cancellationTokenSource.IsCancellationRequested, Is.True);
+            });
+        }
+
+        [Test]
+        public void ExecutePostRequest_OnCancellation_DoesNotThrowNullReferenceException()
+        {
+            var cancellationTokenSource = new CancellationTokenSource();
+
+            PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
+            client.ThrowResponseExceptions = false;
+            testProvider.ExpectUriFromBase("postsystem.jsp")
+                .Respond(async _ =>
+                {
+                    // This should let the client hang on ExecuteSingleItemRequest until it's canceled.
+                    await Task.Delay(1000);
+
+                    throw new InvalidOperationException("Should have been canceled");
+                });
+
+            Task task = null;
+
+            Assert.ThrowsAsync<OperationCanceledException>(async () =>
+            {
+                task = Task.Run(() => client.System.PostSystem(systemId: 42, cancellationToken: cancellationTokenSource.Token));
+
+                // Now that the client started running above, cancel it.
+                cancellationTokenSource.Cancel();
+
+                await task;
+            });
+
+            testProvider.VerifyNoOutstandingExpectation();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(task.IsCanceled, Is.True);
+                Assert.That(cancellationTokenSource.IsCancellationRequested, Is.True);
+            });
+        }
+
+
+        [Test]
         public async Task ClientWithNoThrowOption_OnErrorResponse_ReturnsErrorResponse()
         {
             HttpStatusCode statusCode = HttpStatusCode.Unauthorized;
@@ -146,7 +260,8 @@ namespace PVOutput.Net.Tests.Handler
             PVOutputResponse<ISystem> response = await client.System.GetOwnSystemAsync();
             testProvider.VerifyNoOutstandingExpectation();
 
-            Assert.Multiple(() => {
+            Assert.Multiple(() =>
+            {
                 Assert.That(response.ApiRateInformation.LimitRemaining, Is.EqualTo(156));
                 Assert.That(response.ApiRateInformation.CurrentLimit, Is.EqualTo(300));
                 Assert.That(response.ApiRateInformation.LimitResetAt, Is.EqualTo(resetTimeStamp));
