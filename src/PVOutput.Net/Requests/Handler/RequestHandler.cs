@@ -79,7 +79,7 @@ namespace PVOutput.Net.Requests.Handler
             }
             finally
             {
-                responseMessage.Dispose();
+                responseMessage?.Dispose();
             }
         }
 
@@ -115,7 +115,7 @@ namespace PVOutput.Net.Requests.Handler
             }
             finally
             {
-                responseMessage.Dispose();
+                responseMessage?.Dispose();
             }
         }
 
@@ -148,7 +148,7 @@ namespace PVOutput.Net.Requests.Handler
             }
             finally
             {
-                responseMessage.Dispose();
+                responseMessage?.Dispose();
             }
         }
 

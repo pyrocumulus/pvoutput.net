@@ -168,7 +168,7 @@ namespace PVOutput.Net.Tests.Handler
             testProvider.ExpectUriFromBase("postsystem.jsp")
                 .Respond(async _ =>
                 {
-                    // This should let the client hang on ExecuteSingleItemRequest until it's canceled.
+                    // This should let the client hang on ExecutePostRequest until it's canceled.
                     await Task.Delay(1000);
 
                     throw new InvalidOperationException("Should have been canceled");
