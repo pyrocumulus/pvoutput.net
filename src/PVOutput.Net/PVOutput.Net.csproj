@@ -6,7 +6,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Authors>Marcel Boersma</Authors>
-    <Version>0.10.0</Version>
+    <Version>0.11.0</Version>
     <Copyright></Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://pyrocumulus.github.io/pvoutput.net/</PackageProjectUrl>

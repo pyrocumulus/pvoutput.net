@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## Unreleased
+## [0.11.0] - 2022-05-05
 
 ### Changed
 
@@ -16,7 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Fixed
 
-- Fixed Do not throw exception on cancellation of request [#124](https://github.com/pyrocumulus/pvoutput.net/pull/124) - Contribution [CodeCasterNL](https://github.com/CodeCasterNL)
+- Do not throw exception on cancellation of request [#124](https://github.com/pyrocumulus/pvoutput.net/pull/124) - Contribution [CodeCasterNL](https://github.com/CodeCasterNL)
 
 ## [0.10.0] - 2022-03-16
 
