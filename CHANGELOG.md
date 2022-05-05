@@ -8,11 +8,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - **BREAKING**: Removed add batch output from API. Please use the `AddOutputsAsync` method from now on. This is donation only. [#78](https://github.com/pyrocumulus/pvoutput.net/pull/78)
-- **BREAKING**: Some implementations which have been properly interfaced, are reduced to internal visibility from now on. LINK HERE [#117](https://github.com/pyrocumulus/pvoutput.net/pull/117)
+- **BREAKING**: Some implementations which have been properly interfaced, are reduced to internal visibility from now on. [#117](https://github.com/pyrocumulus/pvoutput.net/pull/117)
 
 ### Updated
 
 - Updated `Microsoft.Extensions.DependencyInjection.Abstractions` from `v6.0.0` to `v6.0.1` [#114](https://github.com/pyrocumulus/pvoutput.net/pull/114)
+
+### Fixed
+
+- Fixed Do not throw exception on cancellation of request [#124](https://github.com/pyrocumulus/pvoutput.net/pull/124) - Contribution [CodeCasterNL](https://github.com/CodeCasterNL)
 
 ## [0.10.0] - 2022-03-16
 
