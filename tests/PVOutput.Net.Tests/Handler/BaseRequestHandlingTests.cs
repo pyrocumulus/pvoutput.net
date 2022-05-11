@@ -102,7 +102,10 @@ namespace PVOutput.Net.Tests.Handler
 
             Task task = null;
 
-            Assert.ThrowsAsync<OperationCanceledException>(async () =>
+            // Test through Is.InstanceOf<> instead of ThrowsAsync<TActual>
+            // In Linux containers the exception type can sometimes switch to TaskCanceledException based on timing
+            // This way we allow OperationCanceledException as well as TaskCanceledException
+            Assert.ThrowsAsync(Is.InstanceOf<OperationCanceledException>(), async () =>
             {
                 task = Task.Run(() => client.System.GetOwnSystemAsync(cancellationTokenSource.Token));
 
@@ -139,7 +142,10 @@ namespace PVOutput.Net.Tests.Handler
 
             Task task = null;
 
-            Assert.ThrowsAsync<OperationCanceledException>(async () =>
+            // Test through Is.InstanceOf<> instead of ThrowsAsync<TActual>
+            // In Linux containers the exception type can sometimes switch to TaskCanceledException based on timing
+            // This way we allow OperationCanceledException as well as TaskCanceledException
+            Assert.ThrowsAsync(Is.InstanceOf<OperationCanceledException>(), async () =>
             {
                 task = Task.Run(() => client.Search.SearchAsync("test", cancellationToken: cancellationTokenSource.Token));
 
@@ -176,7 +182,10 @@ namespace PVOutput.Net.Tests.Handler
 
             Task task = null;
 
-            Assert.ThrowsAsync<OperationCanceledException>(async () =>
+            // Test through Is.InstanceOf<> instead of ThrowsAsync<TActual>
+            // In Linux containers the exception type can sometimes switch to TaskCanceledException based on timing
+            // This way we allow OperationCanceledException as well as TaskCanceledException
+            Assert.ThrowsAsync(Is.InstanceOf<OperationCanceledException>(), async () =>
             {
                 task = Task.Run(() => client.System.PostSystem(systemId: 42, cancellationToken: cancellationTokenSource.Token));
 
