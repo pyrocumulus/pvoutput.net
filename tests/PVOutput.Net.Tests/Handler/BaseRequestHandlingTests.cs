@@ -102,7 +102,7 @@ namespace PVOutput.Net.Tests.Handler
 
             Task task = null;
 
-            Assert.ThrowsAsync<OperationCanceledException>(async () =>
+            Assert.ThrowsAsync(Is.InstanceOf<OperationCanceledException>(), async () =>
             {
                 task = Task.Run(() => client.System.GetOwnSystemAsync(cancellationTokenSource.Token));
 
@@ -139,7 +139,7 @@ namespace PVOutput.Net.Tests.Handler
 
             Task task = null;
 
-            Assert.ThrowsAsync<OperationCanceledException>(async () =>
+            Assert.ThrowsAsync(Is.InstanceOf<OperationCanceledException>(), async () =>
             {
                 task = Task.Run(() => client.Search.SearchAsync("test", cancellationToken: cancellationTokenSource.Token));
 
@@ -175,8 +175,8 @@ namespace PVOutput.Net.Tests.Handler
                 });
 
             Task task = null;
-
-            Assert.ThrowsAsync<OperationCanceledException>(async () =>
+            
+            Assert.ThrowsAsync(Is.InstanceOf<OperationCanceledException>(), async () =>
             {
                 task = Task.Run(() => client.System.PostSystem(systemId: 42, cancellationToken: cancellationTokenSource.Token));
 
