@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## Unreleased
+
+### Fixed
+
+- Added support for undocumented panel orientation 'EastWest' [#131](https://github.com/pyrocumulus/pvoutput.net/pull/131) - Contribution [CodeCasterNL](https://github.com/CodeCasterNL)
+
 ## [0.11.0] - 2022-05-05
 
 ### Changed
