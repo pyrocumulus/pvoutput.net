@@ -111,7 +111,7 @@ namespace PVOutput.Net.Tests.Modules.System
                 Assert.That(result.NumberOfInverters, Is.EqualTo(1));
                 Assert.That(result.InverterPower, Is.EqualTo(5500));
                 Assert.That(result.InverterBrand, Is.EqualTo("Fronius Primo 3.6-1"));
-                Assert.That(result.Orientation, Is.EqualTo(Orientation.East));
+                Assert.That(result.Orientation, Is.EqualTo(Orientation.EastWest));
                 Assert.That(result.ArrayTilt, Is.EqualTo(53.0m));
                 Assert.That(result.Shade, Is.EqualTo(Shade.None));
                 Assert.That(result.InstallDate, Is.Null);

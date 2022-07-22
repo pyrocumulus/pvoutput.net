@@ -56,6 +56,12 @@ namespace PVOutput.Net.Enums
         /// NorthWest
         /// </summary>
         [Description("NW")]
-        NorthWest = 7
+        NorthWest = 7,
+
+        /// <summary>
+        /// EastWest
+        /// </summary>
+        [Description("EW")]
+        EastWest = 8
     }
 }
