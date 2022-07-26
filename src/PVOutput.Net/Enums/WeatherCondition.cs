@@ -7,7 +7,7 @@ namespace PVOutput.Net.Enums
 {
     /// <summary>
     /// Describes weather conditions for a daily output.
-    /// <para>See the official<see href="https://pvoutput.org/help.html#general-weather"> API information</see>.</para>
+    /// <para>See the official<see href="https://pvoutput.org/help/general_features.html#weather-conditions"> API information</see>.</para>
     /// </summary>
     public enum WeatherCondition
     {

@@ -8,13 +8,14 @@ namespace PVOutput.Net.Modules
 {
     /// <summary>
     /// The Get Statistic service retrieves system statistical information.
-    /// <para>See the official <see href="https://pvoutput.org/help.html#api-getstatistic">API information</see>.</para>
+    /// <para>See the official <see href="https://pvoutput.org/help/api_specification.html#get-statistic-service">API information</see>.</para>
     /// </summary>
     public interface IStatisticsService
     {
         /// <summary>
         /// Retrieve lifetime statistics for a system.
         /// <para><strong>Donation makes it possible to retrieve any system</strong></para>
+        /// <para>See the official <see href="https://pvoutput.org/help/api_specification.html#get-statistic-service">API information</see>.</para>
         /// </summary>
         /// <param name="includeConsumptionAndImport">Whether or not to include consumption and import data. <strong>System owner only.</strong></param>
         /// <param name="includeCreditDebit">Whether or not to include credit and debit data. <strong>System owner only.</strong></param>
@@ -26,6 +27,7 @@ namespace PVOutput.Net.Modules
         /// <summary>
         /// Retrieve lifetime statistics for a system, in a certain period.
         /// <para><strong>Donation makes it possible to retrieve any system</strong></para>
+        /// <para>See the official <see href="https://pvoutput.org/help/api_specification.html#get-statistic-service">API information</see>.</para>
         /// </summary>
         /// <param name="fromDate">Minimum date for the requested range.</param>
         /// <param name="toDate">Maximum date for the requested range.</param>
