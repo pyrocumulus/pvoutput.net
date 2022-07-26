@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Updated README formatting for NuGet package page [#132](https://github.com/pyrocumulus/pvoutput.net/pull/132)
+- Updated all links to official API documentation [#133](https://github.com/pyrocumulus/pvoutput.net/pull/133)
 
 ## [0.11.1] - 2022-07-24
 
