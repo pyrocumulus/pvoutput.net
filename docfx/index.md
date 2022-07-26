@@ -43,7 +43,7 @@ var builder = new StatusPostBuilder<IStatusPost>();
 
 // Build the status
 var status = builder.SetTimeStamp(DateTime.Now)
-                .SetGeneration(200, null)
+                .SetGeneration(200)
                 .Build();
 
 // Push the status back to PVOutput

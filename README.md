@@ -6,7 +6,6 @@
 ![GitHub last commit (master)](https://img.shields.io/github/last-commit/pyrocumulus/PVOutput.Net/master?label=last%20commit%20%28master%29)
 [![NuGet Version](https://img.shields.io/nuget/v/PVOutput.Net.svg?logo=nuget)](https://www.nuget.org/packages/PVOutput.Net/)
 [![NuGet Downloads](https://img.shields.io/nuget/dt/PVOutput.Net.svg?logo=nuget)](https://www.nuget.org/packages/PVOutput.Net/)
-[![fuget](https://www.fuget.org/packages/PVOutput.Net/badge.svg)](https://www.fuget.org/packages/PVOutput.Net)
 [![.NET Core](https://img.shields.io/github/workflow/status/pyrocumulus/PVOutput.Net/.NET%20Core/develop)](https://github.com/pyrocumulus/pvoutput.net/actions?query=workflow%3A%22.NET+Core%22)
 [![Code coverage](https://img.shields.io/codecov/c/github/pyrocumulus/PVOutput.Net/develop)](https://codecov.io/gh/pyrocumulus/pvoutput.net)
 
@@ -31,8 +30,9 @@ See [master](https://github.com/pyrocumulus/pvoutput.net/tree/master) for the so
 
 ## Basic usage
 
-<details>
-    <summary>Getting data out of PVOutput.org</summary>
+This section describes examples of functionality that the library provides.
+
+### Getting data out of PVOutput.org
 
 ```csharp
 var client = new PVOutputClient(apiKey: "myPvOutputKey", ownedSystemId: 1);
@@ -44,10 +44,7 @@ Console.WriteLine($"Output for date {output.OutputDate.ToShortDateString()}, {ou
 
 ```
 
-</details>
-
-<details>
-    <summary>Adding data to a system in PVOutput.org</summary>
+### Adding data to a system in PVOutput.org
 
 ```csharp
 var client = new PVOutputClient(apiKey: "myPvOutputKey", ownedSystemId: 1);
@@ -55,7 +52,7 @@ var builder = new StatusPostBuilder<IStatusPost>();
 
 // Build the status
 var status = builder.SetTimeStamp(DateTime.Now)
-                .SetGeneration(200, null)
+                .SetGeneration(200)
                 .Build();
 
 // Push the status back to PVOutput
@@ -63,10 +60,7 @@ var response = await client.Status.AddStatusAsync(status);
 
 ```
 
-</details>
-
-<details>
-    <summary>Using the client in an ASP.Net Core application</summary>
+### Using the client in an ASP.Net Core application
 
 ```csharp
     public void ConfigureServices(IServiceCollection services)
@@ -78,8 +72,6 @@ var response = await client.Status.AddStatusAsync(status);
         });
     }
 ```
-
-</details>
 
 For more information on usage, please see the [documentation](https://pyrocumulus.github.io/pvoutput.net/).
 
