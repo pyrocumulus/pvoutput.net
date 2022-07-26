@@ -8,7 +8,7 @@ namespace PVOutput.Net.Modules
 {
     /// <summary>
     /// The Get Extended service retrieves system daily extended data.
-    /// <para>See the official <see href="https://pvoutput.org/help.html#api-getextended">API information</see>.</para>
+    /// <para>See the official <see href="https://pvoutput.org/help/api_specification.html#get-extended-service">API information</see>.</para>
     /// <para><strong>Note: this is a donation only service.</strong></para>
     /// </summary>
     public interface IExtendedService
@@ -16,6 +16,7 @@ namespace PVOutput.Net.Modules
         /// <summary>
         /// Retrieve most recently created extended data.
         /// <para><strong>Note: this is a donation only request.</strong></para>
+        /// <para>See the official <see href="https://pvoutput.org/help/api_specification.html#get-extended-service">API information</see>.</para>
         /// </summary>
         /// <param name="cancellationToken">A cancellation token for the request.</param>
         /// <returns>Most recent extended data.</returns>
@@ -24,6 +25,7 @@ namespace PVOutput.Net.Modules
         /// <summary>
         /// Retrieve extended data for a certain period.
         /// <para><strong>Note: this is a donation only request.</strong></para>
+        /// <para>See the official <see href="https://pvoutput.org/help/api_specification.html#get-extended-service">API information</see>.</para>
         /// </summary>
         /// <param name="fromDate">Minimum DateTime for the requested range.</param>
         /// <param name="toDate">Maximum DateTime for the requested range.</param>

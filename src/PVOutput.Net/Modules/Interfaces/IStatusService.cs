@@ -10,12 +10,13 @@ namespace PVOutput.Net.Modules
 {
     /// <summary>
     /// The Status service handles system status information and live output data.
-    /// <para>See the official <see href="https://pvoutput.org/help.html#api-getstatus">API information</see>.</para>
+    /// <para>See the official <see href="https://pvoutput.org/help/api_specification.html#get-status-service">API information</see>.</para>
     /// </summary>
     public interface IStatusService
     {
         /// <summary>
         /// Get the system status at a specific moment.
+        /// <para>See the official <see href="https://pvoutput.org/help/api_specification.html#get-status-service">API information</see>.</para>
         /// </summary>
         /// <param name="moment">Moment to retrieve the system status for.</param>
         /// <param name="systemId">Retrieve status for a specific system. <strong>Note: this is a donation only parameter.</strong></param>
@@ -25,6 +26,7 @@ namespace PVOutput.Net.Modules
 
         /// <summary>
         /// Get the status history for a specific period.
+        /// <para>See the official <see href="https://pvoutput.org/help/api_specification.html#history-query">API information</see>.</para>
         /// </summary>
         /// <param name="fromDateTime">Minimum datetime for the requested range.</param>
         /// <param name="toDateTime">Maximum datetime for the requested range.</param>
@@ -38,6 +40,7 @@ namespace PVOutput.Net.Modules
 
         /// <summary>
         /// Gets the day statistics for specific period.
+        /// <para>See the official <see href="https://pvoutput.org/help/api_specification.html#day-statistics">API information</see>.</para>
         /// </summary>
         /// <param name="fromDateTime">Minimum datetime for the requested range.</param>
         /// <param name="toDateTime">Maximum datetime for the requested range.</param>
@@ -48,7 +51,7 @@ namespace PVOutput.Net.Modules
 
         /// <summary>
         /// Adds a single status to the owned system.
-        /// <para>See the official <see href="https://pvoutput.org/help.html#api-addstatus">API information</see>.</para>
+        /// <para>See the official <see href="https://pvoutput.org/help/api_specification.html#add-status-service">API information</see>.</para>
         /// Use the <see cref="StatusPostBuilder{TResultType}"/> to create <see cref="IStatusPost"/> objects.
         /// </summary>
         /// <param name="status">The status to add.</param>
@@ -58,7 +61,7 @@ namespace PVOutput.Net.Modules
 
         /// <summary>
         /// Adds multiple statuses to the owned system.
-        /// <para>See the official <see href="https://pvoutput.org/help.html#api-addbatchstatus">API information</see>.</para>
+        /// <para>See the official <see href="https://pvoutput.org/help/api_specification.html#add-batch-status-service">API information</see>.</para>
         /// Use the <see cref="StatusPostBuilder{IBatchStatusPost}"/> to create <see cref="IBatchStatusPost"/> objects.
         /// </summary>
         /// <param name="statuses">The statuses to add.</param>
@@ -68,7 +71,7 @@ namespace PVOutput.Net.Modules
 
         /// <summary>
         /// Adds multiple statuses to the owned system.
-        /// <para>See the official <see href="https://pvoutput.org/help.html#api-addbatchstatus">API information</see>.</para>
+        /// <para>See the official <see href="https://pvoutput.org/help/api_specification.html#add-batch-status-service">API information</see>.</para>
         /// Use the <see cref="StatusPostBuilder{IBatchStatusPost}"/> to create <see cref="IBatchStatusPost"/> objects.
         /// </summary>
         /// <param name="statuses">The statuses to add.</param>
@@ -79,7 +82,7 @@ namespace PVOutput.Net.Modules
 
         /// <summary>
         /// Adds multiple statuses to the owned system.
-        /// <para>See the official <see href="https://pvoutput.org/help.html#api-addbatchstatus">API information</see>.</para>
+        /// <para>See the official <see href=https://pvoutput.org/help/api_specification.html#add-batch-status-service">API information</see>.</para>
         /// Use the <see cref="StatusPostBuilder{IBatchStatusPost}"/> to create <see cref="IBatchStatusPost"/> objects.
         /// </summary>
         /// <param name="statuses">The statuses to add.</param>
@@ -89,7 +92,7 @@ namespace PVOutput.Net.Modules
 
         /// <summary>
         /// Deletes a status on the specified moment. 
-        /// <para>See the official <see href="https://pvoutput.org/help.html#api-deletestatus">API information</see>.</para>
+        /// <para>See the official <see href="https://pvoutput.org/help/api_specification.html#delete-status-service">API information</see>.</para>
         /// </summary>
         /// <param name="moment">The moment to delete the status for. This can only be today or yesterday.</param>
         /// <param name="cancellationToken">A cancellation token for the request.</param>
@@ -98,7 +101,7 @@ namespace PVOutput.Net.Modules
 
         /// <summary>
         /// Deletes all statuses on the specified date. 
-        /// <para>See the official <see href="https://pvoutput.org/help.html#api-deletestatus">API information</see>.</para>
+        /// <para>See the official <see href="https://pvoutput.org/help/api_specification.html#delete-status-service">API information</see>.</para>
         /// </summary>
         /// <param name="statusDate">The date to delete all statuses for. This can only be today or yesterday.</param>
         /// <param name="cancellationToken">A cancellation token for the request.</param>

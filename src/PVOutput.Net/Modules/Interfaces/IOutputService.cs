@@ -11,12 +11,13 @@ namespace PVOutput.Net.Modules
 {
     ///<summary>
     /// The Output service handles daily output information for individual systems.
-    /// <para>See the official <see href="https://pvoutput.org/help.html#api-getoutput">API information</see>.</para>
+    /// <para>See the official <see href="https://pvoutput.org/help/api_specification.html#get-output-service">API information</see>.</para>
     /// </summary>
     public interface IOutputService
     {
         /// <summary>
         /// Retrieve daily output for a date.
+        /// <para>See the official <see href="https://pvoutput.org/help/api_specification.html#get-output-service">API information</see>.</para>
         /// </summary>
         /// <param name="outputDate">Date to retrieve the output for.</param>
         /// <param name="getInsolation">Also retrieve insolation information. <strong>Note: this is a donation only parameter.</strong></param>
@@ -27,6 +28,7 @@ namespace PVOutput.Net.Modules
 
         /// <summary>
         /// Retrieve daily outputs for a period.
+        /// <para>See the official <see href="https://pvoutput.org/help/api_specification.html#get-output-service">API information</see>.</para>
         /// </summary>
         /// <param name="fromDate">Minimum date for the requested range.</param>
         /// <param name="toDate">Maximum date for the requested range.</param>
@@ -38,6 +40,7 @@ namespace PVOutput.Net.Modules
 
         /// <summary>
         /// Retrieve daily output for a team.
+        /// <para>See the official <see href="https://pvoutput.org/help/api_specification.html#team-output">API information</see>.</para>
         /// </summary>
         /// <param name="outputDate">Date to retrieve the output for.</param>
         /// <param name="teamId">Team to retrieve the output for.</param>
@@ -47,6 +50,7 @@ namespace PVOutput.Net.Modules
 
         /// <summary>
         /// Retrieve daily team outputs for a period.
+        /// <para>See the official <see href="https://pvoutput.org/help/api_specification.html#team-output">API information</see>.</para>
         /// </summary>
         /// <param name="fromDate">Minimum date for the requested range.</param>
         /// <param name="toDate">Maximum date for the requested range.</param>
@@ -57,6 +61,7 @@ namespace PVOutput.Net.Modules
 
         /// <summary>
         /// Retrieve aggregated outputs for a period.
+        /// <para>See the official <see href="https://pvoutput.org/help/api_specification.html#aggregated-outputs">API information</see>.</para>
         /// </summary>
         /// <param name="fromDate">Minimum DateTime for the requested range.</param>
         /// <param name="toDate">Maximum DateTime for the requested range.</param>
@@ -67,7 +72,7 @@ namespace PVOutput.Net.Modules
 
         /// <summary>
         /// Adds a single daily output to the owned system.
-        /// <para>See the official <see href="https://pvoutput.org/help.html#api-addoutput">API information</see>.</para>
+        /// <para>See the official <see href="https://pvoutput.org/help/api_specification.html#add-output-service">API information</see>.</para>
         /// Use the <see cref="OutputPostBuilder"/> to create <see cref="IOutputPost"/> objects.
         /// </summary>
         /// <param name="output">The output to add.</param>

@@ -8,12 +8,13 @@ namespace PVOutput.Net.Modules
 {
     /// <summary>
     /// The Get Missing service retrieves a list of output dates missing from a system.
-    /// <para>See the official <see href="https://pvoutput.org/help.html#api-getmissing">API information</see>.</para>
+    /// <para>See the official <see href="https://pvoutput.org/help/api_specification.html#get-missing-service">API information</see>.</para>
     /// </summary>
     public interface IMissingService
     {
         /// <summary>
         /// Retrieves a list of output dates with no data
+        /// <para>See the official <see href="https://pvoutput.org/help/api_specification.html#get-missing-service">API information</see>.</para>
         /// </summary>
         /// <param name="fromDate">Minimum date for the requested range.</param>
         /// <param name="toDate">Maximum date for the requested range.</param>
