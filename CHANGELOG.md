@@ -18,7 +18,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Updated `Microsoft.Extensions.DependencyInjection.Abstractions` from `v6.0.0` to `v7.0.0` [#151](https://github.com/pyrocumulus/pvoutput.net/pull/151)
 - Updated `Tavis.UriTemplates` from `v1.1.1` to `v2.0.0` [#153](https://github.com/pyrocumulus/pvoutput.net/pull/153)
 
-
 ## [0.11.1] - 2022-07-24
 
 ### Fixed
