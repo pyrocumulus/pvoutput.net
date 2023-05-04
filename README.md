@@ -6,7 +6,7 @@
 ![GitHub last commit (main)](https://img.shields.io/github/last-commit/pyrocumulus/PVOutput.Net/main?label=last%20commit%20%28main%29)
 [![NuGet Version](https://img.shields.io/nuget/v/PVOutput.Net.svg?logo=nuget)](https://www.nuget.org/packages/PVOutput.Net/)
 [![NuGet Downloads](https://img.shields.io/nuget/dt/PVOutput.Net.svg?logo=nuget)](https://www.nuget.org/packages/PVOutput.Net/)
-[![.NET Core](https://img.shields.io/github/workflow/status/pyrocumulus/PVOutput.Net/.NET%20Core/develop)](https://github.com/pyrocumulus/pvoutput.net/actions?query=workflow%3A%22.NET+Core%22)
+[![NET Core](https://github.com/pyrocumulus/pvoutput.net/actions/workflows/dotnetcore.yml/badge.svg?branch=develop)
 [![Code coverage](https://img.shields.io/codecov/c/github/pyrocumulus/PVOutput.Net/develop)](https://codecov.io/gh/pyrocumulus/pvoutput.net)
 
 ## Installation
