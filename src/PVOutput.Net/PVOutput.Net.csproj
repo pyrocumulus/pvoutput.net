@@ -19,7 +19,7 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageReleaseNotes>For release notes see:
-https://github.com/pyrocumulus/pvoutput.net/blob/master/CHANGELOG.md</PackageReleaseNotes>
+https://github.com/pyrocumulus/pvoutput.net/blob/main/CHANGELOG.md</PackageReleaseNotes>
     <PackageId>PVOutput.Net</PackageId>
     <PackageIcon>logo.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
