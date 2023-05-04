@@ -1,0 +1,592 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Interface IOutputService
+ | PVOutput.Net </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Interface IOutputService
+ | PVOutput.Net ">
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="PVOutput.Net.Modules.IOutputService">
+
+
+
+  <h1 id="PVOutput_Net_Modules_IOutputService" data-uid="PVOutput.Net.Modules.IOutputService" class="text-break">Interface IOutputService
+</h1>
+  <div class="markdown level0 summary"><p>The Output service handles daily output information for individual systems.</p>
+<p>See the official <a href="https://pvoutput.org/help/api_specification.html#get-output-service">API information</a>.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="PVOutput.html">PVOutput</a>.<a class="xref" href="PVOutput.Net.html">Net</a>.<a class="xref" href="PVOutput.Net.Modules.html">Modules</a></h6>
+  <h6><strong>Assembly</strong>: PVOutput.Net.dll</h6>
+  <h5 id="PVOutput_Net_Modules_IOutputService_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IOutputService</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_IOutputService_AddOutputAsync_PVOutput_Net_Objects_IOutputPost_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.IOutputService.AddOutputAsync(PVOutput.Net.Objects.IOutputPost%2CSystem.Threading.CancellationToken)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/main/src/PVOutput.Net/Modules/Interfaces/IOutputService.cs/#L81">View Source</a>
+  </span>
+  <a id="PVOutput_Net_Modules_IOutputService_AddOutputAsync_" data-uid="PVOutput.Net.Modules.IOutputService.AddOutputAsync*"></a>
+  <h4 id="PVOutput_Net_Modules_IOutputService_AddOutputAsync_PVOutput_Net_Objects_IOutputPost_System_Threading_CancellationToken_" data-uid="PVOutput.Net.Modules.IOutputService.AddOutputAsync(PVOutput.Net.Objects.IOutputPost,System.Threading.CancellationToken)">AddOutputAsync(IOutputPost, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Adds a single daily output to the owned system.</p>
+<p>See the official <a href="https://pvoutput.org/help/api_specification.html#add-output-service">API information</a>.</p>
+Use the <a class="xref" href="PVOutput.Net.Builders.OutputPostBuilder.html">OutputPostBuilder</a> to create <a class="xref" href="PVOutput.Net.Objects.IOutputPost.html">IOutputPost</a> objects.
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;PVOutputBasicResponse&gt; AddOutputAsync(IOutputPost output, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="PVOutput.Net.Objects.IOutputPost.html">IOutputPost</a></td>
+        <td><span class="parametername">output</span></td>
+        <td><p>The output to add.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A cancellation token for the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="PVOutput.Net.Responses.PVOutputBasicResponse.html">PVOutputBasicResponse</a>&gt;</td>
+        <td><p>If the operation succeeded.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_IOutputService_AddOutputsAsync_System_Collections_Generic_IEnumerable_PVOutput_Net_Objects_IOutputPost__System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.IOutputService.AddOutputsAsync(System.Collections.Generic.IEnumerable%7BPVOutput.Net.Objects.IOutputPost%7D%2CSystem.Threading.CancellationToken)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/main/src/PVOutput.Net/Modules/Interfaces/IOutputService.cs/#L91">View Source</a>
+  </span>
+  <a id="PVOutput_Net_Modules_IOutputService_AddOutputsAsync_" data-uid="PVOutput.Net.Modules.IOutputService.AddOutputsAsync*"></a>
+  <h4 id="PVOutput_Net_Modules_IOutputService_AddOutputsAsync_System_Collections_Generic_IEnumerable_PVOutput_Net_Objects_IOutputPost__System_Threading_CancellationToken_" data-uid="PVOutput.Net.Modules.IOutputService.AddOutputsAsync(System.Collections.Generic.IEnumerable{PVOutput.Net.Objects.IOutputPost},System.Threading.CancellationToken)">AddOutputsAsync(IEnumerable&lt;IOutputPost&gt;, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Adds a list of outputs to the owned system. <strong>Note: this is a donation only function.</strong></p>
+<p>See the official <a href="https://pvoutput.org/help/api_specification.html#add-output-service">API information</a>.</p>
+Use the <a class="xref" href="PVOutput.Net.Builders.OutputPostBuilder.html">OutputPostBuilder</a> to create <a class="xref" href="PVOutput.Net.Objects.IOutputPost.html">IOutputPost</a> objects.
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;PVOutputBasicResponse&gt; AddOutputsAsync(IEnumerable&lt;IOutputPost&gt; outputs, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="PVOutput.Net.Objects.IOutputPost.html">IOutputPost</a>&gt;</td>
+        <td><span class="parametername">outputs</span></td>
+        <td><p>Outputs to add</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A cancellation token for the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="PVOutput.Net.Responses.PVOutputBasicResponse.html">PVOutputBasicResponse</a>&gt;</td>
+        <td><p>If the operation succeeded.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_IOutputService_GetAggregatedOutputsAsync_System_DateTime_System_DateTime_PVOutput_Net_Enums_AggregationPeriod_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.IOutputService.GetAggregatedOutputsAsync(System.DateTime%2CSystem.DateTime%2CPVOutput.Net.Enums.AggregationPeriod%2CSystem.Threading.CancellationToken)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/main/src/PVOutput.Net/Modules/Interfaces/IOutputService.cs/#L71">View Source</a>
+  </span>
+  <a id="PVOutput_Net_Modules_IOutputService_GetAggregatedOutputsAsync_" data-uid="PVOutput.Net.Modules.IOutputService.GetAggregatedOutputsAsync*"></a>
+  <h4 id="PVOutput_Net_Modules_IOutputService_GetAggregatedOutputsAsync_System_DateTime_System_DateTime_PVOutput_Net_Enums_AggregationPeriod_System_Threading_CancellationToken_" data-uid="PVOutput.Net.Modules.IOutputService.GetAggregatedOutputsAsync(System.DateTime,System.DateTime,PVOutput.Net.Enums.AggregationPeriod,System.Threading.CancellationToken)">GetAggregatedOutputsAsync(DateTime, DateTime, AggregationPeriod, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Retrieve aggregated outputs for a period.</p>
+<p>See the official <a href="https://pvoutput.org/help/api_specification.html#aggregated-outputs">API information</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;PVOutputArrayResponse&lt;IAggregatedOutput&gt;&gt; GetAggregatedOutputsAsync(DateTime fromDate, DateTime toDate, AggregationPeriod period, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td><span class="parametername">fromDate</span></td>
+        <td><p>Minimum DateTime for the requested range.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td><span class="parametername">toDate</span></td>
+        <td><p>Maximum DateTime for the requested range.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="PVOutput.Net.Enums.AggregationPeriod.html">AggregationPeriod</a></td>
+        <td><span class="parametername">period</span></td>
+        <td><p>Period to aggregate the outputs in.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A cancellation token for the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="PVOutput.Net.Responses.PVOutputArrayResponse-1.html">PVOutputArrayResponse</a>&lt;<a class="xref" href="PVOutput.Net.Objects.IAggregatedOutput.html">IAggregatedOutput</a>&gt;&gt;</td>
+        <td><p>Aggregated outputs for the requested period.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_IOutputService_GetOutputForDateAsync_System_DateTime_System_Boolean_System_Nullable_System_Int32__System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.IOutputService.GetOutputForDateAsync(System.DateTime%2CSystem.Boolean%2CSystem.Nullable%7BSystem.Int32%7D%2CSystem.Threading.CancellationToken)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/main/src/PVOutput.Net/Modules/Interfaces/IOutputService.cs/#L27">View Source</a>
+  </span>
+  <a id="PVOutput_Net_Modules_IOutputService_GetOutputForDateAsync_" data-uid="PVOutput.Net.Modules.IOutputService.GetOutputForDateAsync*"></a>
+  <h4 id="PVOutput_Net_Modules_IOutputService_GetOutputForDateAsync_System_DateTime_System_Boolean_System_Nullable_System_Int32__System_Threading_CancellationToken_" data-uid="PVOutput.Net.Modules.IOutputService.GetOutputForDateAsync(System.DateTime,System.Boolean,System.Nullable{System.Int32},System.Threading.CancellationToken)">GetOutputForDateAsync(DateTime, bool, int?, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Retrieve daily output for a date.</p>
+<p>See the official <a href="https://pvoutput.org/help/api_specification.html#get-output-service">API information</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;PVOutputResponse&lt;IOutput&gt;&gt; GetOutputForDateAsync(DateTime outputDate, bool getInsolation = false, int? systemId = null, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td><span class="parametername">outputDate</span></td>
+        <td><p>Date to retrieve the output for.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">getInsolation</span></td>
+        <td><p>Also retrieve insolation information. <strong>Note: this is a donation only parameter.</strong></p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>?</td>
+        <td><span class="parametername">systemId</span></td>
+        <td><p>Retrieve output for a specific system. <strong>Note: this is a donation only parameter.</strong></p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A cancellation token for the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="PVOutput.Net.Responses.PVOutputResponse-1.html">PVOutputResponse</a>&lt;<a class="xref" href="PVOutput.Net.Objects.IOutput.html">IOutput</a>&gt;&gt;</td>
+        <td><p>Output for the requested date.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_IOutputService_GetOutputsForPeriodAsync_System_DateTime_System_DateTime_System_Boolean_System_Nullable_System_Int32__System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.IOutputService.GetOutputsForPeriodAsync(System.DateTime%2CSystem.DateTime%2CSystem.Boolean%2CSystem.Nullable%7BSystem.Int32%7D%2CSystem.Threading.CancellationToken)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/main/src/PVOutput.Net/Modules/Interfaces/IOutputService.cs/#L39">View Source</a>
+  </span>
+  <a id="PVOutput_Net_Modules_IOutputService_GetOutputsForPeriodAsync_" data-uid="PVOutput.Net.Modules.IOutputService.GetOutputsForPeriodAsync*"></a>
+  <h4 id="PVOutput_Net_Modules_IOutputService_GetOutputsForPeriodAsync_System_DateTime_System_DateTime_System_Boolean_System_Nullable_System_Int32__System_Threading_CancellationToken_" data-uid="PVOutput.Net.Modules.IOutputService.GetOutputsForPeriodAsync(System.DateTime,System.DateTime,System.Boolean,System.Nullable{System.Int32},System.Threading.CancellationToken)">GetOutputsForPeriodAsync(DateTime, DateTime, bool, int?, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Retrieve daily outputs for a period.</p>
+<p>See the official <a href="https://pvoutput.org/help/api_specification.html#get-output-service">API information</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;PVOutputArrayResponse&lt;IOutput&gt;&gt; GetOutputsForPeriodAsync(DateTime fromDate, DateTime toDate, bool getInsolation = false, int? systemId = null, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td><span class="parametername">fromDate</span></td>
+        <td><p>Minimum date for the requested range.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td><span class="parametername">toDate</span></td>
+        <td><p>Maximum date for the requested range.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">getInsolation</span></td>
+        <td><p>Also retrieve insolation information. <strong>Note: this is a donation only parameter.</strong></p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>?</td>
+        <td><span class="parametername">systemId</span></td>
+        <td><p>Retrieve output for a specific system. <strong>Note: this is a donation only parameter.</strong></p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A cancellation token for the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="PVOutput.Net.Responses.PVOutputArrayResponse-1.html">PVOutputArrayResponse</a>&lt;<a class="xref" href="PVOutput.Net.Objects.IOutput.html">IOutput</a>&gt;&gt;</td>
+        <td><p>Outputs for the requested period.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_IOutputService_GetTeamOutputForDateAsync_System_DateTime_System_Int32_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.IOutputService.GetTeamOutputForDateAsync(System.DateTime%2CSystem.Int32%2CSystem.Threading.CancellationToken)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/main/src/PVOutput.Net/Modules/Interfaces/IOutputService.cs/#L49">View Source</a>
+  </span>
+  <a id="PVOutput_Net_Modules_IOutputService_GetTeamOutputForDateAsync_" data-uid="PVOutput.Net.Modules.IOutputService.GetTeamOutputForDateAsync*"></a>
+  <h4 id="PVOutput_Net_Modules_IOutputService_GetTeamOutputForDateAsync_System_DateTime_System_Int32_System_Threading_CancellationToken_" data-uid="PVOutput.Net.Modules.IOutputService.GetTeamOutputForDateAsync(System.DateTime,System.Int32,System.Threading.CancellationToken)">GetTeamOutputForDateAsync(DateTime, int, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Retrieve daily output for a team.</p>
+<p>See the official <a href="https://pvoutput.org/help/api_specification.html#team-output">API information</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;PVOutputResponse&lt;ITeamOutput&gt;&gt; GetTeamOutputForDateAsync(DateTime outputDate, int teamId, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td><span class="parametername">outputDate</span></td>
+        <td><p>Date to retrieve the output for.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">teamId</span></td>
+        <td><p>Team to retrieve the output for.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A cancellation token for the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="PVOutput.Net.Responses.PVOutputResponse-1.html">PVOutputResponse</a>&lt;<a class="xref" href="PVOutput.Net.Objects.ITeamOutput.html">ITeamOutput</a>&gt;&gt;</td>
+        <td><p>Team output for the requested date.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_IOutputService_GetTeamOutputsForPeriodAsync_System_DateTime_System_DateTime_System_Int32_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.IOutputService.GetTeamOutputsForPeriodAsync(System.DateTime%2CSystem.DateTime%2CSystem.Int32%2CSystem.Threading.CancellationToken)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/main/src/PVOutput.Net/Modules/Interfaces/IOutputService.cs/#L60">View Source</a>
+  </span>
+  <a id="PVOutput_Net_Modules_IOutputService_GetTeamOutputsForPeriodAsync_" data-uid="PVOutput.Net.Modules.IOutputService.GetTeamOutputsForPeriodAsync*"></a>
+  <h4 id="PVOutput_Net_Modules_IOutputService_GetTeamOutputsForPeriodAsync_System_DateTime_System_DateTime_System_Int32_System_Threading_CancellationToken_" data-uid="PVOutput.Net.Modules.IOutputService.GetTeamOutputsForPeriodAsync(System.DateTime,System.DateTime,System.Int32,System.Threading.CancellationToken)">GetTeamOutputsForPeriodAsync(DateTime, DateTime, int, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Retrieve daily team outputs for a period.</p>
+<p>See the official <a href="https://pvoutput.org/help/api_specification.html#team-output">API information</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;PVOutputArrayResponse&lt;ITeamOutput&gt;&gt; GetTeamOutputsForPeriodAsync(DateTime fromDate, DateTime toDate, int teamId, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td><span class="parametername">fromDate</span></td>
+        <td><p>Minimum date for the requested range.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td><span class="parametername">toDate</span></td>
+        <td><p>Maximum date for the requested range.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">teamId</span></td>
+        <td><p>Team to retrieve the output for.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A cancellation token for the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="PVOutput.Net.Responses.PVOutputArrayResponse-1.html">PVOutputArrayResponse</a>&lt;<a class="xref" href="PVOutput.Net.Objects.ITeamOutput.html">ITeamOutput</a>&gt;&gt;</td>
+        <td><p>Team outputs Outputs for the requested period.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_IOutputService.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.IOutputService%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/main/src/PVOutput.Net/Modules/Interfaces/IOutputService.cs/#L16" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

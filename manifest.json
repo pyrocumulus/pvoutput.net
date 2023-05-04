@@ -1,0 +1,723 @@
+{
+  "homepages": [],
+  "source_base_path": "/github/workspace/docfx",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Builders.BatchNetStatusPostBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Builders.BatchNetStatusPostBuilder.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Builders.ExtendedDataDefinitionBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Builders.ExtendedDataDefinitionBuilder.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Builders.OutputPostBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Builders.OutputPostBuilder.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Builders.StatusPostBuilder-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Builders.StatusPostBuilder-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Builders.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Builders.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.DependencyInjection.PVOutputClientOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.DependencyInjection.PVOutputClientOptions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.DependencyInjection.PVOutputServiceExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.DependencyInjection.PVOutputServiceExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.DependencyInjection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.DependencyInjection.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Enums.AggregationPeriod.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Enums.AggregationPeriod.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Enums.CumulativeStatusType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Enums.CumulativeStatusType.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Enums.ExtendedDataDisplayType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Enums.ExtendedDataDisplayType.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Enums.ExtendedDataIndex.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Enums.ExtendedDataIndex.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Enums.Orientation.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Enums.Orientation.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Enums.PVMonth.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Enums.PVMonth.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Enums.Shade.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Enums.Shade.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Enums.WeatherCondition.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Enums.WeatherCondition.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Enums.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Enums.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.IPVOutputClient.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.IPVOutputClient.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Modules.IExtendedService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Modules.IExtendedService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Modules.IFavouriteService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Modules.IFavouriteService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Modules.IInsolationService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Modules.IInsolationService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Modules.IMissingService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Modules.IMissingService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Modules.INotificationService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Modules.INotificationService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Modules.IOutputService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Modules.IOutputService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Modules.ISearchService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Modules.ISearchService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Modules.IStatisticsService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Modules.IStatisticsService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Modules.IStatusService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Modules.IStatusService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Modules.ISupplyService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Modules.ISupplyService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Modules.ISystemService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Modules.ISystemService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Modules.ITeamService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Modules.ITeamService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Modules.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Modules.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Objects.ExtendedDataConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Objects.ExtendedDataConfiguration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Objects.IAggregatedOutput.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Objects.IAggregatedOutput.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Objects.IBatchNetStatusPost.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Objects.IBatchNetStatusPost.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Objects.IBatchStatusPost.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Objects.IBatchStatusPost.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Objects.IBatchStatusPostResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Objects.IBatchStatusPostResult.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Objects.IDayStatistics.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Objects.IDayStatistics.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Objects.IExtended.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Objects.IExtended.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Objects.IExtendedDataDefinition.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Objects.IExtendedDataDefinition.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Objects.IFavourite.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Objects.IFavourite.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Objects.IInsolation.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Objects.IInsolation.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Objects.IMissing.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Objects.IMissing.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Objects.IOutput.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Objects.IOutput.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Objects.IOutputPost.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Objects.IOutputPost.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Objects.IStatistic.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Objects.IStatistic.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Objects.IStatus.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Objects.IStatus.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Objects.IStatusHistory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Objects.IStatusHistory.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Objects.IStatusPost.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Objects.IStatusPost.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Objects.ISupply.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Objects.ISupply.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Objects.ISystem.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Objects.ISystem.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Objects.ISystemSearchResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Objects.ISystemSearchResult.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Objects.ITeam.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Objects.ITeam.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Objects.ITeamOutput.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Objects.ITeamOutput.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Objects.PVCoordinate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Objects.PVCoordinate.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Objects.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Objects.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.PVOutputClient.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.PVOutputClient.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Responses.PVOutputApiError.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Responses.PVOutputApiError.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Responses.PVOutputApiRateInformation.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Responses.PVOutputApiRateInformation.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Responses.PVOutputArrayResponse-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Responses.PVOutputArrayResponse-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Responses.PVOutputBaseResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Responses.PVOutputBaseResponse.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Responses.PVOutputBasicResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Responses.PVOutputBasicResponse.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Responses.PVOutputException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Responses.PVOutputException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Responses.PVOutputResponse-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Responses.PVOutputResponse-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.Responses.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.Responses.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PVOutput.Net.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PVOutput.Net.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/coverage.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/coverage.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/intro.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/intro.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "articles/toc.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

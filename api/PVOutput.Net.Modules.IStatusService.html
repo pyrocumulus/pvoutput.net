@@ -1,0 +1,702 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Interface IStatusService
+ | PVOutput.Net </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Interface IStatusService
+ | PVOutput.Net ">
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="PVOutput.Net.Modules.IStatusService">
+
+
+
+  <h1 id="PVOutput_Net_Modules_IStatusService" data-uid="PVOutput.Net.Modules.IStatusService" class="text-break">Interface IStatusService
+</h1>
+  <div class="markdown level0 summary"><p>The Status service handles system status information and live output data.</p>
+<p>See the official <a href="https://pvoutput.org/help/api_specification.html#get-status-service">API information</a>.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="PVOutput.html">PVOutput</a>.<a class="xref" href="PVOutput.Net.html">Net</a>.<a class="xref" href="PVOutput.Net.Modules.html">Modules</a></h6>
+  <h6><strong>Assembly</strong>: PVOutput.Net.dll</h6>
+  <h5 id="PVOutput_Net_Modules_IStatusService_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IStatusService</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_IStatusService_AddBatchNetStatusAsync_System_Collections_Generic_IEnumerable_PVOutput_Net_Objects_IBatchNetStatusPost__System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.IStatusService.AddBatchNetStatusAsync(System.Collections.Generic.IEnumerable%7BPVOutput.Net.Objects.IBatchNetStatusPost%7D%2CSystem.Threading.CancellationToken)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/main/src/PVOutput.Net/Modules/Interfaces/IStatusService.cs/#L91">View Source</a>
+  </span>
+  <a id="PVOutput_Net_Modules_IStatusService_AddBatchNetStatusAsync_" data-uid="PVOutput.Net.Modules.IStatusService.AddBatchNetStatusAsync*"></a>
+  <h4 id="PVOutput_Net_Modules_IStatusService_AddBatchNetStatusAsync_System_Collections_Generic_IEnumerable_PVOutput_Net_Objects_IBatchNetStatusPost__System_Threading_CancellationToken_" data-uid="PVOutput.Net.Modules.IStatusService.AddBatchNetStatusAsync(System.Collections.Generic.IEnumerable{PVOutput.Net.Objects.IBatchNetStatusPost},System.Threading.CancellationToken)">AddBatchNetStatusAsync(IEnumerable&lt;IBatchNetStatusPost&gt;, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Adds multiple statuses to the owned system.</p>
+<p>See the official <a href="https://pvoutput.org/help/api_specification.html#add-batch-status-service">API information</a>.</p>
+Use the <a class="xref" href="PVOutput.Net.Builders.StatusPostBuilder-1.html">StatusPostBuilder&lt;TResultType&gt;</a> to create <a class="xref" href="PVOutput.Net.Objects.IBatchStatusPost.html">IBatchStatusPost</a> objects.
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;PVOutputArrayResponse&lt;IBatchStatusPostResult&gt;&gt; AddBatchNetStatusAsync(IEnumerable&lt;IBatchNetStatusPost&gt; statuses, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="PVOutput.Net.Objects.IBatchNetStatusPost.html">IBatchNetStatusPost</a>&gt;</td>
+        <td><span class="parametername">statuses</span></td>
+        <td><p>The statuses to add.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A cancellation token for the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="PVOutput.Net.Responses.PVOutputArrayResponse-1.html">PVOutputArrayResponse</a>&lt;<a class="xref" href="PVOutput.Net.Objects.IBatchStatusPostResult.html">IBatchStatusPostResult</a>&gt;&gt;</td>
+        <td><p>If the operation succeeded.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_IStatusService_AddBatchStatusAsync_System_Collections_Generic_IEnumerable_PVOutput_Net_Objects_IBatchStatusPost__System_Boolean_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.IStatusService.AddBatchStatusAsync(System.Collections.Generic.IEnumerable%7BPVOutput.Net.Objects.IBatchStatusPost%7D%2CSystem.Boolean%2CSystem.Threading.CancellationToken)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/main/src/PVOutput.Net/Modules/Interfaces/IStatusService.cs/#L81">View Source</a>
+  </span>
+  <a id="PVOutput_Net_Modules_IStatusService_AddBatchStatusAsync_" data-uid="PVOutput.Net.Modules.IStatusService.AddBatchStatusAsync*"></a>
+  <h4 id="PVOutput_Net_Modules_IStatusService_AddBatchStatusAsync_System_Collections_Generic_IEnumerable_PVOutput_Net_Objects_IBatchStatusPost__System_Boolean_System_Threading_CancellationToken_" data-uid="PVOutput.Net.Modules.IStatusService.AddBatchStatusAsync(System.Collections.Generic.IEnumerable{PVOutput.Net.Objects.IBatchStatusPost},System.Boolean,System.Threading.CancellationToken)">AddBatchStatusAsync(IEnumerable&lt;IBatchStatusPost&gt;, bool, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Adds multiple statuses to the owned system.</p>
+<p>See the official <a href="https://pvoutput.org/help/api_specification.html#add-batch-status-service">API information</a>.</p>
+Use the <a class="xref" href="PVOutput.Net.Builders.StatusPostBuilder-1.html">StatusPostBuilder&lt;TResultType&gt;</a> to create <a class="xref" href="PVOutput.Net.Objects.IBatchStatusPost.html">IBatchStatusPost</a> objects.
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;PVOutputArrayResponse&lt;IBatchStatusPostResult&gt;&gt; AddBatchStatusAsync(IEnumerable&lt;IBatchStatusPost&gt; statuses, bool isCumulative, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="PVOutput.Net.Objects.IBatchStatusPost.html">IBatchStatusPost</a>&gt;</td>
+        <td><span class="parametername">statuses</span></td>
+        <td><p>The statuses to add.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">isCumulative</span></td>
+        <td><p>Sets whether or not the provided data is cumulative.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A cancellation token for the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="PVOutput.Net.Responses.PVOutputArrayResponse-1.html">PVOutputArrayResponse</a>&lt;<a class="xref" href="PVOutput.Net.Objects.IBatchStatusPostResult.html">IBatchStatusPostResult</a>&gt;&gt;</td>
+        <td><p>If the operation succeeded.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_IStatusService_AddBatchStatusAsync_System_Collections_Generic_IEnumerable_PVOutput_Net_Objects_IBatchStatusPost__System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.IStatusService.AddBatchStatusAsync(System.Collections.Generic.IEnumerable%7BPVOutput.Net.Objects.IBatchStatusPost%7D%2CSystem.Threading.CancellationToken)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/main/src/PVOutput.Net/Modules/Interfaces/IStatusService.cs/#L70">View Source</a>
+  </span>
+  <a id="PVOutput_Net_Modules_IStatusService_AddBatchStatusAsync_" data-uid="PVOutput.Net.Modules.IStatusService.AddBatchStatusAsync*"></a>
+  <h4 id="PVOutput_Net_Modules_IStatusService_AddBatchStatusAsync_System_Collections_Generic_IEnumerable_PVOutput_Net_Objects_IBatchStatusPost__System_Threading_CancellationToken_" data-uid="PVOutput.Net.Modules.IStatusService.AddBatchStatusAsync(System.Collections.Generic.IEnumerable{PVOutput.Net.Objects.IBatchStatusPost},System.Threading.CancellationToken)">AddBatchStatusAsync(IEnumerable&lt;IBatchStatusPost&gt;, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Adds multiple statuses to the owned system.</p>
+<p>See the official <a href="https://pvoutput.org/help/api_specification.html#add-batch-status-service">API information</a>.</p>
+Use the <a class="xref" href="PVOutput.Net.Builders.StatusPostBuilder-1.html">StatusPostBuilder&lt;TResultType&gt;</a> to create <a class="xref" href="PVOutput.Net.Objects.IBatchStatusPost.html">IBatchStatusPost</a> objects.
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;PVOutputArrayResponse&lt;IBatchStatusPostResult&gt;&gt; AddBatchStatusAsync(IEnumerable&lt;IBatchStatusPost&gt; statuses, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="PVOutput.Net.Objects.IBatchStatusPost.html">IBatchStatusPost</a>&gt;</td>
+        <td><span class="parametername">statuses</span></td>
+        <td><p>The statuses to add.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A cancellation token for the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="PVOutput.Net.Responses.PVOutputArrayResponse-1.html">PVOutputArrayResponse</a>&lt;<a class="xref" href="PVOutput.Net.Objects.IBatchStatusPostResult.html">IBatchStatusPostResult</a>&gt;&gt;</td>
+        <td><p>If the operation succeeded.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_IStatusService_AddStatusAsync_PVOutput_Net_Objects_IStatusPost_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.IStatusService.AddStatusAsync(PVOutput.Net.Objects.IStatusPost%2CSystem.Threading.CancellationToken)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/main/src/PVOutput.Net/Modules/Interfaces/IStatusService.cs/#L60">View Source</a>
+  </span>
+  <a id="PVOutput_Net_Modules_IStatusService_AddStatusAsync_" data-uid="PVOutput.Net.Modules.IStatusService.AddStatusAsync*"></a>
+  <h4 id="PVOutput_Net_Modules_IStatusService_AddStatusAsync_PVOutput_Net_Objects_IStatusPost_System_Threading_CancellationToken_" data-uid="PVOutput.Net.Modules.IStatusService.AddStatusAsync(PVOutput.Net.Objects.IStatusPost,System.Threading.CancellationToken)">AddStatusAsync(IStatusPost, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Adds a single status to the owned system.</p>
+<p>See the official <a href="https://pvoutput.org/help/api_specification.html#add-status-service">API information</a>.</p>
+Use the <a class="xref" href="PVOutput.Net.Builders.StatusPostBuilder-1.html">StatusPostBuilder&lt;TResultType&gt;</a> to create <a class="xref" href="PVOutput.Net.Objects.IStatusPost.html">IStatusPost</a> objects.
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;PVOutputBasicResponse&gt; AddStatusAsync(IStatusPost status, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="PVOutput.Net.Objects.IStatusPost.html">IStatusPost</a></td>
+        <td><span class="parametername">status</span></td>
+        <td><p>The status to add.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A cancellation token for the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="PVOutput.Net.Responses.PVOutputBasicResponse.html">PVOutputBasicResponse</a>&gt;</td>
+        <td><p>If the operation succeeded.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_IStatusService_DeleteAllStatusesOnDateAsync_System_DateTime_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.IStatusService.DeleteAllStatusesOnDateAsync(System.DateTime%2CSystem.Threading.CancellationToken)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/main/src/PVOutput.Net/Modules/Interfaces/IStatusService.cs/#L109">View Source</a>
+  </span>
+  <a id="PVOutput_Net_Modules_IStatusService_DeleteAllStatusesOnDateAsync_" data-uid="PVOutput.Net.Modules.IStatusService.DeleteAllStatusesOnDateAsync*"></a>
+  <h4 id="PVOutput_Net_Modules_IStatusService_DeleteAllStatusesOnDateAsync_System_DateTime_System_Threading_CancellationToken_" data-uid="PVOutput.Net.Modules.IStatusService.DeleteAllStatusesOnDateAsync(System.DateTime,System.Threading.CancellationToken)">DeleteAllStatusesOnDateAsync(DateTime, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Deletes all statuses on the specified date.</p>
+<p>See the official <a href="https://pvoutput.org/help/api_specification.html#delete-status-service">API information</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;PVOutputBasicResponse&gt; DeleteAllStatusesOnDateAsync(DateTime statusDate, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td><span class="parametername">statusDate</span></td>
+        <td><p>The date to delete all statuses for. This can only be today or yesterday.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A cancellation token for the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="PVOutput.Net.Responses.PVOutputBasicResponse.html">PVOutputBasicResponse</a>&gt;</td>
+        <td><p>If the operation succeeded.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_IStatusService_DeleteStatusAsync_System_DateTime_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.IStatusService.DeleteStatusAsync(System.DateTime%2CSystem.Threading.CancellationToken)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/main/src/PVOutput.Net/Modules/Interfaces/IStatusService.cs/#L100">View Source</a>
+  </span>
+  <a id="PVOutput_Net_Modules_IStatusService_DeleteStatusAsync_" data-uid="PVOutput.Net.Modules.IStatusService.DeleteStatusAsync*"></a>
+  <h4 id="PVOutput_Net_Modules_IStatusService_DeleteStatusAsync_System_DateTime_System_Threading_CancellationToken_" data-uid="PVOutput.Net.Modules.IStatusService.DeleteStatusAsync(System.DateTime,System.Threading.CancellationToken)">DeleteStatusAsync(DateTime, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Deletes a status on the specified moment.</p>
+<p>See the official <a href="https://pvoutput.org/help/api_specification.html#delete-status-service">API information</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;PVOutputBasicResponse&gt; DeleteStatusAsync(DateTime moment, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td><span class="parametername">moment</span></td>
+        <td><p>The moment to delete the status for. This can only be today or yesterday.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A cancellation token for the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="PVOutput.Net.Responses.PVOutputBasicResponse.html">PVOutputBasicResponse</a>&gt;</td>
+        <td><p>If the operation succeeded.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_IStatusService_GetDayStatisticsForPeriodAsync_System_DateTime_System_DateTime_System_Nullable_System_Int32__System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.IStatusService.GetDayStatisticsForPeriodAsync(System.DateTime%2CSystem.DateTime%2CSystem.Nullable%7BSystem.Int32%7D%2CSystem.Threading.CancellationToken)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/main/src/PVOutput.Net/Modules/Interfaces/IStatusService.cs/#L50">View Source</a>
+  </span>
+  <a id="PVOutput_Net_Modules_IStatusService_GetDayStatisticsForPeriodAsync_" data-uid="PVOutput.Net.Modules.IStatusService.GetDayStatisticsForPeriodAsync*"></a>
+  <h4 id="PVOutput_Net_Modules_IStatusService_GetDayStatisticsForPeriodAsync_System_DateTime_System_DateTime_System_Nullable_System_Int32__System_Threading_CancellationToken_" data-uid="PVOutput.Net.Modules.IStatusService.GetDayStatisticsForPeriodAsync(System.DateTime,System.DateTime,System.Nullable{System.Int32},System.Threading.CancellationToken)">GetDayStatisticsForPeriodAsync(DateTime, DateTime, int?, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Gets the day statistics for specific period.</p>
+<p>See the official <a href="https://pvoutput.org/help/api_specification.html#day-statistics">API information</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;PVOutputResponse&lt;IDayStatistics&gt;&gt; GetDayStatisticsForPeriodAsync(DateTime fromDateTime, DateTime toDateTime, int? systemId = null, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td><span class="parametername">fromDateTime</span></td>
+        <td><p>Minimum datetime for the requested range.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td><span class="parametername">toDateTime</span></td>
+        <td><p>Maximum datetime for the requested range.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>?</td>
+        <td><span class="parametername">systemId</span></td>
+        <td><p>Retrieve statuses for a specific system. <strong>Note: this is a donation only parameter.</strong></p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A cancellation token for the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="PVOutput.Net.Responses.PVOutputResponse-1.html">PVOutputResponse</a>&lt;<a class="xref" href="PVOutput.Net.Objects.IDayStatistics.html">IDayStatistics</a>&gt;&gt;</td>
+        <td><p>Day statistics for the specified period.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_IStatusService_GetHistoryForPeriodAsync_System_DateTime_System_DateTime_System_Boolean_System_Nullable_System_Int32__System_Boolean_System_Nullable_System_Int32__System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.IStatusService.GetHistoryForPeriodAsync(System.DateTime%2CSystem.DateTime%2CSystem.Boolean%2CSystem.Nullable%7BSystem.Int32%7D%2CSystem.Boolean%2CSystem.Nullable%7BSystem.Int32%7D%2CSystem.Threading.CancellationToken)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/main/src/PVOutput.Net/Modules/Interfaces/IStatusService.cs/#L39">View Source</a>
+  </span>
+  <a id="PVOutput_Net_Modules_IStatusService_GetHistoryForPeriodAsync_" data-uid="PVOutput.Net.Modules.IStatusService.GetHistoryForPeriodAsync*"></a>
+  <h4 id="PVOutput_Net_Modules_IStatusService_GetHistoryForPeriodAsync_System_DateTime_System_DateTime_System_Boolean_System_Nullable_System_Int32__System_Boolean_System_Nullable_System_Int32__System_Threading_CancellationToken_" data-uid="PVOutput.Net.Modules.IStatusService.GetHistoryForPeriodAsync(System.DateTime,System.DateTime,System.Boolean,System.Nullable{System.Int32},System.Boolean,System.Nullable{System.Int32},System.Threading.CancellationToken)">GetHistoryForPeriodAsync(DateTime, DateTime, bool, int?, bool, int?, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Get the status history for a specific period.</p>
+<p>See the official <a href="https://pvoutput.org/help/api_specification.html#history-query">API information</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;PVOutputArrayResponse&lt;IStatusHistory&gt;&gt; GetHistoryForPeriodAsync(DateTime fromDateTime, DateTime toDateTime, bool ascending = false, int? systemId = null, bool extendedData = false, int? limit = null, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td><span class="parametername">fromDateTime</span></td>
+        <td><p>Minimum datetime for the requested range.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td><span class="parametername">toDateTime</span></td>
+        <td><p>Maximum datetime for the requested range.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">ascending</span></td>
+        <td><p>Order the statuses in ascending order instead of descending.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>?</td>
+        <td><span class="parametername">systemId</span></td>
+        <td><p>Retrieve statuses for a specific system. <strong>Note: this is a donation only parameter.</strong></p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">extendedData</span></td>
+        <td><p>Also retrieve extended data. <strong>Note: this is a donation only parameter.</strong></p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>?</td>
+        <td><span class="parametername">limit</span></td>
+        <td><p>Limit the number of retrieved statuses.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A cancellation token for the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="PVOutput.Net.Responses.PVOutputArrayResponse-1.html">PVOutputArrayResponse</a>&lt;<a class="xref" href="PVOutput.Net.Objects.IStatusHistory.html">IStatusHistory</a>&gt;&gt;</td>
+        <td><p>Statusses for the specified period.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_IStatusService_GetStatusForDateTimeAsync_System_DateTime_System_Nullable_System_Int32__System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.IStatusService.GetStatusForDateTimeAsync(System.DateTime%2CSystem.Nullable%7BSystem.Int32%7D%2CSystem.Threading.CancellationToken)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/main/src/PVOutput.Net/Modules/Interfaces/IStatusService.cs/#L25">View Source</a>
+  </span>
+  <a id="PVOutput_Net_Modules_IStatusService_GetStatusForDateTimeAsync_" data-uid="PVOutput.Net.Modules.IStatusService.GetStatusForDateTimeAsync*"></a>
+  <h4 id="PVOutput_Net_Modules_IStatusService_GetStatusForDateTimeAsync_System_DateTime_System_Nullable_System_Int32__System_Threading_CancellationToken_" data-uid="PVOutput.Net.Modules.IStatusService.GetStatusForDateTimeAsync(System.DateTime,System.Nullable{System.Int32},System.Threading.CancellationToken)">GetStatusForDateTimeAsync(DateTime, int?, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Get the system status at a specific moment.</p>
+<p>See the official <a href="https://pvoutput.org/help/api_specification.html#get-status-service">API information</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;PVOutputResponse&lt;IStatus&gt;&gt; GetStatusForDateTimeAsync(DateTime moment, int? systemId = null, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td><span class="parametername">moment</span></td>
+        <td><p>Moment to retrieve the system status for.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>?</td>
+        <td><span class="parametername">systemId</span></td>
+        <td><p>Retrieve status for a specific system. <strong>Note: this is a donation only parameter.</strong></p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A cancellation token for the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="PVOutput.Net.Responses.PVOutputResponse-1.html">PVOutputResponse</a>&lt;<a class="xref" href="PVOutput.Net.Objects.IStatus.html">IStatus</a>&gt;&gt;</td>
+        <td><p>Status at the specified moment.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/pyrocumulus/pvoutput.net/new/develop/apiSpec/new?filename=PVOutput_Net_Modules_IStatusService.md&amp;value=---%0Auid%3A%20PVOutput.Net.Modules.IStatusService%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/pyrocumulus/pvoutput.net/blob/main/src/PVOutput.Net/Modules/Interfaces/IStatusService.cs/#L15" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
