@@ -3,7 +3,7 @@
 > A .NET Core (Standard 2.0 compatible) wrapper library for API of the popular [PVOutput](https://pvoutput.org) service.
 > PVOutput is a free service for sharing and comparing PV output data.
 
-![GitHub last commit (master)](https://img.shields.io/github/last-commit/pyrocumulus/PVOutput.Net/master?label=last%20commit%20%28master%29)
+![GitHub last commit (main)](https://img.shields.io/github/last-commit/pyrocumulus/PVOutput.Net/main?label=last%20commit%20%28main%29)
 [![NuGet Version](https://img.shields.io/nuget/v/PVOutput.Net.svg?logo=nuget)](https://www.nuget.org/packages/PVOutput.Net/)
 [![NuGet Downloads](https://img.shields.io/nuget/dt/PVOutput.Net.svg?logo=nuget)](https://www.nuget.org/packages/PVOutput.Net/)
 [![.NET Core](https://img.shields.io/github/workflow/status/pyrocumulus/PVOutput.Net/.NET%20Core/develop)](https://github.com/pyrocumulus/pvoutput.net/actions?query=workflow%3A%22.NET+Core%22)
@@ -25,7 +25,8 @@ See [Changelog](CHANGELOG.md) for information on changes per version, including 
 
 This library is targeting .NET Standard 2.0 and above. For full compatibility details, check the [Microsoft Docs](https://docs.microsoft.com/nl-nl/dotnet/standard/net-standard#net-implementation-support).
 
-**Please note**: The repository's default branch is `develop` containing bugfixes/features that are not yet available in the NuGet package. See [master](https://github.com/pyrocumulus/pvoutput.net/tree/master) branch for the source code, that was used for building the NuGet package.
+**Please note:** that the default branch of the repository is `develop`. This means that it can contain bugfixes/features that are not yet available in the NuGet package.
+See [main](https://github.com/pyrocumulus/pvoutput.net/tree/main) for the source code, that was used for building the NuGet package.
 
 ## Basic usage
 

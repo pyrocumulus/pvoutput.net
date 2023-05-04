@@ -13,7 +13,7 @@ PM> Install-Package PVOutput.Net
 
 ## Changelog
 
-See [Changelog](https://github.com/pyrocumulus/pvoutput.net/blob/master/CHANGELOG.md) for information on changes per version.To see coming but unreleased changes, see the `develop` branch.
+See [Changelog](https://github.com/pyrocumulus/pvoutput.net/blob/main/CHANGELOG.md) for information on changes per version.To see coming but unreleased changes, see the `develop` branch.
 
 ## Support
 

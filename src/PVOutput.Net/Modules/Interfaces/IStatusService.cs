@@ -82,7 +82,7 @@ namespace PVOutput.Net.Modules
 
         /// <summary>
         /// Adds multiple statuses to the owned system.
-        /// <para>See the official <see href=https://pvoutput.org/help/api_specification.html#add-batch-status-service">API information</see>.</para>
+        /// <para>See the official <see href="https://pvoutput.org/help/api_specification.html#add-batch-status-service">API information</see>.</para>
         /// Use the <see cref="StatusPostBuilder{IBatchStatusPost}"/> to create <see cref="IBatchStatusPost"/> objects.
         /// </summary>
         /// <param name="statuses">The statuses to add.</param>

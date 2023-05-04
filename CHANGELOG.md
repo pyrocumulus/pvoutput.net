@@ -3,12 +3,20 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## Unreleased
+## [0.11.2] - 2023-05-04
 
 ### Fixed
 
 - Updated README formatting for NuGet package page [#132](https://github.com/pyrocumulus/pvoutput.net/pull/132)
-- Updated all links to official API documentation [#133](https://github.com/pyrocumulus/pvoutput.net/pull/133)
+- Fixed all API links from XML documentation [#133](https://github.com/pyrocumulus/pvoutput.net/pull/133)
+- Updated API links from documentation page
+- Updated documentation to reflect the rename of primary branch `master` to `main`
+
+### Updated
+
+- Updated `Microsoft.Extensions.Logging.Abstractions` from `v6.0.1` to `v7.0.0` [#147](https://github.com/pyrocumulus/pvoutput.net/pull/147)
+- Updated `Microsoft.Extensions.DependencyInjection.Abstractions` from `v6.0.0` to `v7.0.0` [#151](https://github.com/pyrocumulus/pvoutput.net/pull/151)
+- Updated `Tavis.UriTemplates` from `v1.1.1` to `v2.0.0` [#153](https://github.com/pyrocumulus/pvoutput.net/pull/153)
 
 ## [0.11.1] - 2022-07-24
 
