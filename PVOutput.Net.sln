@@ -10,8 +10,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Project files", "Project files", "{0BCF7233-827B-4A45-8FB8-CDE08CB4B9AE}"
 	ProjectSection(SolutionItems) = preProject
 		CHANGELOG.md = CHANGELOG.md
-		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
 		codecov.yml = codecov.yml
+		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
 		CONTRIBUTING.md = CONTRIBUTING.md
 		.github\dependabot.yml = .github\dependabot.yml
 		LICENSE = LICENSE
@@ -28,8 +28,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{
 		.github\workflows\codecov.yml = .github\workflows\codecov.yml
 		.github\workflows\codeql-analysis.yml = .github\workflows\codeql-analysis.yml
 		.github\workflows\docfx.yml = .github\workflows\docfx.yml
-		.github\workflows\dotnetcore.yml = .github\workflows\dotnetcore.yml
 		.github\workflows\publish-nuget.yml = .github\workflows\publish-nuget.yml
+		.github\workflows\dotnet-build.yml = .github\workflows\dotnet-build.yml
 	EndProjectSection
 EndProject
 Global

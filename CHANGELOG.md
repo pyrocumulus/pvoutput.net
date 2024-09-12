@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.11.3] - 2024-09-12
+
+### Updated
+
+- Updated `Microsoft.CodeAnalysis.NetAnalyzers` from `v7.0.1` to `v8.0.0`
+- Updated `Microsoft.Extensions.DependencyInjection.Abstractions` from `v7.0.0` to `v8.0.1` 
+- Updated `Microsoft.Extensions.Logging.Abstractions` from `v7.0.0` to `v8.0.1` 
+
 ## [0.11.2] - 2023-05-04
 
 ### Fixed
