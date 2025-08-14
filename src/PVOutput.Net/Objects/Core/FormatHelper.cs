@@ -9,9 +9,11 @@ namespace PVOutput.Net.Objects.Core
 {
     internal static class FormatHelper
     {
+        internal static readonly string[] dateParsingFormats = ["yyyyMMdd", "yyyyMM", "yyyy"];
+
         internal static DateTime ParseDate(string dateString)
         {
-            return DateTime.ParseExact(dateString, new string[] { "yyyyMMdd", "yyyyMM", "yyyy" }, CultureInfo.InvariantCulture.DateTimeFormat, DateTimeStyles.AssumeLocal);
+            return DateTime.ParseExact(dateString, dateParsingFormats, CultureInfo.InvariantCulture.DateTimeFormat, DateTimeStyles.AssumeLocal);
         }
 
         internal static DateTimeOffset ParseTimeStamp(string timestamp)

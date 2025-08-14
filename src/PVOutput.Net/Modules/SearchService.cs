@@ -253,7 +253,7 @@ namespace PVOutput.Net.Modules
                 return $"{query}%2A";
             }
 
-            return query.Replace("*", "%2A");
+            return query.Replace("*", "%2A", StringComparison.InvariantCulture);
         }
 
         private static string CreateQueryWithKeyword(string queryText, string keyword)

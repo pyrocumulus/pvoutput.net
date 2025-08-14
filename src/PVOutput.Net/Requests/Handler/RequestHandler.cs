@@ -174,13 +174,13 @@ namespace PVOutput.Net.Requests.Handler
 
             var error = new PVOutputApiError();
             error.StatusCode = response.StatusCode;
-            using (TextReader textReader = new StreamReader(responseStream))
+            using (StreamReader reader = new StreamReader(responseStream))
             {
-                var fullContent = textReader.ReadToEnd();
+                var fullContent = reader.ReadToEnd();
 
                 if (!string.IsNullOrEmpty(fullContent))
                 {
-                    var splitterIndex = fullContent.IndexOf(':');
+                    var splitterIndex = fullContent.IndexOf(':', StringComparison.Ordinal);
 
                     if (splitterIndex > -1)
                     {
@@ -205,13 +205,13 @@ namespace PVOutput.Net.Requests.Handler
 
         private static string GetBasicResponseState(Stream responseStream)
         {
-            using (TextReader textReader = new StreamReader(responseStream))
+            using (StreamReader reader = new StreamReader(responseStream))
             {
-                var fullContent = textReader.ReadToEnd();
+                var fullContent = reader.ReadToEnd();
 
                 if (!string.IsNullOrEmpty(fullContent))
                 {
-                    var splitterIndex = fullContent.IndexOf(':');
+                    var splitterIndex = fullContent.IndexOf(':', StringComparison.Ordinal);
 
                     if (splitterIndex > -1)
                     {
@@ -271,9 +271,9 @@ namespace PVOutput.Net.Requests.Handler
             stream.Seek(0, SeekOrigin.Begin);
             cloneStream.Seek(0, SeekOrigin.Begin);
 
-            using (TextReader textReader = new StreamReader(cloneStream))
+            using (StreamReader reader = new StreamReader(cloneStream))
             {
-                string completeContent = await textReader.ReadToEndAsync().ConfigureAwait(false);
+                string completeContent = await reader.ReadToEndAsync().ConfigureAwait(false);
 
                 if (completeContent.Length > 0)
                 {

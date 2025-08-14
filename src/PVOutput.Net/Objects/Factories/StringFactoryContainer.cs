@@ -32,12 +32,12 @@ namespace PVOutput.Net.Objects.Factories
         private static object GetObjectStringFactory<TReturnType>()
         {
             Type type = typeof(TReturnType);
-            if (!ReaderFactories.ContainsKey(type))
+            if (!ReaderFactories.TryGetValue(type, out var value))
             {
                 throw new InvalidOperationException($"Factory for {type} is not known");
             }
 
-            return ReaderFactories[type];
+            return value;
         }
 
         public static IObjectStringReader<TReturnType> CreateObjectReader<TReturnType>()
