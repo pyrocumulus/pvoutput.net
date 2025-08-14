@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased]
+
+- Updated `Microsoft.Extensions.DependencyInjection.Abstractions` from `v9.0.0` to `v9.0.8` 
+- Updated `Microsoft.Extensions.Logging.Abstractions` from `v8.0.1` to `v9.0.8` 
+
 ## [0.11.3] - 2024-09-12
 
 ### Updated
