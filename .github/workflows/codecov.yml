@@ -18,8 +18,8 @@ jobs:
       uses: actions/setup-dotnet@v4.1.0
       with:
         dotnet-version: 3.1.100
-    - name: Install libssl
-      run: sudo apt-get update && sudo apt-get install -y libssl-dev
+    - name: Install 64-bit and 32-bit libssl
+      run: sudo apt-get update && sudo apt-get install -y libssl-dev libssl1.1
     - name: Test with dotnet
       run: dotnet test --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
     - name: Code coverage
