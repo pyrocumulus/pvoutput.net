@@ -44,7 +44,7 @@ namespace PVOutput.Net.Modules
         }
 
         /// <inheritdoc />
-        public Task<PVOutputBasicResponse> PostSystem(int systemId, string systemName = null, IEnumerable<IExtendedDataDefinition> dataDefinitions = null, CancellationToken cancellationToken = default)
+        public Task<PVOutputBasicResponse> PostSystem(int systemId, string? systemName = null, IEnumerable<IExtendedDataDefinition>? dataDefinitions = null, CancellationToken cancellationToken = default)
         {
             var loggingScope = new Dictionary<string, object>()
             {

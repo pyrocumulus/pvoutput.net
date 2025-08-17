@@ -23,16 +23,16 @@ namespace PVOutput.Net.Requests.Handler
 
         private ILogger Logger => Client.Logger;
 
-        private static Action<ILogger, string, Exception> LogRequestStatusSuccesful { get; set; }
-        private static Action<ILogger, string, string, Exception> LogRequestStatusFailed { get; set; }
-        private static Action<ILogger, int, int, DateTime, Exception> LogApiRateInformation { get; set; }
-        private static Action<ILogger, string, Exception> LogReceivedResponseContent { get; set; }
-        private static Action<ILogger, string, Exception> LogExecuteRequest { get; set; }
-        private static Func<ILogger, Dictionary<string, object>, IDisposable> LogExecuteSingleItemRequestScope { get; set; }
-        private static Func<ILogger, Dictionary<string, object>, IDisposable> LogExecuteArrayRequestScope1 { get; set; }
-        private static Func<ILogger, Dictionary<string, object>, IDisposable> LogExecutePostRequestScope1 { get; set; }
+        private static Action<ILogger, string, Exception?> LogRequestStatusSuccesful { get; set; }
+        private static Action<ILogger, string, string, Exception?> LogRequestStatusFailed { get; set; }
+        private static Action<ILogger, int, int, DateTime, Exception?> LogApiRateInformation { get; set; }
+        private static Action<ILogger, string, Exception?> LogReceivedResponseContent { get; set; }
+        private static Action<ILogger, string, Exception?> LogExecuteRequest { get; set; }
+        private static Func<ILogger, Dictionary<string, object>, IDisposable?> LogExecuteSingleItemRequestScope { get; set; }
+        private static Func<ILogger, Dictionary<string, object>, IDisposable?> LogExecuteArrayRequestScope { get; set; }
+        private static Func<ILogger, Dictionary<string, object>, IDisposable?> LogExecutePostRequestScope { get; set; }
 
-        public RequestHandler(PVOutputClient client)
+        static RequestHandler()
         {
             LogRequestStatusSuccesful = LoggerMessage.Define<string>(LogLevel.Information, LoggingEvents.Handler_RequestStatusSuccesful, "[RequestSuccessful] Status: {StatusCode}");
             LogRequestStatusFailed = LoggerMessage.Define<string, string>(LogLevel.Information, LoggingEvents.Handler_RequestStatusFailed, "[RequestFailed] Status: {StatusCode} Content: {Message}");
@@ -41,9 +41,12 @@ namespace PVOutput.Net.Requests.Handler
             LogExecuteRequest = LoggerMessage.Define<string>(LogLevel.Trace, LoggingEvents.Handler_ExecuteRequest, "[ExecuteRequest] Uri: {RequestUri}");
 
             LogExecuteSingleItemRequestScope = LoggerMessage.DefineScope<Dictionary<string, object>>("[SingleRequest]: {SingleValues}");
-            LogExecuteArrayRequestScope1 = LoggerMessage.DefineScope<Dictionary<string, object>>("[ArrayRequest]: {ArrayValues}");
-            LogExecutePostRequestScope1 = LoggerMessage.DefineScope<Dictionary<string, object>>("[PostRequest]: {PostValues}");
+            LogExecuteArrayRequestScope = LoggerMessage.DefineScope<Dictionary<string, object>>("[ArrayRequest]: {ArrayValues}");
+            LogExecutePostRequestScope = LoggerMessage.DefineScope<Dictionary<string, object>>("[PostRequest]: {PostValues}");
+        }
 
+        public RequestHandler(PVOutputClient client)
+        {
             Client = client;
         }
 
@@ -89,7 +92,7 @@ namespace PVOutput.Net.Requests.Handler
 
             try
             {
-                using (LogExecuteArrayRequestScope1(Logger, loggingScope))
+                using (LogExecuteArrayRequestScope(Logger, loggingScope))
                 {
                     using (HttpRequestMessage requestMessage = CreateRequestMessage(request))
                     { 
@@ -121,11 +124,11 @@ namespace PVOutput.Net.Requests.Handler
 
         internal async Task<PVOutputBasicResponse> ExecutePostRequestAsync(IRequest request, Dictionary<string, object> loggingScope, CancellationToken cancellationToken)
         {
-            HttpResponseMessage responseMessage = null;
+            HttpResponseMessage responseMessage = null!;
 
             try
             {
-                using (LogExecutePostRequestScope1(Logger, loggingScope))
+                using (LogExecutePostRequestScope(Logger, loggingScope))
                 {
                     using (HttpRequestMessage requestMessage = CreateRequestMessage(request))
                     {
@@ -154,7 +157,7 @@ namespace PVOutput.Net.Requests.Handler
 
         private bool ResponseIsErrorResponse(HttpResponseMessage responseMessage, Stream responseStream, PVOutputBaseResponse result)
         {
-            PVOutputApiError apiError = ProcessHttpErrorResults(responseMessage, responseStream);
+            PVOutputApiError? apiError = ProcessHttpErrorResults(responseMessage, responseStream);
             if (apiError != null)
             {
                 result.IsSuccess = false;
@@ -164,7 +167,7 @@ namespace PVOutput.Net.Requests.Handler
             return false;
         }
 
-        private PVOutputApiError ProcessHttpErrorResults(HttpResponseMessage response, Stream responseStream)
+        private PVOutputApiError? ProcessHttpErrorResults(HttpResponseMessage response, Stream responseStream)
         {
             if (response.IsSuccessStatusCode)
             {
@@ -221,7 +224,7 @@ namespace PVOutput.Net.Requests.Handler
                 }
             }
 
-            return null;
+            return string.Empty;
         }
 
         private PVOutputApiRateInformation GetApiRateInformationfromResponse(HttpResponseMessage response)
@@ -247,11 +250,11 @@ namespace PVOutput.Net.Requests.Handler
             return result;
         }
 
-        private async Task<Stream> GetResponseContentStreamAsync(HttpResponseMessage response)
+        private async Task<Stream?> GetResponseContentStreamAsync(HttpResponseMessage response)
         {
             if (response.Content == null)
             {
-                return default;
+                return null;
             }
 
             if (Logger.IsEnabled(LogLevel.Trace))

@@ -7,7 +7,7 @@ namespace PVOutput.Net.Objects.Modules.Readers
 {
     internal sealed class MissingObjectStringReader : BaseObjectStringReader<IMissing>
     {
-        public override IMissing CreateObjectInstance() => new Implementations.Missing();
+        public override IMissing CreateObjectInstance() => new Implementations.Missing { Dates = new List<DateTime>() };
 
         public MissingObjectStringReader()
         {

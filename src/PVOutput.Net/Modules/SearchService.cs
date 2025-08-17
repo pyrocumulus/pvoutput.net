@@ -194,7 +194,7 @@ namespace PVOutput.Net.Modules
         }
 
         /// <inheritdoc />
-        public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByOrientationAsync(Orientation orientation, string name = null, bool useStartsWith = true, CancellationToken cancellationToken = default)
+        public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByOrientationAsync(Orientation orientation, string? name = null, bool useStartsWith = true, CancellationToken cancellationToken = default)
         {
             var loggingScope = new Dictionary<string, object>()
             {

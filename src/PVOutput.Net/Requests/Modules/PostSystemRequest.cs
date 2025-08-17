@@ -10,8 +10,8 @@ namespace PVOutput.Net.Requests.Modules
     internal sealed class PostSystemRequest : PostRequest
     {
         public int SystemId { get; set; }
-        public string SystemName { get; set; }
-        public IEnumerable<IExtendedDataDefinition> DataDefinitions { get; set; }
+        public string? SystemName { get; set; }
+        public IEnumerable<IExtendedDataDefinition>? DataDefinitions { get; set; }
 
         public override HttpMethod Method => HttpMethod.Post;
         public override string UriTemplate => "postsystem.jsp{?sid,name," +

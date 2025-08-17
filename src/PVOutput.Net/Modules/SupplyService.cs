@@ -18,7 +18,7 @@ namespace PVOutput.Net.Modules
         }
 
         /// <inheritdoc />
-        public Task<PVOutputArrayResponse<ISupply>> GetSupplyAsync(string timeZone = null, string regionKey = null, CancellationToken cancellationToken = default)
+        public Task<PVOutputArrayResponse<ISupply>> GetSupplyAsync(string? timeZone = null, string? regionKey = null, CancellationToken cancellationToken = default)
         {
             var loggingScope = new Dictionary<string, object>()
             {

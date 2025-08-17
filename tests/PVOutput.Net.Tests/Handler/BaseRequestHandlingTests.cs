@@ -369,7 +369,7 @@ namespace PVOutput.Net.Tests.Handler
             IArrayStringReader<ISystemSearchResult> reader = StringFactoryContainer.CreateArrayReader<ISystemSearchResult>();
             IEnumerable<ISystemSearchResult> content = await reader.ReadArrayAsync(stream: null, cancellationToken: default).ConfigureAwait(false);
 
-            Assert.That(content, Is.Null);
+            Assert.That(content, Is.Empty);
         }
 
         [Test]
@@ -378,7 +378,7 @@ namespace PVOutput.Net.Tests.Handler
             IArrayStringReader<ISystemSearchResult> reader = new CharacterDelimitedArrayStringReader<ISystemSearchResult>();
             IEnumerable<ISystemSearchResult> content = await reader.ReadArrayAsync(stream: null, cancellationToken: default).ConfigureAwait(false);
 
-            Assert.That(content, Is.Null);
+            Assert.That(content, Is.Empty);
         }
 
         [Test]
@@ -387,7 +387,7 @@ namespace PVOutput.Net.Tests.Handler
             IArrayStringReader<ISystemSearchResult> reader = new LineDelimitedArrayStringReader<ISystemSearchResult>();
             IEnumerable<ISystemSearchResult> content = await reader.ReadArrayAsync(stream: null, cancellationToken: default).ConfigureAwait(false);
 
-            Assert.That(content, Is.Null);
+            Assert.That(content, Is.Empty);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Dawn;
 using PVOutput.Net.Enums;
 using PVOutput.Net.Objects;
@@ -17,6 +18,7 @@ namespace PVOutput.Net.Builders
         /// </summary>
         public OutputPostBuilder()
         {
+
             Reset();
         }
 
@@ -261,6 +263,7 @@ namespace PVOutput.Net.Builders
         /// <summary>
         /// Resets the builder to it's default state. Ready to build a new output.
         /// </summary>
+        [MemberNotNull(nameof(OutputPost))]
         public void Reset() => OutputPost = new OutputPost();
 
         /// <summary>

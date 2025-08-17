@@ -14,7 +14,7 @@
         /// <summary>
         /// The actual <typeparamref name="TResponseContentType"/> value in the response.
         /// </summary>
-        public TResponseContentType Value { get; internal set; }
+        public TResponseContentType? Value { get; internal set; }
 
         /// <summary>
         /// Compares the response to <paramref name="other"/> for base equivalence.

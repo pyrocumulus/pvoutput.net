@@ -1,4 +1,5 @@
-﻿using Dawn;
+﻿using System.Diagnostics.CodeAnalysis;
+using Dawn;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using PVOutput.Net.DependencyInjection;
@@ -12,7 +13,7 @@ namespace PVOutput.Net
     {
         internal const string PVOutputBaseUri = @"https://pvoutput.org/service/r2/";
 
-        private IHttpClientProvider _httpClientProvider;
+        private IHttpClientProvider _httpClientProvider = null!;
         internal IHttpClientProvider HttpClientProvider 
         { 
             get 
@@ -25,7 +26,7 @@ namespace PVOutput.Net
             } 
         }
 
-        private ILogger<PVOutputClient> _logger;
+        private ILogger<PVOutputClient> _logger = null!;
         internal ILogger<PVOutputClient> Logger
         {
             get
@@ -132,6 +133,18 @@ namespace PVOutput.Net
             Logger = logger;
         }
 
+        [MemberNotNull(nameof(Output))]
+        [MemberNotNull(nameof(System))]
+        [MemberNotNull(nameof(Status))]
+        [MemberNotNull(nameof(Statistics))]
+        [MemberNotNull(nameof(Missing))]
+        [MemberNotNull(nameof(Team))]
+        [MemberNotNull(nameof(Extended))]
+        [MemberNotNull(nameof(Favourite))]
+        [MemberNotNull(nameof(Insolation))]
+        [MemberNotNull(nameof(Supply))]
+        [MemberNotNull(nameof(Search))]
+        [MemberNotNull(nameof(Notification))]
         private void CreateServices()
         {
             Output = new OutputService(this);

@@ -5,6 +5,6 @@ namespace PVOutput.Net.Objects.Modules.Implementations
 {
     internal sealed class Missing : IMissing
     {
-        public IEnumerable<DateTime> Dates { get; set; }
+        public required IEnumerable<DateTime> Dates { get; set; }
     }
 }

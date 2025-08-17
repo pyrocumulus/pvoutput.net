@@ -52,7 +52,7 @@ namespace PVOutput.Net.Objects.Core
 
         protected virtual TReturnType GetDefaultResult()
         {
-            return default;
+            return default!;
         }
 
         private void ParseProperties(TReturnType target, TextReader reader, CancellationToken cancellationToken = default)
