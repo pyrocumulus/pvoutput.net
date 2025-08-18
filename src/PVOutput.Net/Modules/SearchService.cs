@@ -27,10 +27,10 @@ namespace PVOutput.Net.Modules
             var loggingScope = new Dictionary<string, object>()
             {
                 [LoggingEvents.RequestId] = LoggingEvents.SearchService_Search,
-                [LoggingEvents.Parameter_SearchQueryText] = searchQuery,
-                [LoggingEvents.Parameter_Coordinate] = coordinate
+                [LoggingEvents.Parameter_SearchQueryText] = searchQuery
             };
-            
+            loggingScope.AddIfNotNull(LoggingEvents.Parameter_Coordinate, coordinate);
+
             Guard.Argument(searchQuery, nameof(searchQuery)).NotEmpty().NotNull();
 
             var handler = new RequestHandler(Client);
@@ -200,9 +200,9 @@ namespace PVOutput.Net.Modules
             {
                 [LoggingEvents.RequestId] = LoggingEvents.SearchService_SearchByOrientation,
                 [LoggingEvents.Parameter_Search_Orientation] = orientation,
-                [LoggingEvents.Parameter_Search_Name] = name,
                 [LoggingEvents.Parameter_Search_UseStartsWith] = useStartsWith
             };
+            loggingScope.AddIfNotNull(LoggingEvents.Parameter_Search_Name, name);
 
             string query = "";
             if (name != null)

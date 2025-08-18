@@ -25,9 +25,9 @@ namespace PVOutput.Net.Modules
             {
                 [LoggingEvents.RequestId] = LoggingEvents.StatisticsService_GetLifetimeStatistics,
                 [LoggingEvents.Parameter_IncludeConsumptionAndImport] = includeConsumptionAndImport,
-                [LoggingEvents.Parameter_IncludeCreditDebit] = includeCreditDebit,
-                [LoggingEvents.Parameter_SystemId] = systemId
+                [LoggingEvents.Parameter_IncludeCreditDebit] = includeCreditDebit
             };
+            loggingScope.AddIfNotNull(LoggingEvents.Parameter_SystemId, systemId);
 
             var handler = new RequestHandler(Client);
             return handler.ExecuteSingleItemRequestAsync<IStatistic>(new StatisticRequest { SystemId = systemId, IncludeConsumptionImport = includeConsumptionAndImport, IncludeCreditDebit = includeCreditDebit }, loggingScope, cancellationToken);
@@ -42,9 +42,9 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.Parameter_FromDate] = fromDate,
                 [LoggingEvents.Parameter_ToDate] = toDate,
                 [LoggingEvents.Parameter_IncludeConsumptionAndImport] = includeConsumptionAndImport,
-                [LoggingEvents.Parameter_IncludeCreditDebit] = includeCreditDebit,
-                [LoggingEvents.Parameter_SystemId] = systemId
+                [LoggingEvents.Parameter_IncludeCreditDebit] = includeCreditDebit
             };
+            loggingScope.AddIfNotNull(LoggingEvents.Parameter_SystemId, systemId);
 
             Guard.Argument(toDate, nameof(toDate)).GreaterThan(fromDate);
 

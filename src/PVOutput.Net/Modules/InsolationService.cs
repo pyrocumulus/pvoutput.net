@@ -23,8 +23,9 @@ namespace PVOutput.Net.Modules
             var loggingScope = new Dictionary<string, object>()
             {
                 [LoggingEvents.RequestId] = LoggingEvents.InsolationService_GetInsolationForOwnSystem,
-                [LoggingEvents.Parameter_Date] = insolationDate
             };
+            loggingScope.AddIfNotNull(LoggingEvents.Parameter_Date, insolationDate);
+
 
             var handler = new RequestHandler(Client);
             var response = handler.ExecuteArrayRequestAsync<IInsolation>(new InsolationRequest { Date = insolationDate }, loggingScope, cancellationToken);
@@ -37,9 +38,9 @@ namespace PVOutput.Net.Modules
             var loggingScope = new Dictionary<string, object>()
             {
                 [LoggingEvents.RequestId] = LoggingEvents.InsolationService_GetInsolationForSystem,
-                [LoggingEvents.Parameter_SystemId] = systemId,
-                [LoggingEvents.Parameter_Date] = insolationDate
+                [LoggingEvents.Parameter_SystemId] = systemId
             };
+            loggingScope.AddIfNotNull(LoggingEvents.Parameter_Date, insolationDate);
 
             var handler = new RequestHandler(Client);
             var response = handler.ExecuteArrayRequestAsync<IInsolation>(new InsolationRequest { SystemId = systemId, Date = insolationDate }, loggingScope, cancellationToken);
@@ -52,9 +53,9 @@ namespace PVOutput.Net.Modules
             var loggingScope = new Dictionary<string, object>()
             {
                 [LoggingEvents.RequestId] = LoggingEvents.InsolationService_GetInsolationForLocation,
-                [LoggingEvents.Parameter_Coordinate] = coordinate,
-                [LoggingEvents.Parameter_Date] = insolationDate
+                [LoggingEvents.Parameter_Coordinate] = coordinate
             };
+            loggingScope.AddIfNotNull(LoggingEvents.Parameter_Date, insolationDate);
 
             var handler = new RequestHandler(Client);
             var response = handler.ExecuteArrayRequestAsync<IInsolation>(new InsolationRequest { Coordinate = coordinate, Date = insolationDate }, loggingScope, cancellationToken);

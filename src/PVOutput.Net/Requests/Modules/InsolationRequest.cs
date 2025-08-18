@@ -17,11 +17,13 @@ namespace PVOutput.Net.Requests.Modules
 
         public override string UriTemplate => "getinsolation.jsp{?d,ll,sid1}";
 
-        public override IDictionary<string, object> GetUriPathParameters() => new Dictionary<string, object>
+        public override IDictionary<string, object> GetUriPathParameters()
         {
-            ["d"] = Date != null ? FormatHelper.GetDateAsString(Date.Value) : null,
-            ["ll"] = Coordinate?.ToString(),
-            ["sid1"] = SystemId
-        };
+            var parameters = new Dictionary<string, object>();
+            parameters.AddIfNotNull("d", Date != null ? FormatHelper.GetDateAsString(Date.Value) : null);
+            parameters.AddIfNotNull("ll", Coordinate?.ToString());
+            parameters.AddIfNotNull("sid1", SystemId);
+            return parameters;
+        }
     }
 }

@@ -22,10 +22,10 @@ namespace PVOutput.Net.Modules
         {
             var loggingScope = new Dictionary<string, object>()
             {
-                [LoggingEvents.RequestId] = LoggingEvents.SupplyService_GetSupply,
-                [LoggingEvents.Parameter_TimeZone] = timeZone,
-                [LoggingEvents.Parameter_RegionKey] = regionKey
+                [LoggingEvents.RequestId] = LoggingEvents.SupplyService_GetSupply
             };
+            loggingScope.AddIfNotNull(LoggingEvents.Parameter_TimeZone, timeZone);
+            loggingScope.AddIfNotNull(LoggingEvents.Parameter_RegionKey, regionKey);
 
             var handler = new RequestHandler(Client);
             return handler.ExecuteArrayRequestAsync<ISupply>(new SupplyRequest { TimeZone = timeZone, RegionKey = regionKey }, loggingScope, cancellationToken);

@@ -44,6 +44,10 @@ namespace PVOutput.Net.Objects.Factories
         {
             // Currently every factory is an ObjectStringFactory at minimum
             var factory = GetObjectStringFactory<TReturnType>() as IObjectStringFactory<TReturnType>;
+            if (factory is null)
+            {
+                throw new InvalidOperationException($"Factory for {typeof(TReturnType)} is not an object string factory");
+            }
             return factory.CreateObjectReader();
         }
 

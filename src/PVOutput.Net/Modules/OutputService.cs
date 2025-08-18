@@ -26,9 +26,9 @@ namespace PVOutput.Net.Modules
             {
                 [LoggingEvents.RequestId] = LoggingEvents.OutputService_GetOutputForDate,
                 [LoggingEvents.Parameter_Date] = outputDate,
-                [LoggingEvents.Parameter_GetInsolation] = getInsolation,
-                [LoggingEvents.Parameter_SystemId] = systemId
+                [LoggingEvents.Parameter_GetInsolation] = getInsolation
             };
+            loggingScope.AddIfNotNull(LoggingEvents.Parameter_SystemId, systemId);
 
             Guard.Argument(outputDate, nameof(outputDate)).Max(DateTime.Today);
 
@@ -44,9 +44,9 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.RequestId] = LoggingEvents.OutputService_GetOutputsForPeriod,
                 [LoggingEvents.Parameter_FromDate] = fromDate,
                 [LoggingEvents.Parameter_ToDate] = toDate,
-                [LoggingEvents.Parameter_GetInsolation] = getInsolation,
-                [LoggingEvents.Parameter_SystemId] = systemId
+                [LoggingEvents.Parameter_GetInsolation] = getInsolation
             };
+            loggingScope.AddIfNotNull(LoggingEvents.Parameter_SystemId, systemId);
 
             Guard.Argument(toDate, nameof(toDate)).GreaterThan(fromDate).IsNoFutureDate().NoTimeComponent();
             Guard.Argument(fromDate, nameof(fromDate)).NoTimeComponent();

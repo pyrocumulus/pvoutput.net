@@ -52,7 +52,7 @@ namespace PVOutput.Net.Requests.Handler
 
         internal async Task<PVOutputResponse<TResponseContentType>> ExecuteSingleItemRequestAsync<TResponseContentType>(IRequest request, Dictionary<string, object> loggingScope, CancellationToken cancellationToken)
         {
-            HttpResponseMessage responseMessage = null;
+            HttpResponseMessage? responseMessage = null;
 
             try
             {
@@ -62,12 +62,12 @@ namespace PVOutput.Net.Requests.Handler
                     {
                         responseMessage = await ExecuteRequestAsync(requestMessage, cancellationToken).ConfigureAwait(false);
                     }
-                    Stream responseStream = await GetResponseContentStreamAsync(responseMessage).ConfigureAwait(false);
+                    Stream? responseStream = await GetResponseContentStreamAsync(responseMessage).ConfigureAwait(false);
 
                     var result = new PVOutputResponse<TResponseContentType>();
                     result.ApiRateInformation = GetApiRateInformationfromResponse(responseMessage);
 
-                    if (ResponseIsErrorResponse(responseMessage, responseStream, result))
+                    if (responseStream == null || ResponseIsErrorResponse(responseMessage, responseStream, result))
                     {
                         return result;
                     }
@@ -88,7 +88,7 @@ namespace PVOutput.Net.Requests.Handler
 
         internal async Task<PVOutputArrayResponse<TResponseContentType>> ExecuteArrayRequestAsync<TResponseContentType>(IRequest request, Dictionary<string, object> loggingScope, CancellationToken cancellationToken)
         {
-            HttpResponseMessage responseMessage = null;
+            HttpResponseMessage? responseMessage = null;
 
             try
             {
@@ -98,12 +98,12 @@ namespace PVOutput.Net.Requests.Handler
                     { 
                         responseMessage = await ExecuteRequestAsync(requestMessage, cancellationToken).ConfigureAwait(false);
                     }
-                    Stream responseStream = await GetResponseContentStreamAsync(responseMessage).ConfigureAwait(false);
+                    Stream? responseStream = await GetResponseContentStreamAsync(responseMessage).ConfigureAwait(false);
 
                     var result = new PVOutputArrayResponse<TResponseContentType>();
                     result.ApiRateInformation = GetApiRateInformationfromResponse(responseMessage);
 
-                    if (ResponseIsErrorResponse(responseMessage, responseStream, result))
+                    if (responseStream == null || ResponseIsErrorResponse(responseMessage, responseStream, result))
                     {
                         return result;
                     }
@@ -134,12 +134,12 @@ namespace PVOutput.Net.Requests.Handler
                     {
                         responseMessage = await ExecuteRequestAsync(requestMessage, cancellationToken).ConfigureAwait(false);
                     }
-                    Stream responseStream = await GetResponseContentStreamAsync(responseMessage).ConfigureAwait(false);
+                    Stream? responseStream = await GetResponseContentStreamAsync(responseMessage).ConfigureAwait(false);
 
                     var result = new PVOutputBasicResponse();
                     result.ApiRateInformation = GetApiRateInformationfromResponse(responseMessage);
 
-                    if (ResponseIsErrorResponse(responseMessage, responseStream, result))
+                    if (responseStream == null || ResponseIsErrorResponse(responseMessage, responseStream, result))
                     {
                         return result;
                     }
@@ -175,8 +175,7 @@ namespace PVOutput.Net.Requests.Handler
                 return null;
             }
 
-            var error = new PVOutputApiError();
-            error.StatusCode = response.StatusCode;
+            string errorMessage = string.Empty;
             using (StreamReader reader = new StreamReader(responseStream))
             {
                 var fullContent = reader.ReadToEnd();
@@ -187,15 +186,16 @@ namespace PVOutput.Net.Requests.Handler
 
                     if (splitterIndex > -1)
                     {
-                        error.Message = fullContent.Substring(splitterIndex + 1).Trim();
+                        errorMessage = fullContent.Substring(splitterIndex + 1).Trim();
                     }
                     else
                     {
-                        error.Message = fullContent;
+                        errorMessage = fullContent;
                     }
                 }
             }
 
+            var error = new PVOutputApiError(response.StatusCode, errorMessage);
             LogRequestStatusFailed(Logger, error.StatusCode.ToString(), error.Message, null);
 
             if (Client.ThrowResponseExceptions)
@@ -310,6 +310,11 @@ namespace PVOutput.Net.Requests.Handler
 
         internal Task<HttpResponseMessage> ExecuteRequestAsync(HttpRequestMessage requestMessage, CancellationToken cancellationToken = default)
         {
+            if (requestMessage.RequestUri == null)
+            {
+                throw new ArgumentException("RequestUri cannot be null.", nameof(requestMessage));
+            }
+
             SetRequestHeaders(requestMessage);
             LogExecuteRequest(Logger, requestMessage.RequestUri.ToString(), null);
             return Client.HttpClientProvider.GetHttpClient().SendAsync(requestMessage, cancellationToken);

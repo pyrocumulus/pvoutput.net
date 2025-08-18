@@ -10,6 +10,12 @@ namespace PVOutput.Net.Responses
     /// </summary>
     public sealed class PVOutputApiError
     {
+        internal PVOutputApiError(HttpStatusCode statusCode, string message)
+        {
+            StatusCode = statusCode;
+            Message = message;
+        }
+        
         /// <summary>
         /// Statuscode returned by the API call.
         /// </summary>

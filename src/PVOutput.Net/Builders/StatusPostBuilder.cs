@@ -168,8 +168,12 @@ namespace PVOutput.Net.Builders
         public TResultType Build()
         {
             ValidateStatus();
-            
-            return _statusPost as TResultType;
+
+            if (_statusPost is TResultType result)
+            {
+                return result;
+            }
+            throw new InvalidCastException($"StatusPost cannot be cast to {typeof(TResultType).FullName}");
         }
 
         /// <summary>

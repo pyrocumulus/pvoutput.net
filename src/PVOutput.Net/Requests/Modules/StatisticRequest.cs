@@ -2,6 +2,7 @@
 using System.Net.Http;
 using PVOutput.Net.Objects;
 using PVOutput.Net.Requests.Base;
+using PVOutput.Net.Objects.Core;
 
 namespace PVOutput.Net.Requests.Modules
 {
@@ -15,11 +16,13 @@ namespace PVOutput.Net.Requests.Modules
 
         public override string UriTemplate => "getstatistic.jsp{?df,dt,c,cdr,sid1}";
 
-        public override IDictionary<string, object> GetUriPathParameters() => new Dictionary<string, object>
+        public override IDictionary<string, object> GetUriPathParameters()
         {
-            ["sid1"] = SystemId,
-            ["c"] = IncludeConsumptionImport ? 1 : 0,
-            ["cdr"] = IncludeCreditDebit ? 1 : 0
-        };
+            var parameters = new Dictionary<string, object>();
+            parameters.AddIfNotNull("sid1", SystemId);
+            parameters.AddIfNotNull("c", IncludeConsumptionImport ? 1 : 0);
+            parameters.AddIfNotNull("cdr", IncludeCreditDebit ? 1 : 0);
+            return parameters;
+        }
     }
 }

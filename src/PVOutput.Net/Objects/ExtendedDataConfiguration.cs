@@ -9,12 +9,12 @@ namespace PVOutput.Net.Objects
     public readonly struct ExtendedDataConfiguration : IEquatable<ExtendedDataConfiguration>
     {
         /// <summary>The label that the extended value has</summary>
-        public string Label { get; }
+        public string? Label { get; }
 
         /// <summary>The unit the extended value has</summary>
-        public string Unit { get; }
+        public string? Unit { get; }
 
-        internal ExtendedDataConfiguration(string label, string unit)
+        internal ExtendedDataConfiguration(string? label, string? unit)
         {
             Label = label;
             Unit = unit;
@@ -41,8 +41,8 @@ namespace PVOutput.Net.Objects
         public override int GetHashCode()
         {
             var hashCode = -1553767860;
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Label);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Unit);
+            hashCode = hashCode * -1521134295 + (Label is not null ? EqualityComparer<string>.Default.GetHashCode(Label) : 0);
+            hashCode = hashCode * -1521134295 + (Unit is not null ? EqualityComparer<string>.Default.GetHashCode(Unit) : 0);
             return hashCode;
         }
 

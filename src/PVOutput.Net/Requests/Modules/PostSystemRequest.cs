@@ -20,11 +20,9 @@ namespace PVOutput.Net.Requests.Modules
 
         public override IDictionary<string, object> GetUriPathParameters()
         {
-            var parameters = new Dictionary<string, object>
-            {
-                ["sid"] = SystemId,
-                ["name"] = SystemName,
-            };
+            var parameters = new Dictionary<string, object>();
+            parameters.AddIfNotNull("sid", SystemId);
+            parameters.AddIfNotNull("name", SystemName);
 
             AddDataDefinitions(parameters);
             return parameters;
@@ -61,7 +59,7 @@ namespace PVOutput.Net.Requests.Modules
 
                 if (definition.DisplayType.HasValue)
                 {
-                    parameters[$"{index}g"] = definition.DisplayType.ToString();
+                    parameters[$"{index}g"] = definition.DisplayType.ToString() ?? "";
                 }
             }
         }

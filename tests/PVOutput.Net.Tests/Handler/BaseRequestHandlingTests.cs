@@ -328,9 +328,9 @@ namespace PVOutput.Net.Tests.Handler
         [Test]
         public void PVOutputApiError_IsEquivalentTo_ReturnsEquivelanceNotEquals()
         {
-            var error1 = new PVOutputApiError() { StatusCode = HttpStatusCode.Unauthorized, Message = "Donation mode required." };
-            var error2 = new PVOutputApiError() { StatusCode = HttpStatusCode.Unauthorized, Message = "Donation mode required." };
-            var error3 = new PVOutputApiError() { StatusCode = HttpStatusCode.BadRequest, Message = "Unknown." };
+            var error1 = new PVOutputApiError(HttpStatusCode.Unauthorized, "Donation mode required.");
+            var error2 = new PVOutputApiError(HttpStatusCode.Unauthorized, "Donation mode required.");
+            var error3 = new PVOutputApiError(HttpStatusCode.BadRequest, "Unknown.");
 
             Assert.Multiple(() =>
             {

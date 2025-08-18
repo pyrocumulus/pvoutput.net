@@ -29,7 +29,8 @@ namespace PVOutput.Net.Objects.Core
         {
             if (stream == null)
             {
-                return await Task.FromResult(default(TReturnType)).ConfigureAwait(false);
+                // Use GetDefaultResult() to avoid possible null reference return warning
+                return await Task.FromResult(GetDefaultResult()).ConfigureAwait(false);
             }
 
             using (TextReader textReader = new StreamReader(stream))

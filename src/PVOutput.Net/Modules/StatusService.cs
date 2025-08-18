@@ -24,9 +24,9 @@ namespace PVOutput.Net.Modules
             var loggingScope = new Dictionary<string, object>()
             {
                 [LoggingEvents.RequestId] = LoggingEvents.StatusService_GetStatusForDateTime,
-                [LoggingEvents.Parameter_Moment] = moment,
-                [LoggingEvents.Parameter_SystemId] = systemId
+                [LoggingEvents.Parameter_Moment] = moment
             };
+            loggingScope.AddIfNotNull(LoggingEvents.Parameter_SystemId, systemId);
 
             Guard.Argument(moment, nameof(moment)).IsNoFutureDate();
 
@@ -43,10 +43,10 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.Parameter_FromDate] = fromDateTime,
                 [LoggingEvents.Parameter_ToDate] = toDateTime,
                 [LoggingEvents.Parameter_Ascending] = ascending,
-                [LoggingEvents.Parameter_SystemId] = systemId,
-                [LoggingEvents.Parameter_ExtendedData] = extendedData,
-                [LoggingEvents.Parameter_Limit] = limit
+                [LoggingEvents.Parameter_ExtendedData] = extendedData
             };
+            loggingScope.AddIfNotNull(LoggingEvents.Parameter_SystemId, systemId);
+            loggingScope.AddIfNotNull(LoggingEvents.Parameter_Limit, limit);
 
             Guard.Argument(toDateTime, nameof(toDateTime)).GreaterThan(fromDateTime).IsNoFutureDate();
 
@@ -62,9 +62,9 @@ namespace PVOutput.Net.Modules
             {
                 [LoggingEvents.RequestId] = LoggingEvents.StatusService_GetDayStatisticsForPeriod,
                 [LoggingEvents.Parameter_FromDate] = fromDateTime,
-                [LoggingEvents.Parameter_ToDate] = toDateTime,
-                [LoggingEvents.Parameter_SystemId] = systemId
+                [LoggingEvents.Parameter_ToDate] = toDateTime
             };
+            loggingScope.AddIfNotNull(LoggingEvents.Parameter_SystemId, systemId);
 
             Guard.Argument(toDateTime, nameof(toDateTime)).GreaterThan(fromDateTime).IsNoFutureDate();
 

@@ -119,7 +119,7 @@ namespace PVOutput.Net.Tests.Modules.Status
             Assert.Multiple(() =>
             {
                 Assert.That(parameters["d"], Is.EqualTo("20180612"));
-                Assert.That(parameters["t"], Is.Null);
+                Assert.That(parameters, Does.Not.Contain("t"));
             });
         }
 

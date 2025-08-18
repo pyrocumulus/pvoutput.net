@@ -21,21 +21,23 @@ namespace PVOutput.Net.Requests.Modules
 
         public override string UriTemplate => "getoutput.jsp{?sid1,tid,df,dt,insolation,a}";
 
-        public override IDictionary<string, object> GetUriPathParameters() => new Dictionary<string, object>
+        public override IDictionary<string, object> GetUriPathParameters()
         {
-            ["sid1"] = SystemId,
-            ["tid"] = TeamId,
-            ["a"] = GetAggregationParameter(Aggregation),
-            ["df"] = FormatHelper.GetDateAsString(FromDate),
-            ["dt"] = FormatHelper.GetDateAsString(ToDate),
-            ["insolation"] = Insolation ? 1 : 0
-        };
+            var parameters = new Dictionary<string, object>();
+            parameters.AddIfNotNull("sid1", SystemId);
+            parameters.AddIfNotNull("tid", TeamId);
+            parameters.AddIfNotNull("a", GetAggregationParameter(Aggregation));
+            parameters.AddIfNotNull("df", FormatHelper.GetDateAsString(FromDate));
+            parameters.AddIfNotNull("dt", FormatHelper.GetDateAsString(ToDate));
+            parameters.AddIfNotNull("insolation", Insolation ? 1 : 0);
+            return parameters;
+        }
 
-        private static string GetAggregationParameter(AggregationPeriod? aggregationPeriod)
+        private static string? GetAggregationParameter(AggregationPeriod? aggregationPeriod)
         {
             if (aggregationPeriod == null)
             {
-                return null;
+                return null!;
             }
 
             return aggregationPeriod == AggregationPeriod.Month ? "m" : "y";
