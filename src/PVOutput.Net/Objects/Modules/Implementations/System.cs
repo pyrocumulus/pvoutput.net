@@ -7,15 +7,15 @@ namespace PVOutput.Net.Objects.Modules.Implementations
     internal sealed class System : ISystem
     {
         // Primary
-        public string SystemName { get; set; }
+        public required string SystemName { get; set; }
         public int SystemSize { get; set; }
         public int Postcode { get; set; }
         public int NumberOfPanels { get; set; }
         public int PanelPower { get; set; }
-        public string PanelBrand { get; set; }
+        public required string PanelBrand { get; set; }
         public int NumberOfInverters { get; set; }
         public int InverterPower { get; set; }
-        public string InverterBrand { get; set; }
+        public required string InverterBrand { get; set; }
         public Orientation Orientation { get; set; }
         public decimal? ArrayTilt { get; set; }
         public Shade Shade { get; set; }
@@ -38,16 +38,16 @@ namespace PVOutput.Net.Objects.Modules.Implementations
         public decimal? ImportDailyCharge { get; set; }
 
         // Teams
-        public IReadOnlyList<int> Teams { get; set; }
+        public required IReadOnlyList<int> Teams { get; set; }
 
         // Donations
         public int Donations { get; set; }
 
         // Extended data config
-        public IReadOnlyList<ExtendedDataConfiguration> ExtendedDataConfig { get; set; }
+        public required IReadOnlyList<ExtendedDataConfiguration> ExtendedDataConfig { get; set; }
 
         // Estimates - Only owner system
-        public IReadOnlyDictionary<PVMonth, int> MonthlyGenerationEstimates { get; set; }
-        public IReadOnlyDictionary<PVMonth, int> MonthlyConsumptionEstimates { get; set; }
+        public IReadOnlyDictionary<PVMonth, int>? MonthlyGenerationEstimates { get; set; }
+        public IReadOnlyDictionary<PVMonth, int>? MonthlyConsumptionEstimates { get; set; }
     }
 }

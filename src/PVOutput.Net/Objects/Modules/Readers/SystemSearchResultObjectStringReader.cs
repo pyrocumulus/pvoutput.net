@@ -12,7 +12,14 @@ namespace PVOutput.Net.Objects.Modules.Readers
     {
         internal static Regex PostcodeParsingRegex = new Regex(@"(?'country'\D*?)(?'postcode'\d*)$", RegexOptions.Compiled | RegexOptions.Singleline);
 
-        public override ISystemSearchResult CreateObjectInstance() => new Implementations.SystemSearchResult();
+        public override ISystemSearchResult CreateObjectInstance() => new Implementations.SystemSearchResult
+        {
+            SystemName = string.Empty,
+            Country = string.Empty,
+            LastOutput = string.Empty,
+            Panel = string.Empty,
+            Inverter = string.Empty
+        };
 
         public SystemSearchResultObjectStringReader()
         {
