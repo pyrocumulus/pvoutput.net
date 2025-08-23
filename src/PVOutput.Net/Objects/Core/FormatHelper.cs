@@ -9,9 +9,11 @@ namespace PVOutput.Net.Objects.Core
 {
     internal static class FormatHelper
     {
+        internal static readonly string[] dateParsingFormats = ["yyyyMMdd", "yyyyMM", "yyyy"];
+
         internal static DateTime ParseDate(string dateString)
         {
-            return DateTime.ParseExact(dateString, new string[] { "yyyyMMdd", "yyyyMM", "yyyy" }, CultureInfo.InvariantCulture.DateTimeFormat, DateTimeStyles.AssumeLocal);
+            return DateTime.ParseExact(dateString, dateParsingFormats, CultureInfo.InvariantCulture.DateTimeFormat, DateTimeStyles.AssumeLocal);
         }
 
         internal static DateTimeOffset ParseTimeStamp(string timestamp)
@@ -47,7 +49,7 @@ namespace PVOutput.Net.Objects.Core
             return time.ToString("h\\:mm", CultureInfo.InvariantCulture.DateTimeFormat);
         }
 
-        internal static string GetValueAsString<TInputType>(TInputType? value) where TInputType : struct
+        internal static string? GetValueAsString<TInputType>(TInputType? value) where TInputType : struct
         {
             if (value == null)
             {
@@ -84,7 +86,7 @@ namespace PVOutput.Net.Objects.Core
             var name = Enum.GetName(type, enumerationValue);
             if (name != null)
             {
-                FieldInfo field = type.GetField(name);
+                FieldInfo? field = type.GetField(name);
                 if (field != null)
                 {
                     if (Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) is DescriptionAttribute attr)
@@ -93,7 +95,7 @@ namespace PVOutput.Net.Objects.Core
                     }
                 }
             }
-            return null;
+            return "";
         }
 
         public static TEnumType DescriptionToEnumValue<TEnumType>(this string enumerationDescription) where TEnumType : struct

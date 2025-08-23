@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using PVOutput.Net.Objects;
+using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Requests.Base;
 
 namespace PVOutput.Net.Requests.Modules
@@ -15,9 +16,11 @@ namespace PVOutput.Net.Requests.Modules
 
         public override string UriTemplate => "getfavourite.jsp{?sid1}";
 
-        public override IDictionary<string, object> GetUriPathParameters() => new Dictionary<string, object>
+        public override IDictionary<string, object> GetUriPathParameters()
         {
-            ["sid1"] = SystemId
-        };
+            var parameters = new Dictionary<string, object>();
+            parameters.AddIfNotNull("sid1", SystemId);
+            return parameters;
+        }
     }
 }

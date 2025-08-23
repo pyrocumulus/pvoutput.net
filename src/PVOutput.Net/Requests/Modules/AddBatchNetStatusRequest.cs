@@ -9,17 +9,19 @@ namespace PVOutput.Net.Requests.Modules
 {
     internal sealed class AddBatchNetStatusRequest : PostRequest
     {
-        public IEnumerable<IBatchNetStatusPost> StatusPosts { get; set; }
+        public required IEnumerable<IBatchNetStatusPost> StatusPosts { get; set; }
 
         public override HttpMethod Method => HttpMethod.Post;
 
         public override string UriTemplate => "addbatchstatus.jsp{?n,data}";
 
-        public override IDictionary<string, object> GetUriPathParameters() => new Dictionary<string, object>
+        public override IDictionary<string, object> GetUriPathParameters()
         {
-            ["n"] = 1,
-            ["data"] = FormatStatusPosts()
-        };
+            var parameters = new Dictionary<string, object>();
+            parameters.AddIfNotNull("n", 1);
+            parameters.AddIfNotNull("data", FormatStatusPosts());
+            return parameters;
+        }
 
         private string FormatStatusPosts()
         {

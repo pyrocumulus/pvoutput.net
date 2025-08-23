@@ -41,6 +41,6 @@ namespace PVOutput.Net.Modules
         /// <param name="dataDefinitions">List of modified extended data definitions.</param>
         /// <param name="cancellationToken">A cancellation token for the request.</param>
         /// <returns>If the operation succeeded.</returns>
-        Task<PVOutputBasicResponse> PostSystem(int systemId, string systemName = null, IEnumerable<IExtendedDataDefinition> dataDefinitions = null, CancellationToken cancellationToken = default);
+        Task<PVOutputBasicResponse> PostSystem(int systemId, string? systemName = null, IEnumerable<IExtendedDataDefinition>? dataDefinitions = null, CancellationToken cancellationToken = default);
     }
 }

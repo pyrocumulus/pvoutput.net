@@ -32,18 +32,22 @@ namespace PVOutput.Net.Objects.Factories
         private static object GetObjectStringFactory<TReturnType>()
         {
             Type type = typeof(TReturnType);
-            if (!ReaderFactories.ContainsKey(type))
+            if (!ReaderFactories.TryGetValue(type, out var value))
             {
                 throw new InvalidOperationException($"Factory for {type} is not known");
             }
 
-            return ReaderFactories[type];
+            return value;
         }
 
         public static IObjectStringReader<TReturnType> CreateObjectReader<TReturnType>()
         {
             // Currently every factory is an ObjectStringFactory at minimum
             var factory = GetObjectStringFactory<TReturnType>() as IObjectStringFactory<TReturnType>;
+            if (factory is null)
+            {
+                throw new InvalidOperationException($"Factory for {typeof(TReturnType)} is not an object string factory");
+            }
             return factory.CreateObjectReader();
         }
 

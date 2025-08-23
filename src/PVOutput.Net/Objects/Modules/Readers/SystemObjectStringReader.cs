@@ -9,7 +9,14 @@ namespace PVOutput.Net.Objects.Modules.Readers
 {
     internal sealed class SystemObjectStringReader : BaseObjectStringReader<ISystem>
     {
-        public override ISystem CreateObjectInstance() => new Implementations.System();
+        public override ISystem CreateObjectInstance() => new Implementations.System
+        {
+            SystemName = string.Empty,
+            PanelBrand = string.Empty,
+            InverterBrand = string.Empty,
+            Teams = new List<int>(),
+            ExtendedDataConfig = new List<ExtendedDataConfiguration>()
+        };
 
         public SystemObjectStringReader()
         {

@@ -117,7 +117,7 @@ namespace PVOutput.Net.Modules
         /// <param name="useStartsWith">If <c>true</c> the name should start with the <paramref name="name"/> value. Otherwise the search is performed using a <c>contains</c> method.</param>
         /// <param name="cancellationToken">A cancellation token for the request.</param>
         /// <returns>A list of search results.</returns>
-        Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByOrientationAsync(Orientation orientation, string name = null, bool useStartsWith = true, CancellationToken cancellationToken = default);
+        Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByOrientationAsync(Orientation orientation, string? name = null, bool useStartsWith = true, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Search for systems by tilt.

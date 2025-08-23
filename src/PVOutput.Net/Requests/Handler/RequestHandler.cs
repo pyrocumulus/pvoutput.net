@@ -23,16 +23,16 @@ namespace PVOutput.Net.Requests.Handler
 
         private ILogger Logger => Client.Logger;
 
-        private static Action<ILogger, string, Exception> LogRequestStatusSuccesful { get; set; }
-        private static Action<ILogger, string, string, Exception> LogRequestStatusFailed { get; set; }
-        private static Action<ILogger, int, int, DateTime, Exception> LogApiRateInformation { get; set; }
-        private static Action<ILogger, string, Exception> LogReceivedResponseContent { get; set; }
-        private static Action<ILogger, string, Exception> LogExecuteRequest { get; set; }
-        private static Func<ILogger, Dictionary<string, object>, IDisposable> LogExecuteSingleItemRequestScope { get; set; }
-        private static Func<ILogger, Dictionary<string, object>, IDisposable> LogExecuteArrayRequestScope1 { get; set; }
-        private static Func<ILogger, Dictionary<string, object>, IDisposable> LogExecutePostRequestScope1 { get; set; }
+        private static Action<ILogger, string, Exception?> LogRequestStatusSuccesful { get; set; }
+        private static Action<ILogger, string, string, Exception?> LogRequestStatusFailed { get; set; }
+        private static Action<ILogger, int, int, DateTime, Exception?> LogApiRateInformation { get; set; }
+        private static Action<ILogger, string, Exception?> LogReceivedResponseContent { get; set; }
+        private static Action<ILogger, string, Exception?> LogExecuteRequest { get; set; }
+        private static Func<ILogger, Dictionary<string, object>, IDisposable?> LogExecuteSingleItemRequestScope { get; set; }
+        private static Func<ILogger, Dictionary<string, object>, IDisposable?> LogExecuteArrayRequestScope { get; set; }
+        private static Func<ILogger, Dictionary<string, object>, IDisposable?> LogExecutePostRequestScope { get; set; }
 
-        public RequestHandler(PVOutputClient client)
+        static RequestHandler()
         {
             LogRequestStatusSuccesful = LoggerMessage.Define<string>(LogLevel.Information, LoggingEvents.Handler_RequestStatusSuccesful, "[RequestSuccessful] Status: {StatusCode}");
             LogRequestStatusFailed = LoggerMessage.Define<string, string>(LogLevel.Information, LoggingEvents.Handler_RequestStatusFailed, "[RequestFailed] Status: {StatusCode} Content: {Message}");
@@ -41,15 +41,18 @@ namespace PVOutput.Net.Requests.Handler
             LogExecuteRequest = LoggerMessage.Define<string>(LogLevel.Trace, LoggingEvents.Handler_ExecuteRequest, "[ExecuteRequest] Uri: {RequestUri}");
 
             LogExecuteSingleItemRequestScope = LoggerMessage.DefineScope<Dictionary<string, object>>("[SingleRequest]: {SingleValues}");
-            LogExecuteArrayRequestScope1 = LoggerMessage.DefineScope<Dictionary<string, object>>("[ArrayRequest]: {ArrayValues}");
-            LogExecutePostRequestScope1 = LoggerMessage.DefineScope<Dictionary<string, object>>("[PostRequest]: {PostValues}");
+            LogExecuteArrayRequestScope = LoggerMessage.DefineScope<Dictionary<string, object>>("[ArrayRequest]: {ArrayValues}");
+            LogExecutePostRequestScope = LoggerMessage.DefineScope<Dictionary<string, object>>("[PostRequest]: {PostValues}");
+        }
 
+        public RequestHandler(PVOutputClient client)
+        {
             Client = client;
         }
 
         internal async Task<PVOutputResponse<TResponseContentType>> ExecuteSingleItemRequestAsync<TResponseContentType>(IRequest request, Dictionary<string, object> loggingScope, CancellationToken cancellationToken)
         {
-            HttpResponseMessage responseMessage = null;
+            HttpResponseMessage? responseMessage = null;
 
             try
             {
@@ -59,12 +62,12 @@ namespace PVOutput.Net.Requests.Handler
                     {
                         responseMessage = await ExecuteRequestAsync(requestMessage, cancellationToken).ConfigureAwait(false);
                     }
-                    Stream responseStream = await GetResponseContentStreamAsync(responseMessage).ConfigureAwait(false);
+                    Stream? responseStream = await GetResponseContentStreamAsync(responseMessage).ConfigureAwait(false);
 
                     var result = new PVOutputResponse<TResponseContentType>();
                     result.ApiRateInformation = GetApiRateInformationfromResponse(responseMessage);
 
-                    if (ResponseIsErrorResponse(responseMessage, responseStream, result))
+                    if (responseStream == null || ResponseIsErrorResponse(responseMessage, responseStream, result))
                     {
                         return result;
                     }
@@ -85,22 +88,22 @@ namespace PVOutput.Net.Requests.Handler
 
         internal async Task<PVOutputArrayResponse<TResponseContentType>> ExecuteArrayRequestAsync<TResponseContentType>(IRequest request, Dictionary<string, object> loggingScope, CancellationToken cancellationToken)
         {
-            HttpResponseMessage responseMessage = null;
+            HttpResponseMessage? responseMessage = null;
 
             try
             {
-                using (LogExecuteArrayRequestScope1(Logger, loggingScope))
+                using (LogExecuteArrayRequestScope(Logger, loggingScope))
                 {
                     using (HttpRequestMessage requestMessage = CreateRequestMessage(request))
                     { 
                         responseMessage = await ExecuteRequestAsync(requestMessage, cancellationToken).ConfigureAwait(false);
                     }
-                    Stream responseStream = await GetResponseContentStreamAsync(responseMessage).ConfigureAwait(false);
+                    Stream? responseStream = await GetResponseContentStreamAsync(responseMessage).ConfigureAwait(false);
 
                     var result = new PVOutputArrayResponse<TResponseContentType>();
                     result.ApiRateInformation = GetApiRateInformationfromResponse(responseMessage);
 
-                    if (ResponseIsErrorResponse(responseMessage, responseStream, result))
+                    if (responseStream == null || ResponseIsErrorResponse(responseMessage, responseStream, result))
                     {
                         return result;
                     }
@@ -121,22 +124,22 @@ namespace PVOutput.Net.Requests.Handler
 
         internal async Task<PVOutputBasicResponse> ExecutePostRequestAsync(IRequest request, Dictionary<string, object> loggingScope, CancellationToken cancellationToken)
         {
-            HttpResponseMessage responseMessage = null;
+            HttpResponseMessage responseMessage = null!;
 
             try
             {
-                using (LogExecutePostRequestScope1(Logger, loggingScope))
+                using (LogExecutePostRequestScope(Logger, loggingScope))
                 {
                     using (HttpRequestMessage requestMessage = CreateRequestMessage(request))
                     {
                         responseMessage = await ExecuteRequestAsync(requestMessage, cancellationToken).ConfigureAwait(false);
                     }
-                    Stream responseStream = await GetResponseContentStreamAsync(responseMessage).ConfigureAwait(false);
+                    Stream? responseStream = await GetResponseContentStreamAsync(responseMessage).ConfigureAwait(false);
 
                     var result = new PVOutputBasicResponse();
                     result.ApiRateInformation = GetApiRateInformationfromResponse(responseMessage);
 
-                    if (ResponseIsErrorResponse(responseMessage, responseStream, result))
+                    if (responseStream == null || ResponseIsErrorResponse(responseMessage, responseStream, result))
                     {
                         return result;
                     }
@@ -154,7 +157,7 @@ namespace PVOutput.Net.Requests.Handler
 
         private bool ResponseIsErrorResponse(HttpResponseMessage responseMessage, Stream responseStream, PVOutputBaseResponse result)
         {
-            PVOutputApiError apiError = ProcessHttpErrorResults(responseMessage, responseStream);
+            PVOutputApiError? apiError = ProcessHttpErrorResults(responseMessage, responseStream);
             if (apiError != null)
             {
                 result.IsSuccess = false;
@@ -164,7 +167,7 @@ namespace PVOutput.Net.Requests.Handler
             return false;
         }
 
-        private PVOutputApiError ProcessHttpErrorResults(HttpResponseMessage response, Stream responseStream)
+        private PVOutputApiError? ProcessHttpErrorResults(HttpResponseMessage response, Stream responseStream)
         {
             if (response.IsSuccessStatusCode)
             {
@@ -172,27 +175,27 @@ namespace PVOutput.Net.Requests.Handler
                 return null;
             }
 
-            var error = new PVOutputApiError();
-            error.StatusCode = response.StatusCode;
-            using (TextReader textReader = new StreamReader(responseStream))
+            string errorMessage = string.Empty;
+            using (StreamReader reader = new StreamReader(responseStream))
             {
-                var fullContent = textReader.ReadToEnd();
+                var fullContent = reader.ReadToEnd();
 
                 if (!string.IsNullOrEmpty(fullContent))
                 {
-                    var splitterIndex = fullContent.IndexOf(':');
+                    var splitterIndex = fullContent.IndexOf(':', StringComparison.Ordinal);
 
                     if (splitterIndex > -1)
                     {
-                        error.Message = fullContent.Substring(splitterIndex + 1).Trim();
+                        errorMessage = fullContent.Substring(splitterIndex + 1).Trim();
                     }
                     else
                     {
-                        error.Message = fullContent;
+                        errorMessage = fullContent;
                     }
                 }
             }
 
+            var error = new PVOutputApiError(response.StatusCode, errorMessage);
             LogRequestStatusFailed(Logger, error.StatusCode.ToString(), error.Message, null);
 
             if (Client.ThrowResponseExceptions)
@@ -205,13 +208,13 @@ namespace PVOutput.Net.Requests.Handler
 
         private static string GetBasicResponseState(Stream responseStream)
         {
-            using (TextReader textReader = new StreamReader(responseStream))
+            using (StreamReader reader = new StreamReader(responseStream))
             {
-                var fullContent = textReader.ReadToEnd();
+                var fullContent = reader.ReadToEnd();
 
                 if (!string.IsNullOrEmpty(fullContent))
                 {
-                    var splitterIndex = fullContent.IndexOf(':');
+                    var splitterIndex = fullContent.IndexOf(':', StringComparison.Ordinal);
 
                     if (splitterIndex > -1)
                     {
@@ -221,7 +224,7 @@ namespace PVOutput.Net.Requests.Handler
                 }
             }
 
-            return null;
+            return string.Empty;
         }
 
         private PVOutputApiRateInformation GetApiRateInformationfromResponse(HttpResponseMessage response)
@@ -247,11 +250,11 @@ namespace PVOutput.Net.Requests.Handler
             return result;
         }
 
-        private async Task<Stream> GetResponseContentStreamAsync(HttpResponseMessage response)
+        private async Task<Stream?> GetResponseContentStreamAsync(HttpResponseMessage response)
         {
             if (response.Content == null)
             {
-                return default;
+                return null;
             }
 
             if (Logger.IsEnabled(LogLevel.Trace))
@@ -271,9 +274,9 @@ namespace PVOutput.Net.Requests.Handler
             stream.Seek(0, SeekOrigin.Begin);
             cloneStream.Seek(0, SeekOrigin.Begin);
 
-            using (TextReader textReader = new StreamReader(cloneStream))
+            using (StreamReader reader = new StreamReader(cloneStream))
             {
-                string completeContent = await textReader.ReadToEndAsync().ConfigureAwait(false);
+                string completeContent = await reader.ReadToEndAsync().ConfigureAwait(false);
 
                 if (completeContent.Length > 0)
                 {
@@ -307,6 +310,11 @@ namespace PVOutput.Net.Requests.Handler
 
         internal Task<HttpResponseMessage> ExecuteRequestAsync(HttpRequestMessage requestMessage, CancellationToken cancellationToken = default)
         {
+            if (requestMessage.RequestUri == null)
+            {
+                throw new ArgumentException("RequestUri cannot be null.", nameof(requestMessage));
+            }
+
             SetRequestHeaders(requestMessage);
             LogExecuteRequest(Logger, requestMessage.RequestUri.ToString(), null);
             return Client.HttpClientProvider.GetHttpClient().SendAsync(requestMessage, cancellationToken);

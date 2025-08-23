@@ -16,7 +16,7 @@ namespace PVOutput.Net.Tests.Modules.Supply
         [Test]
         public void Parameter_ApplicationId_CreatesCorrectUriParameters()
         {
-            var request = new RegisterNotificationRequest() { ApplicationId = "my.first.application" };
+            var request = new RegisterNotificationRequest() { ApplicationId = "my.first.application", CallbackUri = new Uri("http://www.google.com/callmeback") };
             var parameters = request.GetUriPathParameters();
             Assert.That(parameters["appid"], Is.EqualTo("my.first.application"));
         }
@@ -24,7 +24,7 @@ namespace PVOutput.Net.Tests.Modules.Supply
         [Test]
         public void Parameter_CallbackUrl_CreatesCorrectUriParameters()
         {
-            var request = new RegisterNotificationRequest() { CallbackUri = new Uri("http://www.google.com/callmeback") };
+            var request = new RegisterNotificationRequest() { ApplicationId = "my.first.application", CallbackUri = new Uri("http://www.google.com/callmeback") };
             var parameters = request.GetUriPathParameters();
             Assert.That(parameters["url"], Is.EqualTo("http://www.google.com/callmeback"));
         }
@@ -32,7 +32,7 @@ namespace PVOutput.Net.Tests.Modules.Supply
         [Test]
         public void Parameter_AlertType_CreatesCorrectUriParameters()
         {
-            var request = new RegisterNotificationRequest() { AlertType = 11 };
+            var request = new RegisterNotificationRequest() { AlertType = 11, ApplicationId = "my.first.application", CallbackUri = new Uri("http://www.google.com/callmeback") };
             var parameters = request.GetUriPathParameters();
             Assert.That(parameters["type"], Is.EqualTo(11));
         }
@@ -48,7 +48,7 @@ namespace PVOutput.Net.Tests.Modules.Supply
         [Test]
         public void Parameter_AlertType_Deregister_CreatesCorrectUriParameters()
         {
-            var request = new DeregisterNotificationRequest() { AlertType = 11 };
+            var request = new DeregisterNotificationRequest() { ApplicationId = "my.first.application", AlertType = 11 };
             var parameters = request.GetUriPathParameters();
             Assert.That(parameters["type"], Is.EqualTo(11));
         }

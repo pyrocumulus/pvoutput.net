@@ -11,7 +11,7 @@ namespace PVOutput.Net.Requests.Modules
 {
     internal sealed class AddBatchStatusRequest : PostRequest
     {
-        public IEnumerable<IBatchStatusPost> StatusPosts { get; set; }
+        public required IEnumerable<IBatchStatusPost> StatusPosts { get; set; }
 
         public bool Cumulative { get; set; }
 
@@ -19,12 +19,14 @@ namespace PVOutput.Net.Requests.Modules
 
         public override string UriTemplate => "addbatchstatus.jsp{?c1,n,data}";
 
-        public override IDictionary<string, object> GetUriPathParameters() => new Dictionary<string, object>
+        public override IDictionary<string, object> GetUriPathParameters()
         {
-            ["c1"] = Cumulative ? 1 : 0,
-            ["n"] = 0,
-            ["data"] = FormatStatusPosts()
-        };
+            var parameters = new Dictionary<string, object>();
+            parameters.AddIfNotNull("c1", Cumulative ? 1 : 0);
+            parameters.AddIfNotNull("n", 0);
+            parameters.AddIfNotNull("data", FormatStatusPosts());
+            return parameters;
+        }
 
         private string FormatStatusPosts()
         {

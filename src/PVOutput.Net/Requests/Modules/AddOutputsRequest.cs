@@ -11,16 +11,18 @@ namespace PVOutput.Net.Requests.Modules
 {
     internal sealed class AddOutputsRequest : PostRequest
     {
-        public IEnumerable<IOutputPost> Outputs { get; set; }
+        public required IEnumerable<IOutputPost> Outputs { get; set; }
 
         public override HttpMethod Method => HttpMethod.Post;
 
         public override string UriTemplate => "addoutput.jsp{?data}";
 
-        public override IDictionary<string, object> GetUriPathParameters() => new Dictionary<string, object>
+        public override IDictionary<string, object> GetUriPathParameters()
         {
-            ["data"] = FormatOutputs()
-        };
+            var parameters = new Dictionary<string, object>();
+            parameters.AddIfNotNull("data", FormatOutputs());
+            return parameters;
+        }
 
         private string FormatOutputs()
         {

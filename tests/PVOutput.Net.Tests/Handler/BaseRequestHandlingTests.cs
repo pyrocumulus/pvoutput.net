@@ -328,9 +328,9 @@ namespace PVOutput.Net.Tests.Handler
         [Test]
         public void PVOutputApiError_IsEquivalentTo_ReturnsEquivelanceNotEquals()
         {
-            var error1 = new PVOutputApiError() { StatusCode = HttpStatusCode.Unauthorized, Message = "Donation mode required." };
-            var error2 = new PVOutputApiError() { StatusCode = HttpStatusCode.Unauthorized, Message = "Donation mode required." };
-            var error3 = new PVOutputApiError() { StatusCode = HttpStatusCode.BadRequest, Message = "Unknown." };
+            var error1 = new PVOutputApiError(HttpStatusCode.Unauthorized, "Donation mode required.");
+            var error2 = new PVOutputApiError(HttpStatusCode.Unauthorized, "Donation mode required.");
+            var error3 = new PVOutputApiError(HttpStatusCode.BadRequest, "Unknown.");
 
             Assert.Multiple(() =>
             {
@@ -369,7 +369,7 @@ namespace PVOutput.Net.Tests.Handler
             IArrayStringReader<ISystemSearchResult> reader = StringFactoryContainer.CreateArrayReader<ISystemSearchResult>();
             IEnumerable<ISystemSearchResult> content = await reader.ReadArrayAsync(stream: null, cancellationToken: default).ConfigureAwait(false);
 
-            Assert.That(content, Is.Null);
+            Assert.That(content, Is.Empty);
         }
 
         [Test]
@@ -378,7 +378,7 @@ namespace PVOutput.Net.Tests.Handler
             IArrayStringReader<ISystemSearchResult> reader = new CharacterDelimitedArrayStringReader<ISystemSearchResult>();
             IEnumerable<ISystemSearchResult> content = await reader.ReadArrayAsync(stream: null, cancellationToken: default).ConfigureAwait(false);
 
-            Assert.That(content, Is.Null);
+            Assert.That(content, Is.Empty);
         }
 
         [Test]
@@ -387,7 +387,7 @@ namespace PVOutput.Net.Tests.Handler
             IArrayStringReader<ISystemSearchResult> reader = new LineDelimitedArrayStringReader<ISystemSearchResult>();
             IEnumerable<ISystemSearchResult> content = await reader.ReadArrayAsync(stream: null, cancellationToken: default).ConfigureAwait(false);
 
-            Assert.That(content, Is.Null);
+            Assert.That(content, Is.Empty);
         }
     }
 }

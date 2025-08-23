@@ -21,9 +21,9 @@ namespace PVOutput.Net.Modules
         {
             var loggingScope = new Dictionary<string, object>()
             {
-                [LoggingEvents.RequestId] = LoggingEvents.FavouriteService_GetFavourites,
-                [LoggingEvents.Parameter_SystemId] = systemId
+                [LoggingEvents.RequestId] = LoggingEvents.FavouriteService_GetFavourites
             };
+            loggingScope.AddIfNotNull(LoggingEvents.Parameter_SystemId, systemId);
 
             var handler = new RequestHandler(Client);
             return handler.ExecuteArrayRequestAsync<IFavourite>(new FavouriteRequest() { SystemId = systemId }, loggingScope, cancellationToken);

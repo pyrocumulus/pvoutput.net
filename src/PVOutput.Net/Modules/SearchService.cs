@@ -27,10 +27,10 @@ namespace PVOutput.Net.Modules
             var loggingScope = new Dictionary<string, object>()
             {
                 [LoggingEvents.RequestId] = LoggingEvents.SearchService_Search,
-                [LoggingEvents.Parameter_SearchQueryText] = searchQuery,
-                [LoggingEvents.Parameter_Coordinate] = coordinate
+                [LoggingEvents.Parameter_SearchQueryText] = searchQuery
             };
-            
+            loggingScope.AddIfNotNull(LoggingEvents.Parameter_Coordinate, coordinate);
+
             Guard.Argument(searchQuery, nameof(searchQuery)).NotEmpty().NotNull();
 
             var handler = new RequestHandler(Client);
@@ -194,15 +194,15 @@ namespace PVOutput.Net.Modules
         }
 
         /// <inheritdoc />
-        public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByOrientationAsync(Orientation orientation, string name = null, bool useStartsWith = true, CancellationToken cancellationToken = default)
+        public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByOrientationAsync(Orientation orientation, string? name = null, bool useStartsWith = true, CancellationToken cancellationToken = default)
         {
             var loggingScope = new Dictionary<string, object>()
             {
                 [LoggingEvents.RequestId] = LoggingEvents.SearchService_SearchByOrientation,
                 [LoggingEvents.Parameter_Search_Orientation] = orientation,
-                [LoggingEvents.Parameter_Search_Name] = name,
                 [LoggingEvents.Parameter_Search_UseStartsWith] = useStartsWith
             };
+            loggingScope.AddIfNotNull(LoggingEvents.Parameter_Search_Name, name);
 
             string query = "";
             if (name != null)
@@ -253,7 +253,7 @@ namespace PVOutput.Net.Modules
                 return $"{query}%2A";
             }
 
-            return query.Replace("*", "%2A");
+            return query.Replace("*", "%2A", StringComparison.InvariantCulture);
         }
 
         private static string CreateQueryWithKeyword(string queryText, string keyword)

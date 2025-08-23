@@ -153,11 +153,11 @@ namespace PVOutput.Net.Objects
         /// <summary>
         /// List of generation estimates per month.
         /// </summary>
-        IReadOnlyDictionary<PVMonth, int> MonthlyGenerationEstimates { get; set; }
+        IReadOnlyDictionary<PVMonth, int>? MonthlyGenerationEstimates { get; set; }
 
         /// <summary>
         /// List of consumption estimates per month.
         /// </summary>
-        IReadOnlyDictionary<PVMonth, int> MonthlyConsumptionEstimates { get; set; }
+        IReadOnlyDictionary<PVMonth, int>? MonthlyConsumptionEstimates { get; set; }
     }
 }

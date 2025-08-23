@@ -104,10 +104,9 @@ namespace PVOutput.Net.Modules
             {
                 [LoggingEvents.RequestId] = LoggingEvents.NotificationService_RegisterNotification,
                 [LoggingEvents.Parameter_ApplicationId] = applicationId,
-                [LoggingEvents.Parameter_CallBackUrl] = callbackUrl,
-                [LoggingEvents.Parameter_AlertType] = alertType
-
+                [LoggingEvents.Parameter_CallBackUrl] = callbackUrl
             };
+            loggingScope.AddIfNotNull(LoggingEvents.Parameter_AlertType, alertType);
 
             Guard.Argument(applicationId, nameof(applicationId)).MaxLength(100).NotEmpty();
             Guard.Argument(callbackUrl, nameof(callbackUrl)).MaxLength(150).NotEmpty();
@@ -124,10 +123,9 @@ namespace PVOutput.Net.Modules
             {
                 [LoggingEvents.RequestId] = LoggingEvents.NotificationService_RegisterNotification,
                 [LoggingEvents.Parameter_ApplicationId] = applicationId,
-                [LoggingEvents.Parameter_CallBackUrl] = callbackUri.AbsoluteUri,
-                [LoggingEvents.Parameter_AlertType] = alertType
-
+                [LoggingEvents.Parameter_CallBackUrl] = callbackUri.AbsoluteUri
             };
+            loggingScope.AddIfNotNull(LoggingEvents.Parameter_AlertType, alertType);
 
             Guard.Argument(applicationId, nameof(applicationId)).MaxLength(100).NotEmpty();
             Guard.Argument(callbackUri, nameof(callbackUri)).NotNull();
@@ -143,9 +141,9 @@ namespace PVOutput.Net.Modules
             var loggingScope = new Dictionary<string, object>()
             {
                 [LoggingEvents.RequestId] = LoggingEvents.NotificationService_DeregisterNotification,
-                [LoggingEvents.Parameter_ApplicationId] = applicationId,
-                [LoggingEvents.Parameter_AlertType] = alertType
+                [LoggingEvents.Parameter_ApplicationId] = applicationId
             };
+            loggingScope.AddIfNotNull(LoggingEvents.Parameter_AlertType, alertType);
 
             Guard.Argument(applicationId, nameof(applicationId)).MaxLength(100);
 

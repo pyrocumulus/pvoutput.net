@@ -7,6 +7,11 @@ namespace PVOutput.Net.Responses
     /// </summary>
     public abstract class PVOutputBaseResponse
     {
+        internal PVOutputBaseResponse()
+        {
+            ApiRateInformation = new PVOutputApiRateInformation();
+        }
+
         /// <summary>
         /// Indicates whether or not the call is regarded to have succeeded.
         /// </summary>
@@ -15,7 +20,7 @@ namespace PVOutput.Net.Responses
         /// <summary>
         /// Contains an API error if one has occurred.
         /// </summary>
-        public PVOutputApiError Error { get; internal set; }
+        public PVOutputApiError? Error { get; internal set; }
 
         /// <summary>
         /// Information regarding the current API rate limit.
@@ -35,7 +40,21 @@ namespace PVOutput.Net.Responses
                 return false;
             }
 
-            return IsSuccess == other.IsSuccess && ((Error == null && other.Error == null) || Error.IsEquivalentTo(other.Error));
+            bool errorsAreEquivalent;
+            if (Error == null && other.Error == null)
+            {
+                errorsAreEquivalent = true;
+            }
+            else if (Error != null && other.Error != null)
+            {
+                errorsAreEquivalent = Error.IsEquivalentTo(other.Error);
+            }
+            else
+            {
+                errorsAreEquivalent = false;
+            }
+
+            return IsSuccess == other.IsSuccess && errorsAreEquivalent;
         }
 
         /// <summary>

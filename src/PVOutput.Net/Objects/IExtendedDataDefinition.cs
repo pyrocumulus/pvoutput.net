@@ -18,17 +18,17 @@ namespace PVOutput.Net.Objects
         /// <summary>
         /// The label of the extended data value.
         /// </summary>
-        string Label { get; set; }
+        string? Label { get; set; }
 
         /// <summary>
         /// The unit of the extended data value.
         /// </summary>        
-        string Unit { get; set; }
+        string? Unit { get; set; }
 
         /// <summary>
         /// The hexadecimal colour (ffffff) used to display the extended data value.
         /// </summary>
-        string Colour { get; set; }
+        string? Colour { get; set; }
 
         /// <summary>
         /// The axis on which to display the extended data value.

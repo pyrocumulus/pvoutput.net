@@ -38,9 +38,9 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.RequestId] = LoggingEvents.ExtendedService_GetExtendedDataForPeriod,
                 [LoggingEvents.Parameter_FromDate] = fromDate,
                 [LoggingEvents.Parameter_ToDate] = toDate,
-                [LoggingEvents.Parameter_Limit] = limit
             };
-            
+            loggingScope.AddIfNotNull(LoggingEvents.Parameter_Limit, limit);
+
             Guard.Argument(toDate, nameof(toDate)).GreaterThan(fromDate);
             Guard.Argument(limit, nameof(limit)).LessThan(50);
 

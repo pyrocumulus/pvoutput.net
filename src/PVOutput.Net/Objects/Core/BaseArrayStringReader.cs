@@ -11,7 +11,7 @@ namespace PVOutput.Net.Objects.Core
         {
             if (stream == null)
             {
-                return Task.FromResult(default(IEnumerable<TReturnType>));
+                return Task.FromResult<IEnumerable<TReturnType>>(new List<TReturnType>());
             }
 
             using (TextReader textReader = new StreamReader(stream))

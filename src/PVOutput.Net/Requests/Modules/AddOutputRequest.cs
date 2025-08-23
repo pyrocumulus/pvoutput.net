@@ -10,32 +10,36 @@ namespace PVOutput.Net.Requests.Modules
 {
     internal sealed class AddOutputRequest : PostRequest
     {
-        public IOutputPost Output { get; set; }
+        public required IOutputPost Output { get; set; }
 
         public override HttpMethod Method => HttpMethod.Post;
 
         public override string UriTemplate => "addoutput.jsp{?d,g,e,pp,pt,cd,tm,tx,cm,ip,io,is,ih,c,ep,eo,es,eh}";
 
-        public override IDictionary<string, object> GetUriPathParameters() => new Dictionary<string, object>
+        public override IDictionary<string, object> GetUriPathParameters()
         {
-            ["d"] = FormatHelper.GetDateAsString(Output.OutputDate),
-            ["g"] = Output.EnergyGenerated,
-            ["e"] = Output.EnergyExported,
-            ["pp"] = Output.PeakPower,
-            ["pt"] = Output.PeakTime != null ? FormatHelper.GetTimeAsString(Output.PeakTime.Value) : null,
-            ["cd"] = FormatHelper.GetEnumerationDescription(Output.Condition),
-            ["tm"] = FormatHelper.GetValueAsString(Output.MinimumTemperature),
-            ["tx"] = FormatHelper.GetValueAsString(Output.MaximumTemperature),
-            ["cm"] = Output.Comments,
-            ["ip"] = FormatHelper.GetValueAsString(Output.PeakEnergyImport),
-            ["io"] = FormatHelper.GetValueAsString(Output.OffPeakEnergyImport),
-            ["is"] = FormatHelper.GetValueAsString(Output.ShoulderEnergyImport),
-            ["ih"] = FormatHelper.GetValueAsString(Output.HighShoulderEnergyImport),
-            ["c"] = Output.Consumption,
-            ["ep"] = FormatHelper.GetValueAsString(Output.PeakEnergyExport),
-            ["eo"] = FormatHelper.GetValueAsString(Output.OffPeakEnergyExport),
-            ["es"] = FormatHelper.GetValueAsString(Output.ShoulderEnergyExport),
-            ["eh"] = FormatHelper.GetValueAsString(Output.HighShoulderEnergyExport)
-        };
+            var parameters = new Dictionary<string, object>();
+
+            parameters.AddIfNotNull("d", FormatHelper.GetDateAsString(Output.OutputDate));
+            parameters.AddIfNotNull("g", Output.EnergyGenerated);
+            parameters.AddIfNotNull("e", Output.EnergyExported);
+            parameters.AddIfNotNull("pp", Output.PeakPower);
+            parameters.AddIfNotNull("pt", Output.PeakTime != null ? FormatHelper.GetTimeAsString(Output.PeakTime.Value) : null);
+            parameters.AddIfNotNull("cd", FormatHelper.GetEnumerationDescription(Output.Condition));
+            parameters.AddIfNotNull("tm", FormatHelper.GetValueAsString(Output.MinimumTemperature));
+            parameters.AddIfNotNull("tx", FormatHelper.GetValueAsString(Output.MaximumTemperature));
+            parameters.AddIfNotNull("cm", Output.Comments);
+            parameters.AddIfNotNull("ip", FormatHelper.GetValueAsString(Output.PeakEnergyImport));
+            parameters.AddIfNotNull("io", FormatHelper.GetValueAsString(Output.OffPeakEnergyImport));
+            parameters.AddIfNotNull("is", FormatHelper.GetValueAsString(Output.ShoulderEnergyImport));
+            parameters.AddIfNotNull("ih", FormatHelper.GetValueAsString(Output.HighShoulderEnergyImport));
+            parameters.AddIfNotNull("c", Output.Consumption);
+            parameters.AddIfNotNull("ep", FormatHelper.GetValueAsString(Output.PeakEnergyExport));
+            parameters.AddIfNotNull("eo", FormatHelper.GetValueAsString(Output.OffPeakEnergyExport));
+            parameters.AddIfNotNull("es", FormatHelper.GetValueAsString(Output.ShoulderEnergyExport));
+            parameters.AddIfNotNull("eh", FormatHelper.GetValueAsString(Output.HighShoulderEnergyExport));
+
+            return parameters;
+        }
     }
 }

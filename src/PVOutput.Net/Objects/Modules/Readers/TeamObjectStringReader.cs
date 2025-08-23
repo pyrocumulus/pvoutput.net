@@ -7,7 +7,12 @@ namespace PVOutput.Net.Objects.Modules.Readers
 {
     internal sealed class TeamObjectStringReader : BaseObjectStringReader<ITeam>
     {
-        public override ITeam CreateObjectInstance() => new Team();
+        public override ITeam CreateObjectInstance() => new Team
+        {
+            Name = string.Empty,
+            Type = string.Empty,
+            Description = string.Empty
+        };
 
         protected override char ItemDelimiter => ';';
 
