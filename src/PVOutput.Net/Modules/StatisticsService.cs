@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Dawn;
+using CommunityToolkit.Diagnostics;
 using PVOutput.Net.Objects;
 using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Requests.Handler;
@@ -46,7 +46,7 @@ namespace PVOutput.Net.Modules
             };
             loggingScope.AddIfNotNull(LoggingEvents.Parameter_SystemId, systemId);
 
-            Guard.Argument(toDate, nameof(toDate)).GreaterThan(fromDate);
+            Guard.IsGreaterThan(toDate, fromDate, nameof(toDate));
 
             var handler = new RequestHandler(Client);
             return handler.ExecuteSingleItemRequestAsync<IStatistic>(new StatisticPeriodRequest { FromDate = fromDate, ToDate = toDate, SystemId = systemId, IncludeConsumptionImport = includeConsumptionAndImport, IncludeCreditDebit = includeCreditDebit }, loggingScope, cancellationToken);

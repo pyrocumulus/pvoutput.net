@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Dawn;
+using CommunityToolkit.Diagnostics;
 using PVOutput.Net.Enums;
 using PVOutput.Net.Objects;
 using PVOutput.Net.Objects.Core;
@@ -30,7 +31,7 @@ namespace PVOutput.Net.Modules
             };
             loggingScope.AddIfNotNull(LoggingEvents.Parameter_SystemId, systemId);
 
-            Guard.Argument(outputDate, nameof(outputDate)).Max(DateTime.Today);
+            Guard.IsLessThanOrEqualTo(outputDate, DateTime.Today, nameof(outputDate));
 
             var handler = new RequestHandler(Client);
             return handler.ExecuteSingleItemRequestAsync<IOutput>(new OutputRequest { FromDate = outputDate, ToDate = outputDate, SystemId = systemId, Insolation = getInsolation }, loggingScope, cancellationToken);
@@ -48,8 +49,10 @@ namespace PVOutput.Net.Modules
             };
             loggingScope.AddIfNotNull(LoggingEvents.Parameter_SystemId, systemId);
 
-            Guard.Argument(toDate, nameof(toDate)).GreaterThan(fromDate).IsNoFutureDate().NoTimeComponent();
-            Guard.Argument(fromDate, nameof(fromDate)).NoTimeComponent();
+            Guard.IsGreaterThan(toDate, fromDate, nameof(toDate));
+            GuardExtensions.IsNoFutureDate(toDate, nameof(toDate));
+            GuardExtensions.NoTimeComponent(toDate, nameof(toDate));
+            GuardExtensions.NoTimeComponent(fromDate, nameof(fromDate));
 
             var handler = new RequestHandler(Client);
             return handler.ExecuteArrayRequestAsync<IOutput>(new OutputRequest { FromDate = fromDate, ToDate = toDate, SystemId = systemId, Insolation = getInsolation }, loggingScope, cancellationToken);
@@ -65,7 +68,7 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.Parameter_TeamId] = teamId
             };
 
-            Guard.Argument(outputDate, nameof(outputDate)).Max(DateTime.Today);
+            Guard.IsLessThanOrEqualTo(outputDate, DateTime.Today, nameof(outputDate));
 
             var handler = new RequestHandler(Client);
             return handler.ExecuteSingleItemRequestAsync<ITeamOutput>(new OutputRequest { FromDate = outputDate, ToDate = outputDate, TeamId = teamId }, loggingScope, cancellationToken);
@@ -82,8 +85,10 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.Parameter_TeamId] = teamId
             };
 
-            Guard.Argument(toDate, nameof(toDate)).GreaterThan(fromDate).IsNoFutureDate().NoTimeComponent();
-            Guard.Argument(fromDate, nameof(fromDate)).NoTimeComponent();
+            Guard.IsGreaterThan(toDate, fromDate, nameof(toDate));
+            GuardExtensions.IsNoFutureDate(toDate, nameof(toDate));
+            GuardExtensions.NoTimeComponent(toDate, nameof(toDate));
+            GuardExtensions.NoTimeComponent(fromDate, nameof(fromDate));
 
             var handler = new RequestHandler(Client);
             return handler.ExecuteArrayRequestAsync<ITeamOutput>(new OutputRequest { FromDate = fromDate, ToDate = toDate, TeamId = teamId }, loggingScope, cancellationToken);
@@ -100,8 +105,10 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.Parameter_AggregationPeriod] = period
             };
 
-            Guard.Argument(toDate, nameof(toDate)).GreaterThan(fromDate).IsNoFutureDate().NoTimeComponent();
-            Guard.Argument(fromDate, nameof(fromDate)).NoTimeComponent();
+            Guard.IsGreaterThan(toDate, fromDate, nameof(toDate));
+            GuardExtensions.IsNoFutureDate(toDate, nameof(toDate));
+            GuardExtensions.NoTimeComponent(toDate, nameof(toDate));
+            GuardExtensions.NoTimeComponent(fromDate, nameof(fromDate));
 
             var handler = new RequestHandler(Client);
             return handler.ExecuteArrayRequestAsync<IAggregatedOutput>(new OutputRequest { FromDate = fromDate, ToDate = toDate, Aggregation = period }, loggingScope, cancellationToken);
@@ -115,7 +122,7 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.RequestId] = LoggingEvents.OutputService_AddOutput
             };
 
-            Guard.Argument(output, nameof(output)).NotNull();
+            Guard.IsNotNull(output, nameof(output));
 
             var handler = new RequestHandler(Client);
             return handler.ExecutePostRequestAsync(new AddOutputRequest() { Output = output }, loggingScope, cancellationToken);
@@ -129,7 +136,11 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.RequestId] = LoggingEvents.OutputService_AddOutputs
             };
 
-            Guard.Argument(outputs, nameof(outputs)).NotNull().NotEmpty();
+            Guard.IsNotNull(outputs, nameof(outputs));
+            if (!outputs.Any())
+            {
+                throw new ArgumentException("Collection must not be empty.", nameof(outputs));
+            }
 
             var handler = new RequestHandler(Client);
             return handler.ExecutePostRequestAsync(new AddOutputsRequest() { Outputs = outputs }, loggingScope, cancellationToken);

@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Dawn;
+using CommunityToolkit.Diagnostics;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using PVOutput.Net.DependencyInjection;
@@ -115,7 +115,7 @@ namespace PVOutput.Net
         /// <param name="options">Options to use for the client, containing the ApiKey and Id of the owned system.</param>
         public PVOutputClient(PVOutputClientOptions options)
         {
-            Guard.Argument(options).NotNull();
+            Guard.IsNotNull(options, nameof(options));
 
             ApiKey = options.ApiKey;
             OwnedSystemId = options.OwnedSystemId;

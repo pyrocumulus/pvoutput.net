@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Dawn;
+using CommunityToolkit.Diagnostics;
 using PVOutput.Net.Objects;
 using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Requests.Handler;
@@ -28,7 +29,7 @@ namespace PVOutput.Net.Modules
             };
             loggingScope.AddIfNotNull(LoggingEvents.Parameter_SystemId, systemId);
 
-            Guard.Argument(moment, nameof(moment)).IsNoFutureDate();
+            GuardExtensions.IsNoFutureDate(moment, nameof(moment));
 
             var handler = new RequestHandler(Client);
             return handler.ExecuteSingleItemRequestAsync<IStatus>(new GetStatusRequest { Date = moment, SystemId = systemId }, loggingScope, cancellationToken);
@@ -48,7 +49,8 @@ namespace PVOutput.Net.Modules
             loggingScope.AddIfNotNull(LoggingEvents.Parameter_SystemId, systemId);
             loggingScope.AddIfNotNull(LoggingEvents.Parameter_Limit, limit);
 
-            Guard.Argument(toDateTime, nameof(toDateTime)).GreaterThan(fromDateTime).IsNoFutureDate();
+            Guard.IsGreaterThan(toDateTime, fromDateTime, nameof(toDateTime));
+            GuardExtensions.IsNoFutureDate(toDateTime, nameof(toDateTime));
 
             var handler = new RequestHandler(Client);
             return handler.ExecuteArrayRequestAsync<IStatusHistory>(
@@ -66,7 +68,8 @@ namespace PVOutput.Net.Modules
             };
             loggingScope.AddIfNotNull(LoggingEvents.Parameter_SystemId, systemId);
 
-            Guard.Argument(toDateTime, nameof(toDateTime)).GreaterThan(fromDateTime).IsNoFutureDate();
+            Guard.IsGreaterThan(toDateTime, fromDateTime, nameof(toDateTime));
+            GuardExtensions.IsNoFutureDate(toDateTime, nameof(toDateTime));
 
             var handler = new RequestHandler(Client);
             return handler.ExecuteSingleItemRequestAsync<IDayStatistics>(new GetDayStatisticsRequest { Date = fromDateTime.Date, From = fromDateTime, To = toDateTime, SystemId = systemId }, loggingScope, cancellationToken);
@@ -80,7 +83,7 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.RequestId] = LoggingEvents.StatusService_AddStatus
             };
 
-            Guard.Argument(status, nameof(status)).NotNull();
+            Guard.IsNotNull(status, nameof(status));
 
             var handler = new RequestHandler(Client);
             return handler.ExecutePostRequestAsync(new AddStatusRequest() { StatusPost = status }, loggingScope, cancellationToken);
@@ -94,7 +97,11 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.RequestId] = LoggingEvents.StatusService_AddBatchStatus
             };
 
-            Guard.Argument(statuses, nameof(statuses)).NotNull().NotEmpty();
+            Guard.IsNotNull(statuses, nameof(statuses));
+            if (!statuses.Any())
+            {
+                throw new ArgumentException("Collection must not be empty.", nameof(statuses));
+            }
 
             var handler = new RequestHandler(Client);
             return handler.ExecuteArrayRequestAsync<IBatchStatusPostResult>(new AddBatchStatusRequest() { StatusPosts = statuses }, loggingScope, cancellationToken);
@@ -109,7 +116,11 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.Parameter_CumulativeType] = isCumulative
             };
 
-            Guard.Argument(statuses, nameof(statuses)).NotNull().NotEmpty();
+            Guard.IsNotNull(statuses, nameof(statuses));
+            if (!statuses.Any())
+            {
+                throw new ArgumentException("Collection must not be empty.", nameof(statuses));
+            }
 
             var handler = new RequestHandler(Client);
             return handler.ExecuteArrayRequestAsync<IBatchStatusPostResult>(new AddBatchStatusRequest() { StatusPosts = statuses, Cumulative = isCumulative }, loggingScope, cancellationToken);
@@ -123,7 +134,11 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.RequestId] = LoggingEvents.StatusService_AddNetBatchStatus
             };
 
-            Guard.Argument(statuses, nameof(statuses)).NotNull().NotEmpty();
+            Guard.IsNotNull(statuses, nameof(statuses));
+            if (!statuses.Any())
+            {
+                throw new ArgumentException("Collection must not be empty.", nameof(statuses));
+            }
 
             var handler = new RequestHandler(Client);
             return handler.ExecuteArrayRequestAsync<IBatchStatusPostResult>(new AddBatchNetStatusRequest() { StatusPosts = statuses }, loggingScope, cancellationToken);
@@ -138,7 +153,8 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.Parameter_Date] = moment
             };
 
-            Guard.Argument(moment, nameof(moment)).IsNoFutureDate().Min(DateTime.Today.AddDays(-1));
+            GuardExtensions.IsNoFutureDate(moment, nameof(moment));
+            Guard.IsGreaterThanOrEqualTo(moment, DateTime.Today.AddDays(-1), nameof(moment));
 
             var handler = new RequestHandler(Client);
             return handler.ExecutePostRequestAsync(new DeleteStatusRequest() { Timestamp = moment }, loggingScope, cancellationToken);
@@ -153,7 +169,9 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.Parameter_Date] = statusDate
             };
 
-            Guard.Argument(statusDate, nameof(statusDate)).IsNoFutureDate().Min(DateTime.Today.AddDays(-1)).NoTimeComponent();
+            GuardExtensions.IsNoFutureDate(statusDate, nameof(statusDate));
+            Guard.IsGreaterThanOrEqualTo(statusDate, DateTime.Today.AddDays(-1), nameof(statusDate));
+            GuardExtensions.NoTimeComponent(statusDate, nameof(statusDate));
 
             var handler = new RequestHandler(Client);
             return handler.ExecutePostRequestAsync(new DeleteStatusRequest() { Timestamp = statusDate, CompleteDate = true }, loggingScope, cancellationToken);
