@@ -149,7 +149,7 @@ namespace PVOutput.Net.Modules
             };
             loggingScope.AddIfNotNull(LoggingEvents.Parameter_AlertType, alertType);
 
-            if (!string.IsNullOrEmpty(applicationId))
+            if (applicationId != null && applicationId.Length > 100)
             {
                 Guard.HasSizeLessThanOrEqualTo(applicationId, 100, nameof(applicationId));
             }
