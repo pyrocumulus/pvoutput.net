@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using CommunityToolkit.Diagnostics;
 
@@ -26,7 +25,9 @@ namespace PVOutput.Net.Objects.Core
         internal static void NotEmpty<T>(IEnumerable<T> value, string paramName)
         {
             Guard.IsNotNull(value, paramName);
-            if (!value.Any())
+            
+            using var enumerator = value.GetEnumerator();
+            if (!enumerator.MoveNext())
             {
                 throw new ArgumentException("Collection must not be empty.", paramName);
             }
