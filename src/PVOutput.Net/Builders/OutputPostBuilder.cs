@@ -121,7 +121,7 @@ namespace PVOutput.Net.Builders
         {
             if (!minimumTemperature.HasValue && !maximumTemperature.HasValue)
             {
-                throw new ArgumentNullException(nameof(minimumTemperature), "At least one of minimumTemperature or maximumTemperature must have a value.");
+                throw new ArgumentNullException(nameof(minimumTemperature), $"At least one of {nameof(minimumTemperature)} or {nameof(maximumTemperature)} must have a value.");
             }
 
             if (minimumTemperature.HasValue && maximumTemperature.HasValue)

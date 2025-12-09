@@ -97,11 +97,7 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.RequestId] = LoggingEvents.StatusService_AddBatchStatus
             };
 
-            Guard.IsNotNull(statuses, nameof(statuses));
-            if (!statuses.Any())
-            {
-                throw new ArgumentException("Collection must not be empty.", nameof(statuses));
-            }
+            GuardExtensions.NotEmpty(statuses, nameof(statuses));
 
             var handler = new RequestHandler(Client);
             return handler.ExecuteArrayRequestAsync<IBatchStatusPostResult>(new AddBatchStatusRequest() { StatusPosts = statuses }, loggingScope, cancellationToken);
@@ -116,11 +112,7 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.Parameter_CumulativeType] = isCumulative
             };
 
-            Guard.IsNotNull(statuses, nameof(statuses));
-            if (!statuses.Any())
-            {
-                throw new ArgumentException("Collection must not be empty.", nameof(statuses));
-            }
+            GuardExtensions.NotEmpty(statuses, nameof(statuses));
 
             var handler = new RequestHandler(Client);
             return handler.ExecuteArrayRequestAsync<IBatchStatusPostResult>(new AddBatchStatusRequest() { StatusPosts = statuses, Cumulative = isCumulative }, loggingScope, cancellationToken);
@@ -134,11 +126,7 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.RequestId] = LoggingEvents.StatusService_AddNetBatchStatus
             };
 
-            Guard.IsNotNull(statuses, nameof(statuses));
-            if (!statuses.Any())
-            {
-                throw new ArgumentException("Collection must not be empty.", nameof(statuses));
-            }
+            GuardExtensions.NotEmpty(statuses, nameof(statuses));
 
             var handler = new RequestHandler(Client);
             return handler.ExecuteArrayRequestAsync<IBatchStatusPostResult>(new AddBatchNetStatusRequest() { StatusPosts = statuses }, loggingScope, cancellationToken);

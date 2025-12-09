@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using CommunityToolkit.Diagnostics;
 
@@ -19,6 +20,15 @@ namespace PVOutput.Net.Objects.Core
                 throw new ArgumentException(
                     $"{paramName} has a time component. Please only use DateTime.Date instead.",
                     paramName);
+            }
+        }
+
+        internal static void NotEmpty<T>(IEnumerable<T> value, string paramName)
+        {
+            Guard.IsNotNull(value, paramName);
+            if (!value.Any())
+            {
+                throw new ArgumentException("Collection must not be empty.", paramName);
             }
         }
     }

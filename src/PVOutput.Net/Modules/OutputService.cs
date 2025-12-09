@@ -136,11 +136,7 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.RequestId] = LoggingEvents.OutputService_AddOutputs
             };
 
-            Guard.IsNotNull(outputs, nameof(outputs));
-            if (!outputs.Any())
-            {
-                throw new ArgumentException("Collection must not be empty.", nameof(outputs));
-            }
+            GuardExtensions.NotEmpty(outputs, nameof(outputs));
 
             var handler = new RequestHandler(Client);
             return handler.ExecutePostRequestAsync(new AddOutputsRequest() { Outputs = outputs }, loggingScope, cancellationToken);
