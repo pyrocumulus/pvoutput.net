@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Dawn;
+using CommunityToolkit.Diagnostics;
 using PVOutput.Net.Objects;
 using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Requests.Handler;
@@ -52,7 +52,8 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.Parameter_SystemId] = systemId
             };
 
-            Guard.Argument(systemName).MaxLength(30);
+            if (systemName != null)
+                Guard.HasSizeLessThanOrEqualTo(systemName, 30, nameof(systemName));
 
             var handler = new RequestHandler(Client);
             return handler.ExecutePostRequestAsync(new PostSystemRequest() { SystemId = systemId, SystemName = systemName, DataDefinitions = dataDefinitions }, loggingScope, cancellationToken);

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using Dawn;
+using CommunityToolkit.Diagnostics;
 using PVOutput.Net.Enums;
 using PVOutput.Net.Objects;
 using PVOutput.Net.Objects.Core;
@@ -31,7 +31,8 @@ namespace PVOutput.Net.Builders
         /// <returns>The builder.</returns>
         public OutputPostBuilder SetDate(DateTime date)
         {
-            Guard.Argument(date, nameof(date)).IsNoFutureDate().NoTimeComponent();
+            GuardExtensions.IsNoFutureDate(date, nameof(date));
+            GuardExtensions.NoTimeComponent(date, nameof(date));
 
             OutputPost.OutputDate = date;
             return this;
@@ -44,7 +45,7 @@ namespace PVOutput.Net.Builders
         /// <returns>The builder.</returns>
         public OutputPostBuilder SetEnergyGenerated(int energyGenerated)
         {
-            Guard.Argument(energyGenerated, nameof(energyGenerated)).Min(0);
+            Guard.IsGreaterThanOrEqualTo(energyGenerated, 0, nameof(energyGenerated));
 
             OutputPost.EnergyGenerated = energyGenerated;
             return this;
@@ -57,7 +58,7 @@ namespace PVOutput.Net.Builders
         /// <returns>The builder.</returns>
         public OutputPostBuilder SetEnergyExported(int energyExported)
         {
-            Guard.Argument(energyExported, nameof(energyExported)).Min(0);
+            Guard.IsGreaterThanOrEqualTo(energyExported, 0, nameof(energyExported));
 
             OutputPost.EnergyExported = energyExported;
             return this;
@@ -93,7 +94,7 @@ namespace PVOutput.Net.Builders
         /// <returns>The builder.</returns>
         public OutputPostBuilder SetPeakPower(int peakPower)
         {
-            Guard.Argument(peakPower, nameof(peakPower)).Min(0);
+            Guard.IsGreaterThanOrEqualTo(peakPower, 0, nameof(peakPower));
 
             OutputPost.PeakPower = peakPower;
             return this;
@@ -118,11 +119,14 @@ namespace PVOutput.Net.Builders
         /// <returns>The builder.</returns>
         public OutputPostBuilder SetTemperatures(decimal? minimumTemperature, decimal? maximumTemperature)
         {
-            Guard.NotAllNull(Guard.Argument(minimumTemperature, nameof(minimumTemperature)), Guard.Argument(maximumTemperature, nameof(maximumTemperature)));
+            if (!minimumTemperature.HasValue && !maximumTemperature.HasValue)
+            {
+                throw new ArgumentNullException(nameof(minimumTemperature), $"At least one of {nameof(minimumTemperature)} or {nameof(maximumTemperature)} must have a value.");
+            }
 
             if (minimumTemperature.HasValue && maximumTemperature.HasValue)
             {
-                Guard.Argument(maximumTemperature.Value, nameof(maximumTemperature)).GreaterThan(minimumTemperature.Value);
+                Guard.IsGreaterThan(maximumTemperature.Value, minimumTemperature.Value, nameof(maximumTemperature));
             }
 
             OutputPost.MinimumTemperature = minimumTemperature;
@@ -137,7 +141,7 @@ namespace PVOutput.Net.Builders
         /// <returns>The builder.</returns>
         public OutputPostBuilder SetComments(string comments)
         {
-            Guard.Argument(comments, nameof(comments)).NotEmpty().NotNull();
+            Guard.IsNotNullOrEmpty(comments, nameof(comments));
 
             OutputPost.Comments = comments;
             return this;
@@ -150,7 +154,7 @@ namespace PVOutput.Net.Builders
         /// <returns>The builder.</returns>
         public OutputPostBuilder SetPeakEnergyImport(int peakImport)
         {
-            Guard.Argument(peakImport, nameof(peakImport)).Min(0);
+            Guard.IsGreaterThanOrEqualTo(peakImport, 0, nameof(peakImport));
 
             OutputPost.PeakEnergyImport = peakImport;
             return this;
@@ -163,7 +167,7 @@ namespace PVOutput.Net.Builders
         /// <returns>The builder.</returns>
         public OutputPostBuilder SetOffPeakEnergyImport(int offpeakImport)
         {
-            Guard.Argument(offpeakImport, nameof(offpeakImport)).Min(0);
+            Guard.IsGreaterThanOrEqualTo(offpeakImport, 0, nameof(offpeakImport));
 
             OutputPost.OffPeakEnergyImport = offpeakImport;
             return this;
@@ -176,7 +180,7 @@ namespace PVOutput.Net.Builders
         /// <returns>The builder.</returns>
         public OutputPostBuilder SetShoulderEnergyImport(int shoulderImport)
         {
-            Guard.Argument(shoulderImport, nameof(shoulderImport)).Min(0);
+            Guard.IsGreaterThanOrEqualTo(shoulderImport, 0, nameof(shoulderImport));
 
             OutputPost.ShoulderEnergyImport = shoulderImport;
             return this;
@@ -189,7 +193,7 @@ namespace PVOutput.Net.Builders
         /// <returns>The builder.</returns>
         public OutputPostBuilder SetHighShoulderEnergyImport(int highShoulderImport)
         {
-            Guard.Argument(highShoulderImport, nameof(highShoulderImport)).Min(0);
+            Guard.IsGreaterThanOrEqualTo(highShoulderImport, 0, nameof(highShoulderImport));
 
             OutputPost.HighShoulderEnergyImport = highShoulderImport;
             return this;
@@ -202,7 +206,7 @@ namespace PVOutput.Net.Builders
         /// <returns>The builder.</returns>
         public OutputPostBuilder SetConsumption(int consumption)
         {
-            Guard.Argument(consumption, nameof(consumption)).Min(0);
+            Guard.IsGreaterThanOrEqualTo(consumption, 0, nameof(consumption));
 
             OutputPost.Consumption = consumption;
             return this;
@@ -215,7 +219,7 @@ namespace PVOutput.Net.Builders
         /// <returns>The builder.</returns>
         public OutputPostBuilder SetPeakEnergyExport(int peakEnergyExport)
         {
-            Guard.Argument(peakEnergyExport, nameof(peakEnergyExport)).Min(0);
+            Guard.IsGreaterThanOrEqualTo(peakEnergyExport, 0, nameof(peakEnergyExport));
 
             OutputPost.PeakEnergyExport = peakEnergyExport;
             return this;
@@ -228,7 +232,7 @@ namespace PVOutput.Net.Builders
         /// <returns>The builder.</returns>
         public OutputPostBuilder SetOffPeakEnergyExport(int offPeakEnergyExport)
         {
-            Guard.Argument(offPeakEnergyExport, nameof(offPeakEnergyExport)).Min(0);
+            Guard.IsGreaterThanOrEqualTo(offPeakEnergyExport, 0, nameof(offPeakEnergyExport));
 
             OutputPost.OffPeakEnergyExport = offPeakEnergyExport;
             return this;
@@ -241,7 +245,7 @@ namespace PVOutput.Net.Builders
         /// <returns>The builder.</returns>
         public OutputPostBuilder SetShoulderEnergyExport(int shoulderEnergyExport)
         {
-            Guard.Argument(shoulderEnergyExport, nameof(shoulderEnergyExport)).Min(0);
+            Guard.IsGreaterThanOrEqualTo(shoulderEnergyExport, 0, nameof(shoulderEnergyExport));
 
             OutputPost.ShoulderEnergyExport = shoulderEnergyExport;
             return this;
@@ -254,7 +258,7 @@ namespace PVOutput.Net.Builders
         /// <returns>The builder.</returns>
         public OutputPostBuilder SetHighShoulderEnergyExport(int highShoulderEnergyExport)
         {
-            Guard.Argument(highShoulderEnergyExport, nameof(highShoulderEnergyExport)).Min(0);
+            Guard.IsGreaterThanOrEqualTo(highShoulderEnergyExport, 0, nameof(highShoulderEnergyExport));
 
             OutputPost.HighShoulderEnergyExport = highShoulderEnergyExport;
             return this;

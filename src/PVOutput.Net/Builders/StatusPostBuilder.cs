@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Dawn;
+using CommunityToolkit.Diagnostics;
 using PVOutput.Net.Enums;
 using PVOutput.Net.Objects;
 using PVOutput.Net.Objects.Core;
@@ -35,7 +35,7 @@ namespace PVOutput.Net.Builders
         /// <returns>The builder.</returns>
         public StatusPostBuilder<TResultType> SetTimeStamp(DateTime timestamp)
         {
-            Guard.Argument(timestamp, nameof(timestamp)).IsNoFutureDate();
+            GuardExtensions.IsNoFutureDate(timestamp, nameof(timestamp));
             
             _statusPost.Timestamp = timestamp;
             return this;        
@@ -49,8 +49,10 @@ namespace PVOutput.Net.Builders
         /// <returns>The builder.</returns>
         public StatusPostBuilder<TResultType> SetGeneration(int? energyGeneration, int? powerGeneration = null)
         {
-            Guard.Argument(energyGeneration, nameof(energyGeneration)).Min(0);
-            Guard.Argument(powerGeneration, nameof(powerGeneration)).Min(0);
+            if (energyGeneration.HasValue)
+                Guard.IsGreaterThanOrEqualTo(energyGeneration.Value, 0, nameof(energyGeneration));
+            if (powerGeneration.HasValue)
+                Guard.IsGreaterThanOrEqualTo(powerGeneration.Value, 0, nameof(powerGeneration));
 
             _statusPost.EnergyGeneration = energyGeneration;
             _statusPost.PowerGeneration = powerGeneration;
@@ -65,8 +67,10 @@ namespace PVOutput.Net.Builders
         /// <returns>The builder.</returns>
         public StatusPostBuilder<TResultType> SetConsumption(int? energyConsumption, int? powerConsumption = null)
         {
-            Guard.Argument(energyConsumption, nameof(energyConsumption)).Min(0);
-            Guard.Argument(powerConsumption, nameof(powerConsumption)).Min(0);
+            if (energyConsumption.HasValue)
+                Guard.IsGreaterThanOrEqualTo(energyConsumption.Value, 0, nameof(energyConsumption));
+            if (powerConsumption.HasValue)
+                Guard.IsGreaterThanOrEqualTo(powerConsumption.Value, 0, nameof(powerConsumption));
 
             _statusPost.EnergyConsumption = energyConsumption;
             _statusPost.PowerConsumption = powerConsumption;
@@ -91,7 +95,7 @@ namespace PVOutput.Net.Builders
         /// <returns>The builder.</returns>
         public StatusPostBuilder<TResultType> SetVoltage(decimal voltage)
         {
-            Guard.Argument(voltage, nameof(voltage)).InRange(0, 300);
+            Guard.IsInRange(voltage, 0m, 300m, nameof(voltage));
 
             _statusPost.Voltage = voltage;
             return this;
@@ -147,7 +151,9 @@ namespace PVOutput.Net.Builders
         /// <returns>The builder.</returns>
         public StatusPostBuilder<TResultType> SetTextMessage(string textMessage)
         {
-            Guard.Argument(textMessage, nameof(textMessage)).NotEmpty().LengthInRange(1, 30);
+            Guard.IsNotNullOrEmpty(textMessage, nameof(textMessage));
+            Guard.IsGreaterThanOrEqualTo(textMessage.Length, 1, nameof(textMessage));
+            Guard.IsLessThanOrEqualTo(textMessage.Length, 30, nameof(textMessage));
 
             _statusPost.TextMessage = textMessage;
             return this;
