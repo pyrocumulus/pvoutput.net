@@ -207,5 +207,96 @@ namespace PVOutput.Net.Tests.Modules.Status
                 builder.Build();
             });
         }
+
+        [Test]
+        public void StatusPostBuilder_WithBattery_SetsBatteryValues()
+        {
+            var builder = new StatusPostBuilder<IStatusPost>().SetBattery(-1500.5m, 87.5m, 13500m, 250000m, 240000m, BatteryStatus.Enabled);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(builder.StatusPost.BatteryPower, Is.EqualTo(-1500.5m));
+                Assert.That(builder.StatusPost.BatteryStateOfCharge, Is.EqualTo(87.5m));
+                Assert.That(builder.StatusPost.BatteryCapacity, Is.EqualTo(13500m));
+                Assert.That(builder.StatusPost.BatteryLifetimeEnergyCharged, Is.EqualTo(250000m));
+                Assert.That(builder.StatusPost.BatteryLifetimeEnergyDischarged, Is.EqualTo(240000m));
+                Assert.That(builder.StatusPost.BatteryStatus, Is.EqualTo(BatteryStatus.Enabled));
+            });
+        }
+
+        [Test]
+        public void StatusPostBuilder_WithBatteryPowerOnly_LeavesOtherBatteryValuesEmpty()
+        {
+            var builder = new StatusPostBuilder<IStatusPost>().SetBattery(2000m);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(builder.StatusPost.BatteryPower, Is.EqualTo(2000m));
+                Assert.That(builder.StatusPost.BatteryStateOfCharge, Is.Null);
+                Assert.That(builder.StatusPost.BatteryCapacity, Is.Null);
+                Assert.That(builder.StatusPost.BatteryLifetimeEnergyCharged, Is.Null);
+                Assert.That(builder.StatusPost.BatteryLifetimeEnergyDischarged, Is.Null);
+                Assert.That(builder.StatusPost.BatteryStatus, Is.Null);
+            });
+        }
+
+        [Test]
+        [TestCase(-2500000.1)]
+        [TestCase(2500000.1)]
+        public void StatusPostBuilder_WithBatteryPowerOutOfRange_Throws(decimal power)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            {
+                _ = new StatusPostBuilder<IStatusPost>().SetBattery(power);
+            });
+        }
+
+        [Test]
+        [TestCase(-2500000)]
+        [TestCase(2500000)]
+        public void StatusPostBuilder_WithBatteryPowerAtLimits_SetsBatteryPower(decimal power)
+        {
+            var builder = new StatusPostBuilder<IStatusPost>().SetBattery(power);
+
+            Assert.That(builder.StatusPost.BatteryPower, Is.EqualTo(power));
+        }
+
+        [Test]
+        [TestCase(-0.1)]
+        [TestCase(100.1)]
+        public void StatusPostBuilder_WithStateOfChargeOutOfRange_Throws(decimal stateOfCharge)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            {
+                _ = new StatusPostBuilder<IStatusPost>().SetBattery(0m, stateOfCharge: stateOfCharge);
+            });
+        }
+
+        [Test]
+        public void StatusPostBuilder_WithNegativeBatteryCapacity_Throws()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            {
+                _ = new StatusPostBuilder<IStatusPost>().SetBattery(0m, capacity: -1m);
+            });
+        }
+
+        [Test]
+        public void StatusPostBuilder_WithNegativeLifetimeEnergyCharged_Throws()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            {
+                _ = new StatusPostBuilder<IStatusPost>().SetBattery(0m, lifetimeEnergyCharged: -1m);
+            });
+        }
+
+        [Test]
+        public void StatusPostBuilder_WithNegativeLifetimeEnergyDischarged_Throws()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            {
+                _ = new StatusPostBuilder<IStatusPost>().SetBattery(0m, lifetimeEnergyDischarged: -1m);
+            });
+        }
     }
 }

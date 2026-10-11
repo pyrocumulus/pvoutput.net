@@ -145,6 +145,42 @@ namespace PVOutput.Net.Builders
         }
 
         /// <summary>
+        /// Sets the battery values for the status.
+        /// <para>Donation only. Only sent when adding a single status, not with batch statuses.</para>
+        /// </summary>
+        /// <param name="power">Battery power in watts. Positive when charging, negative when discharging.</param>
+        /// <param name="stateOfCharge">State of charge in percent.</param>
+        /// <param name="capacity">Battery size or capacity in watt hours.</param>
+        /// <param name="lifetimeEnergyCharged">Lifetime energy charged into the battery in watt hours.</param>
+        /// <param name="lifetimeEnergyDischarged">Lifetime energy discharged from the battery in watt hours.</param>
+        /// <param name="status">Status of the battery.</param>
+        /// <returns>The builder.</returns>
+        public StatusPostBuilder<TResultType> SetBattery(decimal power, decimal? stateOfCharge = null, decimal? capacity = null, decimal? lifetimeEnergyCharged = null, decimal? lifetimeEnergyDischarged = null, BatteryStatus? status = null)
+        {
+            Guard.IsGreaterThanOrEqualTo(power, -2_500_000m, nameof(power));
+            Guard.IsLessThanOrEqualTo(power, 2_500_000m, nameof(power));
+            if (stateOfCharge.HasValue)
+            {
+                Guard.IsGreaterThanOrEqualTo(stateOfCharge.Value, 0m, nameof(stateOfCharge));
+                Guard.IsLessThanOrEqualTo(stateOfCharge.Value, 100m, nameof(stateOfCharge));
+            }
+            if (capacity.HasValue)
+                Guard.IsGreaterThanOrEqualTo(capacity.Value, 0m, nameof(capacity));
+            if (lifetimeEnergyCharged.HasValue)
+                Guard.IsGreaterThanOrEqualTo(lifetimeEnergyCharged.Value, 0m, nameof(lifetimeEnergyCharged));
+            if (lifetimeEnergyDischarged.HasValue)
+                Guard.IsGreaterThanOrEqualTo(lifetimeEnergyDischarged.Value, 0m, nameof(lifetimeEnergyDischarged));
+
+            _statusPost.BatteryPower = power;
+            _statusPost.BatteryStateOfCharge = stateOfCharge;
+            _statusPost.BatteryCapacity = capacity;
+            _statusPost.BatteryLifetimeEnergyCharged = lifetimeEnergyCharged;
+            _statusPost.BatteryLifetimeEnergyDischarged = lifetimeEnergyDischarged;
+            _statusPost.BatteryStatus = status;
+            return this;
+        }
+
+        /// <summary>
         /// A text message to record with the status.
         /// </summary>
         /// <param name="textMessage">Text message.</param>
