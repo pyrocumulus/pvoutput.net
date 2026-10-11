@@ -13,7 +13,7 @@ namespace PVOutput.Net.Requests.Modules
 
         public override HttpMethod Method => HttpMethod.Post;
 
-        public override string UriTemplate => "addstatus.jsp{?d,t,v1,v2,v3,v4,v5,v6,c1,n,v7,v8,v9,v10,v11,v12,m1}";
+        public override string UriTemplate => "addstatus.jsp{?d,t,v1,v2,v3,v4,v5,v6,c1,n,v7,v8,v9,v10,v11,v12,m1,b1,b2,b3,b4,b5,b6}";
 
         public override IDictionary<string, object> GetUriPathParameters()
         {
@@ -36,6 +36,12 @@ namespace PVOutput.Net.Requests.Modules
             parameters.AddIfNotNull("v11", FormatHelper.GetValueAsString(StatusPost.ExtendedValue5));
             parameters.AddIfNotNull("v12", FormatHelper.GetValueAsString(StatusPost.ExtendedValue6));
             parameters.AddIfNotNull("m1", StatusPost.TextMessage);
+            parameters.AddIfNotNull("b1", FormatHelper.GetValueAsString(StatusPost.BatteryPower));
+            parameters.AddIfNotNull("b2", FormatHelper.GetValueAsString(StatusPost.BatteryStateOfCharge));
+            parameters.AddIfNotNull("b3", FormatHelper.GetValueAsString(StatusPost.BatteryCapacity));
+            parameters.AddIfNotNull("b4", FormatHelper.GetValueAsString(StatusPost.BatteryLifetimeEnergyCharged));
+            parameters.AddIfNotNull("b5", FormatHelper.GetValueAsString(StatusPost.BatteryLifetimeEnergyDischarged));
+            parameters.AddIfNotNull("b6", (int?)StatusPost.BatteryStatus);
 
             return parameters;
         }

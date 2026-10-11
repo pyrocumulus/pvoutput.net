@@ -21,5 +21,11 @@ namespace PVOutput.Net.Objects.Modules.Implementations
         public decimal? ExtendedValue5 { get; set; }
         public decimal? ExtendedValue6 { get; set; }
         public string? TextMessage { get; set; }
+        public decimal? BatteryPower { get; set; }
+        public decimal? BatteryStateOfCharge { get; set; }
+        public decimal? BatteryCapacity { get; set; }
+        public decimal? BatteryLifetimeEnergyCharged { get; set; }
+        public decimal? BatteryLifetimeEnergyDischarged { get; set; }
+        public BatteryStatus? BatteryStatus { get; set; }
     }
 }

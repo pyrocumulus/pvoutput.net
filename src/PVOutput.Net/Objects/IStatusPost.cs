@@ -22,5 +22,41 @@ namespace PVOutput.Net.Objects
         /// A text message to record with the status.
         /// </summary>
         string? TextMessage { get; set; }
+
+        /// <summary>
+        /// Battery power in watts. Positive when charging, negative when discharging.
+        /// <para>Donation only. Required for any of the other battery values to be recorded.</para>
+        /// </summary>
+        decimal? BatteryPower { get; set; }
+
+        /// <summary>
+        /// Battery state of charge in percent.
+        /// <para>Donation only.</para>
+        /// </summary>
+        decimal? BatteryStateOfCharge { get; set; }
+
+        /// <summary>
+        /// Battery size or capacity in watt hours.
+        /// <para>Donation only.</para>
+        /// </summary>
+        decimal? BatteryCapacity { get; set; }
+
+        /// <summary>
+        /// Lifetime energy charged into the battery in watt hours.
+        /// <para>Donation only.</para>
+        /// </summary>
+        decimal? BatteryLifetimeEnergyCharged { get; set; }
+
+        /// <summary>
+        /// Lifetime energy discharged from the battery in watt hours.
+        /// <para>Donation only.</para>
+        /// </summary>
+        decimal? BatteryLifetimeEnergyDischarged { get; set; }
+
+        /// <summary>
+        /// Status of the battery.
+        /// <para>Donation only.</para>
+        /// </summary>
+        BatteryStatus? BatteryStatus { get; set; }
     }
 }

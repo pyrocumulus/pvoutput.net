@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - **BREAKING**: As of `v0.12.0` this library targets `.NET 8.0` and is no longer compatible with `.NET Standard 2.0` or `.NET Core 3.1`.
 
+### Added
+
+- Added battery values (`b1`-`b6`) to adding a single status, via `StatusPostBuilder.SetBattery()`. This is donation only. Adding members to `IStatusPost` is a breaking change for anyone implementing that interface themselves [#282](https://github.com/pyrocumulus/pvoutput.net/issues/282)
+
 - Updated `Microsoft.Extensions.DependencyInjection.Abstractions` from `v9.0.0` to `v9.0.8` 
 - Updated `Microsoft.Extensions.Logging.Abstractions` from `v8.0.1` to `v9.0.8` 
 
