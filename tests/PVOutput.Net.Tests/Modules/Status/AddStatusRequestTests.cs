@@ -137,5 +137,50 @@ namespace PVOutput.Net.Tests.Modules.Status
                 Assert.That(parameters["v12"], Is.EqualTo("6"));
             });
         }
+
+        [Test]
+        public void Parameter_BatteryValues_CreatesCorrectUriParameters()
+        {
+            var request = new AddStatusRequest()
+            {
+                StatusPost = new StatusPost()
+                {
+                    BatteryPower = -2.71m,
+                    BatteryStateOfCharge = 95.5m,
+                    BatteryCapacity = 11059,
+                    BatteryLifetimeEnergyCharged = 123456,
+                    BatteryLifetimeEnergyDischarged = 65432,
+                    BatteryStatus = Enums.BatteryStatus.Enabled
+                }
+            };
+            IDictionary<string, object> parameters = request.GetUriPathParameters();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(parameters["b1"], Is.EqualTo("-2.71"));
+                Assert.That(parameters["b2"], Is.EqualTo("95.5"));
+                Assert.That(parameters["b3"], Is.EqualTo("11059"));
+                Assert.That(parameters["b4"], Is.EqualTo("123456"));
+                Assert.That(parameters["b5"], Is.EqualTo("65432"));
+                Assert.That(parameters["b6"], Is.EqualTo(3));
+            });
+        }
+
+        [Test]
+        public void Parameter_WithoutBatteryValues_OmitsBatteryParameters()
+        {
+            AddStatusRequest request = CreateRequestWithPost(new StatusPost() { EnergyGeneration = 1111 });
+            IDictionary<string, object> parameters = request.GetUriPathParameters();
+
+            Assert.That(parameters.Keys, Has.None.StartsWith("b"));
+        }
+
+        [Test]
+        public void UriTemplate_ContainsBatteryParameters()
+        {
+            var request = new AddStatusRequest() { StatusPost = new StatusPost() };
+
+            Assert.That(request.UriTemplate, Does.Contain(",b1,b2,b3,b4,b5,b6"));
+        }
     }
 }
