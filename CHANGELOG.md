@@ -9,6 +9,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Updated `Microsoft.Extensions.DependencyInjection.Abstractions` from `v9.0.0` to `v9.0.8` 
 - Updated `Microsoft.Extensions.Logging.Abstractions` from `v8.0.1` to `v9.0.8` 
+- Updated `Microsoft.CodeAnalysis.NetAnalyzers` from `v10.0.202` to `v10.0.302` [#281](https://github.com/pyrocumulus/pvoutput.net/pull/281)
+- Updated `Microsoft.Extensions.DependencyInjection.Abstractions` from `v10.0.7` to `v10.0.10` [#281](https://github.com/pyrocumulus/pvoutput.net/pull/281)
+- Updated `Microsoft.Extensions.Logging.Abstractions` from `v10.0.6` to `v10.0.10` [#281](https://github.com/pyrocumulus/pvoutput.net/pull/281)
 
 ## [0.11.3] - 2024-09-12
 
