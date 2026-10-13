@@ -17,7 +17,7 @@ See [Changelog](https://github.com/pyrocumulus/pvoutput.net/blob/main/CHANGELOG.
 
 ## Support
 
-This library is targeting .NET Standard 2.0 and above. For full compatibility details, check the [Microsoft Docs](https://docs.microsoft.com/nl-nl/dotnet/standard/net-standard#net-implementation-support).
+This library is targeting .NET Standard 2.0 .NET8/10. For full compatibility details on .NET Standard, check the [Microsoft Docs](https://docs.microsoft.com/nl-nl/dotnet/standard/net-standard#net-implementation-support).
 
 ## Usage
 

@@ -23,7 +23,7 @@ See [Changelog](CHANGELOG.md) for information on changes per version, including 
 
 ## Support
 
-This library is targeting .NET Standard 2.0 and above. For full compatibility details, check the [Microsoft Docs](https://docs.microsoft.com/nl-nl/dotnet/standard/net-standard#net-implementation-support).
+This library is targeting .NET Standard 2.0 and .NET8/10. For full compatibility details on .NET Standard, check the [Microsoft Docs](https://docs.microsoft.com/nl-nl/dotnet/standard/net-standard#net-implementation-support).
 
 **Please note:** that the default branch of the repository is `develop`. This means that it can contain bugfixes/features that are not yet available in the NuGet package.
 See [main](https://github.com/pyrocumulus/pvoutput.net/tree/main) for the source code, that was used for building the NuGet package.
