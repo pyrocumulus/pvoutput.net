@@ -182,7 +182,7 @@ namespace PVOutput.Net.Requests.Handler
 
                 if (!string.IsNullOrEmpty(fullContent))
                 {
-                    var splitterIndex = fullContent.IndexOf(':', StringComparison.Ordinal);
+                    var splitterIndex = IndexOfColon(fullContent);
 
                     if (splitterIndex > -1)
                     {
@@ -206,6 +206,15 @@ namespace PVOutput.Net.Requests.Handler
             return error;
         }
 
+        private static int IndexOfColon(string content)
+        {
+#if NETSTANDARD2_0
+            return content.IndexOf(':');
+#else
+            return content.IndexOf(':', StringComparison.Ordinal);
+#endif
+        }
+
         private static string GetBasicResponseState(Stream responseStream)
         {
             using (StreamReader reader = new StreamReader(responseStream))
@@ -214,7 +223,7 @@ namespace PVOutput.Net.Requests.Handler
 
                 if (!string.IsNullOrEmpty(fullContent))
                 {
-                    var splitterIndex = fullContent.IndexOf(':', StringComparison.Ordinal);
+                    var splitterIndex = IndexOfColon(fullContent);
 
                     if (splitterIndex > -1)
                     {

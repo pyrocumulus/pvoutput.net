@@ -254,7 +254,11 @@ namespace PVOutput.Net.Modules
                 return $"{query}%2A";
             }
 
+            #if NETSTANDARD2_0
+            return query.Replace("*", "%2A");
+#else
             return query.Replace("*", "%2A", StringComparison.InvariantCulture);
+#endif
         }
 
         private static string CreateQueryWithKeyword(string queryText, string keyword)
