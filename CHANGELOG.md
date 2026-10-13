@@ -5,9 +5,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-10-13
+
+### Changed
+
 - **BREAKING**: Replaced `Dawn.Guard` with `CommunityToolkit.Diagnostics` for argument validation. Exception types and messages can differ, e.g. length checks now throw `ArgumentOutOfRangeException` instead of `ArgumentException`. [#229](https://github.com/pyrocumulus/pvoutput.net/pull/229)
-- Added `.NET 8.0` and `.NET 10.0` as target frameworks, next to `.NET Standard 2.0`.
+- Enabled nullable reference types throughout the library; the public API now carries nullable annotations. [#219](https://github.com/pyrocumulus/pvoutput.net/pull/219)
+
+### Added
+
+- Added `.NET 8.0` and `.NET 10.0` as target frameworks, next to `.NET Standard 2.0`. [#288](https://github.com/pyrocumulus/pvoutput.net/pull/288) [#290](https://github.com/pyrocumulus/pvoutput.net/pull/290)
+
+### Fixed
+
 - Fixed the response reader being disposed before an array response was fully read, if the response stream completes asynchronously [#289](https://github.com/pyrocumulus/pvoutput.net/issues/289)
+
+### Updated
 
 - Updated `Microsoft.CodeAnalysis.NetAnalyzers` from `v8.0.0` to `v10.0.302`
 - Updated `Microsoft.Extensions.DependencyInjection.Abstractions` from `v8.0.1` to `v10.0.10`
