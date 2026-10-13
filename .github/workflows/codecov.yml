@@ -11,6 +11,9 @@ jobs:
   test_and_upload_coverage:
 
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # request the GitHub OIDC token Codecov uses to authenticate uploads
 
     steps:
     - uses: actions/checkout@v7
@@ -27,4 +30,8 @@ jobs:
       run: dotnet test --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
     - name: Code coverage
       uses: codecov/codecov-action@v7
+      with:
+        # Uploads to protected branches (develop, main) need authentication
+        use_oidc: true
+        fail_ci_if_error: true
 
