@@ -12,6 +12,7 @@ using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Objects.Factories;
 using PVOutput.Net.Objects.Modules.Implementations;
 using PVOutput.Net.Responses;
+using PVOutput.Net.Tests.Modules.Search;
 using PVOutput.Net.Tests.Utils;
 using RichardSzalay.MockHttp;
 
@@ -379,6 +380,19 @@ namespace PVOutput.Net.Tests.Handler
             IEnumerable<ISystemSearchResult> content = await reader.ReadArrayAsync(stream: null, cancellationToken: default).ConfigureAwait(false);
 
             Assert.That(content, Is.Empty);
+        }
+
+        [Test]
+        public async Task ArrayReader_WithStreamThatReadsAsynchronously_ReadsAllObjects()
+        {
+            const int lineCount = 200;
+            string content = string.Join("\n", Enumerable.Repeat(SearchServiceTests.SEARCH_RESPONSE_SINGLE, lineCount));
+            using var stream = new AsyncYieldingStream(System.Text.Encoding.UTF8.GetBytes(content));
+
+            IArrayStringReader<ISystemSearchResult> reader = new LineDelimitedArrayStringReader<ISystemSearchResult>();
+            IEnumerable<ISystemSearchResult> result = await reader.ReadArrayAsync(stream, cancellationToken: default).ConfigureAwait(false);
+
+            Assert.That(result, Has.Exactly(lineCount).Items);
         }
 
         [Test]

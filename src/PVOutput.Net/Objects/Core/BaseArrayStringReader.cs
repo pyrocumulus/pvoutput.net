@@ -7,16 +7,16 @@ namespace PVOutput.Net.Objects.Core
 {
     internal abstract class BaseArrayStringReader<TReturnType> : IArrayStringReader<TReturnType>
     {
-        public Task<IEnumerable<TReturnType>> ReadArrayAsync(Stream stream, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<TReturnType>> ReadArrayAsync(Stream stream, CancellationToken cancellationToken = default)
         {
             if (stream == null)
             {
-                return Task.FromResult<IEnumerable<TReturnType>>(new List<TReturnType>());
+                return new List<TReturnType>();
             }
 
             using (TextReader textReader = new StreamReader(stream))
             {
-                return ReadArrayAsync(textReader, cancellationToken);
+                return await ReadArrayAsync(textReader, cancellationToken).ConfigureAwait(false);
             }
         }
 
