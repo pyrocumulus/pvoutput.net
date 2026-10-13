@@ -28,10 +28,10 @@ namespace PVOutput.Net.Tests.Handler
         }
 
         [Test]
-        public void GetEnumerationDescription_ForEnumWithoutDescription_ReturnsNull()
+        public void GetEnumerationDescription_ForEnumWithoutDescription_ReturnsEmptyString()
         {
             string result = FormatHelper.GetEnumerationDescription(PVMonth.December);
-            Assert.That(result, Is.Null);
+            Assert.That(result, Is.EqualTo(""));
         }
 
 

@@ -170,7 +170,7 @@ namespace PVOutput.Net.Tests.Modules.Status
         {
             var builder = new StatusPostBuilder<IStatusPost>();
 
-            Assert.Throws<ArgumentException>(() =>
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
             {
                 builder.SetTextMessage("0123456789001234567890012345678901");
             });

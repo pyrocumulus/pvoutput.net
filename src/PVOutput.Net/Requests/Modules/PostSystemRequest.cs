@@ -10,8 +10,8 @@ namespace PVOutput.Net.Requests.Modules
     internal sealed class PostSystemRequest : PostRequest
     {
         public int SystemId { get; set; }
-        public string SystemName { get; set; }
-        public IEnumerable<IExtendedDataDefinition> DataDefinitions { get; set; }
+        public string? SystemName { get; set; }
+        public IEnumerable<IExtendedDataDefinition>? DataDefinitions { get; set; }
 
         public override HttpMethod Method => HttpMethod.Post;
         public override string UriTemplate => "postsystem.jsp{?sid,name," +
@@ -20,11 +20,9 @@ namespace PVOutput.Net.Requests.Modules
 
         public override IDictionary<string, object> GetUriPathParameters()
         {
-            var parameters = new Dictionary<string, object>
-            {
-                ["sid"] = SystemId,
-                ["name"] = SystemName,
-            };
+            var parameters = new Dictionary<string, object>();
+            parameters.AddIfNotNull("sid", SystemId);
+            parameters.AddIfNotNull("name", SystemName);
 
             AddDataDefinitions(parameters);
             return parameters;
@@ -39,19 +37,19 @@ namespace PVOutput.Net.Requests.Modules
             {
                 var index = definition.Index.ToString();
                 
-                if (!string.IsNullOrEmpty(definition.Label))
+                if (definition.Label is { Length: > 0 } label)
                 {
-                    parameters[$"{index}l"] = definition.Label;
+                    parameters[$"{index}l"] = label;
                 }
 
-                if (!string.IsNullOrEmpty(definition.Unit))
+                if (definition.Unit is { Length: > 0 } unit)
                 {
-                    parameters[$"{index}u"] = definition.Unit;
+                    parameters[$"{index}u"] = unit;
                 }
 
-                if (!string.IsNullOrEmpty(definition.Colour))
+                if (definition.Colour is { Length: > 0 } colour)
                 {
-                    parameters[$"{index}c"] = definition.Colour;
+                    parameters[$"{index}c"] = colour;
                 }
 
                 if (definition.Axis.HasValue)
@@ -61,7 +59,7 @@ namespace PVOutput.Net.Requests.Modules
 
                 if (definition.DisplayType.HasValue)
                 {
-                    parameters[$"{index}g"] = definition.DisplayType.ToString();
+                    parameters[$"{index}g"] = definition.DisplayType.ToString() ?? "";
                 }
             }
         }

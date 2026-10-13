@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dawn;
+using CommunityToolkit.Diagnostics;
 using PVOutput.Net.Objects;
 using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Objects.Modules;
@@ -34,7 +34,7 @@ namespace PVOutput.Net.Builders
         /// <returns>The builder.</returns>
         public BatchNetStatusPostBuilder SetTimeStamp(DateTime timestamp)
         {
-            Guard.Argument(timestamp, nameof(timestamp)).IsNoFutureDate();
+            GuardExtensions.IsNoFutureDate(timestamp, nameof(timestamp));
 
             _statusPost.Timestamp = timestamp;
             return this;
@@ -47,7 +47,7 @@ namespace PVOutput.Net.Builders
         /// <returns>The builder.</returns>
         public BatchNetStatusPostBuilder SetPowerExported(int powerExported)
         {
-            Guard.Argument(powerExported, nameof(powerExported)).Min(0);
+            Guard.IsGreaterThanOrEqualTo(powerExported, 0, nameof(powerExported));
 
             _statusPost.PowerExported = powerExported;
             return this;
@@ -60,7 +60,7 @@ namespace PVOutput.Net.Builders
         /// <returns>The builder.</returns>
         public BatchNetStatusPostBuilder SetPowerImported(int powerImported)
         {
-            Guard.Argument(powerImported, nameof(powerImported)).Min(0);
+            Guard.IsGreaterThanOrEqualTo(powerImported, 0, nameof(powerImported));
 
             _statusPost.PowerImported = powerImported;
             return this;

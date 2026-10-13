@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Dawn;
+using CommunityToolkit.Diagnostics;
 using PVOutput.Net.Objects;
 using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Requests.Handler;
@@ -38,11 +38,12 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.RequestId] = LoggingEvents.ExtendedService_GetExtendedDataForPeriod,
                 [LoggingEvents.Parameter_FromDate] = fromDate,
                 [LoggingEvents.Parameter_ToDate] = toDate,
-                [LoggingEvents.Parameter_Limit] = limit
             };
-            
-            Guard.Argument(toDate, nameof(toDate)).GreaterThan(fromDate);
-            Guard.Argument(limit, nameof(limit)).LessThan(50);
+            loggingScope.AddIfNotNull(LoggingEvents.Parameter_Limit, limit);
+
+            Guard.IsGreaterThan(toDate, fromDate, nameof(toDate));
+            if (limit.HasValue)
+                Guard.IsLessThan(limit.Value, 50, nameof(limit));
 
             var handler = new RequestHandler(Client);
             return handler.ExecuteArrayRequestAsync<IExtended>(new ExtendedRequest() { FromDate = fromDate, ToDate = toDate, Limit = limit }, loggingScope, cancellationToken);

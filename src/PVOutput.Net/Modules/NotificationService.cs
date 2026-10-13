@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Dawn;
+using CommunityToolkit.Diagnostics;
 using PVOutput.Net.Objects.Core;
 using PVOutput.Net.Requests.Handler;
 using PVOutput.Net.Requests.Modules;
@@ -104,13 +104,14 @@ namespace PVOutput.Net.Modules
             {
                 [LoggingEvents.RequestId] = LoggingEvents.NotificationService_RegisterNotification,
                 [LoggingEvents.Parameter_ApplicationId] = applicationId,
-                [LoggingEvents.Parameter_CallBackUrl] = callbackUrl,
-                [LoggingEvents.Parameter_AlertType] = alertType
-
+                [LoggingEvents.Parameter_CallBackUrl] = callbackUrl
             };
+            loggingScope.AddIfNotNull(LoggingEvents.Parameter_AlertType, alertType);
 
-            Guard.Argument(applicationId, nameof(applicationId)).MaxLength(100).NotEmpty();
-            Guard.Argument(callbackUrl, nameof(callbackUrl)).MaxLength(150).NotEmpty();
+            Guard.IsNotNullOrEmpty(applicationId, nameof(applicationId));
+            Guard.HasSizeLessThanOrEqualTo(applicationId, 100, nameof(applicationId));
+            Guard.IsNotNullOrEmpty(callbackUrl, nameof(callbackUrl));
+            Guard.HasSizeLessThanOrEqualTo(callbackUrl, 150, nameof(callbackUrl));
 
             var handler = new RequestHandler(Client);
             return handler.ExecutePostRequestAsync(new RegisterNotificationRequest() { ApplicationId = applicationId, CallbackUri = new Uri(callbackUrl), AlertType = alertType }, loggingScope, cancellationToken);
@@ -124,14 +125,15 @@ namespace PVOutput.Net.Modules
             {
                 [LoggingEvents.RequestId] = LoggingEvents.NotificationService_RegisterNotification,
                 [LoggingEvents.Parameter_ApplicationId] = applicationId,
-                [LoggingEvents.Parameter_CallBackUrl] = callbackUri.AbsoluteUri,
-                [LoggingEvents.Parameter_AlertType] = alertType
-
+                [LoggingEvents.Parameter_CallBackUrl] = callbackUri.AbsoluteUri
             };
+            loggingScope.AddIfNotNull(LoggingEvents.Parameter_AlertType, alertType);
 
-            Guard.Argument(applicationId, nameof(applicationId)).MaxLength(100).NotEmpty();
-            Guard.Argument(callbackUri, nameof(callbackUri)).NotNull();
-            Guard.Argument(callbackUri.AbsoluteUri, nameof(callbackUri)).MaxLength(150).NotEmpty();
+            Guard.IsNotNullOrEmpty(applicationId, nameof(applicationId));
+            Guard.HasSizeLessThanOrEqualTo(applicationId, 100, nameof(applicationId));
+            Guard.IsNotNull(callbackUri, nameof(callbackUri));
+            Guard.IsNotNullOrEmpty(callbackUri.AbsoluteUri, nameof(callbackUri));
+            Guard.HasSizeLessThanOrEqualTo(callbackUri.AbsoluteUri, 150, nameof(callbackUri));
 
             var handler = new RequestHandler(Client);
             return handler.ExecutePostRequestAsync(new RegisterNotificationRequest() { ApplicationId = applicationId, CallbackUri = callbackUri, AlertType = alertType }, loggingScope, cancellationToken);
@@ -143,14 +145,17 @@ namespace PVOutput.Net.Modules
             var loggingScope = new Dictionary<string, object>()
             {
                 [LoggingEvents.RequestId] = LoggingEvents.NotificationService_DeregisterNotification,
-                [LoggingEvents.Parameter_ApplicationId] = applicationId,
-                [LoggingEvents.Parameter_AlertType] = alertType
+                [LoggingEvents.Parameter_ApplicationId] = applicationId
             };
+            loggingScope.AddIfNotNull(LoggingEvents.Parameter_AlertType, alertType);
 
-            Guard.Argument(applicationId, nameof(applicationId)).MaxLength(100);
+            if (applicationId != null && applicationId.Length > 100)
+            {
+                Guard.HasSizeLessThanOrEqualTo(applicationId, 100, nameof(applicationId));
+            }
 
             var handler = new RequestHandler(Client);
-            return handler.ExecutePostRequestAsync(new DeregisterNotificationRequest { ApplicationId = applicationId, AlertType = alertType }, loggingScope, cancellationToken);
+            return handler.ExecutePostRequestAsync(new DeregisterNotificationRequest { ApplicationId = applicationId!, AlertType = alertType }, loggingScope, cancellationToken);
         }
     }
 }

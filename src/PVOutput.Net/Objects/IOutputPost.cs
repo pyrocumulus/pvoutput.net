@@ -51,7 +51,7 @@ namespace PVOutput.Net.Objects
         /// <summary>
         /// Comments for the recorded output.
         /// </summary>
-        string Comments { get; set; }
+        string? Comments { get; set; }
 
         /// <summary>
         /// Peak energy import on the output date.

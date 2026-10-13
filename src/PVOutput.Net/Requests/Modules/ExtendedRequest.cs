@@ -17,11 +17,13 @@ namespace PVOutput.Net.Requests.Modules
 
         public override string UriTemplate => "getextended.jsp{?df,dt,limit}";
 
-        public override IDictionary<string, object> GetUriPathParameters() => new Dictionary<string, object>
+        public override IDictionary<string, object> GetUriPathParameters()
         {
-            ["df"] = FromDate != null ? FormatHelper.GetDateAsString(FromDate.Value) : null,
-            ["dt"] = ToDate != null ? FormatHelper.GetDateAsString(ToDate.Value) : null,
-            ["limit"] = Limit
-        };
+            var parameters = new Dictionary<string, object>();
+            parameters.AddIfNotNull("df", FromDate != null ? FormatHelper.GetDateAsString(FromDate.Value) : null);
+            parameters.AddIfNotNull("dt", ToDate != null ? FormatHelper.GetDateAsString(ToDate.Value) : null);
+            parameters.AddIfNotNull("limit", Limit);
+            return parameters;
+        }
     }
 }

@@ -7,7 +7,7 @@ namespace PVOutput.Net.Objects.Modules.Readers
 {
     internal sealed class SupplyObjectStringReader : BaseObjectStringReader<ISupply>
     {
-        public override ISupply CreateObjectInstance() => new Implementations.Supply();
+        public override ISupply CreateObjectInstance() => new Implementations.Supply { RegionName = string.Empty };
 
         public SupplyObjectStringReader()
         {

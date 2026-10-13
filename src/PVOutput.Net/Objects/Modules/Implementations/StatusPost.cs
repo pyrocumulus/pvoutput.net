@@ -20,6 +20,6 @@ namespace PVOutput.Net.Objects.Modules.Implementations
         public decimal? ExtendedValue4 { get; set; }
         public decimal? ExtendedValue5 { get; set; }
         public decimal? ExtendedValue6 { get; set; }
-        public string TextMessage { get; set; }
+        public string? TextMessage { get; set; }
     }
 }

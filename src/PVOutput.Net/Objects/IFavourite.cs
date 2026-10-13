@@ -18,7 +18,7 @@ namespace PVOutput.Net.Objects
         /// <summary>
         /// Name of the system.
         /// </summary>
-        string SystemName { get; set; }
+        string? SystemName { get; set; }
 
         /// <summary>
         /// Size of the system.
@@ -43,7 +43,7 @@ namespace PVOutput.Net.Objects
         /// <summary>
         /// Brand of the panels used in the system.
         /// </summary>
-        string PanelBrand { get; set; }
+        string? PanelBrand { get; set; }
 
         /// <summary>
         /// Number of used inverters in the system.
@@ -58,7 +58,7 @@ namespace PVOutput.Net.Objects
         /// <summary>
         /// Brand of the primary inverter in the system.
         /// </summary>
-        string InverterBrand { get; set; }
+        string? InverterBrand { get; set; }
 
         /// <summary>
         /// Primary orientation of most panels.

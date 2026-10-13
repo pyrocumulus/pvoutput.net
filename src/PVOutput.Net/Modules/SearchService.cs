@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
-using Dawn;
+using CommunityToolkit.Diagnostics;
 using PVOutput.Net.Enums;
 using PVOutput.Net.Objects;
 using PVOutput.Net.Objects.Core;
@@ -27,11 +27,11 @@ namespace PVOutput.Net.Modules
             var loggingScope = new Dictionary<string, object>()
             {
                 [LoggingEvents.RequestId] = LoggingEvents.SearchService_Search,
-                [LoggingEvents.Parameter_SearchQueryText] = searchQuery,
-                [LoggingEvents.Parameter_Coordinate] = coordinate
+                [LoggingEvents.Parameter_SearchQueryText] = searchQuery
             };
-            
-            Guard.Argument(searchQuery, nameof(searchQuery)).NotEmpty().NotNull();
+            loggingScope.AddIfNotNull(LoggingEvents.Parameter_Coordinate, coordinate);
+
+            Guard.IsNotNullOrEmpty(searchQuery, nameof(searchQuery));
 
             var handler = new RequestHandler(Client);
             return handler.ExecuteArrayRequestAsync<ISystemSearchResult>(new SearchRequest { SearchQuery = searchQuery, Coordinate = coordinate }, loggingScope, cancellationToken);
@@ -47,7 +47,7 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.Parameter_Search_UseStartsWith] = useStartsWith
             };
 
-            Guard.Argument(name, nameof(name)).NotEmpty();
+            Guard.IsNotNullOrEmpty(name, nameof(name));
 
             string query = FormatStartsWith(name, useStartsWith);
 
@@ -64,7 +64,7 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.Parameter_Search_Value] = value
             };
 
-            Guard.Argument(value, nameof(value)).GreaterThan(0);
+            Guard.IsGreaterThan(value, 0, nameof(value));
             string query = value.ToString("#####", CultureInfo.InvariantCulture);
 
             var handler = new RequestHandler(Client);
@@ -80,7 +80,7 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.Parameter_Search_Postcode] = postcode
             };
 
-            Guard.Argument(postcode, nameof(postcode)).NotEmpty();
+            Guard.IsNotNullOrEmpty(postcode, nameof(postcode));
 
             var handler = new RequestHandler(Client);
             var searchQuery = CreateQueryWithKeyword(postcode, "postcode");
@@ -96,7 +96,7 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.Parameter_Search_Value] = value
             };
 
-            Guard.Argument(value, nameof(value)).GreaterThan(0);
+            Guard.IsGreaterThan(value, 0, nameof(value));
 
             string query = value.ToString("#####", CultureInfo.InvariantCulture);
 
@@ -114,7 +114,7 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.Parameter_Search_Panel] = panel
             };
 
-            Guard.Argument(panel, nameof(panel)).NotEmpty();
+            Guard.IsNotNullOrEmpty(panel, nameof(panel));
 
             var handler = new RequestHandler(Client);
             var searchQuery = CreateQueryWithKeyword(panel, "panel");
@@ -130,7 +130,7 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.Parameter_Search_Inverter] = inverter
             };
 
-            Guard.Argument(inverter, nameof(inverter)).NotEmpty();
+            Guard.IsNotNullOrEmpty(inverter, nameof(inverter));
             var query = FormatStartsWith(inverter, useStartsWith);
 
             var handler = new RequestHandler(Client);
@@ -149,9 +149,10 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.Parameter_Search_CountryCode] = countryCode
             };
 
-            Guard.Argument(postcode, nameof(postcode)).GreaterThan(0);
-            Guard.Argument(kilometers, nameof(kilometers)).InRange(1, 25);
-            Guard.Argument(countryCode, nameof(countryCode)).NotEmpty().Length(2);
+            Guard.IsGreaterThan(postcode, 0, nameof(postcode));
+            Guard.IsInRange(kilometers, 1, 25, nameof(kilometers));
+            Guard.IsNotNullOrEmpty(countryCode, nameof(countryCode));
+            Guard.HasSizeEqualTo(countryCode, 2, nameof(countryCode));
 
             string query = $"{postcode:####} {kilometers:##}km";
             
@@ -169,7 +170,7 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.Parameter_Coordinate] = coordinate
             };
 
-            Guard.Argument(kilometers, nameof(kilometers)).InRange(1, 25);
+            Guard.IsInRange(kilometers, 1, 25, nameof(kilometers));
 
             string query = $"{kilometers:##}km";
 
@@ -186,7 +187,7 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.Parameter_Search_TeamName] = teamName
             };
 
-            Guard.Argument(teamName, nameof(teamName)).NotEmpty();
+            Guard.IsNotNullOrEmpty(teamName, nameof(teamName));
 
             var handler = new RequestHandler(Client);
             var searchQuery = CreateQueryWithKeyword(teamName, "team");
@@ -194,15 +195,15 @@ namespace PVOutput.Net.Modules
         }
 
         /// <inheritdoc />
-        public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByOrientationAsync(Orientation orientation, string name = null, bool useStartsWith = true, CancellationToken cancellationToken = default)
+        public Task<PVOutputArrayResponse<ISystemSearchResult>> SearchByOrientationAsync(Orientation orientation, string? name = null, bool useStartsWith = true, CancellationToken cancellationToken = default)
         {
             var loggingScope = new Dictionary<string, object>()
             {
                 [LoggingEvents.RequestId] = LoggingEvents.SearchService_SearchByOrientation,
                 [LoggingEvents.Parameter_Search_Orientation] = orientation,
-                [LoggingEvents.Parameter_Search_Name] = name,
                 [LoggingEvents.Parameter_Search_UseStartsWith] = useStartsWith
             };
+            loggingScope.AddIfNotNull(LoggingEvents.Parameter_Search_Name, name);
 
             string query = "";
             if (name != null)
@@ -225,7 +226,7 @@ namespace PVOutput.Net.Modules
                 [LoggingEvents.Parameter_Search_Tilt] = tilt
             };
 
-            Guard.Argument(tilt, nameof(tilt)).GreaterThan(0);
+            Guard.IsGreaterThan(tilt, 0, nameof(tilt));
 
             string query = tilt.ToString("###", CultureInfo.InvariantCulture);
 
@@ -253,7 +254,11 @@ namespace PVOutput.Net.Modules
                 return $"{query}%2A";
             }
 
+            #if NETSTANDARD2_0
             return query.Replace("*", "%2A");
+#else
+            return query.Replace("*", "%2A", StringComparison.InvariantCulture);
+#endif
         }
 
         private static string CreateQueryWithKeyword(string queryText, string keyword)

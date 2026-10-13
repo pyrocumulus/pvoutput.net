@@ -7,7 +7,7 @@ namespace PVOutput.Net.Objects.Modules.Implementations
     internal sealed class Supply : ISupply
     {
         public DateTimeOffset Timestamp { get; set; }
-        public string RegionName { get; set; }
+        public required string RegionName { get; set; }
         public decimal Utilisation { get; set; }
         public int TotalPowerOutput { get; set; }
         public int TotalPowerInput { get; set; }

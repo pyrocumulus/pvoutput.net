@@ -16,7 +16,7 @@ namespace PVOutput.Net.Responses
         /// <summary>
         /// List of the actual <typeparamref name="TResponseContentType"/> values in the response.
         /// </summary>
-        public IEnumerable<TResponseContentType> Values { get; internal set; }
+        public IEnumerable<TResponseContentType>? Values { get; internal set; }
 
         /// <summary>
         /// Compares the response to <paramref name="other"/> for base equivalence.

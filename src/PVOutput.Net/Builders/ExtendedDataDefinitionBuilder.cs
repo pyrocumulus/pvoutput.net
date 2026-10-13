@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Dawn;
+using CommunityToolkit.Diagnostics;
 using PVOutput.Net.Enums;
 using PVOutput.Net.Objects;
 using PVOutput.Net.Objects.Modules.Implementations;
@@ -41,7 +41,8 @@ namespace PVOutput.Net.Builders
         /// <returns>The builder.</returns>
         public ExtendedDataDefinitionBuilder SetLabel(string label)
         {
-            Guard.Argument(label).MaxLength(20);
+            if (label != null)
+                Guard.HasSizeLessThanOrEqualTo(label, 20, nameof(label));
 
             _definition.Label = label;
             return this;
@@ -54,7 +55,8 @@ namespace PVOutput.Net.Builders
         /// <returns>The builder.</returns>
         public ExtendedDataDefinitionBuilder SetUnit(string unit)
         {
-            Guard.Argument(unit).MaxLength(10);
+            if (unit != null)
+                Guard.HasSizeLessThanOrEqualTo(unit, 10, nameof(unit));
 
             _definition.Unit = unit;
             return this;
@@ -67,8 +69,11 @@ namespace PVOutput.Net.Builders
         /// <returns>The builder.</returns>
         public ExtendedDataDefinitionBuilder SetColour(string colour)
         {
-            Guard.Argument(colour).Length(6);
-            Guard.Argument(colour).Require(IsHexadecimalString, m => "Colour should be a hexadecimal string.");
+            Guard.HasSizeEqualTo(colour, 6, nameof(colour));
+            if (!IsHexadecimalString(colour))
+            {
+                throw new ArgumentException("Colour should be a hexadecimal string.", nameof(colour));
+            }
 
             _definition.Colour = colour;
             return this;
@@ -81,7 +86,7 @@ namespace PVOutput.Net.Builders
         /// <returns>The builder</returns>
         public ExtendedDataDefinitionBuilder SetAxis(int axis)
         {
-            Guard.Argument(axis).InRange(0, 5);
+            Guard.IsInRange(axis, 0, 5, nameof(axis));
 
             _definition.Axis = axis;
             return this;

@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 
 namespace PVOutput.Net.Requests
 {
     internal class HttpClientProvider : IHttpClientProvider
     {
-        protected HttpClient _httpClient;
+        protected HttpClient _httpClient = null!;
 
         public HttpClientProvider()
         {
@@ -13,10 +14,10 @@ namespace PVOutput.Net.Requests
 
         public virtual HttpClient SetupHttpClient()
         {
-            var httpClient = new HttpClient();
-            return httpClient;
+            return new HttpClient();
         }
 
+        [MemberNotNull(nameof(_httpClient))]
         public virtual HttpClient GetHttpClient()
         {
             if (_httpClient == null)

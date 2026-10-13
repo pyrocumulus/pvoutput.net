@@ -22,17 +22,19 @@ namespace PVOutput.Net.Requests.Modules
 
         public override string UriTemplate => "getstatus.jsp{?d,t,h,asc,limit,from,to,ext,sid1}";
 
-        public override IDictionary<string, object> GetUriPathParameters() => new Dictionary<string, object>
+        public override IDictionary<string, object> GetUriPathParameters()
         {
-            ["sid1"] = SystemId,
-            ["d"] = FormatHelper.GetDateAsString(Date),
-            ["t"] = FormatHelper.GetTimeAsString(Date),
-            ["h"] = History ? 1 : 0,
-            ["asc"] = Ascending ? 1 : 0,
-            ["from"] = FormatHelper.GetTimeAsString(From),
-            ["to"] = FormatHelper.GetTimeAsString(To),
-            ["ext"] = Extended ? 1 : 0,
-            ["limit"] = Limit
-        };
+            var parameters = new Dictionary<string, object>();
+            parameters.AddIfNotNull("sid1", SystemId);
+            parameters.AddIfNotNull("d", FormatHelper.GetDateAsString(Date));
+            parameters.AddIfNotNull("t", FormatHelper.GetTimeAsString(Date));
+            parameters.AddIfNotNull("h", History ? 1 : 0);
+            parameters.AddIfNotNull("asc", Ascending ? 1 : 0);
+            parameters.AddIfNotNull("from", FormatHelper.GetTimeAsString(From));
+            parameters.AddIfNotNull("to", FormatHelper.GetTimeAsString(To));
+            parameters.AddIfNotNull("ext", Extended ? 1 : 0);
+            parameters.AddIfNotNull("limit", Limit);
+            return parameters;
+        }
     }
 }

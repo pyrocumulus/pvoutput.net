@@ -13,7 +13,7 @@ namespace PVOutput.Net.Objects.Modules.Implementations
         public WeatherCondition Condition { get; set; }
         public decimal? MinimumTemperature { get; set; }
         public decimal? MaximumTemperature { get; set; }
-        public string Comments { get; set; }
+        public string? Comments { get; set; }
         public int? PeakEnergyImport { get; set; }
         public int? OffPeakEnergyImport { get; set; }
         public int? ShoulderEnergyImport { get; set; }

@@ -21,6 +21,6 @@ namespace PVOutput.Net.Objects
         /// <summary>
         /// A text message to record with the status.
         /// </summary>
-        string TextMessage { get; set; }
+        string? TextMessage { get; set; }
     }
 }

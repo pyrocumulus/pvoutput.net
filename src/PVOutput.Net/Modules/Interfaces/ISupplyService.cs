@@ -19,6 +19,6 @@ namespace PVOutput.Net.Modules
         /// <param name="regionKey">Region key in the '1:queensland' format. <strong>Donation only option.</strong></param>
         /// <param name="cancellationToken">A cancellation token for the request.</param>
         /// <returns>List of supply information</returns>
-        Task<PVOutputArrayResponse<ISupply>> GetSupplyAsync(string timeZone = null, string regionKey = null, CancellationToken cancellationToken = default);
+        Task<PVOutputArrayResponse<ISupply>> GetSupplyAsync(string? timeZone = null, string? regionKey = null, CancellationToken cancellationToken = default);
     }
 }

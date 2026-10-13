@@ -17,10 +17,12 @@ namespace PVOutput.Net.Requests.Modules
 
         public override string UriTemplate => "deletestatus.jsp{?d,t}";
 
-        public override IDictionary<string, object> GetUriPathParameters() => new Dictionary<string, object>
+        public override IDictionary<string, object> GetUriPathParameters()
         {
-            ["d"] = FormatHelper.GetDateAsString(Timestamp),
-            ["t"] = CompleteDate ? null : FormatHelper.GetTimeAsString(Timestamp)
-        };
+            var parameters = new Dictionary<string, object>();
+            parameters.AddIfNotNull("d", FormatHelper.GetDateAsString(Timestamp));
+            parameters.AddIfNotNull("t", CompleteDate ? null : FormatHelper.GetTimeAsString(Timestamp));
+            return parameters;
+        }
     }
 }

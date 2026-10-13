@@ -22,7 +22,12 @@ namespace PVOutput.Net.DependencyInjection
                 throw new ArgumentNullException(nameof(optionsAction), "Please provide options to the PVOutputClient.");
             }
 
-            var options = new PVOutputClientOptions();
+            // Will be overridden by the optionsAction
+            var options = new PVOutputClientOptions
+            {                
+                ApiKey = string.Empty,
+                OwnedSystemId = 0
+            };
             optionsAction.Invoke(options);
 
             services.AddSingleton(options);

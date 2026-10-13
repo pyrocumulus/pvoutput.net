@@ -16,15 +16,15 @@ namespace PVOutput.Net.Objects.Modules.Readers
             var properties = new Action<IFavourite, string>[]
             {
                 (t, s) => t.SystemId = FormatHelper.GetValueOrDefault<int>(s),
-                (t, s) => t.SystemName = s,
+                (t, s) => t.SystemName = s ?? "",
                 (t, s) => t.SystemSize = FormatHelper.GetValueOrDefault<int>(s),
                 (t, s) => t.Postcode = FormatHelper.GetValue<int>(s),
                 (t, s) => t.NumberOfPanels = FormatHelper.GetValueOrDefault<int>(s),
                 (t, s) => t.PanelPower = FormatHelper.GetValueOrDefault<int>(s),
-                (t, s) => t.PanelBrand = s,
+                (t, s) => t.PanelBrand = s ?? "",
                 (t, s) => t.NumberOfInverters = FormatHelper.GetValueOrDefault<int>(s),
                 (t, s) => t.InverterPower = FormatHelper.GetValueOrDefault<int>(s),
-                (t, s) => t.InverterBrand = s,
+                (t, s) => t.InverterBrand = s ?? "",
                 (t, s) => t.Orientation = FormatHelper.DescriptionToEnumValue<Orientation>(s),
                 (t, s) => t.ArrayTilt = FormatHelper.GetValue<decimal>(s),
                 (t, s) => t.Shade = FormatHelper.DescriptionToEnumValue<Shade>(s),

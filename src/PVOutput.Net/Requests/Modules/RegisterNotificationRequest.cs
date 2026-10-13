@@ -6,8 +6,8 @@ namespace PVOutput.Net.Requests.Modules
 {
     internal sealed class RegisterNotificationRequest : PostRequest
     {
-        public string ApplicationId { get; set; }
-        public System.Uri CallbackUri { get; set; }
+        public required string ApplicationId { get; set; }
+        public required System.Uri CallbackUri { get; set; }
         public int? AlertType { get; set; }
 
         public override HttpMethod Method => HttpMethod.Post;

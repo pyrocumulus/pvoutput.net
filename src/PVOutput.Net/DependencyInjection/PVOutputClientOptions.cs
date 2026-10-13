@@ -6,9 +6,9 @@
     public sealed class PVOutputClientOptions
     {
         /// <summary>ApiKey to use with authenticating.</summary>
-        public string ApiKey { get; set; }
+        public required string ApiKey { get; set; }
 
         /// <summary>Id of the currently owned system used for authenticating.</summary>
-        public int OwnedSystemId { get; set; }
+        public required int OwnedSystemId { get; set; }
     }
 }
