@@ -10,6 +10,9 @@
         }
       ],
       "dest": "api",
+      "properties": {
+        "TargetFramework": "net8.0"
+      },
       "disableGitFeatures": false,
       "disableDefaultFilter": false
     }
