@@ -25,7 +25,12 @@ namespace PVOutput.Net.Objects.Core
 
             while (reader.Peek() >= 0)
             {
+#if NETSTANDARD2_0
+                cancellationToken.ThrowIfCancellationRequested();
+                var line = await reader.ReadLineAsync().ConfigureAwait(false) ?? string.Empty;
+#else
                 var line = await reader.ReadLineAsync(cancellationToken).ConfigureAwait(false) ?? string.Empty;
+#endif
                 await ReadAndAddObjectAsync(objectReader, results, line, cancellationToken).ConfigureAwait(false);
             }
 

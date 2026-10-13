@@ -26,7 +26,9 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.5.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\PVOutput.Net\PVOutput.Net.csproj" />
+    <ProjectReference Include="..\..\src\PVOutput.Net\PVOutput.Net.csproj" Condition="'$(LibraryTargetFramework)' == ''" />
+    <!-- Run the tests against a specific library build, e.g. -p:LibraryTargetFramework=netstandard2.0 -->
+    <ProjectReference Include="..\..\src\PVOutput.Net\PVOutput.Net.csproj" Condition="'$(LibraryTargetFramework)' != ''" SetTargetFramework="TargetFramework=$(LibraryTargetFramework)" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

@@ -25,4 +25,6 @@ jobs:
       run: dotnet build --configuration Release
     - name: Test with dotnet
       run: dotnet test
+    - name: Test .NET Standard 2.0 build with dotnet
+      run: dotnet test --framework net8.0 -p:LibraryTargetFramework=netstandard2.0
 
