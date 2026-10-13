@@ -13,9 +13,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v5
+      uses: actions/setup-dotnet@v6
       with:
         dotnet-version: |
           8.x
@@ -26,5 +26,5 @@ jobs:
     - name: Test with dotnet
       run: dotnet test --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
     - name: Code coverage
-      uses: codecov/codecov-action@v6
+      uses: codecov/codecov-action@v7
 
