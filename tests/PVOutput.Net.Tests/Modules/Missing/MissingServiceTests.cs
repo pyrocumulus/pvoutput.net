@@ -27,11 +27,11 @@ namespace PVOutput.Net.Tests.Modules.Missing
         }
 
         [Test]
-        public void MissingService_GetMissingDaysInPeriod_WithReversedRange_Throws()
+        public async Task MissingService_GetMissingDaysInPeriod_WithReversedRange_Throws()
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
-            Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
+            await Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
             {
                 _ = await client.Missing.GetMissingDaysInPeriodAsync(new DateTime(2016, 8, 30), new DateTime(2016, 8, 29));
             });

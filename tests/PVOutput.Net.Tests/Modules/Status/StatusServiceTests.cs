@@ -215,11 +215,11 @@ namespace PVOutput.Net.Tests.Modules.Status
         }
 
         [Test]
-        public void StatusService_GetStatusForDateTime_WithFutureDate_Throws()
+        public async Task StatusService_GetStatusForDateTime_WithFutureDate_Throws()
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
-            Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
+            await Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
             {
                 _ = await client.Status.GetStatusForDateTimeAsync(DateTime.Today.AddDays(1));
             });
@@ -236,55 +236,55 @@ namespace PVOutput.Net.Tests.Modules.Status
 
         [Test]
         [TestCaseSource(typeof(StatusServiceTests), nameof(DeleteStatusWithDateOutsideBoundsTestCases))]
-        public void StatusService_DeleteStatus_WithDateOutsideBounds_Throws(DateTime testDate)
+        public async Task StatusService_DeleteStatus_WithDateOutsideBounds_Throws(DateTime testDate)
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
-            Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
+            await Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
             {
                 _ = await client.Status.DeleteStatusAsync(testDate);
             });
         }
 
         [Test]
-        public void StatusService_GetHistoryForPeriod_WithFutureRange_Throws()
+        public async Task StatusService_GetHistoryForPeriod_WithFutureRange_Throws()
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
-            Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
+            await Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
             {
                 _ = await client.Status.GetHistoryForPeriodAsync(DateTime.Today, DateTime.Today.AddDays(1));
             });
         }
 
         [Test]
-        public void StatusService_GetHistoryForPeriod_WithReversedRange_Throws()
+        public async Task StatusService_GetHistoryForPeriod_WithReversedRange_Throws()
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
-            Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
+            await Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
             {
                 _ = await client.Status.GetHistoryForPeriodAsync(new DateTime(2016, 8, 30), new DateTime(2016, 8, 29));
             });
         }
 
         [Test]
-        public void StatusService_GetDayStatisticsForPeriod_WithFutureRange_Throws()
+        public async Task StatusService_GetDayStatisticsForPeriod_WithFutureRange_Throws()
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
-            Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
+            await Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
             {
                 _ = await client.Status.GetDayStatisticsForPeriodAsync(DateTime.Today, DateTime.Today.AddDays(1));
             });
         }
 
         [Test]
-        public void StatusService_GetDayStatisticsForPeriod_WithReversedRange_Throws()
+        public async Task StatusService_GetDayStatisticsForPeriod_WithReversedRange_Throws()
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
-            Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
+            await Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
             {
                 _ = await client.Status.GetDayStatisticsForPeriodAsync(new DateTime(2016, 8, 30), new DateTime(2016, 8, 29));
             });
@@ -292,11 +292,11 @@ namespace PVOutput.Net.Tests.Modules.Status
 
 
         [Test]
-        public void StatusService_AddStatus_WithNullStatus_Throws()
+        public async Task StatusService_AddStatus_WithNullStatus_Throws()
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
-            Assert.ThrowsAsync<ArgumentNullException>(async () =>
+            await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
                 _ = await client.Status.AddStatusAsync(null);
             });
@@ -320,22 +320,22 @@ namespace PVOutput.Net.Tests.Modules.Status
         }
 
         [Test]
-        public void StatusService_AddBatchStatus_WithNullStatuses_Throws()
+        public async Task StatusService_AddBatchStatus_WithNullStatuses_Throws()
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
-            Assert.ThrowsAsync<ArgumentNullException>(async () =>
+            await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
                 _ = await client.Status.AddBatchStatusAsync(null);
             });
         }
 
         [Test]
-        public void StatusService_AddBatchStatus_WithEmptyStatuses_Throws()
+        public async Task StatusService_AddBatchStatus_WithEmptyStatuses_Throws()
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
-            Assert.ThrowsAsync<ArgumentException>(async () =>
+            await Assert.ThrowsAsync<ArgumentException>(async () =>
             {
                 _ = await client.Status.AddBatchStatusAsync(new List<IBatchStatusPost>());
             });
@@ -372,22 +372,22 @@ namespace PVOutput.Net.Tests.Modules.Status
         }
 
         [Test]
-        public void StatusService_AddBatchNetStatus_WithNullStatuses_Throws()
+        public async Task StatusService_AddBatchNetStatus_WithNullStatuses_Throws()
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
-            Assert.ThrowsAsync<ArgumentNullException>(async () =>
+            await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
                 _ = await client.Status.AddBatchNetStatusAsync(null);
             });
         }
 
         [Test]
-        public void StatusService_AddBatchNetStatus_WithEmptyStatuses_Throws()
+        public async Task StatusService_AddBatchNetStatus_WithEmptyStatuses_Throws()
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
-            Assert.ThrowsAsync<ArgumentException>(async () =>
+            await Assert.ThrowsAsync<ArgumentException>(async () =>
             {
                 _ = await client.Status.AddBatchNetStatusAsync(new List<IBatchNetStatusPost>());
             });

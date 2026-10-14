@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Updated
+
+- Updated `Microsoft.CodeAnalysis.NetAnalyzers` from `v10.0.302` to `v10.0.402` [#307](https://github.com/pyrocumulus/pvoutput.net/pull/307)
+- Updated `Microsoft.Extensions.DependencyInjection.Abstractions` from `v10.0.10` to `v10.0.13` [#307](https://github.com/pyrocumulus/pvoutput.net/pull/307)
+- Updated `Microsoft.Extensions.Logging.Abstractions` from `v10.0.10` to `v10.0.13` [#307](https://github.com/pyrocumulus/pvoutput.net/pull/307)
+
 ## [0.12.0] - 2026-10-13
 
 ### Changed

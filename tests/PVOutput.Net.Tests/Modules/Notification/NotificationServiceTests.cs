@@ -97,14 +97,14 @@ namespace PVOutput.Net.Tests.Modules.Supply
         }
 
         [Test]
-        public void ApplicationId_TooLong_Throws()
+        public async Task ApplicationId_TooLong_Throws()
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
             testProvider.ExpectUriFromBase(REGISTERNOTIFICATION_URL)
                         .RespondPlainText("");
 
-            var exception = Assert.ThrowsAsync<ArgumentException>(async () =>
+            var exception = await Assert.ThrowsAsync<ArgumentException>(async () =>
             {
                 _ = await client.Notification.RegisterNotificationAsync(new string('*', 101), "");
             });
@@ -112,14 +112,14 @@ namespace PVOutput.Net.Tests.Modules.Supply
 
 
         [Test]
-        public void CallbackUrl_TooLong_Throws()
+        public async Task CallbackUrl_TooLong_Throws()
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
             testProvider.ExpectUriFromBase(REGISTERNOTIFICATION_URL)
                         .RespondPlainText("");
 
-            var exception = Assert.ThrowsAsync<ArgumentException>(async () =>
+            var exception = await Assert.ThrowsAsync<ArgumentException>(async () =>
             {
                 _ = await client.Notification.RegisterNotificationAsync("my.application.id", new string('*', 151));
             });
