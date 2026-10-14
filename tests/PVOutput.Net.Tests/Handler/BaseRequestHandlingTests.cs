@@ -41,7 +41,7 @@ namespace PVOutput.Net.Tests.Handler
         }
 
         [Test]
-        public void DefaultClient_OnErrorResponse_ThrowsException()
+        public async Task DefaultClient_OnErrorResponse_ThrowsException()
         {
             HttpStatusCode statusCode = HttpStatusCode.Unauthorized;
             var responseContent = "Invalid API Key";
@@ -50,7 +50,7 @@ namespace PVOutput.Net.Tests.Handler
             testProvider.ExpectUriFromBase("getsystem.jsp")
                         .Respond(statusCode, "text/plain", responseContent);
 
-            var exception = Assert.ThrowsAsync<PVOutputException>(async () =>
+            var exception = await Assert.ThrowsAsync<PVOutputException>(async () =>
             {
                 _ = await client.System.GetOwnSystemAsync();
             });
@@ -86,7 +86,7 @@ namespace PVOutput.Net.Tests.Handler
         }
 
         [Test]
-        public void ExecuteSingleItemRequest_OnCancellation_DoesNotThrowNullReferenceException()
+        public async Task ExecuteSingleItemRequest_OnCancellation_DoesNotThrowNullReferenceException()
         {
             var cancellationTokenSource = new CancellationTokenSource();
 
@@ -106,7 +106,7 @@ namespace PVOutput.Net.Tests.Handler
             // Test through Is.InstanceOf<> instead of ThrowsAsync<TActual>
             // In Linux containers the exception type can sometimes switch to TaskCanceledException based on timing
             // This way we allow OperationCanceledException as well as TaskCanceledException
-            Assert.ThrowsAsync(Is.InstanceOf<OperationCanceledException>(), async () =>
+            await Assert.ThrowsAsync(Is.InstanceOf<OperationCanceledException>(), async () =>
             {
                 task = Task.Run(() => client.System.GetOwnSystemAsync(cancellationTokenSource.Token));
 
@@ -126,7 +126,7 @@ namespace PVOutput.Net.Tests.Handler
         }
 
         [Test]
-        public void ExecuteArrayRequest_OnCancellation_DoesNotThrowNullReferenceException()
+        public async Task ExecuteArrayRequest_OnCancellation_DoesNotThrowNullReferenceException()
         {
             var cancellationTokenSource = new CancellationTokenSource();
 
@@ -146,7 +146,7 @@ namespace PVOutput.Net.Tests.Handler
             // Test through Is.InstanceOf<> instead of ThrowsAsync<TActual>
             // In Linux containers the exception type can sometimes switch to TaskCanceledException based on timing
             // This way we allow OperationCanceledException as well as TaskCanceledException
-            Assert.ThrowsAsync(Is.InstanceOf<OperationCanceledException>(), async () =>
+            await Assert.ThrowsAsync(Is.InstanceOf<OperationCanceledException>(), async () =>
             {
                 task = Task.Run(() => client.Search.SearchAsync("test", cancellationToken: cancellationTokenSource.Token));
 
@@ -166,7 +166,7 @@ namespace PVOutput.Net.Tests.Handler
         }
 
         [Test]
-        public void ExecutePostRequest_OnCancellation_DoesNotThrowNullReferenceException()
+        public async Task ExecutePostRequest_OnCancellation_DoesNotThrowNullReferenceException()
         {
             var cancellationTokenSource = new CancellationTokenSource();
 
@@ -186,7 +186,7 @@ namespace PVOutput.Net.Tests.Handler
             // Test through Is.InstanceOf<> instead of ThrowsAsync<TActual>
             // In Linux containers the exception type can sometimes switch to TaskCanceledException based on timing
             // This way we allow OperationCanceledException as well as TaskCanceledException
-            Assert.ThrowsAsync(Is.InstanceOf<OperationCanceledException>(), async () =>
+            await Assert.ThrowsAsync(Is.InstanceOf<OperationCanceledException>(), async () =>
             {
                 task = Task.Run(() => client.System.PostSystem(systemId: 42, cancellationToken: cancellationTokenSource.Token));
 

@@ -31,11 +31,11 @@ namespace PVOutput.Net.Tests.Modules.Search
         }
 
         [Test]
-        public void SearchService_Search_WithNullOrEmptyQuery_Throws()
+        public async Task SearchService_Search_WithNullOrEmptyQuery_Throws()
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
-            Assert.ThrowsAsync<ArgumentNullException>(async () =>
+            await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
                 _ = await client.Search.SearchAsync(searchQuery: null);
             });
@@ -43,11 +43,11 @@ namespace PVOutput.Net.Tests.Modules.Search
 
 
         [Test]
-        public void SearchService_Search_WithEmptyQuery_Throws()
+        public async Task SearchService_Search_WithEmptyQuery_Throws()
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
-            Assert.ThrowsAsync<ArgumentException>(async () =>
+            await Assert.ThrowsAsync<ArgumentException>(async () =>
             {
                 _ = await client.Search.SearchAsync("");
             });

@@ -43,11 +43,11 @@ namespace PVOutput.Net.Tests.Modules.Statistic
         }
 
         [Test]
-        public void StatisticsService_GetStatisticsForPeriod_WithReversedRange_Throws()
+        public async Task StatisticsService_GetStatisticsForPeriod_WithReversedRange_Throws()
         {
             PVOutputClient client = TestUtility.GetMockClient(out MockHttpMessageHandler testProvider);
 
-            Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
+            await Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
             {
                 _ = await client.Statistics.GetStatisticsForPeriodAsync(new DateTime(2016, 8, 30), new DateTime(2016, 8, 29));
             });
