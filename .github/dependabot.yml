@@ -14,6 +14,11 @@ updates:
     directory: "/src/PVOutput.Net/"
     schedule:
       interval: "daily"
+    ignore:
+      # Microsoft.Extensions 11.x has no net8.0 build and warns on net8.0.
+      # Stay on 10.0.x until net8.0 is dropped (planned with .NET 12).
+      - dependency-name: "Microsoft.Extensions.*"
+        versions: ["11.x"]
 
   - package-ecosystem: "nuget"
     directory: "/tests/PVOutput.Net.Tests/"
