@@ -47,16 +47,16 @@ https://github.com/pyrocumulus/pvoutput.net/blob/main/CHANGELOG.md</PackageRelea
   
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Diagnostics" Version="8.4.2" />
-    <PackageReference Include="PolySharp" Version="1.16.0">
+    <PackageReference Include="PolySharp" Version="1.17.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="10.0.402">
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="11.0.100">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.13" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.13" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.14" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.14" />
     <PackageReference Include="Tavis.UriTemplates" Version="2.0.0" />
   </ItemGroup>
 
